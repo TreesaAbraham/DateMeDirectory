@@ -18,7 +18,7 @@ The goal is to extract structured demographic data (from the directory table) an
 ## Master Checklist (with Commit Messages)
 
 ### 🏗️ Setup & Planning
-- [ ] Create project folder and initialize Git repository  
+- [x] Create project folder and initialize Git repository  
   - Commit: `chore: initialize project folder and git repo`
 - [ ] Install required libraries for scraping (`requests`, `BeautifulSoup`, etc.)  
   - Commit: `chore: install scraping dependencies`
@@ -121,28 +121,6 @@ Updated `profiles_master.json` with both directory and profile data.
   - Commit: `feat: add logic for appending new profiles`
 - [ ] Backup raw data securely  
   - Commit: `chore: create backup routine for JSON files`
-
----
-
-### Post-Scraping Analysis
-**Goal:** Conduct quantitative and qualitative analysis.
-
-- [ ] Prepare anonymized dataset  
-  - Commit: `data: anonymize dataset for analysis`
-- [ ] Generate CSV summaries for statistics  
-  - Commit: `feat: convert JSON metadata to CSV summaries`
-- [ ] Calculate averages and distributions (age, gender, flexibility)  
-  - Commit: `analysis: generate demographic statistics`
-- [ ] Perform literary/rhetorical analysis on text fields  
-  - Commit: `analysis: begin qualitative text analysis`
-- [ ] Identify diction and tone patterns  
-  - Commit: `analysis: code diction and tone categories`
-- [ ] Study persona construction, motifs, and boundaries  
-  - Commit: `analysis: record thematic patterns in profiles`
-- [ ] Link text traits to demographics  
-  - Commit: `analysis: correlate textual tone with metadata`
-- [ ] Write summary findings  
-  - Commit: `docs: summarize analytical results`
 
 ---
 
