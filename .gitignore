@@ -1,0 +1,29 @@
+# Virtual environment
+venv/
+.env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Data outputs
+data/raw/
+data/logs/
+*.csv
+*.jsonl
+*.html
+*.tmp
+*.log
+
+# Cache files
+.cache/
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code workspace junk
+.vscode/
