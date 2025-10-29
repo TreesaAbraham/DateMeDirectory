@@ -22,13 +22,13 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `chore: initialize project folder and git repo`
 - [x] Install required libraries for scraping (`requests`, `BeautifulSoup`, etc.)  
   - Commit: `chore: install scraping dependencies`
-- [ ] Define data schema in JSON format  
+- [x] Define data schema in JSON format  
   - Commit: `feat: define base JSON schema for profiles`
-- [ ] Decide on consistent folder structure for data outputs  
+- [x] Decide on consistent folder structure for data outputs  
   - Commit: `chore: establish folder structure for data storage`
-- [ ] Add ethical and privacy statement to documentation  
+- [x] Add ethical and privacy statement to documentation  
   - Commit: `docs: add ethical and privacy statement`
-- [ ] Create `.gitignore` to exclude data snapshots and raw HTML  
+- [x] Create `.gitignore` to exclude data snapshots and raw HTML  
   - Commit: `chore: add .gitignore for data and cache files`
 - [ ] Make `/data/` directory for storing JSON and HTML outputs  
   - Commit: `chore: create data directory`
