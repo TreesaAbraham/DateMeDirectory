@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://example.com/schemas/profile.schema.json",
+    "title": "Date Me Directory Profile",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "name", "age", "gender", "location", "bio", "createdAt", "updatedAt"],
+    "properties": {
+      "id": {
+        "description": "Stable unique identifier (uuid or slug).",
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9-_:.]+$"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "age": {
+        "type": "integer",
+        "minimum": 18,
+        "maximum": 120
+      },
+      "gender": {
+        "type": "string",
+        "enum": ["woman", "man", "nonbinary"]
+      },
+      "genderOther": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "location": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["city", "region", "country"],
+        "properties": {
+          "city": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "region": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "country": { "type": "string", "minLength": 2, "maxLength": 2, "pattern": "^[A-Z]{2}$", "description": "ISO 3166-1 alpha-2" },
+          "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+          "lng": { "type": "number", "minimum": -180, "maximum": 180 }
+        }
+      },
+      "bio": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      },
+      "interests": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1, "maxLength": 50 },
+        "uniqueItems": true,
+        "maxItems": 50,
+        "default": []
+      },
+      "photos": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url"],
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "alt": { "type": "string", "maxLength": 140 },
+            "primary": { "type": "boolean", "default": false }
+          }
+        },
+        "maxItems": 12,
+        "default": []
+      },
+      "preferences": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ageRange": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["min", "max"],
+            "properties": {
+              "min": { "type": "integer", "minimum": 18, "maximum": 120 },
+              "max": { "type": "integer", "minimum": 18, "maximum": 120 }
+            }
+          },
+          "locationRadiusKm": { "type": "number", "minimum": 0, "maximum": 20000 },
+          "genders": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["woman", "man", "nonbinary", "agender", "genderqueer", "other"] },
+            "uniqueItems": true,
+            "maxItems": 6
+          }
+        }
+      },
+      "education": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "level": { "type": "string", "enum": ["high_school", "associate", "bachelor", "master", "phd", "other"] },
+          "field": { "type": "string", "maxLength": 120 },
+          "institution": { "type": "string", "maxLength": 160 }
+        }
+      },
+      "occupation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string", "maxLength": 120 },
+          "company": { "type": "string", "maxLength": 160 },
+          "industry": { "type": "string", "maxLength": 120 }
+        }
+      },
+      "social": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "instagram": { "type": "string", "pattern": "^[A-Za-z0-9._]{1,30}$" },
+          "linkedin": { "type": "string", "format": "uri" },
+          "website": { "type": "string", "format": "uri" }
+        }
+      },
+      "createdAt": { "type": "string", "format": "date-time" },
+      "updatedAt": { "type": "string", "format": "date-time" },
+      "isActive": { "type": "boolean", "default": true }
+    },
+    "allOf": [
+      {
+        "if": { "properties": { "gender": { "const": "other" } }, "required": ["gender"] },
+        "then": { "required": ["genderOther"] }
+      },
+      {
+        "if": { "properties": { "preferences": { "properties": { "ageRange": {} } } } },
+        "then": {
+          "properties": {
+            "preferences": {
+              "properties": {
+                "ageRange": {
+                  "allOf": [
+                    { "properties": { "min": { "type": "integer" }, "max": { "type": "integer" } } },
+                    { "properties": { "min": { "maximum": { "$data": "1/max" } } } }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+  

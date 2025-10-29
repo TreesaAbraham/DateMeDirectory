@@ -20,7 +20,7 @@ The goal is to extract structured demographic data (from the directory table) an
 ### 🏗️ Setup & Planning
 - [x] Create project folder and initialize Git repository  
   - Commit: `chore: initialize project folder and git repo`
-- [ ] Install required libraries for scraping (`requests`, `BeautifulSoup`, etc.)  
+- [x] Install required libraries for scraping (`requests`, `BeautifulSoup`, etc.)  
   - Commit: `chore: install scraping dependencies`
 - [ ] Define data schema in JSON format  
   - Commit: `feat: define base JSON schema for profiles`
