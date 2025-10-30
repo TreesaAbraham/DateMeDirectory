@@ -30,23 +30,15 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `docs: add ethical and privacy statement`
 - [x] Create `.gitignore` to exclude data snapshots and raw HTML  
   - Commit: `chore: add .gitignore for data and cache files`
-- [ ] Make `/data/` directory for storing JSON and HTML outputs  
+- [X] Make `/data/` directory for storing JSON and HTML outputs  
   - Commit: `chore: create data directory`
-- [ ] Write `README.md` with overview, schema, and scraping workflow  
+- [X] Write `README.md` with overview, schema, and scraping workflow  
   - Commit: `docs: add detailed project README`
-- [ ] Test Python environment and verify GitHub remote connection  
+- [x] Test Python environment and verify GitHub remote connection  
   - Commit: `chore: verify environment and git remote`
-- [ ] Commit initial setup  
+- [x] Commit initial setup  
   - Commit: `chore: initial commit with project structure`
 
----
-
-### Define JSON Schema
-- [ ] Implement schema fields for each profile  
-  - Commit: `feat: implement JSON schema for profile objects`
-- [ ] Include fields:  
-  - [ ] `id`, `name`, `age`, `gender`, `interestedIn`, `location`, `locationFlexibility`, `profileUrl`, `scrapeTimestampIndex`, `scrapeTimestampDetail`, `profileDetails`  
-  - Commit: `docs: document full JSON schema in README`
 - [ ] Validate schema using sample data  
   - Commit: `test: validate JSON schema with example profile`
 

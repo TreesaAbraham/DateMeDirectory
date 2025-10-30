@@ -1,0 +1,11 @@
+{
+    "id": "usr_001",
+    "name": "Treesa Abraham",
+    "age": 19,
+    "gender": "female",
+    "genderInterestedIn": ["male", "nonbinary"],
+    "location": "Columbia, SC",
+    "locationFlexibility": "some",
+    "lastUpdated": "2025-10-30"
+  }
+  
