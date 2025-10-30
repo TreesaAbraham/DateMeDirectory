@@ -12,7 +12,9 @@
     "test": "jest",
     "validate:data": "node scripts/validate-all.js",
     "fetch:browse": "node scripts/fetch-directory.js",
-    "fetch:browse:all": "node scripts/fetch-directory-paginated.js"
+    "fetch:browse:all": "node scripts/fetch-directory-paginated.js",
+    "parse:browse": "node scripts/parse-profiles.js",
+    "inspect:latest": "node scripts/inspect-latest.js"
   },
   "engines": {
     "node": ">=18"

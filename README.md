@@ -49,7 +49,7 @@ The goal is to extract structured demographic data (from the directory table) an
 
 - [x] Fetch the main directory page (`https://dateme.directory/browse`)  
   - Commit: `feat: add initial request to fetch directory page`
-- [ ] Handle pagination or “load more” logic  
+- [x] Handle pagination or “load more” logic  
   - Commit: `feat: implement pagination handling for directory`
 - [ ] Extract each profile row’s data  
   - Commit: `feat: parse profile table for name, age, gender, etc.`
