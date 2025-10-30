@@ -39,7 +39,7 @@ The goal is to extract structured demographic data (from the directory table) an
 - [x] Commit initial setup  
   - Commit: `chore: initial commit with project structure`
 
-- [ ] Validate schema using sample data  
+- [x] Validate schema using sample data  
   - Commit: `test: validate JSON schema with example profile`
 
 ---
