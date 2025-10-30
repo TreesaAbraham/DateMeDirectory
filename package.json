@@ -1,12 +1,20 @@
 {
+  "name": "date-me-directory-data",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "cheerio": "^1.0.0",
     "jest": "^29.7.0"
   },
   "scripts": {
     "test": "jest",
     "validate:data": "node scripts/validate-all.js",
-    "fetch:browse": "node scripts/fetch-directory.js"
+    "fetch:browse": "node scripts/fetch-directory.js",
+    "fetch:browse:all": "node scripts/fetch-directory-paginated.js"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

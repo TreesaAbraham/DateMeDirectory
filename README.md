@@ -47,7 +47,7 @@ The goal is to extract structured demographic data (from the directory table) an
 ### Script A – Index Scraper
 **Goal:** Collect directory data and create a master JSON file.
 
-- [ ] Fetch the main directory page (`https://dateme.directory/browse`)  
+- [x] Fetch the main directory page (`https://dateme.directory/browse`)  
   - Commit: `feat: add initial request to fetch directory page`
 - [ ] Handle pagination or “load more” logic  
   - Commit: `feat: implement pagination handling for directory`
