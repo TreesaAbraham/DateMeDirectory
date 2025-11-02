@@ -51,9 +51,9 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `feat: add initial request to fetch directory page`
 - [x] Handle pagination or “load more” logic  
   - Commit: `feat: implement pagination handling for directory`
-- [ ] Extract each profile row’s data  
+- [x] Extract each profile row’s data  
   - Commit: `feat: parse profile table for name, age, gender, etc.`
-- [ ] Assign unique internal `id` to each person  
+- [x] Assign unique internal `id` to each person  
   - Commit: `chore: add id assignment logic for profiles`
 - [ ] Create JSON objects using schema  
   - Commit: `feat: build profile objects according to schema`

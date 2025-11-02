@@ -1,13 +1,5 @@
 // scripts/parse-profiles-table.js
-// Parse the actual table at https://dateme.directory/browse
-// into our processed JSON format.
-//
-// This is the version that:
-// - handles blank location cells
-// - trims very long locations
-// - normalizes M/F/NB
-// - normalizes "M NB" → ["male","nonbinary"]
-// - writes to data/processed/ like the other scripts
+// Build browse-level profile JSON objects that match schemas/profile.browse.schema.json
 
 const fs = require("fs");
 const path = require("path");
@@ -17,9 +9,6 @@ const crypto = require("crypto");
 const RAW_DIR = path.join(__dirname, "..", "data", "raw");
 const PROCESSED_DIR = path.join(__dirname, "..", "data", "processed");
 
-// ---------- helpers ----------
-
-// find latest crawl folder: data/raw/browse-YYYYMMDD-HHMMSS
 function newestCrawlFolder() {
   if (!fs.existsSync(RAW_DIR)) return null;
   const dirs = fs
@@ -30,11 +19,14 @@ function newestCrawlFolder() {
 }
 
 function readHtmlFiles(folder) {
-  const files = fs.readdirSync(folder).filter((f) => f.endsWith(".html")).sort();
-  return files.map((f) => ({
-    name: f,
-    html: fs.readFileSync(path.join(folder, f), "utf-8"),
-  }));
+  return fs
+    .readdirSync(folder)
+    .filter((f) => f.endsWith(".html"))
+    .sort()
+    .map((f) => ({
+      name: f,
+      html: fs.readFileSync(path.join(folder, f), "utf-8"),
+    }));
 }
 
 function ensureDir(p) {
@@ -48,13 +40,11 @@ function todayIso() {
   return `${d.getFullYear()}-${mm}-${dd}`;
 }
 
-// make a stable-ish id from name+location
 function makeId(name, location) {
   const basis = `${name || ""}|${location || ""}`.toLowerCase();
   return "usr_" + crypto.createHash("md5").update(basis).digest("hex").slice(0, 10);
 }
 
-// normalize gender from M/F/NB
 function normGender(s) {
   if (!s) return undefined;
   const t = s.trim().toLowerCase();
@@ -64,17 +54,16 @@ function normGender(s) {
   return undefined;
 }
 
-// normalize "M NB", "F", "Any"
 function normInterestedIn(s) {
   if (!s) return undefined;
-  const pieces = s
+  const parts = s
     .split(/[\s,]+/)
     .map((p) => p.trim())
     .filter(Boolean);
-  if (!pieces.length) return undefined;
+  if (!parts.length) return undefined;
 
   const out = new Set();
-  for (const p of pieces) {
+  for (const p of parts) {
     const t = p.toLowerCase();
     if (t === "any") {
       out.add("male");
@@ -98,123 +87,96 @@ function normLocationFlex(s) {
   return undefined;
 }
 
-// ---------- core extractor ----------
-
 function extractFromTable(html) {
   const $ = cheerio.load(html);
 
-  // find the table that actually has Name/Age headers
+  // find the right table
   let table = null;
   $("table").each((_, el) => {
-    const headerText = $(el).find("thead, tr").first().text().toLowerCase();
-    if (headerText.includes("name") && headerText.includes("age")) {
+    const header = $(el).find("thead, tr").first().text().toLowerCase();
+    if (header.includes("name") && header.includes("age")) {
       table = $(el);
       return false;
     }
   });
-
   if (!table) return [];
 
-  const rows = [];
+  const out = [];
 
-  // assume table order:
-  // 0: Name
-  // 1: Age
-  // 2: Gender
-  // 3: InterestedIn
-  // 4: Style (we can ignore for now)
-  // 5: Location
-  // 6: LocationFlexibility
-  // 7: Contact (not in schema, so skipping)
-  // 8: LastUpdated
   table.find("tbody tr").each((_, tr) => {
     const tds = $(tr).find("td");
     if (!tds.length) return;
 
     const name = $(tds[0]).text().trim();
-    if (!name) return; // skip empty rows
+    if (!name) return;
 
     const ageText = $(tds[1]).text().trim();
     const genderText = $(tds[2]).text().trim();
     const interestedText = $(tds[3]).text().trim();
-    // const style = $(tds[4]).text().trim(); // not in minimal schema
+    // const style = $(tds[4]).text().trim();
     let location = $(tds[5]).text().trim();
-    const locationFlexText = $(tds[6]).text().trim();
+    const locFlexText = $(tds[6]).text().trim();
     const lastUpdatedText = $(tds[8]).text().trim();
 
+    // normalize
     const age = Number(ageText) || undefined;
     const gender = normGender(genderText);
     const genderInterestedIn = normInterestedIn(interestedText);
-    let locationFlexibility = normLocationFlex(locationFlexText);
+    const locationFlexibility = normLocationFlex(locFlexText);
     const lastUpdated = lastUpdatedText || todayIso();
 
-    // handle blank location from site
     if (location === "") {
       location = undefined;
-    } else {
-      // trim wild long locations people type like 30 cities
-      if (location.length > 1000) {
-        location = location.slice(0, 1000);
-      }
+    } else if (location.length > 1000) {
+      location = location.slice(0, 1000);
     }
-
-    // sometimes locationFlexibility is still undefined but site said "some"
-    // normLocationFlex already handled that, so we're good
 
     const id = makeId(name, location);
 
+    // build object according to browse schema
     const rec = {
       id,
       name,
-      age,
-      gender,
-      genderInterestedIn,
-      location,
-      locationFlexibility,
-      lastUpdated,
+      lastUpdated
     };
 
-    // drop undefineds
-    Object.keys(rec).forEach((k) => rec[k] === undefined && delete rec[k]);
+    if (typeof age === "number") rec.age = age;
+    if (gender) rec.gender = gender;
+    if (Array.isArray(genderInterestedIn) && genderInterestedIn.length) {
+      rec.genderInterestedIn = genderInterestedIn;
+    }
+    if (location) rec.location = location;
+    if (locationFlexibility) rec.locationFlexibility = locationFlexibility;
 
-    rows.push(rec);
+    out.push(rec);
   });
 
-  return rows;
+  return out;
 }
-
-// ---------- main ----------
 
 async function main() {
   const folder = newestCrawlFolder();
   if (!folder) {
-    console.error("No crawl folder found in data/raw. Run `npm run fetch:browse` first.");
+    console.error("No crawl folder in data/raw. Run `npm run fetch:browse` first.");
     process.exit(1);
   }
 
   const pages = readHtmlFiles(folder);
-  if (!pages.length) {
-    console.error(`No HTML files in ${folder}`);
-    process.exit(1);
-  }
-
   const all = [];
+
   for (const { name, html } of pages) {
     const rows = extractFromTable(html);
     rows.forEach((r) => (r._source = name));
     all.push(...rows);
   }
 
-  // dedupe by id+name
-  const map = new Map();
+  // dedupe
+  const seen = new Map();
   for (const r of all) {
     const key = `${r.id}::${r.name}`;
-    if (!map.has(key)) {
-      map.set(key, r);
-    }
+    if (!seen.has(key)) seen.set(key, r);
   }
-
-  const unique = [...map.values()].map(({ _source, ...rest }) => rest);
+  const unique = [...seen.values()].map(({ _source, ...rest }) => rest);
 
   ensureDir(PROCESSED_DIR);
   const base = path.basename(folder).replace("browse-", "profiles-");
@@ -222,14 +184,18 @@ async function main() {
   const outNdjson = path.join(PROCESSED_DIR, `${base}.ndjson`);
 
   fs.writeFileSync(outJson, JSON.stringify(unique, null, 2), "utf-8");
-  fs.writeFileSync(outNdjson, unique.map((r) => JSON.stringify(r)).join("\n") + "\n", "utf-8");
+  fs.writeFileSync(
+    outNdjson,
+    unique.map((r) => JSON.stringify(r)).join("\n") + "\n",
+    "utf-8"
+  );
 
-  console.log(`✅ Parsed ${unique.length} profile(s) from table.`);
+  console.log(`✅ Parsed ${unique.length} browse-level profile(s).`);
   console.log(`📝 JSON:   ${path.relative(path.join(__dirname, ".."), outJson)}`);
   console.log(`📝 NDJSON: ${path.relative(path.join(__dirname, ".."), outNdjson)}`);
 }
 
 main().catch((err) => {
-  console.error("💥 parse failed:", err);
+  console.error("💥 Parse failed:", err);
   process.exit(1);
 });
