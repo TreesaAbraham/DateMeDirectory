@@ -57,9 +57,9 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `chore: add id assignment logic for profiles`
 - [x] Create JSON objects using schema  
   - Commit: `feat: build profile objects according to schema`
-- [ ] Initialize `profileDetails` as `{}` and `scrapeTimestampDetail` as `null`  
+- [x] Initialize `profileDetails` as `{}` and `scrapeTimestampDetail` as `null`  
   - Commit: `chore: initialize empty detail fields for profiles`
-- [ ] Save results to `profiles_master.json`  
+- [x] Save results to `profiles_master.json`  
   - Commit: `feat: export directory data to profiles_master.json`
 - [ ] Archive raw HTML snapshots  
   - Commit: `chore: save raw HTML snapshots for reproducibility`
