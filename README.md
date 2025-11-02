@@ -165,3 +165,80 @@ Updated `profiles_master.json` with both directory and profile data.
 - [ ] **Version:** 1.0 – October 2025  
   - Commit: `chore: finalize project version metadata`
 
+
+
+
+Data files
+data/processed/profiles-20251102-002939.ndjson
+Line-delimited JSON of processed profiles (one JSON object per line). These look like your current “browse-level” records plus a couple placeholders:
+Core fields: id, name, age, gender, genderInterestedIn, location, locationFlexibility, lastUpdated.
+Extra placeholders for a future detail pass: profileDetails (currently {}) and scrapeTimestampDetail (currently null).
+Used for: fast, incremental appends and downstream analysis. NDJSON format is stream-friendly.
+Note: some rows are missing optional fields (e.g., genderInterestedIn, location) and many location values are messy (concatenated regions). That’s expected pre-cleaning.
+data/exampleProfile.json
+A single example object that represents the intended browse-level shape of a profile. Helpful for docs, tests, or as a template for UI stubs.
+Schema
+schemas/profile.browse.schema.json
+JSON Schema (Draft-07) for the browse-level profile object.
+Enforces id, name, and lastUpdated as required.
+Constrains enumerations for gender, genderInterestedIn, and locationFlexibility.
+Requires lastUpdated to be YYYY-MM-DD.
+additionalProperties: false means only the listed fields are allowed.
+Important nuance: because additionalProperties is false, fields like profileDetails and scrapeTimestampDetail are not valid against this schema. That’s fine if this schema is only for the lightweight “browse” view; it just means your processed NDJSON represents a superset intended for a future “detail schema” or a separate master schema.
+Crawling & inspection scripts
+scripts/fetch-directory.js
+Minimal fetcher that grabs the single /browse page and saves:
+Raw HTML → data/raw/browse-YYYYMMDD-HHMMSS.html
+Fetch metadata → data/raw/browse-YYYYMMDD-HHMMSS.meta.json
+Use this when you just want a quick snapshot of the main page. It sets a polite User-Agent and follows redirects.
+scripts/fetch-directory-paginated.js
+Heavier-duty crawler for multi-page browsing with “next page” heuristics:
+Creates a crawl session folder: data/raw/browse-YYYYMMDD-HHMMSS/
+Saves each page as page-001.html, page-002.html, …
+Maintains a manifest (manifest.json) with status, URLs, sizes, timestamps.
+Heuristics to find the next page:
+<a rel="next">
+anchors containing “Next”/“Load more”
+data-next/data-next-url attributes
+"next":"...“ in embedded JSON
+?page=N increment if pagination hints exist
+Respects a delay (REQUEST_DELAY_MS) and a page cap (MAX_PAGES) via env vars.
+Use this for reproducible, sessioned crawls across pagination.
+scripts/inspect-latest.js
+A quick diagnostic to sanity-check your latest raw HTML:
+Locates the newest crawl folder (or the newest single HTML snapshot).
+Uses a battery of CSS selectors to count “candidate” profile nodes.
+Logs whether a “Next” link exists.
+Shows a short body text snippet.
+Detects whether Next.js __NEXT_DATA__ is present and prints a sample.
+Use this to confirm you actually captured content and whether pagination signals are there before writing parsers.
+Parsing script
+scripts/parse-profiles-table.js (ESM module)
+Turns the directory table HTML into structured JSON files.
+Inputs
+SOURCE_HTML → data/raw/directory.html (note: this path assumes a specific filename; you’ll usually want to point it at your latest browse-*.html or a paginated page—this is a good thing to align later).
+Outputs
+data/parsed/latest.json → the “current” parsed snapshot (used by tests)
+data/profiles_master.json → a longer-lived aggregated export
+Logic
+Generates id like usr_<10 hex> with crypto.randomBytes(5).
+Normalizes date strings to YYYY-MM-DD (normalizeDate()).
+Extracts table columns in assumed order (Name/Link, Age, Gender, Interested In, Location, Flexibility, Last Updated).
+Splits genderInterestedIn into an array.
+Ensures output directories exist.
+Purpose: convert raw HTML → structured data that (mostly) conforms to your browse schema and feeds your tests and downstream processing.
+How these pieces fit together (pipeline view)
+Crawl
+Quick snapshot: npm run fetch:browse → saves one HTML + meta.
+Full session: npm run fetch:browse:all (or equivalent) → saves multiple pages + manifest under a timestamped folder.
+Inspect
+npm run inspect:latest → confirms elements exist, shows pagination hints / __NEXT_DATA__.
+Parse
+npm run parse:table (this script) → reads the chosen HTML, emits:
+data/parsed/latest.json (for tests/validation)
+data/profiles_master.json (for accumulation)
+Optionally also produces NDJSON runs like your data/processed/*.ndjson.
+Validate
+Validate data/parsed/latest.json records against schemas/profile.browse.schema.json to catch required field or formatting issues (e.g., missing location, malformed lastUpdated, enum mismatches).
+Use
+Load data/processed/*.ndjson or data/parsed/latest.json in your app/analysis. The NDJSON is great for streaming or incremental ETL; the parsed latest is nice for UI and tests.
