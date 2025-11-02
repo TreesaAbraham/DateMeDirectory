@@ -14,7 +14,8 @@
     "fetch:browse": "node scripts/fetch-directory.js",
     "fetch:browse:all": "node scripts/fetch-directory-paginated.js",
     "parse:browse": "node scripts/parse-profiles.js",
-    "inspect:latest": "node scripts/inspect-latest.js"
+    "inspect:latest": "node scripts/inspect-latest.js",
+    "parse:browse:table": "node scripts/parse-profiles-table.js"
   },
   "engines": {
     "node": ">=18"

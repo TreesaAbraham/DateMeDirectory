@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Date Me Directory Profile (Browse-level)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "lastUpdated"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 16,
+      "maximum": 120
+    },
+    "gender": {
+      "type": "string",
+      "enum": ["male", "female", "nonbinary"]
+    },
+    "genderInterestedIn": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["male", "female", "nonbinary"]
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "location": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "locationFlexibility": {
+      "type": "string",
+      "enum": ["none", "some", "flexible"]
+    },
+    "lastUpdated": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+    }
+  }
+}

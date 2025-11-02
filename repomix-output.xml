@@ -1,0 +1,1101 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+data/
+  processed/
+    profiles-browse-20251030-162059.json
+    profiles-browse-20251030-162059.ndjson
+  exampleProfile.json
+schemas/
+  profile.schema.json
+scripts/
+  fetch-directory-paginated.js
+  fetch-directory.js
+  inspect-latest.js
+  parse-profiles.js
+tests/
+  parsedOutput.test.js
+  validateProfileSchema.test.js
+.gitignore
+package.json
+README.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="data/processed/profiles-browse-20251030-162059.json">
+[]
+</file>
+
+<file path="data/processed/profiles-browse-20251030-162059.ndjson">
+
+</file>
+
+<file path="data/exampleProfile.json">
+{
+    "id": "usr_001",
+    "name": "Treesa Abraham",
+    "age": 19,
+    "gender": "female",
+    "genderInterestedIn": ["male", "nonbinary"],
+    "location": "Columbia, SC",
+    "locationFlexibility": "some",
+    "lastUpdated": "2025-10-30"
+  }
+</file>
+
+<file path="schemas/profile.schema.json">
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Date Me Directory Profile (Minimal)",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "name",
+      "age",
+      "gender",
+      "genderInterestedIn",
+      "location",
+      "locationFlexibility",
+      "lastUpdated"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the profile",
+        "minLength": 1
+      },
+      "name": {
+        "type": "string",
+        "description": "User’s name or display name",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "age": {
+        "type": "integer",
+        "description": "User’s age in years",
+        "minimum": 18,
+        "maximum": 120
+      },
+      "gender": {
+        "type": "string",
+        "enum": ["male", "female", "nonbinary"],
+        "description": "Gender identity"
+      },
+      "genderInterestedIn": {
+        "type": "array",
+        "description": "Genders the user is interested in",
+        "items": { "type": "string", "enum": ["male", "female", "nonbinary"] },
+        "uniqueItems": true,
+        "minItems": 1
+      },
+      "location": {
+        "type": "string",
+        "description": "Region of the user (city, country, or continent)",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "locationFlexibility": {
+        "type": "string",
+        "enum": ["none", "some", "flexible"],
+        "description": "Willingness to relocate or connect across regions"
+      },
+      "lastUpdated": {
+        "type": "string",
+        "description": "Date when the profile was last updated (YYYY-MM-DD)",
+        "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+      }
+    }
+  }
+</file>
+
+<file path="scripts/fetch-directory-paginated.js">
+// scripts/fetch-directory-paginated.js
+// Crawls the DateMe Directory browse listing with "next page" heuristics.
+// Saves every page HTML and a crawl manifest for reproducibility.
+
+const fs = require("fs");
+const path = require("path");
+const cheerio = require("cheerio");
+
+const START_URL = "https://dateme.directory/browse";
+
+// config via env or defaults
+const MAX_PAGES = Number(process.env.MAX_PAGES || 50);
+const REQUEST_DELAY_MS = Number(process.env.REQUEST_DELAY_MS || 1500);
+
+// polite headers
+const DEFAULT_HEADERS = {
+  "user-agent":
+    "DateMeDirectoryDataBot/1.0 (+https://example.com; contact: research@example.com)",
+  accept: "text/html,application/xhtml+xml",
+};
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+function tsFolder() {
+  // timestamp folder yyyyMMdd-HHmmss
+  return new Date().toISOString().replace(/[-:]/g, "").replace(/\..+/, "").replace("T", "-");
+}
+
+function ensureDir(p) {
+  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+}
+
+function safeJoin(...parts) {
+  return path.join(...parts).replace(/\\/g, "/");
+}
+
+function absolutizeUrl(base, href) {
+  try {
+    return new URL(href, base).toString();
+  } catch {
+    return null;
+  }
+}
+
+function guessNextUrl(currentUrl, $) {
+  // 1) <a rel="next" href="...">
+  const relNextHref = $('a[rel="next"]').attr("href");
+  if (relNextHref) {
+    const out = absolutizeUrl(currentUrl, relNextHref);
+    if (out) return out;
+  }
+
+  // 2) Pagination link with "Next" text
+  const nextTextHref = $('a:contains("Next"), a:contains("Load more")').first().attr("href");
+  if (nextTextHref) {
+    const out = absolutizeUrl(currentUrl, nextTextHref);
+    if (out) return out;
+  }
+
+  // 3) Button with data-next or aria-controls referencing a next URL in data attribute
+  const dataNext = $('[data-next],[data-next-url]').first();
+  const dataHref = dataNext.attr("data-next") || dataNext.attr("data-next-url");
+  if (dataHref) {
+    const out = absolutizeUrl(currentUrl, dataHref);
+    if (out) return out;
+  }
+
+  // 4) Embedded JSON-ish hint: look for `"next":"..."`
+  const html = $.root().html() || "";
+  const m = html.match(/"next"\s*:\s*"([^"]+)"/i);
+  if (m && m[1]) {
+    const out = absolutizeUrl(currentUrl, m[1]);
+    if (out) return out;
+  }
+
+  // 5) Page param heuristic: ?page=N or &page=N
+  try {
+    const u = new URL(currentUrl);
+    const hasPage = u.searchParams.has("page");
+    const n = hasPage ? Number(u.searchParams.get("page")) || 1 : 1;
+    const nextN = n + 1;
+
+    // Only attempt if we saw pagination elements at all
+    const sawPagination =
+      $('a[rel="next"]').length ||
+      $('a:contains("Next"), a:contains("Load more")').length ||
+      /\bpage\b/i.test(html);
+    if (sawPagination) {
+      if (!hasPage) u.searchParams.set("page", String(nextN));
+      else u.searchParams.set("page", String(nextN));
+      return u.toString();
+    }
+  } catch {
+    // ignore
+  }
+
+  return null;
+}
+
+async function fetchHtml(url) {
+  const res = await fetch(url, { headers: DEFAULT_HEADERS, redirect: "follow" });
+  const text = await res.text();
+  return { status: res.status, ok: res.ok, url: res.url, html: text };
+}
+
+async function main() {
+  const startedAt = new Date().toISOString();
+
+  // Create a crawl session folder
+  const session = tsFolder();
+  const baseOut = path.join(__dirname, "..", "data", "raw", `browse-${session}`);
+  ensureDir(baseOut);
+
+  const manifestPath = safeJoin(baseOut, "manifest.json");
+  const pages = [];
+
+  let currentUrl = START_URL;
+  let pageIndex = 1;
+  let seen = new Set();
+
+  while (pageIndex <= MAX_PAGES) {
+    if (seen.has(currentUrl)) {
+      console.warn(`🔁 Already fetched ${currentUrl}. Stopping to avoid a loop.`);
+      break;
+    }
+    seen.add(currentUrl);
+
+    console.log(`➡️  Fetching [${pageIndex}/${MAX_PAGES}] ${currentUrl}`);
+    const { status, ok, url, html } = await fetchHtml(currentUrl);
+
+    const filename = `page-${String(pageIndex).padStart(3, "0")}.html`;
+    const htmlPath = safeJoin(baseOut, filename);
+    fs.writeFileSync(htmlPath, html, "utf-8");
+
+    const meta = {
+      index: pageIndex,
+      requestedUrl: currentUrl,
+      finalUrl: url,
+      status,
+      ok,
+      savedAs: path.basename(htmlPath),
+      savedAt: new Date().toISOString(),
+      length: html.length,
+    };
+    pages.push(meta);
+
+    // Persist manifest as we go, in case we stop mid-crawl
+    fs.writeFileSync(
+      manifestPath,
+      JSON.stringify(
+        {
+          startedAt,
+          session,
+          startUrl: START_URL,
+          maxPages: MAX_PAGES,
+          delayMs: REQUEST_DELAY_MS,
+          pages,
+        },
+        null,
+        2
+      ),
+      "utf-8"
+    );
+
+    if (!ok) {
+      console.warn(`⚠️  Status ${status} at ${url}. Stopping pagination.`);
+      break;
+    }
+
+    // Parse HTML to find next page
+    const $ = cheerio.load(html);
+    const nextUrl = guessNextUrl(url, $);
+
+    if (!nextUrl) {
+      console.log("No next page found. Crawl complete.");
+      break;
+    }
+
+    // Gentle delay between requests
+    await sleep(REQUEST_DELAY_MS);
+    currentUrl = nextUrl;
+    pageIndex++;
+  }
+
+  console.log(`\n Saved ${pages.length} page(s) to ${baseOut}`);
+  console.log(` Manifest: ${manifestPath}`);
+
+  // Exit non-zero if we fetched nothing
+  if (pages.length === 0) process.exit(1);
+}
+
+main().catch((err) => {
+  console.error(" Pagination fetch failed:", err);
+  process.exit(1);
+});
+</file>
+
+<file path="scripts/fetch-directory.js">
+// scripts/fetch-directory.js
+// Fetches the main browse page and saves raw HTML under data/raw/
+
+const fs = require("fs");                // Node's file system: read/write files like a civilized raccoon.
+const path = require("path");            // Path utilities so you stop hardcoding slashes like it's 1999.
+
+// Node 18+ has global fetch. Your CI uses Node 20, so we're good.
+const URL_TO_FETCH = "https://dateme.directory/browse";  // The target page. One job, one URL.
+
+async function main() {                  // Async function because network I/O isn’t instant, despite your optimism.
+  const startedAt = new Date().toISOString();  // Timestamp for when we *started* the fetch. Metadata is your future alibi.
+
+  // Output paths
+  const outDir = path.join(__dirname, "..", "data", "raw");  // Resolve to project/data/raw no matter where you run it from.
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true }); // Create the folder tree if it doesn't exist.
+
+  const stamp = new Date()               // Create a file-safe timestamp like 20251030-142233
+    .toISOString()                       // ISO time so your files sort lexicographically. We like order.
+    .replace(/[-:]/g, "")                // Kill separators ( - : ) that make filenames annoying.
+    .replace(/\..+/, "")                 // Drop milliseconds because you’re not that precise.
+    .replace("T", "-");                  // Replace 'T' with '-' for readability: YYYYMMDD-HHMMSS
+
+  const htmlPath = path.join(outDir, `browse-${stamp}.html`);      // Where the raw HTML will live.
+  const metaPath = path.join(outDir, `browse-${stamp}.meta.json`); // Where the fetch metadata will live.
+
+  // Be polite with a UA. Some sites block the default.
+  const res = await fetch(URL_TO_FETCH, {  // Perform the HTTP request. Yes, await it.
+    headers: {
+      "user-agent":
+        "DateMeDirectoryDataBot/1.0 (+https://example.com; contact: research@example.com)", // Don’t be anonymous; it’s sketchy.
+      "accept": "text/html,application/xhtml+xml",  // Hint we want HTML, not a random download.
+    },
+    redirect: "follow",                   // If they redirect, follow it like a well-trained script.
+  });
+
+  const status = res.status;              // Numeric HTTP status (200, 404, etc.).
+  const ok = res.ok;                      // Boolean: true for 2xx, false otherwise.
+
+  const html = await res.text();          // Slurp the response body as text. This is your page HTML.
+
+  // Write HTML
+  fs.writeFileSync(htmlPath, html, "utf-8");    // Save the raw HTML so you can parse it later or regret nothing.
+
+  // Write a little metadata for sanity
+  const meta = {                          // Bundle context so future-you knows what happened.
+    url: URL_TO_FETCH,                    // Source URL, in case you somehow forget.
+    startedAt,                            // When we started the request.
+    fetchedAt: new Date().toISOString(),  // When we finished. Close enough for government work.
+    status,                               // HTTP status code recorded for posterity.
+    ok,                                   // Was it a “success” by fetch standards.
+    length: html.length,                  // HTML length. Useful for spotting empty or truncated responses.
+    output: path.relative(path.join(__dirname, ".."), htmlPath), // Nice relative path for logs/CI.
+  };
+  fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2), "utf-8"); // Save the metadata next to the HTML.
+
+  if (!ok) {                              // If the status isn’t 2xx, complain and fail the process.
+    console.error(`Fetch completed but not OK (status ${status}). See ${metaPath}`);
+    process.exit(1);                      // Non-zero exit so CI and your conscience both notice.
+  }
+
+  console.log(`✅ Saved HTML to ${htmlPath}`);     // Friendly confirmation for humans.
+  console.log(`📝 Saved metadata to ${metaPath}`); // Ditto for the metadata.
+}
+
+main().catch((err) => {                   // Global catch so the script doesn't crash silently.
+  console.error("💥 Fetch failed:", err.message); // Print the error message like adults.
+  process.exit(1);                        // Non-zero exit because failure should actually fail.
+});
+</file>
+
+<file path="scripts/inspect-latest.js">
+// scripts/inspect-latest.js
+// Prints how many candidate elements we find per page and shows a snippet.
+
+const fs = require("fs");
+const path = require("path");
+const cheerio = require("cheerio");
+
+const RAW_DIR = path.join(__dirname, "..", "data", "raw");
+
+function listSubdirs(p) {
+  return fs.existsSync(p)
+    ? fs.readdirSync(p).filter((f) => fs.statSync(path.join(p, f)).isDirectory())
+    : [];
+}
+
+function newestCrawlFolder() {
+  const dirs = listSubdirs(RAW_DIR)
+    .filter((d) => /^browse-\d{8}-\d{6}$/.test(d))
+    .sort();
+  return dirs.length ? dirs[dirs.length - 1] : null;
+}
+
+function readHtmlFiles(inputDirOrFile) {
+  if (!inputDirOrFile) return [];
+  if (fs.existsSync(inputDirOrFile) && fs.statSync(inputDirOrFile).isFile()) {
+    return [{ name: path.basename(inputDirOrFile), html: fs.readFileSync(inputDirOrFile, "utf-8") }];
+  }
+  const files = fs.readdirSync(inputDirOrFile).filter((f) => f.endsWith(".html")).sort();
+  return files.map((f) => ({ name: f, html: fs.readFileSync(path.join(inputDirOrFile, f), "utf-8") }));
+}
+
+function inspect(html) {
+  const $ = cheerio.load(html);
+  const selectors = [
+    ".profile-card",
+    ".card-profile",
+    "[data-profile]",
+    "li.profile",
+    "tr.profile",
+    ".profileRow",
+    ".profile",
+    ".result-card",
+    // extra guesses:
+    '[data-testid*="profile"]',
+    'article:has([class*="name"]), div:has([class*="name"])'
+  ];
+  const sel = selectors.join(", ");
+  const nodes = $(sel);
+  const allCards = nodes.length;
+
+  // try a “Next” link presence as a hint
+  const hasNext = $('a[rel="next"]').length || $('a:contains("Next"), a:contains("Load more")').length;
+
+  // sample text from the page
+  const bodyText = $("body").text().replace(/\s+/g, " ").slice(0, 200);
+
+  // peek any JSON blobs that look like Next.js
+  const nextData = $('script#__NEXT_DATA__').html();
+  return { allCards, hasNext: !!hasNext, bodyText, hasNextData: !!nextData, nextDataSample: nextData ? nextData.slice(0, 200) : null };
+}
+
+function main() {
+  // Prefer paginated folder; else look for single-page HTML files
+  const session = newestCrawlFolder();
+  let inputs = [];
+  if (session) {
+    inputs = readHtmlFiles(path.join(RAW_DIR, session));
+  } else {
+    const files = fs.existsSync(RAW_DIR)
+      ? fs.readdirSync(RAW_DIR).filter((f) => /^browse-\d{8}-\d{6}\.html$/.test(f)).sort()
+      : [];
+    if (files.length) {
+      inputs = files.map((f) => ({ name: f, html: fs.readFileSync(path.join(RAW_DIR, f), "utf-8") }));
+    }
+  }
+
+  if (!inputs.length) {
+    console.error("No HTML found under data/raw. Run `npm run fetch:browse[:all]` first.");
+    process.exit(1);
+  }
+
+  for (const { name, html } of inputs) {
+    const info = inspect(html);
+    console.log(`\n=== ${name} ===`);
+    console.log(`candidates found: ${info.allCards}`);
+    console.log(`has next link:    ${info.hasNext}`);
+    console.log(`has __NEXT_DATA__: ${info.hasNextData}`);
+    console.log(`body snippet:     "${info.bodyText}"`);
+    if (info.hasNextData && info.nextDataSample) {
+      console.log(`__NEXT_DATA__ sample: ${info.nextDataSample.replace(/\s+/g,' ').slice(0,180)}...`);
+    }
+  }
+}
+
+main();
+</file>
+
+<file path="scripts/parse-profiles.js">
+// scripts/parse-profiles.js
+// Parses crawled browse pages into structured profile rows.
+// Output: data/processed/profiles-<session>.json (array) + .ndjson
+
+const fs = require("fs");
+const path = require("path");
+const cheerio = require("cheerio");
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
+
+// ---------- config ----------
+const RAW_DIR = path.join(__dirname, "..", "data", "raw");
+const PROCESSED_DIR = path.join(__dirname, "..", "data", "processed");
+const SCHEMA_PATH = path.join(__dirname, "..", "schemas", "profile.schema.json");
+const ajv = new Ajv({ allErrors: true, strict: false });
+addFormats(ajv);
+const validate = ajv.compile(JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf-8")));
+
+// ---------- utils ----------
+function ensureDir(p) {
+  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+}
+
+function listSubdirs(p) {
+  return fs.existsSync(p)
+    ? fs.readdirSync(p).filter((f) => fs.statSync(path.join(p, f)).isDirectory())
+    : [];
+}
+
+function newestCrawlFolder() {
+  const dirs = listSubdirs(RAW_DIR)
+    .filter((d) => /^browse-\d{8}-\d{6}$/.test(d))
+    .sort(); // ISO-ish timestamp sorts lexicographically
+  return dirs.length ? dirs[dirs.length - 1] : null;
+}
+
+function readHtmlFiles(folderPath) {
+  if (!fs.existsSync(folderPath)) return [];
+  const files = fs.readdirSync(folderPath).filter((f) => f.endsWith(".html"));
+  files.sort();
+  return files.map((f) => ({
+    name: f,
+    html: fs.readFileSync(path.join(folderPath, f), "utf-8"),
+  }));
+}
+
+function textOf($, el) {
+  return $(el).text().replace(/\s+/g, " ").trim();
+}
+
+function toInt(maybe) {
+  const n = Number(String(maybe).replace(/[^\d]/g, ""));
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+}
+
+function normGender(s) {
+  if (!s) return undefined;
+  const t = s.toLowerCase();
+  if (/^f(emale)?\b/.test(t)) return "female";
+  if (/^m(ale)?\b/.test(t)) return "male";
+  if (/non\s*binary|nonbinary|nb\b/.test(t)) return "nonbinary";
+  return undefined;
+}
+
+function normFlex(s) {
+  if (!s) return undefined;
+  const t = s.toLowerCase();
+  if (/^none$|stay put|no relo/.test(t)) return "none";
+  if (/flex|open|anywhere|remote/.test(t)) return "flexible";
+  if (/some|maybe|depends/.test(t)) return "some";
+  return undefined;
+}
+
+function isoDateToday() {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
+// Make a deterministic-ish ID even if site doesn’t give one.
+// Prefer data-id or href slug; fallback to a hash-ish of name+location.
+const crypto = require("crypto");
+function computeId({ rawId, href, name, location }) {
+  if (rawId) return String(rawId);
+  if (href) {
+    try {
+      const u = new URL(href, "https://dateme.directory");
+      const slug = u.pathname.replace(/^\/+|\/+$/g, "").split("/").pop();
+      if (slug) return slug;
+    } catch {}
+  }
+  const basis = `${name || ""}|${location || ""}`.toLowerCase();
+  return "usr_" + crypto.createHash("md5").update(basis).digest("hex").slice(0, 10);
+}
+
+// ---------- extraction heuristics ----------
+/**
+ * We try a few common card/table structures:
+ * - .profile-card, .card-profile, [data-profile], li.profile, tr.profile
+ * - Each card might have:
+ *    name: .name, .title, h2, h3, a.card-title
+ *    age:  .age, .meta, text like "23 • F • NYC"
+ *    gender: .gender or inferred from meta text
+ *    location: .location, .city, .meta
+ *    interested in: badges/chips with text "seeking: ...", "interested in ..."
+ *    link/id: a[href], data-id
+ */
+function extractProfilesFromHtml(html) {
+  const $ = cheerio.load(html);
+
+  // Candidate containers
+  const candidates = $(
+    ".profile-card, .card-profile, [data-profile], li.profile, tr.profile, .profileRow, .profile, .result-card"
+  );
+  const rows = candidates.length ? candidates : $(".card, .row, article, li, tr");
+
+  const results = [];
+
+  rows.each((_, el) => {
+    const row = $(el);
+
+    // try to find an anchor per row
+    const a = row.find('a[href*="/profile/"], a[href*="/p/"], a[href*="profiles"]').first();
+    const href = a.attr("href");
+
+    // name candidates
+    const name =
+      textOf($, row.find(".name").first()) ||
+      textOf($, row.find(".title").first()) ||
+      textOf($, row.find("h2").first()) ||
+      textOf($, row.find("h3").first()) ||
+      textOf($, a.first());
+
+    // age candidates
+    let ageText =
+      textOf($, row.find(".age").first()) ||
+      textOf($, row.find(".meta").first()) ||
+      textOf($, row.find(".details").first()) ||
+      textOf($, row);
+    const age = toInt((ageText.match(/\b(\d{2})\b/) || [])[1]);
+
+    // gender
+    let genderText =
+      textOf($, row.find(".gender").first()) ||
+      (ageText.match(/\b(male|female|non[-\s]?binary|nb)\b/i) || [])[0];
+    const gender = normGender(genderText);
+
+    // location
+    let location =
+      textOf($, row.find(".location").first()) ||
+      textOf($, row.find(".city").first()) ||
+      (ageText.match(/\b(?:[A-Z][a-z]+(?:,?\s+[A-Z]{2})?)\b/) || [])[0] ||
+      undefined;
+
+    // genderInterestedIn (chips or text like "seeking: men, women")
+    let interestText =
+      textOf($, row.find('[class*="chip"],[class*="badge"],[class*="tag"]').filter((_, n) => {
+        const t = $(n).text().toLowerCase();
+        return /seek|interested|looking/.test(t);
+      })) ||
+      (ageText.match(/(seek|interested|looking)\s*[:\-]?\s*([a-z,\s\-]+)/i) || [])[2];
+
+    let genderInterestedIn = [];
+    if (interestText) {
+      const norm = interestText.toLowerCase();
+      if (/\bmen|male|guys?\b/.test(norm)) genderInterestedIn.push("male");
+      if (/\bwomen|female|girls?\b/.test(norm)) genderInterestedIn.push("female");
+      if (/\bnon[-\s]?binary|nb\b/.test(norm)) genderInterestedIn.push("nonbinary");
+    }
+    genderInterestedIn = [...new Set(genderInterestedIn)];
+    if (!genderInterestedIn.length) genderInterestedIn = undefined;
+
+    // locationFlexibility (very heuristic)
+    const flexText =
+      textOf($, row.find(".relocation, .mobility, .remote, .travel").first()) || ageText;
+    const locationFlexibility = normFlex(flexText);
+
+    // raw id hints
+    const rawId = row.attr("data-id") || row.attr("id");
+    const id = computeId({ rawId, href, name, location });
+
+    // lastUpdated isn't on list pages; set to today for extraction snapshot
+    const lastUpdated = isoDateToday();
+
+    // require at least a name to count as a profile row
+    if (name) {
+      const rec = {
+        id,
+        name,
+        age,
+        gender,
+        genderInterestedIn,
+        location,
+        locationFlexibility,
+        lastUpdated,
+        // optional debug crumbs to help tuning (not in schema -> we don't include them)
+      };
+
+      // Only include properties defined in the minimal schema
+      // Remove undefineds for cleanliness
+      Object.keys(rec).forEach((k) => rec[k] === undefined && delete rec[k]);
+
+      // Validate against schema; skip records that fail
+      const ok = validate(rec);
+      if (!ok) {
+        // Soft log for tuning; you can flip this to hard fail if you want
+        // console.error("Skip invalid record:", validate.errors, rec);
+        return;
+      }
+
+      results.push(rec);
+    }
+  });
+
+  return results;
+}
+
+// ---------- main ----------
+async function main() {
+  const session = newestCrawlFolder();
+  if (!session) {
+    console.error("No crawl session found under data/raw/. Run fetch:browse or fetch:browse:all first.");
+    process.exit(1);
+  }
+  const inputDir = path.join(RAW_DIR, session);
+  ensureDir(PROCESSED_DIR);
+
+  const pages = readHtmlFiles(inputDir);
+  if (!pages.length) {
+    console.error(`No HTML files in ${inputDir}`);
+    process.exit(1);
+  }
+
+  const all = [];
+  for (const { name, html } of pages) {
+    const rows = extractProfilesFromHtml(html);
+    rows.forEach((r) => (r._source = name)); // attach source page for traceability (not in final output)
+    all.push(...rows);
+  }
+
+  // Deduplicate by id + name
+  const key = (r) => `${r.id}::${r.name}`;
+  const map = new Map();
+  for (const r of all) {
+    if (!map.has(key(r))) map.set(key(r), r);
+  }
+  const unique = [...map.values()].map(({ _source, ...rest }) => rest);
+
+  const base = `profiles-${session}`;
+  const outJson = path.join(PROCESSED_DIR, `${base}.json`);
+  const outNdjson = path.join(PROCESSED_DIR, `${base}.ndjson`);
+
+  fs.writeFileSync(outJson, JSON.stringify(unique, null, 2), "utf-8");
+  fs.writeFileSync(outNdjson, unique.map((r) => JSON.stringify(r)).join("\n") + "\n", "utf-8");
+
+  console.log(`✅ Parsed ${unique.length} profile(s) from ${pages.length} page(s).`);
+  console.log(`📝 JSON:   ${path.relative(path.join(__dirname, ".."), outJson)}`);
+  console.log(`📝 NDJSON: ${path.relative(path.join(__dirname, ".."), outNdjson)}`);
+}
+
+main().catch((e) => {
+  console.error("💥 Parse failed:", e);
+  process.exit(1);
+});
+</file>
+
+<file path="tests/parsedOutput.test.js">
+const fs = require("fs");
+const path = require("path");
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
+
+const PROCESSED_DIR = path.join(__dirname, "..", "data", "processed");
+const SCHEMA_PATH = path.join(__dirname, "..", "schemas", "profile.schema.json");
+
+function newestProfilesFile() {
+  if (!fs.existsSync(PROCESSED_DIR)) return null;
+  const files = fs.readdirSync(PROCESSED_DIR)
+    .filter((f) => /^profiles-\d{8}-\d{6}\.json$/.test(f))
+    .sort();
+  return files.length ? path.join(PROCESSED_DIR, files[files.length - 1]) : null;
+}
+
+test("latest parsed output matches schema row-by-row", () => {
+  const file = newestProfilesFile();
+  expect(file).toBeTruthy();
+
+  const arr = JSON.parse(fs.readFileSync(file, "utf-8"));
+  const ajv = new Ajv({ allErrors: true, strict: false });
+  addFormats(ajv);
+  const schema = JSON.parse(fs.readFileSync(SCHEMA_PATH, "utf-8"));
+  const validate = ajv.compile(schema);
+
+  for (const [i, row] of arr.entries()) {
+    const ok = validate(row);
+    if (!ok) {
+      console.error(`Row ${i} failed:`, row, validate.errors);
+    }
+    expect(ok).toBe(true);
+  }
+});
+</file>
+
+<file path="tests/validateProfileSchema.test.js">
+const fs = require("fs");
+const path = require("path");
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
+
+const schemaPath = path.join(__dirname, "..", "schemas", "profile.schema.json");
+const sampleValidPath = path.join(__dirname, "..", "data", "exampleProfile.json");
+const sampleInvalidPath = path.join(__dirname, "..", "data", "exampleProfile.invalid.json");
+
+const loadJson = (p) => JSON.parse(fs.readFileSync(p, "utf-8"));
+
+describe("Minimal extraction schema", () => {
+  test("files exist", () => {
+    expect(fs.existsSync(schemaPath)).toBe(true);
+    expect(fs.existsSync(sampleValidPath)).toBe(true);
+  });
+
+  test("valid example passes", () => {
+    const ajv = new Ajv({ allErrors: true, strict: false });
+    addFormats(ajv);
+
+    const validate = ajv.compile(loadJson(schemaPath));
+    const valid = validate(loadJson(sampleValidPath));
+
+    if (!valid) console.error("Validation errors (expected pass):", validate.errors);
+    expect(valid).toBe(true);
+  });
+
+  test("invalid example fails (smoke test)", () => {
+    // Only run if invalid file exists
+    if (!fs.existsSync(sampleInvalidPath)) return;
+
+    const ajv = new Ajv({ allErrors: true, strict: false });
+    addFormats(ajv);
+
+    const validate = ajv.compile(loadJson(schemaPath));
+    const valid = validate(loadJson(sampleInvalidPath));
+
+    // Print errors so failures are informative
+    if (valid) console.error("Unexpectedly valid:", loadJson(sampleInvalidPath));
+    else console.error("Expected errors:", validate.errors);
+
+    expect(valid).toBe(false);
+  });
+});
+</file>
+
+<file path=".gitignore">
+# Virtual environment
+venv/
+.env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Data outputs
+data/raw/
+data/logs/
+*.csv
+*.jsonl
+*.html
+*.tmp
+*.log
+
+# Cache files
+.cache/
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code workspace junk
+.vscode/
+</file>
+
+<file path="package.json">
+{
+  "name": "date-me-directory-data",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "cheerio": "^1.0.0",
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "validate:data": "node scripts/validate-all.js",
+    "fetch:browse": "node scripts/fetch-directory.js",
+    "fetch:browse:all": "node scripts/fetch-directory-paginated.js",
+    "parse:browse": "node scripts/parse-profiles.js",
+    "inspect:latest": "node scripts/inspect-latest.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+</file>
+
+<file path="README.md">
+git add .
+git commit -m 'message'
+git push origin main
+
+In practice, consistency is about being adaptable. Don't have much time? Scale it down. Don't have much energy? Do the easy version. Find different ways to show up depending on the circumstances. Let your habits change shape to meet the demands of the day.
+
+Adaptability is the way of consistency.”
+
+James Clear
+
+# 💘 Date Me Directory Data Extraction & Analysis
+
+This project collects and analyzes data from the [Date Me Directory](https://dateme.directory/browse), a public listing of user-submitted "date me docs."  
+The goal is to extract structured demographic data (from the directory table) and unstructured textual data (from individual profile pages), then perform qualitative and literary-style analysis of dating self-presentations.
+
+---
+
+## Master Checklist (with Commit Messages)
+
+### 🏗️ Setup & Planning
+- [x] Create project folder and initialize Git repository  
+  - Commit: `chore: initialize project folder and git repo`
+- [x] Install required libraries for scraping (`requests`, `BeautifulSoup`, etc.)  
+  - Commit: `chore: install scraping dependencies`
+- [x] Define data schema in JSON format  
+  - Commit: `feat: define base JSON schema for profiles`
+- [x] Decide on consistent folder structure for data outputs  
+  - Commit: `chore: establish folder structure for data storage`
+- [x] Add ethical and privacy statement to documentation  
+  - Commit: `docs: add ethical and privacy statement`
+- [x] Create `.gitignore` to exclude data snapshots and raw HTML  
+  - Commit: `chore: add .gitignore for data and cache files`
+- [X] Make `/data/` directory for storing JSON and HTML outputs  
+  - Commit: `chore: create data directory`
+- [X] Write `README.md` with overview, schema, and scraping workflow  
+  - Commit: `docs: add detailed project README`
+- [x] Test Python environment and verify GitHub remote connection  
+  - Commit: `chore: verify environment and git remote`
+- [x] Commit initial setup  
+  - Commit: `chore: initial commit with project structure`
+
+- [x] Validate schema using sample data  
+  - Commit: `test: validate JSON schema with example profile`
+
+---
+
+### Script A – Index Scraper
+**Goal:** Collect directory data and create a master JSON file.
+
+- [x] Fetch the main directory page (`https://dateme.directory/browse`)  
+  - Commit: `feat: add initial request to fetch directory page`
+- [x] Handle pagination or “load more” logic  
+  - Commit: `feat: implement pagination handling for directory`
+- [ ] Extract each profile row’s data  
+  - Commit: `feat: parse profile table for name, age, gender, etc.`
+- [ ] Assign unique internal `id` to each person  
+  - Commit: `chore: add id assignment logic for profiles`
+- [ ] Create JSON objects using schema  
+  - Commit: `feat: build profile objects according to schema`
+- [ ] Initialize `profileDetails` as `{}` and `scrapeTimestampDetail` as `null`  
+  - Commit: `chore: initialize empty detail fields for profiles`
+- [ ] Save results to `profiles_master.json`  
+  - Commit: `feat: export directory data to profiles_master.json`
+- [ ] Archive raw HTML snapshots  
+  - Commit: `chore: save raw HTML snapshots for reproducibility`
+- [ ] Add polite rate limits between requests  
+  - Commit: `perf: add request delay to prevent rate limiting`
+- [ ] Verify JSON output integrity  
+  - Commit: `test: verify JSON structure from Script A`
+
+**Output:**  
+`profiles_master.json` — canonical dataset with directory-level info.
+
+---
+
+### Script B – Profile Scraper
+**Goal:** Visit each `profileUrl` from the JSON dataset and extract detailed text sections.
+
+- [ ] Load `profiles_master.json`  
+  - Commit: `chore: load master dataset for profile enrichment`
+- [ ] For each profile:
+  - [ ] Fetch profile page using `profileUrl`  
+    - Commit: `feat: request individual profile pages`
+  - [ ] Save raw HTML locally  
+    - Commit: `chore: store raw HTML for each profile`
+  - [ ] Extract text sections: “About Me,” “What I’m Looking For,” “Green Flags,” “Non-negotiables,” “First Date Ideas”  
+    - Commit: `feat: parse longform text fields from profile pages`
+  - [ ] Insert parsed text into `profileDetails`  
+    - Commit: `feat: merge parsed details into JSON objects`
+  - [ ] Update `scrapeTimestampDetail`  
+    - Commit: `chore: record timestamp for detail scrape`
+- [ ] Save enriched dataset back to `profiles_master.json`  
+  - Commit: `feat: update profiles_master.json with enriched data`
+- [ ] Add randomized delay between requests  
+  - Commit: `perf: randomize request delays for ethical scraping`
+- [ ] Validate sample enriched entries  
+  - Commit: `test: verify enriched JSON entries after scraping`
+
+**Output:**  
+Updated `profiles_master.json` with both directory and profile data.
+
+---
+
+### Data Handling & Versioning
+- [ ] Save versioned snapshots:
+  - [ ] `profiles_master_raw_<date>.json` (after Script A)
+  - [ ] `profiles_master_enriched_<date>.json` (after Script B)
+  - [ ] `profiles_master.json` (current file)
+  - Commit: `chore: version data snapshots`
+- [ ] Ensure `id`s remain stable between runs  
+  - Commit: `chore: verify ID consistency between runs`
+- [ ] Append new profiles for future scrapes  
+  - Commit: `feat: add logic for appending new profiles`
+- [ ] Backup raw data securely  
+  - Commit: `chore: create backup routine for JSON files`
+
+---
+
+### JSON Storage Rationale
+- [ ] Use JSON as canonical format for both scripts  
+  - Commit: `docs: confirm JSON as canonical data format`
+- [ ] Preserve nested `profileDetails` fields  
+  - Commit: `chore: verify nested field structure`
+- [ ] Support later CSV exports or DB imports  
+  - Commit: `docs: note compatibility with future data pipelines`
+
+
+### Full Workflow Summary
+- [ ] Step 1: Define schema and create project folders  
+  - Commit: `chore: finalize schema and folder setup`
+- [ ] Step 2: Run Script A → scrape directory → produce `profiles_master.json`  
+  - Commit: `feat: complete initial directory scrape`
+- [ ] Step 3: Run Script B → enrich profiles with text → update file  
+  - Commit: `feat: complete detail scraping phase`
+- [ ] Step 4: Backup versions in `/data/` folder  
+  - Commit: `chore: store backup versions`
+- [ ] Step 5: Convert data to CSV for stats (optional)  
+  - Commit: `feat: export CSV summaries`
+- [ ] Step 6: Conduct literary and rhetorical analysis  
+  - Commit: `analysis: conduct qualitative evaluation`
+- [ ] Step 7: Publish anonymized results  
+  - Commit: `docs: publish anonymized report`
+
+---
+
+### Ethical Guidelines
+- [ ] Confirm data is from a public directory  
+  - Commit: `docs: verify public data usage`
+- [ ] Restrict use to academic or non-commercial analysis  
+  - Commit: `docs: state research-only purpose`
+- [ ] Remove or hash identifying information  
+  - Commit: `data: anonymize sensitive fields`
+- [ ] Respect `robots.txt` and TOS  
+  - Commit: `chore: confirm scraping compliance`
+- [ ] Maintain local secure storage  
+  - Commit: `chore: secure raw dataset storage`
+- [ ] Cite Date Me Directory as source  
+  - Commit: `docs: add data source citation`
+
+---
+
+### Metadata
+- [ ] **Author:** Treesa Abraham  
+- [ ] **Purpose:** Qualitative + Literary Data Analysis on Public Digital Self-Representation  
+- [ ] **Version:** 1.0 – October 2025  
+  - Commit: `chore: finalize project version metadata`
+</file>
+
+</files>
