@@ -21,7 +21,7 @@ The goal is to extract structured demographic data (from the directory table) an
 ## ✅ Master Checklist (with Commit Messages)
 
 ### 🏗️ Setup & Planning
-- [ ] Create project folder and initialize Git repository  
+- [x] Create project folder and initialize Git repository  
   - Commit: `chore: initialize python project folder and git repo`
 - [ ] Set up and activate a virtual environment (`python3 -m venv venv`)  
   - Commit: `chore: create python virtual environment`
