@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.log
+*.tmp
+.cache/
+.DS_Store
+
+# data snapshots can grow huge; keep them local unless you need samples
+data/raw/
+data/processed/
+data/latest/
