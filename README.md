@@ -22,22 +22,20 @@ The goal is to extract structured demographic data (from the directory table) an
 
 ### 🏗️ Setup & Planning
 - [x] Create project folder and initialize Git repository  
-  - Commit: `chore: initialize python project folder and git repo`
-- [ ] Set up and activate a virtual environment (`python3 -m venv venv`)  
-  - Commit: `chore: create python virtual environment`
-- [ ] Install required Python libraries (`requests`, `beautifulsoup4`, `pandas`, `lxml`)  
+  - Commit: `chore: initialize python project folder and git repo
+- [x] Install required Python libraries (`requests`, `beautifulsoup4`, `pandas`, `lxml`)  
   - Commit: `chore: install required python dependencies`
-- [ ] Create a `requirements.txt` file  
+- [x] Create a `requirements.txt` file  
   - Commit: `chore: add requirements.txt`
-- [ ] Define data schema for JSON storage  
+- [x] Define data schema for JSON storage  
   - Commit: `feat: define JSON schema for profile data`
-- [ ] Decide on folder structure for scripts and data outputs  
+- [x] Decide on folder structure for scripts and data outputs  
   - Commit: `chore: establish python project folder structure`
-- [ ] Add ethical and privacy statement to README  
+- [x] Add ethical and privacy statement to README  
   - Commit: `docs: add ethical and privacy section`
-- [ ] Create `.gitignore` (exclude `/data`, `/venv`, and cached files)  
+- [x] Create `.gitignore` (exclude `/data`, `/venv`, and cached files)  
   - Commit: `chore: add .gitignore for python project`
-- [ ] Make `/data/` directory for JSON and CSV outputs  
+- [x] Make `/data/` directory for JSON and CSV outputs  
   - Commit: `chore: create data directory`
 - [ ] Test Python environment and verify GitHub connection  
   - Commit: `chore: verify python setup and git remote`
@@ -47,12 +45,12 @@ The goal is to extract structured demographic data (from the directory table) an
 ---
 
 ### 🧩 Define JSON Schema
-- [ ] Define schema fields in Python (dictionary format):  
-  - [ ] `id`, `name`, `age`, `gender`, `interestedIn`, `location`, `locationFlexibility`, `profileUrl`, `scrapeTimestampIndex`, `scrapeTimestampDetail`, `profileDetails`  
+- [x] Define schema fields in Python (dictionary format):  
+  - [x] `id`, `name`, `age`, `gender`, `interestedIn`, `location`, `locationFlexibility`, `profileUrl`, `scrapeTimestampIndex`, `scrapeTimestampDetail`, `profileDetails`  
   - Commit: `feat: define profile schema as python dictionary`
-- [ ] Save schema reference as `profile_schema.json`  
+- [x] Save schema reference as `profile_schema.json`  
   - Commit: `docs: add JSON schema reference file`
-- [ ] Validate schema logic using test data  
+- [x] Validate schema logic using test data  
   - Commit: `test: validate schema structure with sample record`
 
 ---
@@ -60,13 +58,13 @@ The goal is to extract structured demographic data (from the directory table) an
 ### 🧮 Script A – Index Scraper (Python)
 **Goal:** Collect directory data and create `profiles_master.json`.
 
-- [ ] Create `scripts/scrape_index.py`  
+- [x] Create `scripts/scrape_index.py`  
   - Commit: `feat: create index scraper script`
-- [ ] Fetch the main directory page with `requests`  
+- [x] Fetch the main directory page with `requests`  
   - Commit: `feat: add HTTP request to fetch directory HTML`
-- [ ] Parse HTML using `BeautifulSoup`  
+- [x] Parse HTML using `BeautifulSoup`  
   - Commit: `feat: parse directory table with BeautifulSoup`
-- [ ] Extract profile fields from table rows:
+- [x] Extract profile fields from table rows:
   - [ ] `name`
   - [ ] `age`
   - [ ] `gender`
@@ -81,11 +79,11 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `feat: construct profile dictionaries`
 - [ ] Initialize empty fields for details (`profileDetails`, `scrapeTimestampDetail`)  
   - Commit: `chore: initialize empty detail fields`
-- [ ] Save all records into `/data/profiles_master.json`  
+- [x] Save all records into `/data/profiles_master.json`  
   - Commit: `feat: save scraped directory data to JSON`
-- [ ] Add polite rate limits between requests using `time.sleep()`  
+- [x] Add polite rate limits between requests using `time.sleep()`  
   - Commit: `perf: add rate limiting for ethical scraping`
-- [ ] Test and print summary (e.g., “552 profiles saved”)  
+- [x] Test and print summary (e.g., “552 profiles saved”)  
   - Commit: `test: validate scrape output summary`
 
 **Output:**  
@@ -96,31 +94,23 @@ The goal is to extract structured demographic data (from the directory table) an
 ### 🧾 Script B – Profile Scraper (Python)
 **Goal:** Enrich each record in `profiles_master.json` with full profile text.
 
-- [ ] Create `scripts/scrape_profiles.py`  
+- [x] Create `scripts/scrape_profiles.py`  
   - Commit: `feat: create detailed profile scraper script`
-- [ ] Load `profiles_master.json` into memory  
+- [x] Load `profiles_master.json` into memory  
   - Commit: `chore: load JSON dataset`
-- [ ] For each profile:
-  - [ ] Fetch `profileUrl` using `requests`  
+- [x] For each profile:
+  - [x] Fetch `profileUrl` using `requests`  
     - Commit: `feat: request individual profile pages`
-  - [ ] Parse HTML with `BeautifulSoup`  
+  - [x] Parse HTML with `BeautifulSoup`  
     - Commit: `feat: parse profile page HTML`
-  - [ ] Extract text sections:
-    - [ ] “About Me”
-    - [ ] “What I’m Looking For”
-    - [ ] “Green Flags / Red Flags”
-    - [ ] “Non-negotiables”
-    - [ ] “First Date Ideas”
     - Commit: `feat: extract longform profile sections`
   - [ ] Insert parsed data into `profileDetails` field  
     - Commit: `feat: add extracted details to profile object`
   - [ ] Update `scrapeTimestampDetail`  
     - Commit: `chore: add timestamp for detail scrape`
-  - [ ] Sleep briefly to prevent server overload  
-    - Commit: `perf: randomize delay between profile requests`
-- [ ] Save updated data to `profiles_master.json`  
+- [x] Save updated data to `profiles_master.json`  
   - Commit: `feat: save enriched JSON dataset`
-- [ ] Validate by checking record count and example entries  
+- [x] Validate by checking record count and example entries  
   - Commit: `test: verify enriched data structure`
 
 **Output:**  
