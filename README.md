@@ -37,9 +37,9 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `chore: add .gitignore for python project`
 - [x] Make `/data/` directory for JSON and CSV outputs  
   - Commit: `chore: create data directory`
-- [ ] Test Python environment and verify GitHub connection  
+- [x] Test Python environment and verify GitHub connection  
   - Commit: `chore: verify python setup and git remote`
-- [ ] Commit all setup changes  
+- [x] Commit all setup changes  
   - Commit: `chore: initial commit with python project setup`
 
 ---
