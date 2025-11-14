@@ -1,44 +1,177 @@
-from __future__ import annotations
+import os
 import json
+from typing import List, Dict, Optional
+from urllib.parse import urljoin
+from datetime import datetime
+
+import requests
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-from jsonschema import validate
-import jsonschema
-from src.settings import Settings
-from src.utils.http import session_get
-from src.utils.io import ensure_snapshot_paths, write_text, write_json
 
-def parse_directory(html: str) -> list[dict]:
-    soup = BeautifulSoup(html, "lxml")
-    rows = []
-    # TODO: adjust selectors to the real site
-    for a in soup.select("table a[href], .directory a[href]"):
-        name = a.get_text(strip=True)
-        href = a.get("href")
-        if name and href:
-            rows.append({"name": name, "profileUrl": href})
-    return rows
+# You can override this in your .env later if you want
+DIRECTORY_URL = os.getenv(
+    "DIRECTORY_URL",
+    "https://dateme.directory/browse?gender=&desired-gender=&min-age=&max-age=&location="
+)
 
-def main():
-    load_dotenv()
-    s = Settings()
-    paths = ensure_snapshot_paths(s.snapshot_stamp)
 
-    resp = session_get(s.directory_url, timeout=s.timeout_seconds)
-    resp.raise_for_status()
-    write_text(paths["raw_dir"] / "directory.html", resp.text)
+def fetch_directory_html(url: str = DIRECTORY_URL) -> str:
+    """
+    Fetch the raw HTML for the Date Me Directory browse page.
+    """
+    response = requests.get(url, timeout=30)
+    response.raise_for_status()
+    return response.text
 
-    rows = parse_directory(resp.text)
 
-    dir_schema = json.loads(open("schemas/directory_row.schema.json").read())
-    for i, row in enumerate(rows, 1):
+def _clean_text(text: str) -> str:
+    """
+    Normalize whitespace: strip and collapse internal spaces.
+    """
+    return " ".join(text.split())
+
+
+def parse_directory_rows(html: str) -> List[Dict]:
+    """
+    Parse the directory table into a list of dicts.
+
+    Each profile dict contains:
+      - name
+      - age (int or None)
+      - gender
+      - interestedIn (list of tokens, e.g. ["M", "NB"])
+      - location
+      - locationFlexibility
+      - profileUrl (full URL)
+      - lastUpdated (YYYY-MM-DD string)
+    """
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Assume the main directory is in a <table>. If there are multiple, we use the first.
+    table = soup.find("table")
+    if table is None:
+        raise RuntimeError("Could not find a <table> element on the directory page")
+
+    # Some pages use <tbody>, some don't. Be defensive.
+    tbody = table.find("tbody") or table
+    rows = tbody.find_all("tr")
+
+    profiles: List[Dict] = []
+
+    for row in rows:
+        # Only consider real data rows with <td> cells
+        cells = row.find_all("td")
+        if len(cells) < 9:
+            # Header row or weird row, skip it
+            continue
+
+        # Column order from the site:
+        # 0: Name (with link to profile)
+        # 1: Age
+        # 2: Gender
+        # 3: InterestedIn
+        # 4: Style
+        # 5: Location
+        # 6: LocationFlexibility
+        # 7: Contact
+        # 8: LastUpdated
+
+        name_cell = cells[0]
+
+        # Name (text inside the <a> or cell)
+        name = _clean_text(name_cell.get_text(strip=True))
+
+        # Profile URL from the <a> tag (if it exists)
+        link = name_cell.find("a")
+        profile_url: Optional[str] = None
+        if link and link.has_attr("href"):
+            href = link["href"]
+            profile_url = urljoin(DIRECTORY_URL, href)
+
+        # Age
+        age_text = _clean_text(cells[1].get_text(strip=True))
         try:
-            validate(row, dir_schema)
-        except jsonschema.ValidationError as e:
-            raise SystemExit(f"Row {i} failed schema: {e.message} @ {list(e.path)}")
+            age = int(age_text)
+        except ValueError:
+            age = None
 
-    write_json(paths["processed_dir"] / "directory_rows.json", rows)
-    print(f"[directory] {len(rows)} rows")
+        # Gender (single token like "M", "F", "NB")
+        gender = _clean_text(cells[2].get_text(strip=True))
+
+        # Interested in (can be "M", "F NB", etc.)
+        interested_raw = _clean_text(cells[3].get_text(" ", strip=True))
+        interested_in = [token for token in interested_raw.split(" ") if token]
+
+        # Location (can be many words, we keep as one normalized string)
+        location = _clean_text(cells[5].get_text(" ", strip=True))
+
+        # Location flexibility (e.g. "Flexible", "Some", "None")
+        location_flexibility = _clean_text(cells[6].get_text(strip=True))
+
+        # Last updated (YYYY-MM-DD string from the table)
+        last_updated = _clean_text(cells[8].get_text(strip=True))
+
+        profile = {
+            "name": name,
+            "age": age,
+            "gender": gender,
+            "interestedIn": interested_in,
+            "location": location,
+            "locationFlexibility": location_flexibility,
+            "profileUrl": profile_url,
+            "lastUpdated": last_updated,
+        }
+
+        profiles.append(profile)
+
+    return profiles
+
+
+def save_profiles_to_json(profiles: List[Dict]) -> None:
+    """
+    Save the full list of profiles into:
+      - data/directory/directory-YYYYMMDD-HHMMSS.json  (snapshot)
+      - data/directory/latest.json                     (pointer to latest)
+    """
+    # Assume you're running from the project root
+    data_dir = os.path.join("data", "directory")
+    os.makedirs(data_dir, exist_ok=True)
+
+    timestamp = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+    snapshot_path = os.path.join(data_dir, f"directory-{timestamp}.json")
+    latest_path = os.path.join(data_dir, "latest.json")
+
+    # Write snapshot
+    with open(snapshot_path, "w", encoding="utf-8") as f:
+        json.dump(profiles, f, indent=2, ensure_ascii=False)
+
+    # Write/overwrite latest
+    with open(latest_path, "w", encoding="utf-8") as f:
+        json.dump(profiles, f, indent=2, ensure_ascii=False)
+
+    print(f"Saved snapshot: {snapshot_path}")
+    print(f"Updated latest: {latest_path}")
+
+
+def main() -> None:
+    """
+    CLI entrypoint:
+
+    1) Fetch directory HTML
+    2) Parse all rows into profile dicts
+    3) Save as JSON under data/directory/
+    """
+    print(f"Fetching directory HTML from: {DIRECTORY_URL}")
+    html = fetch_directory_html()
+    profiles = parse_directory_rows(html)
+
+    print(f"Extracted {len(profiles)} profiles")
+
+    if profiles:
+        print("\nSample profile:")
+        print(json.dumps(profiles[0], indent=2, ensure_ascii=False))
+
+    save_profiles_to_json(profiles)
+
 
 if __name__ == "__main__":
     main()
