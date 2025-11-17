@@ -187,14 +187,18 @@ def save_profiles_to_json(profiles: List[Dict]) -> None:
     Save the full list of profiles into:
       - data/directory/directory-YYYYMMDD-HHMMSS.json  (snapshot)
       - data/directory/latest.json                     (pointer to latest)
+      - data/profiles_master.json                      (canonical master dump)
     """
-    # Assume you're running from the project root
+    # Directory for timestamped + latest files
     data_dir = os.path.join("data", "directory")
     os.makedirs(data_dir, exist_ok=True)
 
     timestamp = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
     snapshot_path = os.path.join(data_dir, f"directory-{timestamp}.json")
     latest_path = os.path.join(data_dir, "latest.json")
+
+    # Path for master JSON (one level up, in /data/)
+    master_path = os.path.join("data", "profiles_master.json")
 
     # Write snapshot
     with open(snapshot_path, "w", encoding="utf-8") as f:
@@ -204,8 +208,14 @@ def save_profiles_to_json(profiles: List[Dict]) -> None:
     with open(latest_path, "w", encoding="utf-8") as f:
         json.dump(profiles, f, indent=2, ensure_ascii=False)
 
+    # Write/overwrite master
+    with open(master_path, "w", encoding="utf-8") as f:
+        json.dump(profiles, f, indent=2, ensure_ascii=False)
+
     print(f"Saved snapshot: {snapshot_path}")
     print(f"Updated latest: {latest_path}")
+    print(f"Wrote master file: {master_path}")
+
 
 
 def main() -> None:
