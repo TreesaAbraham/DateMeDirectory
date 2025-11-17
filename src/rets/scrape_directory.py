@@ -3,6 +3,7 @@ import json
 from typing import List, Dict, Optional
 from urllib.parse import urljoin
 from datetime import datetime
+import hashlib
 
 import requests
 from bs4 import BeautifulSoup
@@ -125,6 +126,55 @@ def parse_directory_rows(html: str) -> List[Dict]:
 
     return profiles
 
+def make_profile_id(profile: Dict) -> str:
+    """
+    Build a stable internal ID for a profile.
+
+    Format: usr_<10 hex chars>, matching pattern: ^usr_[0-9a-f]{10}$
+
+    We use a SHA1 hash of key fields (heavily anchored on profileUrl)
+    so that IDs are:
+      - Deterministic: same profile -> same ID across runs
+      - Very unlikely to collide
+    """
+    key_parts = [
+        profile.get("profileUrl") or "",
+        profile.get("name") or "",
+        str(profile.get("age") or ""),
+        profile.get("gender") or "",
+        " ".join(profile.get("interestedIn") or []),
+        profile.get("location") or "",
+    ]
+    key = "|".join(key_parts)
+    digest = hashlib.sha1(key.encode("utf-8")).hexdigest()
+    return f"usr_{digest[:10]}"
+
+
+def assign_ids(profiles: List[Dict]) -> List[Dict]:
+    """
+    Add an 'id' field to each profile dict in-place and return the list.
+
+    Ensures IDs are unique within this run. Collisions are astronomically
+    unlikely, but we still guard against them because paranoia is healthy.
+    """
+    seen: set[str] = set()
+
+    for profile in profiles:
+        pid = make_profile_id(profile)
+        base_pid = pid
+        counter = 1
+
+        # In the microscopic chance of a collision, tweak the last chars
+        while pid in seen:
+            suffix = f"{counter:x}"
+            pid = base_pid[:-len(suffix)] + suffix
+            counter += 1
+
+        seen.add(pid)
+        profile["id"] = pid
+
+    return profiles
+
 
 def save_profiles_to_json(profiles: List[Dict]) -> None:
     """
@@ -153,16 +203,12 @@ def save_profiles_to_json(profiles: List[Dict]) -> None:
 
 
 def main() -> None:
-    """
-    CLI entrypoint:
-
-    1) Fetch directory HTML
-    2) Parse all rows into profile dicts
-    3) Save as JSON under data/directory/
-    """
     print(f"Fetching directory HTML from: {DIRECTORY_URL}")
     html = fetch_directory_html()
     profiles = parse_directory_rows(html)
+
+    # 🔹 NEW: assign stable internal IDs
+    profiles = assign_ids(profiles)
 
     print(f"Extracted {len(profiles)} profiles")
 
@@ -171,6 +217,7 @@ def main() -> None:
         print(json.dumps(profiles[0], indent=2, ensure_ascii=False))
 
     save_profiles_to_json(profiles)
+
 
 
 if __name__ == "__main__":
