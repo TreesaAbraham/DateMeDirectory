@@ -73,9 +73,9 @@ The goal is to extract structured demographic data (from the directory table) an
   - [ ] `locationFlexibility`
   - [ ] `profileUrl`
   - Commit: `feat: extract directory row data`
-- [ ] Assign unique internal IDs (e.g., incremental or UUID)  
+- [x] Assign unique internal IDs (e.g., incremental or UUID)  
   - Commit: `chore: add id assignment function`
-- [ ] Create profile dictionaries following schema  
+- [x] Create profile dictionaries following schema  
   - Commit: `feat: construct profile dictionaries`
 - [ ] Initialize empty fields for details (`profileDetails`, `scrapeTimestampDetail`)  
   - Commit: `chore: initialize empty detail fields`
