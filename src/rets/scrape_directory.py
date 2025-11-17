@@ -120,7 +120,13 @@ def parse_directory_rows(html: str) -> List[Dict]:
             "locationFlexibility": location_flexibility,
             "profileUrl": profile_url,
             "lastUpdated": last_updated,
+            # Detail fields to be filled in by a later step
+            "profileDetails": {},           # will eventually hold parsed doc content
+            "scrapeTimestampDetail": None,  # will become an ISO timestamp string
         }
+
+
+
 
         profiles.append(profile)
 
