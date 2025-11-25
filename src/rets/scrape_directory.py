@@ -125,12 +125,10 @@ def parse_directory_rows(html: str) -> List[Dict]:
             "scrapeTimestampDetail": None,  # will become an ISO timestamp string
         }
 
-
-
-
         profiles.append(profile)
 
     return profiles
+
 
 def make_profile_id(profile: Dict) -> str:
     """
@@ -217,13 +215,12 @@ def save_profiles_to_json(profiles: List[Dict]) -> None:
     print(f"Wrote master file: {master_path}")
 
 
-
 def main() -> None:
     print(f"Fetching directory HTML from: {DIRECTORY_URL}")
     html = fetch_directory_html()
     profiles = parse_directory_rows(html)
 
-    # 🔹 NEW: assign stable internal IDs
+    # assign stable internal IDs
     profiles = assign_ids(profiles)
 
     print(f"Extracted {len(profiles)} profiles")
@@ -234,6 +231,8 @@ def main() -> None:
 
     save_profiles_to_json(profiles)
 
+    # human-readable summary line for this run
+    print(f"[directory] {len(profiles)} profiles saved to JSON")
 
 
 if __name__ == "__main__":

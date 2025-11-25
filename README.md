@@ -65,13 +65,13 @@ The goal is to extract structured demographic data (from the directory table) an
 - [x] Parse HTML using `BeautifulSoup`  
   - Commit: `feat: parse directory table with BeautifulSoup`
 - [x] Extract profile fields from table rows:
-  - [ ] `name`
-  - [ ] `age`
-  - [ ] `gender`
-  - [ ] `interestedIn`
-  - [ ] `location`
-  - [ ] `locationFlexibility`
-  - [ ] `profileUrl`
+  - [x] `name`
+  - [x] `age`
+  - [x] `gender`
+  - [x] `interestedIn`
+  - [x] `location`
+  - [x] `locationFlexibility`
+  - [x] `profileUrl`
   - Commit: `feat: extract directory row data`
 - [x] Assign unique internal IDs (e.g., incremental or UUID)  
   - Commit: `chore: add id assignment function`
@@ -83,7 +83,7 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `feat: save scraped directory data to JSON`
 - [x] Add polite rate limits between requests using `time.sleep()`  
   - Commit: `perf: add rate limiting for ethical scraping`
-- [] Test and print summary (e.g., “552 profiles saved”)  
+- [x] Test and print summary (e.g., “552 profiles saved”)  
   - Commit: `test: validate scrape output summary`
 
 **Output:**  
@@ -96,9 +96,9 @@ The goal is to extract structured demographic data (from the directory table) an
 
 - [x] Create `scripts/scrape_profiles.py`  
   - Commit: `feat: create detailed profile scraper script`
-- [x] Load `profiles_master.json` into memory  
+- [] Load `profiles_master.json` into memory  
   - Commit: `chore: load JSON dataset`
-- [x] For each profile:
+- [] For each profile:
   - [x] Fetch `profileUrl` using `requests`  
     - Commit: `feat: request individual profile pages`
   - [x] Parse HTML with `BeautifulSoup`  
@@ -108,9 +108,9 @@ The goal is to extract structured demographic data (from the directory table) an
     - Commit: `feat: add extracted details to profile object`
   - [ ] Update `scrapeTimestampDetail`  
     - Commit: `chore: add timestamp for detail scrape`
-- [x] Save updated data to `profiles_master.json`  
+- [] Save updated data to `profiles_master.json`  
   - Commit: `feat: save enriched JSON dataset`
-- [x] Validate by checking record count and example entries  
+- [] Validate by checking record count and example entries  
   - Commit: `test: verify enriched data structure`
 
 **Output:**  
