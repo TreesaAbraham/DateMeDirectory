@@ -96,7 +96,7 @@ The goal is to extract structured demographic data (from the directory table) an
 
 - [x] Create `scripts/scrape_profiles.py`  
   - Commit: `feat: create detailed profile scraper script`
-- [] Load `profiles_master.json` into memory  
+- [x] Load `profiles_master.json` into memory  
   - Commit: `chore: load JSON dataset`
 - [] For each profile:
   - [x] Fetch `profileUrl` using `requests`  
