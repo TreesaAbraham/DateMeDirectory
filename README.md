@@ -79,7 +79,7 @@ The goal is to extract structured demographic data (from the directory table) an
   - Commit: `feat: construct profile dictionaries`
 - [x] Initialize empty fields for details (`profileDetails`, `scrapeTimestampDetail`)  
   - Commit: `chore: initialize empty detail fields`
-- [] Save all records into `/data/profiles_master.json`  
+- [x] Save all records into `/data/profiles_master.json`  
   - Commit: `feat: save scraped directory data to JSON`
 - [x] Add polite rate limits between requests using `time.sleep()`  
   - Commit: `perf: add rate limiting for ethical scraping`
