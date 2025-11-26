@@ -101,7 +101,7 @@ The goal is to extract structured demographic data (from the directory table) an
 - [] For each profile:
   - [x] Fetch `profileUrl` using `requests`  
     - Commit: `feat: request individual profile pages`
-  - [x] Parse HTML with `BeautifulSoup`  
+  - [ ] Parse HTML with `BeautifulSoup`  
     - Commit: `feat: parse profile page HTML`
     - Commit: `feat: extract longform profile sections`
   - [ ] Insert parsed data into `profileDetails` field  
