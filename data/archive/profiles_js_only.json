@@ -1,0 +1,840 @@
+[
+  {
+    "name": "Monel Chang",
+    "age": 36,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "NB"
+    ],
+    "location": "North America Western US Portland Oregon",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://compassmeet.com/Monel?referrer=Monel",
+    "lastUpdated": "2025-10-13",
+    "profileDetails": {
+      "fullText": "Monel | Compass\nCompass\nAbout\nFAQ\nVote\nWhat's new\nSocial\nOrganization\nContact\nSign in\nHome\nAbout\nSign in\nMore"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:29:51.015892+00:00",
+    "id": "usr_323f919897",
+    "docAccessible": true
+  },
+  {
+    "name": "Martin",
+    "age": 28,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area NYC London Central Europe DC UK Los Angeles Berlin Barcelona, Spain North America Flexible Boston NY Western US Seattle Chicago Asia NJ Philadelphia Paris, France Colorado Toronto Austin PA Canada Brighton Southern US Vancouver TX Portland MA Denver Brazil Amsterdam WI South of France Cambridge Berkeley WA Vancouver Island South Bay Oxford Oregon North Carolina Dubai Somerville Seoul Sacramento Ohio Madison Madrid, Spain Ladysmith BC Indianapolis Georgia Asheville Sydney Australia Sweden Ribeirão Bonito ON New Haven Nebraska Monterey Lubbock Ewing Collingswood CT Rhode Island Miami Indonesia Norway Israel Spain",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://www.compassmeet.com/Martin",
+    "lastUpdated": "2025-10-11",
+    "profileDetails": {
+      "fullText": "Martin | Compass\nCompass\nAbout\nFAQ\nVote\nWhat's new\nSocial\nOrganization\nContact\nSign in\nHome\nAbout\nSign in\nMore"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:29:54.877261+00:00",
+    "id": "usr_9368a27fa1",
+    "docAccessible": true
+  },
+  {
+    "name": "Ruth",
+    "age": 38,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "NB"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.compassmeet.com/RuthS",
+    "lastUpdated": "2025-10-11",
+    "profileDetails": {
+      "fullText": "Ruth S. | Compass\nCompass\nAbout\nFAQ\nVote\nWhat's new\nSocial\nOrganization\nContact\nSign in\nHome\nAbout\nSign in\nMore"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:29:56.216881+00:00",
+    "id": "usr_15f3bdcf80",
+    "docAccessible": true
+  },
+  {
+    "name": "Jackson",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Philadelphia",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Jackson-s-Date-Me-Doc-27dacb6c88e680daaf3fffae572fc12a?source=copy_link",
+    "lastUpdated": "2025-09-29",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:30:00.588566+00:00",
+    "id": "usr_5d1b9d55a6",
+    "docAccessible": true
+  },
+  {
+    "name": "Owen Murphy",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Boston",
+    "locationFlexibility": "None",
+    "profileUrl": "https://comet-ironclad-32c.notion.site/Date-Me-Doc-27cf132b9a83808198dff313967f26c3",
+    "lastUpdated": "2025-09-29",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:30:02.533606+00:00",
+    "id": "usr_db2dae94d0",
+    "docAccessible": true
+  },
+  {
+    "name": "Nathan Nguyen",
+    "age": 32,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Nathan-D-Nguyen-263ec25f8a5c80c58c96c643dfc621d8?source=copy_link",
+    "lastUpdated": "2025-09-13",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:30:17.670532+00:00",
+    "id": "usr_a7a9bad78b",
+    "docAccessible": true
+  },
+  {
+    "name": "Roxanne Wiedemann",
+    "age": 36,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Canada ON",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Hey-there-I-m-Roxanne-23f6d974e4b88022a65ce7130b8414b9?source=copy_link",
+    "lastUpdated": "2025-07-29",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:30:50.484582+00:00",
+    "id": "usr_2d2e80e632",
+    "docAccessible": true
+  },
+  {
+    "name": "Panagiotis",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Central Europe Norway",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://gorgeous-crown-b0b.notion.site/Hey-Panagiotis-here-21329cf3107080489687eeac53caf397?source=copy_link",
+    "lastUpdated": "2025-06-16",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:31:03.236308+00:00",
+    "id": "usr_55a09b3eb6",
+    "docAccessible": true
+  },
+  {
+    "name": "Jarrett",
+    "age": 35,
+    "gender": "M",
+    "interestedIn": [
+      "F",
+      "M",
+      "NB"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "None",
+    "profileUrl": "https://datejarrett.notion.site/",
+    "lastUpdated": "2025-05-26",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:31:35.131033+00:00",
+    "id": "usr_f1fa07879a",
+    "docAccessible": true
+  },
+  {
+    "name": "Pavitthra Pandurangan",
+    "age": 26,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://solid-helenium-175.notion.site/Date-me-Pavitthra-1fe42ee555c58027ad31ec162f4f7277?pvs=4",
+    "lastUpdated": "2025-05-25",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:31:36.644612+00:00",
+    "id": "usr_2b3c84d078",
+    "docAccessible": true
+  },
+  {
+    "name": "Maria Marshakova",
+    "age": 42,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Dubai Georgia Norway Israel Spain",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://www.notion.so/My-page-for-DateMeDoc-1e384e493d9c80f587e3c37182b150f6",
+    "lastUpdated": "2025-04-28",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:31:54.485970+00:00",
+    "id": "usr_2b2bbb68f8",
+    "docAccessible": true
+  },
+  {
+    "name": "Kendra",
+    "age": 37,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Paris, France",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://kaput-cycle-add.notion.site/Dating-Kendra-1c6f39a9767880baa5b6ec5d07f0086d",
+    "lastUpdated": "2025-03-30",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:32:15.995400+00:00",
+    "id": "usr_c83c3cd09e",
+    "docAccessible": true
+  },
+  {
+    "name": "Mairead",
+    "age": 37,
+    "gender": "F",
+    "interestedIn": [
+      "F",
+      "M",
+      "NB"
+    ],
+    "location": "North America",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://scarce-gem-bd7.notion.site/Mairead-s-Date-Me-Doc-166935b3efb980c9847ef01eb4f3a54e",
+    "lastUpdated": "2025-02-03",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:32:41.640481+00:00",
+    "id": "usr_ad37c5c484",
+    "docAccessible": true
+  },
+  {
+    "name": "Tanner Godarzi",
+    "age": 32,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "None",
+    "profileUrl": "https://tannergodarzi.notion.site/dating-tanner",
+    "lastUpdated": "2025-01-28",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:32:47.150251+00:00",
+    "id": "usr_dee75989a8",
+    "docAccessible": true
+  },
+  {
+    "name": "Emily",
+    "age": 24,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "DC North America Flexible",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://island-hoof-257.notion.site/Emily-s-Connection-Doc-267de24c51dc803c98d9c7bb03406dce?source=copy_link",
+    "lastUpdated": "2025-01-20",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:32:56.489515+00:00",
+    "id": "usr_3f5b9628fc",
+    "docAccessible": true
+  },
+  {
+    "name": "George",
+    "age": 34,
+    "gender": "M",
+    "interestedIn": [
+      "F",
+      "NB"
+    ],
+    "location": "Flexible",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://shy-jam-24f.notion.site/George-s-Date-Me-Document-178b037fd79d807aac13e4144ea83eb7",
+    "lastUpdated": "2025-01-12",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:32:57.933447+00:00",
+    "id": "usr_7bea345c09",
+    "docAccessible": true
+  },
+  {
+    "name": "swyx",
+    "age": 38,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area NYC Los Angeles Flexible Asia",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://swyx.notion.site/dateme",
+    "lastUpdated": "2025-01-02",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:33:19.279644+00:00",
+    "id": "usr_23903e6cac",
+    "docAccessible": true
+  },
+  {
+    "name": "Jose Luis Ricon",
+    "age": 32,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "None",
+    "profileUrl": "https://jlricon.notion.site/Date-Jos-152b4a20459b8066ac87e3ec08a17dd8?pvs=4",
+    "lastUpdated": "2024-12-26",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:33:23.425942+00:00",
+    "id": "usr_64aaeab250",
+    "docAccessible": true
+  },
+  {
+    "name": "Kaushik Donthi",
+    "age": 27,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://www.notion.so/Date-Kaushik-Donthi-Me-11d723154a764520a5e900daa6db6f4d?pvs=4",
+    "lastUpdated": "2024-10-05",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:34:13.663316+00:00",
+    "id": "usr_0e7b7af163",
+    "docAccessible": true
+  },
+  {
+    "name": "Robi Rahman",
+    "age": 30,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC DC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://fortunate-dragon-241.notion.site/Robi-Rahman-18dc6efe060a43f08163d67832f13719",
+    "lastUpdated": "2024-09-27",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:34:26.227766+00:00",
+    "id": "usr_175108006f",
+    "docAccessible": true
+  },
+  {
+    "name": "Campbell Hutcheson",
+    "age": 33,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area NYC",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://sudden-tulip-407.notion.site/Campbell-Hutcheson-6b27424d83ef409cb4610fc31b2cc3df?pvs=4",
+    "lastUpdated": "2024-07-09",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:35:28.475157+00:00",
+    "id": "usr_0595390b2a",
+    "docAccessible": true
+  },
+  {
+    "name": "Greg Rosenthal",
+    "age": 28,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "UK Cambridge",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://freckle-botany-7b8.notion.site/Greg-s-dating-doc-5574d7f17d6e49be86513dab9e971f3e",
+    "lastUpdated": "2024-04-29",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:01.628816+00:00",
+    "id": "usr_0949dff098",
+    "docAccessible": true
+  },
+  {
+    "name": "Omar",
+    "age": 31,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "None",
+    "profileUrl": "https://jerid616.notion.site/Date-Me-8a31b572fca1472eadd0a0493a4c597d",
+    "lastUpdated": "2024-04-12",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:19.541005+00:00",
+    "id": "usr_a5a2e6db18",
+    "docAccessible": true
+  },
+  {
+    "name": "Lilith",
+    "age": 32,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "NB"
+    ],
+    "location": "NYC NY",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://elixander.notion.site/Hi-hi-hello-d69bfcec34d248aa85dc804a29e48143?pvs=4",
+    "lastUpdated": "2024-04-11",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:21.385090+00:00",
+    "id": "usr_2a12586f88",
+    "docAccessible": true
+  },
+  {
+    "name": "Jonathan B",
+    "age": 38,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://glimmer-cod-b43.notion.site/Date-Me-Jonathan-B-d08452adae1e46b49b6e075553c37015",
+    "lastUpdated": "2024-04-09",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:23.191814+00:00",
+    "id": "usr_043cba3ae0",
+    "docAccessible": true
+  },
+  {
+    "name": "Sebastian Schmidt",
+    "age": 31,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "London Oxford San Francisco Bay Area Amsterdam Berlin",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Sebastian-as-a-romantic-partner-5ad229607f724cb28decc525cd450da7?pvs=4",
+    "lastUpdated": "2024-03-09",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:45.898412+00:00",
+    "id": "usr_91520afa39",
+    "docAccessible": true
+  },
+  {
+    "name": "Neissa",
+    "age": 26,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://bevel-atmosphere-4cc.notion.site/Ne-ssa-s-Date-Me-Doc-6f62593734914c5b9b57d482070205e9",
+    "lastUpdated": "2024-03-02",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:49.347637+00:00",
+    "id": "usr_eeb1bca3df",
+    "docAccessible": true
+  },
+  {
+    "name": "Sophie",
+    "age": 31,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "London Flexible Asia",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Sophie-s-Date-Me-doc-e372195429af4f5483c0142fd46cd660?pvs=4",
+    "lastUpdated": "2024-03-02",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:36:51.208680+00:00",
+    "id": "usr_720699db56",
+    "docAccessible": true
+  },
+  {
+    "name": "Nurdaulet",
+    "age": 20,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Asia",
+    "locationFlexibility": "None",
+    "profileUrl": "https://www.notion.so/invite/2ad42cdc7a96d6580cc209da189adb166eff3fd4",
+    "lastUpdated": "2024-01-12",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:37:50.470080+00:00",
+    "id": "usr_b4980f011e",
+    "docAccessible": true
+  },
+  {
+    "name": "Harrison",
+    "age": 23,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Madison",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://bolder-throat-20d.notion.site/Planting-Seeds-8ede85b1c0d445d0916e9810c2fb7a2b?pvs=4",
+    "lastUpdated": "2023-12-28",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:38:46.169995+00:00",
+    "id": "usr_a316ad1ed3",
+    "docAccessible": true
+  },
+  {
+    "name": "Nancy R",
+    "age": 64,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "PA",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://second-capricorn-6c0.notion.site/Nancy-fb6ce581497a40e983fd353185d151fb?pvs=4",
+    "lastUpdated": "2023-11-06",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:39:25.263430+00:00",
+    "id": "usr_8d798f2ac8",
+    "docAccessible": true
+  },
+  {
+    "name": "Furqan",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Los Angeles Dubai",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://www.notion.so/anmolnetwork/Who-is-Furqan-7759f82564184a4b9d6b9966440d1fbe",
+    "lastUpdated": "2023-11-06",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:39:27.028058+00:00",
+    "id": "usr_36af460751",
+    "docAccessible": true
+  },
+  {
+    "name": "Marta",
+    "age": 35,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://martakrzeminska.notion.site/Date-Me-17435416720c439b8d6725d690808f55?pvs=4",
+    "lastUpdated": "2023-10-11",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:39:40.654379+00:00",
+    "id": "usr_8ab426951e",
+    "docAccessible": true
+  },
+  {
+    "name": "Kaushik Donthi",
+    "age": 26,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Kaushik-Donthi-11d723154a764520a5e900daa6db6f4d#8b65a4bdce3f4dbaa441f8848aab0c74",
+    "lastUpdated": "2023-09-30",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:39:48.055221+00:00",
+    "id": "usr_b1185a9599",
+    "docAccessible": true
+  },
+  {
+    "name": "Mahir Jayswal",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Oregon",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://www.notion.so/Mahir-ec780fc3880e4a149a4969ad9137705c?pvs=4",
+    "lastUpdated": "2023-09-14",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:40:10.042587+00:00",
+    "id": "usr_6604a51053",
+    "docAccessible": true
+  },
+  {
+    "name": "Laurence",
+    "age": 31,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC NJ",
+    "locationFlexibility": "None",
+    "profileUrl": "https://sneaky-pull-671.notion.site/Date-Me-Laurence-647c3bfdc34240418822cfe333077927?pvs=4",
+    "lastUpdated": "2023-09-08",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:40:25.742880+00:00",
+    "id": "usr_da31a54b44",
+    "docAccessible": true
+  },
+  {
+    "name": "Cher Hu",
+    "age": 24,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://ritzy-aura-6c9.notion.site/Cher-s-Date-me-doc-5ae9cbebd5c64804a0f91675ae2cbc3d?pvs=4",
+    "lastUpdated": "2023-09-05",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:40:27.264910+00:00",
+    "id": "usr_91f5407cf3",
+    "docAccessible": true
+  },
+  {
+    "name": "Jake Gloudemans",
+    "age": 25,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "DC Philadelphia",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://jakegloudemans.notion.site/Jake-Gloudemans-Dating-Doc-cedc3162e02a498384749c8fd699569a",
+    "lastUpdated": "2023-09-05",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:40:28.863866+00:00",
+    "id": "usr_91a4ee8192",
+    "docAccessible": true
+  },
+  {
+    "name": "Anastasia",
+    "age": 50,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://date-me-page.notion.site/Date-Anastasia-4e802a8f08b64cbf8606cae089554aab?pvs=4",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:05.135168+00:00",
+    "id": "usr_72ee7b01b7",
+    "docAccessible": true
+  },
+  {
+    "name": "Gustavo Cunha",
+    "age": 36,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Brazil",
+    "locationFlexibility": "None",
+    "profileUrl": "https://sordid-jellyfish-935.notion.site/Perfil-8fba6a75bd894a90959953dae89882d1?pvs=4",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:10.983836+00:00",
+    "id": "usr_0546b515e7",
+    "docAccessible": true
+  },
+  {
+    "name": "Svitlana",
+    "age": 24,
+    "gender": "F",
+    "interestedIn": [
+      "F",
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/svitlanamm/Relationship-Builder-aae98e8e08e246768ba278406e03cc2a?pvs=4",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:32.466112+00:00",
+    "id": "usr_8e94444f6f",
+    "docAccessible": true
+  },
+  {
+    "name": "Xavier",
+    "age": 33,
+    "gender": "NBM",
+    "interestedIn": [
+      "F",
+      "NB"
+    ],
+    "location": "NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://pancakemx.notion.site/Date-Doc-Xavier-Jackson-601b9b63c75747e8895b04ed1474dd8d?pvs=4",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:34.727640+00:00",
+    "id": "usr_bc41567741",
+    "docAccessible": true
+  },
+  {
+    "name": "Connie",
+    "age": 33,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://lishiyo.notion.site/Date-Me-3-2f2c705daf264c6fbde42ee5149d9d6c",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:40.214903+00:00",
+    "id": "usr_ad60c5f6a0",
+    "docAccessible": true
+  },
+  {
+    "name": "Mahir Jayswal",
+    "age": 24,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://blue-equipment-c45.notion.site/Mahir-ec780fc3880e4a149a4969ad9137705c",
+    "lastUpdated": "2023-08-07",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:41:54.292424+00:00",
+    "id": "usr_80304fd0b5",
+    "docAccessible": true
+  },
+  {
+    "name": "Shanni",
+    "age": 30,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Vancouver",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://shanni-read.notion.site/shanni-read/Shanni-Dating-Profile-3129a32563484843a9711169fb5331cc",
+    "lastUpdated": "2023-08-03",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:42:00.529975+00:00",
+    "id": "usr_7400c5048a",
+    "docAccessible": true
+  },
+  {
+    "name": "Ansh Radhakrishnan",
+    "age": 23,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.notion.so/Ansh-s-Dating-Doc-a74d6d12f68646b29a6444bc6496ebbf?pvs=4",
+    "lastUpdated": "2023-08-03",
+    "profileDetails": {
+      "fullText": "Notion"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:42:11.543195+00:00",
+    "id": "usr_e540f7a375",
+    "docAccessible": true
+  }
+]
