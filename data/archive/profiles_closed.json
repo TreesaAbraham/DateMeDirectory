@@ -1,0 +1,703 @@
+[
+  {
+    "name": "Sophie",
+    "age": 34,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "London Central Europe UK Flexible Oxford",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://docs.google.com/document/d/1-JOHPfarVxfc4jjKW8CmjYEfKy9jR8BznGX8fkdi9K8/edit?usp=sharing",
+    "lastUpdated": "2025-08-01",
+    "profileDetails": {
+      "fullText": "Date Me Doc - Sophie\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash\nBanner hidden"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:55:14.721679+00:00",
+    "id": "usr_f813fe3406",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T00:50:07.181964+00:00"
+  },
+  {
+    "name": "Mr. Gillion",
+    "age": 47,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Berlin",
+    "locationFlexibility": "None",
+    "profileUrl": "https://weblove.de",
+    "lastUpdated": "2025-05-29",
+    "profileDetails": {
+      "fullText": "Diese Domain kaufen oder mieten!\nweblove.de\n2025 Copyright | All Rights Reserved.\nPrivacy Policy"
+    },
+    "scrapeTimestampDetail": "2025-11-25T15:53:25.378862Z",
+    "id": "usr_506a722e91",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "closed",
+    "reviewTimestamp": "2025-12-16T00:51:18.539497+00:00"
+  },
+  {
+    "name": "Heather K",
+    "age": 27,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "DC",
+    "locationFlexibility": "None",
+    "profileUrl": "https://docs.google.com/document/d/12NNPqHmwqHQd3x3HM_P3OzM7ELQRLYcEFS79zEIxtXw/edit?usp=sharing",
+    "lastUpdated": "2025-04-17",
+    "profileDetails": {
+      "fullText": "✨HEATHER’S DATE-ME DOC 💕\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:56:57.946442+00:00",
+    "id": "usr_41403a44f7",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T00:51:55.377579+00:00"
+  },
+  {
+    "name": "Voyteck",
+    "age": 37,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Spain",
+    "locationFlexibility": "Some",
+    "profileUrl": "http://gamevoycolor.com/",
+    "lastUpdated": "2025-04-12",
+    "profileDetails": {
+      "fullText": "Date Voy\nis a video game based project with a sole focus of\nfinding a life partner\n.\nIt is not a datesim, it is a real project, with a real person trying to do things differently.\nPlay DateVoyColor\nRead more on:\ntelegraph.co.uk\nign.com\nyoutube.com"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:57:00.348123+00:00",
+    "id": "usr_2e42d0c9b7",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "don't know what that was",
+    "reviewTimestamp": "2025-12-16T00:52:47.243349+00:00"
+  },
+  {
+    "name": "Kendra",
+    "age": 37,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Paris, France",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://kaput-cycle-add.notion.site/Dating-Kendra-1c6f39a9767880baa5b6ec5d07f0086d",
+    "lastUpdated": "2025-03-30",
+    "profileDetails": {
+      "fullText": "Skip to content\nNew page\nGet Notion free\nI am no longer seeking a partner.\nWishing you all the best with your dating journey!"
+    },
+    "scrapeTimestampDetail": "2025-11-27T16:50:51.192697+00:00",
+    "id": "usr_c83c3cd09e",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T00:53:32.152644+00:00"
+  },
+  {
+    "name": "Saurav Saha",
+    "age": 29,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area NYC Los Angeles Flexible Seattle Chicago Asia Dubai",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://youtu.be/F1t-mkH0vcw",
+    "lastUpdated": "2024-11-02",
+    "profileDetails": {
+      "fullText": "- YouTube\nAbout\nPress\nCopyright\nContact us\nCreators\nAdvertise\nDevelopers\nTerms\nPrivacy\nPolicy & Safety\nHow YouTube works\nTest new features\nNFL Sunday Ticket\n© 2025 Google LLC"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:59:19.168688+00:00",
+    "id": "usr_5963b90403",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T00:54:27.082909+00:00"
+  },
+  {
+    "name": "Swante",
+    "age": 31,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://docs.google.com/document/d/12XQMK59tZAGKHEHCRx8dVJhVmTqU4w7riPW-0SVvY74/edit?usp=sharing",
+    "lastUpdated": "2024-10-14",
+    "profileDetails": {
+      "fullText": "Swante's dating doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:59:30.627340+00:00",
+    "id": "usr_c1f47b1d9f",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T00:55:12.244785+00:00"
+  },
+  {
+    "name": "Monica Rodriguez",
+    "age": 39,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "North America Western US Seattle WA",
+    "locationFlexibility": "None",
+    "profileUrl": "https://docs.google.com/document/d/10RgS909geDjiyX8BxYqhsPeyPCNFxynRxetE27DYcjg/edit",
+    "lastUpdated": "2024-10-02",
+    "profileDetails": {
+      "fullText": "Latina love\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash\nBanner hidden"
+    },
+    "scrapeTimestampDetail": "2025-11-26T19:59:46.580726+00:00",
+    "id": "usr_8d4bde0d61",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking / deleted",
+    "reviewTimestamp": "2025-12-16T00:59:11.048999+00:00"
+  },
+  {
+    "name": "Ally Berke",
+    "age": 36,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://docs.google.com/document/d/10s4aF-fHPM9E5F8fvT8kCwfdlt1CYXOXHJgD3Uhge2A/edit?usp=sharing",
+    "lastUpdated": "2024-09-04",
+    "profileDetails": {
+      "fullText": "Date Ally\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:00:28.344130+00:00",
+    "id": "usr_2ac7390d20",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "closed",
+    "reviewTimestamp": "2025-12-16T01:03:25.843422+00:00"
+  },
+  {
+    "name": "Ying",
+    "age": 33,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "London UK",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1DIWvOO0YS3k2AKeujK-0IVA1w88wgAupnS3TkmpE0-I/edit",
+    "lastUpdated": "2024-09-10",
+    "profileDetails": {
+      "fullText": "A\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:00:23.079108+00:00",
+    "id": "usr_3a690462a0",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "closed",
+    "reviewTimestamp": "2025-12-16T01:03:58.955145+00:00"
+  },
+  {
+    "name": "Carter Allen",
+    "age": 23,
+    "gender": "M",
+    "interestedIn": [
+      "F",
+      "M",
+      "NB"
+    ],
+    "location": "San Francisco Bay Area Berkeley",
+    "locationFlexibility": "None",
+    "profileUrl": "https://docs.google.com/document/d/1A2WhNw3WMskp7m04_p9iVrDBBgfro_L1QYRIIo_IMJY/edit?usp=sharing",
+    "lastUpdated": "2024-08-26",
+    "profileDetails": {
+      "fullText": "carter dating doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nTab 1\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:00:36.268018+00:00",
+    "id": "usr_721192ee4b",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:04:20.886911+00:00"
+  },
+  {
+    "name": "Stephen",
+    "age": 25,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "North America",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://drive.proton.me/urls/0XBYSKBV28#kpfCOyF7CSMl",
+    "lastUpdated": "2024-08-06",
+    "profileDetails": {
+      "fullText": "Proton Drive\nEnd-to-end encrypted\nCreate free account\nHm, we couldn't find that one\nThis file may have been deleted, moved or made unavailable. Try reaching out to the file owner.\nBack to Homepage"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:01:03.780746+00:00",
+    "id": "usr_25a840c5ee",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:04:45.214506+00:00"
+  },
+  {
+    "name": "Paul",
+    "age": 23,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Berlin",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1QuvNz-hQLWwsmuRszWWnbWeTaUuNWGXZkqOTDh_Cty0/edit?usp=sharing",
+    "lastUpdated": "2024-07-30",
+    "profileDetails": {
+      "fullText": "Paul’s Date Me Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nPaul’s Date Me Doc\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:01:12.460437+00:00",
+    "id": "usr_ac16a8898f",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:05:48.421170+00:00"
+  },
+  {
+    "name": "Sisi",
+    "age": 31,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1e1x4Ch3nOmtS7NioUyH6RHX2syIuGT0hxABqxlxgM3E/edit?usp=sharing",
+    "lastUpdated": "2024-06-24",
+    "profileDetails": {
+      "fullText": "Sisi's Dating Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nSisi's Dating Doc\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:01:32.587478+00:00",
+    "id": "usr_ec4b81af94",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:06:43.257323+00:00"
+  },
+  {
+    "name": "Meaningful Existence",
+    "age": 38,
+    "gender": "M",
+    "interestedIn": [
+      "F",
+      "NB"
+    ],
+    "location": "",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://disk.yandex.com/i/k7TfKGcI5a7kEA",
+    "lastUpdated": "2024-04-15",
+    "profileDetails": {
+      "fullText": "MeaningfulExistence.pdf — Yandex Disk\n26\n+1 TB\nMeaningfulExistence.pdf\nSave to Yandex Disk\nDownload\nView\nInstall Yandex Disk on your phone\nYour photos, videos, and documents will always be at hand\nHelp and support\nReport\n©\nYandex\n2012—\n2025\nEN"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:02:35.859817+00:00",
+    "id": "usr_f7b9428395",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not worth looking into",
+    "reviewTimestamp": "2025-12-16T01:08:07.098480+00:00"
+  },
+  {
+    "name": "Y",
+    "age": 28,
+    "gender": "M",
+    "interestedIn": [
+      "F",
+      "M"
+    ],
+    "location": "Western US",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/viewerng/viewer?url=https://github.com/YawarRaza7349/YawarRaza7349/raw/main/YawarRaza_Resume.pdf",
+    "lastUpdated": "2024-04-13",
+    "profileDetails": {
+      "fullText": ""
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:02:38.255361+00:00",
+    "id": "usr_5639889d6a",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:08:25.968868+00:00"
+  },
+  {
+    "name": "Lilith",
+    "age": 32,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "NB"
+    ],
+    "location": "NYC NY",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://elixander.notion.site/Hi-hi-hello-d69bfcec34d248aa85dc804a29e48143?pvs=4",
+    "lastUpdated": "2024-04-11",
+    "profileDetails": {
+      "fullText": "Skip to content\n💘\nHi hi hello\nGet Notion free\n💘\nHi hi hello\nLast updated: Jan 1, 2025\n⏸️\nCurrently taking a break from dating. I’ve archived the contents of this page for now. Wishing everyone luck in their searches!\n💡\nIf you didn’t land here from a Date Me directory, you might be wondering what this is and/or think this is Very Weird (fair). Here’s the NYT Article that first introduced me to the idea—I just think of it as a more custom profile that’s not tied to a specific app."
+    },
+    "scrapeTimestampDetail": "2025-11-27T17:15:08.109202+00:00",
+    "id": "usr_2a12586f88",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "closed",
+    "reviewTimestamp": "2025-12-16T01:09:05.165160+00:00"
+  },
+  {
+    "name": "Debbie",
+    "age": 51,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "UK",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://www.google.com/webhp",
+    "lastUpdated": "2024-02-07",
+    "profileDetails": {
+      "fullText": "Google\nSearch\nImages\nMaps\nPlay\nYouTube\nNews\nGmail\nDrive\nMore\n»\nWeb History\n|\nSettings\n|\nSign in\nAdvanced search\nAdvertising\nBusiness Solutions\nAbout Google\n© 2025 -\nPrivacy\n-\nTerms"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:04:04.329549+00:00",
+    "id": "usr_990945cacb",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:10:00.770200+00:00"
+  },
+  {
+    "name": "Stephanie",
+    "age": 36,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1EBqqElL1ZOEQ2tI7bu5X_vNdlmmkt5eFJ4jzepMKecM/",
+    "lastUpdated": "2024-01-15",
+    "profileDetails": {
+      "fullText": "Stephanie's Date Me Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nStephanie's Date Me Doc\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:04:43.283069+00:00",
+    "id": "usr_e5c2cbe86a",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:11:12.886536+00:00"
+  },
+  {
+    "name": "Nurdaulet",
+    "age": 20,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Asia",
+    "locationFlexibility": "None",
+    "profileUrl": "https://www.notion.so/invite/2ad42cdc7a96d6580cc209da189adb166eff3fd4",
+    "lastUpdated": "2024-01-12",
+    "profileDetails": {
+      "fullText": "English (US)\nYour AI workspace.\nCreate your Notion account\nContinue with Google\nContinue with Apple\nContinue with Microsoft\nLog in with passkey\nSingle sign-on (SSO)\nWork email\nUse an organization email to easily collaborate with teammates\nContinue\nBy continuing, you acknowledge that you understand and agree to the Terms & Conditions and Privacy Policy"
+    },
+    "scrapeTimestampDetail": "2025-11-27T17:23:35.127729+00:00",
+    "id": "usr_b4980f011e",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "invalid",
+    "reviewTimestamp": "2025-12-16T01:11:39.291078+00:00"
+  },
+  {
+    "name": "Jacob",
+    "age": 39,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://typezero.fun/Personal/date+me",
+    "lastUpdated": "2024-01-07",
+    "profileDetails": {
+      "fullText": "Type Zero Fun\nBreathwork\nEvergreen Notes\nPersonal\ndate me\nreading list\nhome\nI have moved this to a private document. Please request to view it and leave me a note, preferably with a link to your own doc.\nDate Me\nI have also prepared a matchmaking guide, where I outline my bounty and additional information that will help prospective matchmakers identify someone compatible with me. If you request access to this document I will assume that you are not interested in dating me.\nMatch Me\nLINKS TO THIS PAGE\nevergreen notes\ndate me\nPowered by Obsidian Publish"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:05:28.263141+00:00",
+    "id": "usr_21be78652a",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "closed",
+    "reviewTimestamp": "2025-12-16T01:13:03.452034+00:00"
+  },
+  {
+    "name": "Simon",
+    "age": 30,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Central Europe",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://drive.proton.me/urls/EBFN1C3DYR#dy4uSOHlAoYi",
+    "lastUpdated": "2024-01-04",
+    "profileDetails": {
+      "fullText": "Proton Drive\nEnd-to-end encrypted\nCreate free account\nHm, we couldn't find that one\nThis file may have been deleted, moved or made unavailable. Try reaching out to the file owner.\nBack to Homepage"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:05:41.157741+00:00",
+    "id": "usr_7f046d16f7",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "invalid",
+    "reviewTimestamp": "2025-12-16T01:14:24.792550+00:00"
+  },
+  {
+    "name": "Ben Dylan",
+    "age": 39,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "NYC Los Angeles Flexible",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://docs.google.com/document/d/1-XTJsW9s_2sAJ7UAM4fQrAqaiE9bsJFZ3mmENnrxdIg/edit?usp=sharing",
+    "lastUpdated": "2024-01-03",
+    "profileDetails": {
+      "fullText": "date me\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\ndate me\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:05:53.201422+00:00",
+    "id": "usr_6050579a71",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:14:46.843569+00:00"
+  },
+  {
+    "name": "Nosa",
+    "age": 33,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Colorado Flexible",
+    "locationFlexibility": "Flexible",
+    "profileUrl": "https://docs.google.com/document/d/1T_tiwZ3ZD3KMxcYAsqPJRzqIHIdweE3aBUm_SSI6s60/edit",
+    "lastUpdated": "2023-12-29",
+    "profileDetails": {
+      "fullText": "About Nosa\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nAbout Nosa\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:05:59.143161+00:00",
+    "id": "usr_d53c962261",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:15:05.773972+00:00"
+  },
+  {
+    "name": "Sindhu",
+    "age": 35,
+    "gender": "F",
+    "interestedIn": [
+      "M",
+      "F"
+    ],
+    "location": "London UK",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1bsEIkpmyDxn778qUukRktJhpv_mIH82F6_jEG5Ebfa4/edit",
+    "lastUpdated": "2023-12-18",
+    "profileDetails": {
+      "fullText": "Sindhu Date me Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nSindhu Date me Doc\nSindhu’s Dating Bio\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:06:16.348193+00:00",
+    "id": "usr_2936a1d29e",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:15:30.010708+00:00"
+  },
+  {
+    "name": "Zak Kallenborn",
+    "age": 33,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "DC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://zkallenborn.com/dateme",
+    "lastUpdated": "2023-10-18",
+    "profileDetails": {
+      "fullText": "Zak's Site"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:07:05.138811+00:00",
+    "id": "usr_c94d1be648",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "password",
+    "reviewTimestamp": "2025-12-16T01:16:20.418233+00:00"
+  },
+  {
+    "name": "quinn",
+    "age": 31,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "San Francisco Bay Area Berkeley",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://quinnd.net",
+    "lastUpdated": "2023-09-28",
+    "profileDetails": {
+      "fullText": "Hello from Quinn Dougherty | Quinn Dougherty\nSkip to main content\nQuinn Dougherty\nCV\nDate me\nQuinn Dougherty\nSoftware etc. He/him. Berkeley.\nMy documentation\nMath and CS\nWorking on Guaranteed Safe AI\nSocials\nCan we secure AI via formal methods?\nLessWrong\nEffective Altruism Forum\nGitHub\nX\nManifold\nSite built at Fri Oct 31 2025 14:05:41 GMT+0000 (Coordinated Universal Time)."
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:07:26.478011+00:00",
+    "id": "usr_b555d28cec",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "pretty sure not a dateme doc",
+    "reviewTimestamp": "2025-12-16T01:16:50.637440+00:00"
+  },
+  {
+    "name": "Lauren",
+    "age": 32,
+    "gender": "F",
+    "interestedIn": [
+      "F",
+      "M"
+    ],
+    "location": "London",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1IdN1GFAlBzw0SxyxpngUPMjWohCumAz_Kkwd_Kkvj1I/edit",
+    "lastUpdated": "2023-08-31",
+    "profileDetails": {
+      "fullText": "Lauren Gilbert Date Me Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nLauren Gilbert Date Me Doc\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:08:18.137886+00:00",
+    "id": "usr_25e4976fcd",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:17:09.878099+00:00"
+  },
+  {
+    "name": "Gustavo Cunha",
+    "age": 36,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "Brazil",
+    "locationFlexibility": "None",
+    "profileUrl": "https://sordid-jellyfish-935.notion.site/Perfil-8fba6a75bd894a90959953dae89882d1?pvs=4",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "Skip to content\nPerfil\nGet Notion free\nPerfil\nEm breve…"
+    },
+    "scrapeTimestampDetail": "2025-11-27T17:42:10.440184+00:00",
+    "id": "usr_0546b515e7",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:18:23.655758+00:00"
+  },
+  {
+    "name": "Tamera",
+    "age": 28,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "San Francisco Bay Area",
+    "locationFlexibility": "",
+    "profileUrl": "https://docs.google.com/document/d/1n_O2nBYJwsZDSXXrVCo9zZHVioeHyvjNWRk6TVCauS8/edit?usp=sharing",
+    "lastUpdated": "2023-08-21",
+    "profileDetails": {
+      "fullText": "﻿Hello! Thanks for clicking a link to my date me doc 🙂\r\n\r\n\r\nAs of Oct 2, 2025, I am not currently looking for dates through this doc. That could change in the future! I am also still open to being flirted with if you happen to meet me in person ✨"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:09:37.565424+00:00",
+    "id": "usr_a34ee9e7e9",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:18:44.894344+00:00"
+  },
+  {
+    "name": "Shanni",
+    "age": 30,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "Vancouver",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://shanni-read.notion.site/shanni-read/Shanni-Dating-Profile-3129a32563484843a9711169fb5331cc",
+    "lastUpdated": "2023-08-03",
+    "profileDetails": {
+      "fullText": "Skip to content\nShanni Dating Profile\nGet Notion free\nShanni Dating Profile\nInstagram (@shanni_daily_drawing)\nInstagram photos and videos\nhttps://www.instagram.com/shanni_daily_drawing/"
+    },
+    "scrapeTimestampDetail": "2025-11-27T17:50:37.434001+00:00",
+    "id": "usr_7400c5048a",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not a doc",
+    "reviewTimestamp": "2025-12-16T01:19:20.525353+00:00"
+  },
+  {
+    "name": "Nicole Kelner",
+    "age": 29,
+    "gender": "F",
+    "interestedIn": [
+      "M"
+    ],
+    "location": "NY NYC",
+    "locationFlexibility": "Some",
+    "profileUrl": "https://docs.google.com/document/d/1WAEo7P5mBDopK8Z4eBVh0bsoyZaCz3o8WBv-37XUYLA/edit?usp=sharing",
+    "lastUpdated": "2023-08-03",
+    "profileDetails": {
+      "fullText": "Nicole Kelner Date Me Doc\nSaved to Drive\nRequest edit access\nShare\nSign in\nFileEditViewToolsHelp\nDocument tabs\nNicole Kelner Date Me Doc\nHeadings you add to the document will appear here.\nTurn on screen reader support\nBanner hidden\nTo enable screen reader support, press ⌘+Option+Z To learn about keyboard shortcuts, press ⌘slash"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:10:55.797470+00:00",
+    "id": "usr_a46d2565ca",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "not looking",
+    "reviewTimestamp": "2025-12-16T01:19:38.703875+00:00"
+  },
+  {
+    "name": "Quinn",
+    "age": 29,
+    "gender": "M",
+    "interestedIn": [
+      "F"
+    ],
+    "location": "PA Philadelphia",
+    "locationFlexibility": "",
+    "profileUrl": "https://www.dropbox.com/s/e2mceokf80df0d4/rat-dating-profile.odt?dl=0",
+    "lastUpdated": "2023-08-03",
+    "profileDetails": {
+      "fullText": "Sign In\nThis item was deleted\nYou might be able to find it in your deleted files. If it's not there, try asking the person who shared it with you.\nCheck deleted files\nWe use cookies to provide, improve, protect and promote our services. Visit our Privacy Policy and Privacy Policy FAQs to learn more. You can manage your personal preferences, including your ‘Do not sell or share my personal data to third parties’ setting using the “Customize cookies” button below.\nCustomize cookies\nDecline\nAccept All"
+    },
+    "scrapeTimestampDetail": "2025-11-26T20:11:53.113366+00:00",
+    "id": "usr_9a1dcde21c",
+    "docAccessible": true,
+    "reviewStatus": "closed",
+    "reviewReason": "deleted",
+    "reviewTimestamp": "2025-12-16T01:20:19.987733+00:00"
+  }
+]

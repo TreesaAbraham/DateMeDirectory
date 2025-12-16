@@ -235,3 +235,9 @@ Updated `profiles_master.json` with both directory and profile-level text.
 - [ ] **Purpose:** Python-based qualitative and quantitative data analysis of public self-presentations  
 - [ ] **Version:** 3.0 – November 2025  
   - Commit: `chore: update metadata for Python-only version`
+
+
+Notes:
+1. need to take any of the few profiles that can't be used and toss them
+2. dropbox was deleted
+
