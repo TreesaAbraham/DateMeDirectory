@@ -1,0 +1,323 @@
+<script>
+const loveStruct = {
+    name: 'Neil Thawani',
+    ipaLink: 'http://ipa-reader.xyz/?text=nil%20%CE%B8%C9%99w%C9%94ni',
+    dateOfBirth: '1988',
+    diet: 'Omnivore',
+    locationOfOrigin: 'Columbia, Missouri, USA',
+    presentLocation: 'Denver, Colorado, USA',
+    headerPhoto: {
+        src: 'src/static/images/love/cropped.png',
+        alt: 'Profile picture, headshot from August 2022'
+    },
+    pictures: [{
+        src: 'src/static/images/love/Aug22_Wedding.png',
+        alt: 'A wedding in Chicago, August 2022',
+    }, {
+        src: 'src/static/images/love/Aug22_Pigeons.png',
+        alt: 'Birds aren&apos;t real.',
+    }, {
+        src: 'src/static/images/love/coderdojo_pfp.png',
+        alt: 'Me at CoderDojo KC in February 2016'
+    }, {
+        src: 'src/static/images/love/Hiking_with_B.jpeg',
+        alt: 'Hiking with an old friend',
+    }, {
+        src: 'src/static/images/love/May19_CageDiving.jpeg',
+        alt: 'Shark cage diving off the coast of Cape Town, South Africa, May 2019',
+    }, {
+        src: 'src/static/images/love/Pusheen_Halloween.jpeg',
+        alt: 'I was Pusheen for Halloween.',
+    }, {
+        src: 'src/static/images/love/SkiTrip.jpeg',
+        alt: 'Ski trip with friends',
+    }, {
+        src: 'src/static/images/love/Feb22_Patagonia.jpeg',
+        alt: 'A 4-day hiking excursion in Torres del Paine, Chile, February 2022',
+    }],
+    desiredTraitsInAPartner: [{
+        abbreviation: 'Optimistic about the future.',
+        sentence: 'Optimistic about the future. The world is getting better - all the data says so. But there\'s a lot of income inequality and the old order is slowly dying so the new one can be born. The next few years are going to be choppy, but overall, I am optimistic about the future and would like to be with someone who is too.',
+    }, {
+        abbreviation: 'a partner in <strike>crime</strike> doing legal activities',
+        sentence: 'A Global Citizen or a Third Culture Kid. I have traveled internationally and would like to travel some more. I want to meet a partner in <strike>crime</strike> doing legal activities who might be interested in doing the same.',
+    }, {
+        abbreviation: 'being sweet',
+        sentence: 'Kind, gentle, patient, and adorable. I like to define this as "being sweet on someone."',
+    }, {
+        abbreviation: 'Body-mindful',
+        sentence: 'Body-mindful and fitness oriented. I am a yogi and a kickboxer. If I have time, I move my body 7 days a week. I enjoy long walks and would like to remain mobile long into old age.',
+    }, {
+        abbreviation: 'The willingness to do The Work.',
+        sentence: 'The willingness to do The Work. This means engaging in some form of meditation (passive or active) and practicing overall mental wellness. This means cultivating compassion (loving kindness), grace (forgiveness), and mercy (an understanding of your innate humanity with its conditioning and context) for yourself over time so you can grow and put that person - present and grounded - out into the world to serve others.',
+    }, {
+        abbreviation: 'I want to meet someone who can teach me something.',
+        sentence: 'Deeply knowledgeable about one subject. I would like to be with someone who is as enamored by their work as I am with mine. It can be broad discipline-specific knowledge or deep academic/researched knowledge, but charming people who know things about stuff and can articulate what they know confidently are so attractive. I want to meet someone who can teach me something.',
+    }, {
+        abbreviation: 'enjoys being present in society',
+        sentence: 'Likes going to things like galas, balls, parties. Basically, like, enjoys being present in society. When I go out, I like to do things like go dancing or go to different venues to explore a community. I don\'t really like live music unless I can dance to it.'
+    }, {
+        abbreviation: 'Self-actualized or self-actualizing.',
+        sentence: 'Self-actualized or self-actualizing. Interested in doing meaningful work (whatever that means to you). A partner might even be uncovering their passion and that charges their energy up and out of bed in the morning, as they develop devotion toward some quest that their head and heart are bound inevitably toward.',
+    }, {
+        abbreviation: 'you should value having people you love close to you',
+        sentence: 'Values family. I have a large nuclear, chosen, and extended family. You don\'t have to have a large family, but you should value having people you love close to you - emotionally and/or geographically.',
+    }, {
+        abbreviation: 'Familiar with hippie culture.',
+        sentence: 'Familiar with hippie culture. Some of my best friends are former (or current!) flower children and tree huggers.',
+    }],
+    thingsINoticedAboutMyself: [{
+        abbreviation: 'hungry for knowledge',
+        sentence: 'I am quite hungry for knowledge. If I see something I don\'t understand, I try to find out about it. I use my phone for calls, texting, and Googling interesting facts.',
+    }, {
+        abbreviation: 'good memory',
+        sentence: 'I view the world through a series of mental models and frameworks and organize information from a systems perspective. I usually reason by induction. I have a uniquely good memory, which I augment with Google Calendar. I text my friends on their birthdays. When I say, "Noted" in conversation, it means that I actually made a mental or literal note and will return to that thought later. I am uniquely prepared for many situations and this has manifested itself in the form of overpacking for airplane trips by about 20 lbs. and then paring down to the essentials before I leave for the airport - portable luggage scale at the ready.',
+    }, {
+        abbreviation: 'an intuitive and sensory-oriented person',
+        sentence: 'I can generally gauge people\'s character, motivations, and latch onto their interests within about 10 minutes of conversation. I am an intuitive and sensory-oriented person. Of course, I don\'t gel with everyone, but most people are interesting and open to the sort of banter I like to engage in - mostly friendly, sometimes weird or unexpected.',
+    }, {
+        abbreviation: 'What is randomness, anyway?',
+        sentence: 'I am not necessarily religious or spiritual, but I do find value in rituals and the concept of God. I do not know if I believe that we have Free Will and I have noticed non-linearities and synchronicities and "gut feelings" contribute a lot more to my lived experience than a scientist such as myself should admit. What is randomness, anyway?',
+    }, {
+        abbreviation: 'therapy',
+        sentence: 'I have spent hours in therapy. I have done <a href="https://www.amazon.com/How-Do-Work-Recognize-Patterns/dp/006301209X">The Work</a>. I believe in and employ <a href="https://www.amazon.com/Nonviolent-Communication-Language-Life-Changing-Relationships/dp/189200528X">Non-Violent/Compassionate Communication</a>.',
+    }, {
+        abbreviation: 'swagtastic',
+        sentence: 'I am swagtastic but also trying to be humble as I move forward in my life.'
+    }, {
+        abbreviation: 'I do not watch professional sports.',
+        sentence: 'I do not watch professional sports. I appreciate and enjoy competition and I am very competitive when I participate in sports, but I do not actively watch the NBA, NFL, MLB, NHL, FIFA, etc. unless in an otherwise enjoyable social context like a house party (e.g., Super Bowl parties) or a special event. I watched the Atlanta United FC soccer match against CF Montreal in November 2019 as part of my friend\'s bachelor party agenda.',
+    }],
+    potentialDealbreakers: {
+        time: [
+            '"Quality Time" is one of my love languages.',
+            '"Acts of Service" is not one of my love languages, but I think someone whose it is can benefit from my organized nature. I\'ll wash your dishes. That\'s how you know I really like you.',
+            'I wake up at around 7am and sleep around 11pm most days. This varies occasionally by plus/minus two hours.',
+        ],
+        sex: [
+            'I am masculine, cisgender, and mostly monogamous with a handful of stints practicing ethical nonmonogamy. I strongly prefer monogamy to ENM. My gender presentation is usually normative.',
+            '"Physical Touch" is one of my love languages. Sex is a fairly important part of a romantic relationship to me. I enjoy cuddling and being physically affectionate.'
+        ],
+        kids: [
+            'I would like to have up to three of my own biological children. I also think it would be cool to have twins.',
+        ],
+        money: [
+            '"Gift Giving" is not one of my love languages. I have almost every material possession I\'ve ever wanted.',
+            'I am frugal and the son of first-generation Indian immigrants. Most of my money is spent on food and gas, and I like to go on a trip every three months - usually domestic, sometimes international.',
+        ],
+    },
+    bestWayToContact: 'Email <a href="mailto:neilthawani@gmail.com?subject=[Love Doc]">neilthawani@gmail.com</a> prepending the subject line with <strong>[Love Doc]</strong>.<br /><br />An ideal message is similar to the format of this doc with a list of desired traits/habits you want to see in your mate, some self-awareness with various implications, and potential dealbreakers. Some logistical information (age, sex, location, etc.) would be good too.<br /><br />Alternatively, you could just <a href="https://twitter.com/neilthawani" target="_blank">shoot your shot</a>.'
+};
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    const nameHeader = document.getElementById('name');
+    nameHeader.lastElementChild.innerHTML = `<a href=${loveStruct.ipaLink}>${loveStruct.name}</a>`;
+
+    ['dateOfBirth', 'diet', 'locationOfOrigin', 'presentLocation'].forEach((item) => {
+        const header = document.getElementById(item);
+        header.lastElementChild.innerHTML = loveStruct[item];
+    });
+
+    const picturesDiv = document.getElementById('pictures');
+    loveStruct.pictures.forEach((item) => {
+        const image = `<a href='${item.src}'><img src='${item.src}' alt='${item.alt}' /></a>`;
+        picturesDiv.innerHTML += image;
+    });
+
+    const traitArrayKeys = ['desiredTraitsInAPartner', 'thingsINoticedAboutMyself'];
+    traitArrayKeys.forEach((key) => {
+        let el = document.getElementById(key);
+        const array = loveStruct[key];
+
+        array.forEach((obj, index) => {
+            const abbreviationDiv = `<div class="abbreviation" data-expanded="false" data-struct=${key} data-index=${index} onClick="traitClicked(${key}, ${index})">+ ${obj.abbreviation}</div>`;
+            el.innerHTML += abbreviationDiv;
+        });
+    });
+
+    const contactDiv = document.getElementById('bestWayToContact');
+    contactDiv.lastElementChild.innerHTML = loveStruct.bestWayToContact;
+});
+
+function dealbreakerClicked(id) {
+    const el = document.getElementById(id);
+
+    if (el.getAttribute('data-expanded') === 'true') {
+        el.innerHTML = el.innerHTML.slice(0, el.innerHTML.indexOf('</h2>') + 5);
+        el.setAttribute('data-expanded', false);
+    } else {
+        const array = loveStruct.potentialDealbreakers[id];
+
+        array.forEach((sentence) => {
+            const item = `<p>${sentence}</p>`;
+            el.innerHTML += item;
+        });
+
+        el.setAttribute('data-expanded', true);
+    }
+}
+
+function traitClicked(traitDiv, index) {
+    const trait = traitDiv.id;
+    const divToModify = traitDiv.querySelector(`[data-index="${index}"]`);
+    const abbrevObj = loveStruct[trait][index];
+
+    if (divToModify.getAttribute('data-expanded') === 'true') {
+        divToModify.innerHTML = `+ ${abbrevObj.abbreviation}`;
+        divToModify.setAttribute('data-expanded', false);
+    } else {
+        divToModify.innerHTML = `– ` + abbrevObj.sentence.replace(abbrevObj.abbreviation, `<strong><u>${abbrevObj.abbreviation}</u></strong>`);;
+        divToModify.setAttribute('data-expanded', true);
+    }
+}
+</script>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
+  <head>
+    <title>
+      A very detailed dating profile ...
+    </title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="src/static/images/favicon.png" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:title" content="Neil Thawani - Software Engineer and K-12 STEAM+Computing Educator" />
+    <meta property="og:url" content="http://www.lioninawhat.com/" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="src/static/images/favicon.png">
+
+    <base href="/">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-22ETHGYB6N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-22ETHGYB6N');
+    </script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.9.1/dist/showdown.min.js"></script>
+
+    <script type="text/javascript" src="src/static/javascript/blog.js"></script>
+    <script type="text/javascript" src="src/static/javascript/button-selector.js"></script>
+    <script type="text/javascript" src="src/static/javascript/menu.js"></script>
+
+    <link type="text/css" href="styles/main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="visible-phone mobile-nav-container">
+      <ul class="mobile-nav love-menu">
+        <li class="mobile-nav-item"><a href="/love.html#desiredTraitsInAPartner">You</a></li>
+        <li class="mobile-nav-item"><a href="/love.html#name">Me</a></li>
+        <li class="mobile-nav-item"><a href="/love.html#dealbreakers">Dealbreakers</a></li>
+        <li class="mobile-nav-item"><a href="/love.html#bestWayToContact">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="hidden-phone">
+      <div class="nav love-menu">
+        <a id="fullname" href="/">
+          <span id="firstname">&nbsp;</span>
+          <span id="lastname"></span>
+        </a>
+    
+        <ul class="nav-pills">
+          <a href="/love.html#desiredTraitsInAPartner">
+            <li>About You</li>
+          </a>
+    
+          <a href="/love.html#name">
+            <li>About Me</li>
+          </a>
+    
+          <a href="/love.html#dealbreakers">
+            <li>Dealbreakers</li>
+          </a>
+    
+          <a href="/love.html#bestWayToContact">
+            <li>Contact</li>
+          </a>
+        </ul>
+      </div>
+    </div>
+        <div class="love-container">
+            <h1 id="name">
+                Name:
+                <span></span>
+            </h1>
+    
+            <h2 id="dateOfBirth">
+                Birth year:
+                <span></span>
+            </h2>
+    
+            <h2 id="diet">
+                Diet:
+                <span></span>
+            </h2>
+    
+            <h2 id="locationOfOrigin">
+                Location of origin:
+                <span></span>
+            </h2>
+    
+            <h2 id="presentLocation">
+                Present location:
+                <span></span>
+            </h2>
+    
+            <div id="pictures">
+                <h2>Pictures (click to expand)</h2>
+            </div>
+            
+            <div>
+                <h2 class="text-center">All boxes are also expandable.</h2>
+            </div>
+    
+            <div id="potentialDealbreakers">
+                <h1>Potential Dealbreakers</h1>
+    
+                <div class="potential-dealbreakers" id="dealbreakers">
+                    <div id="time" onClick="dealbreakerClicked('time')">
+                        <h2>Time</h2>
+                    </div>
+    
+                    <div id="sex" onClick="dealbreakerClicked('sex')">
+                        <h2>Sex</h2>
+                    </div>
+    
+                    <div id="kids" onClick="dealbreakerClicked('kids')">
+                        <h2>Kids</h2>
+                    </div>
+    
+                    <div id="money" onClick="dealbreakerClicked('money')">
+                        <h2>Money</h2>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="desiredTraitsInAPartner">
+                <h1>Desired Traits in a Partner</h1>
+            </div>
+    
+            <div id="thingsINoticedAboutMyself">
+                <h1>Things I Noticed About Myself</h1>
+            </div>
+    
+            <div id="bestWayToContact">
+                <h2>Best way to contact:</h2>
+                <span></span>
+            </h3>
+        </div>
+  </body>
+</html>

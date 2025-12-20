@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kevg</title>
+    <link href="feed.xml" type="application/atom+xml" rel="alternate" title="kevg's thoughts" />
+    <style>
+      body {
+        background-color: #497600;
+        color: white;
+        font-family: Verdana;
+        margin: 0 auto;
+        max-width: 600px;
+        text-align: center;
+        padding: 20px;
+        padding-top: 5px;
+        background-image: url("backgrounds/grass.jpg");
+        font-family: monospace;
+      }
+      
+      .horizontalcenter {
+        text-align: center;
+      }
+      
+      .indentFirstLine {
+        text-indent: 30px;
+      }
+      
+      iframe {
+        margin-bottom: 40px;
+      }
+      
+      ul, ol {
+        text-align: left;
+        padding-left: 20px;
+      }
+      
+      a, a:visited, a:hover {
+        color: white;
+      }
+      
+      .bottomRightShadow {
+        box-shadow: 7px 8px 0px 0px rgba(0, 0, 0, 0.33);
+      }
+      
+      .topRightShadow {
+        box-shadow: 7px -8px 0px 0px rgba(0, 0, 0, 0.33);
+      }
+      
+      .iframeWrapper {
+        width: 560px;
+        height: 315px;
+        max-width: 100%;
+        border-radius: 40px;
+        overflow: hidden;
+        margin: 40px auto;
+      }
+      
+      .container {
+        background-color: #497600;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top: 40px;
+        border: 3px solid white;
+        border-radius: 10px;
+      }
+      
+      .containerContent {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      
+      .mediumScrollingBox {
+        max-height: 50vh;
+        overflow-y: scroll;
+      }
+      
+      .largeScrollingBox {
+        max-height: 65vh;
+        overflow-y: scroll;
+      }
+      
+      .veryLargeScrollingBox {
+        max-height: 90vh;
+        overflow-y: scroll;
+      }
+      
+      .alignLeft {
+        text-align: left;
+      }
+      
+      .verticalpadding {
+        padding-top: 30px;
+        padding-bottom: 20px;
+      }
+      
+      img, iframe, video {
+        max-width: 100%;
+      }
+      
+      img {
+        border: 0;
+      }
+      
+      .contentContainer img {
+        border-radius: 10px;
+      }
+      
+      .contentContainer img, .contentContainer video {
+        max-width: 80%;
+      }
+      
+      .contentContainer img {
+        max-height: 400px;
+      }
+
+      .contentContainer video {
+        border: 1px solid black;
+      }
+      
+      .container h1 {
+        margin-top: 0;
+      }
+      
+      #thoughts h1, #thoughts h2, #thoughts h3 {
+        text-align: center;
+      }
+      
+      pre {
+        white-space: pre-wrap;
+        padding-left: 20px;
+      }
+      
+      #profileVideo {
+        width: 560px;
+        max-width: 100%;
+        margin: 0 auto;
+        border-radius: 280px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      
+      #stamps img {
+        cursor: pointer;
+      }
+      
+      .hr {
+        border-bottom: 1px solid white;
+        padding-bottom: 10px;
+      }
+      
+      .divider-repeat {
+        height: 35px;
+        width: 100%;
+        background-repeat: repeat-x;
+        background-size: contain;
+        background-position-x: center;
+        margin-bottom: 30px;
+      }
+      
+      .divider {
+        height: 35px;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: center;
+        margin-bottom: 30px;
+      }
+      
+      .beenthere {
+        list-style-image: url(images/pawgreen.gif);
+      }
+      
+      
+      @keyframes growshrinkAnimation {
+        0% {
+          transform: scale(1.0);
+        }
+        50% {
+          transform: scale(1.5);
+        }
+        100% {
+          transform: scale(1.0);
+        }
+      }
+      .growshrink {
+        animation: growshrinkAnimation 3.0s linear infinite;
+        display: inline-block;
+      }
+      
+      
+      @keyframes rotateABitBackAndForthAnimation {
+        from {
+          transform: rotate(-15deg);
+        }
+        to {
+          transform: rotate(5deg);
+        }
+      }
+      .rotateABitBackAndForth {
+        animation: rotateABitBackAndForthAnimation 1s linear infinite alternate;
+      }
+      
+      #sayings cite::before {
+        content: "~ ";
+      }
+      #sayings cite {
+        font-style: italic;
+        font-size: small;
+      }
+      #sayings pre {
+        padding-left: 0;
+      }
+      
+    </style>
+    
+    <!-- https://swiperjs.com/ -->
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <script src="js/swiper-bundle.min.js"></script>
+    
+    <style>
+      .swiper-slide {
+        width: 300px;
+      }
+      
+      .swiper img {
+        max-height: 300px;
+        border-radius: 10px;
+      }
+      
+      :root {
+        --swiper-theme-color: white;
+      }
+    </style>
+
+  </head>
+  <body>
+  
+    <div id="sayings" class="container bottomRightShadow largeScrollingBox" style="background-image: url(backgrounds/dark-wood.png); font-size: large;">
+      <p>Moved to <a href="https://kevgrig.com/">kevgrig.com</a></p>
+    </div>
+    
+  </body>
+</html>
