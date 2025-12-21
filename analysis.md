@@ -90,3 +90,20 @@ none        30
 unknown     16
 
 [done] demographics summary printed.
+
+
+
+_____________________________________________
+
+
+[text coverage]
+  profiles with any text: 322 / 322
+
+[summary stats] (profiles with text)
+  word_count: mean=973.304 | median=724.000 | min=102.000 | max=12720.000
+  avg_sentence_len_words: mean=23.176 | median=19.141 | min=7.536 | max=144.000
+  exclam_per_100_words: mean=0.492 | median=0.317 | min=0.000 | max=3.679
+  emoji_per_100_words: mean=0.408 | median=0.000 | min=0.000 | max=8.350
+  questions_per_100_words: mean=0.286 | median=0.130 | min=0.000 | max=1.954
+
+[done]
