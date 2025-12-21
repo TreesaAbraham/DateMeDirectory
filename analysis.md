@@ -1,4 +1,5 @@
-dataset profiles: 322
+
+[dataset] profiles: 322
 
 [age]
   missing: 0
@@ -24,6 +25,25 @@ nonbinary      4
 nbm            3
 fmnb           1
 mnb            1
+
+[interested in]
+  missing/unknown: 3
+  interested in male: 119
+  interested in female: 229
+  interested in both male+female: 29
+  interested in nonbinary: 51
+
+  top interest combinations:
+interestedIn
+female                     179
+male                        81
+female, nonbinary           21
+female, male, nonbinary     19
+male, nonbinary              9
+female, male                 7
+unknown                      3
+male, female, nonbinary      2
+male, female                 1
 
 [location]
   top 15 (raw strings):
@@ -68,3 +88,5 @@ high       145
 some       131
 none        30
 unknown     16
+
+[done] demographics summary printed.
