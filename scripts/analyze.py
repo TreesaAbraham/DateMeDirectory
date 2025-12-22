@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 # -------------------------
@@ -206,10 +207,145 @@ def get_full_text(profile: dict[str, Any]) -> str:
 
 
 # -------------------------
+# Charts (Step 4)
+# -------------------------
+def ensure_dir(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def save_age_patterns_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
+    """
+    Graph A: Bar chart of average profile length (word_count) by age group.
+    """
+    if "age" not in out_df.columns or "word_count" not in out_df.columns:
+        return None
+
+    age = pd.to_numeric(out_df["age"], errors="coerce")
+    valid = out_df.copy()
+    valid["age_num"] = age
+    valid = valid.dropna(subset=["age_num"])
+
+    if len(valid) == 0:
+        return None
+
+    bins = [17, 25, 30, 35, 40, 120]
+    labels = ["18-25", "26-30", "31-35", "36-40", "41+"]
+    valid["age_group"] = pd.cut(valid["age_num"], bins=bins, labels=labels, include_lowest=True)
+
+    means = (
+        valid.groupby("age_group", dropna=False)["word_count"]
+        .mean()
+        .reindex(labels)
+    )
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.bar(means.index.astype(str), means.values)
+    ax.set_title("Average Profile Length by Age Group")
+    ax.set_xlabel("Age Group")
+    ax.set_ylabel("Average Word Count")
+
+    out_path = charts_dir / "graph_a_age_patterns.png"
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return out_path
+
+
+def save_exclam_boxplot(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
+    """
+    Graph B: Box plot of exclamation points per 100 words by gender.
+    """
+    if "gender_norm" not in out_df.columns or "exclam_per_100_words" not in out_df.columns:
+        return None
+
+    df = out_df.copy()
+    df = df[df["word_count"] > 0]
+    if len(df) == 0:
+        return None
+
+    order = ["female", "male", "nonbinary", "other", "unknown"]
+    genders = [g for g in order if g in set(df["gender_norm"].astype(str))] + [
+        g for g in sorted(set(df["gender_norm"].astype(str))) if g not in order
+    ]
+
+    data = [df.loc[df["gender_norm"] == g, "exclam_per_100_words"].dropna().values for g in genders]
+
+    genders2: list[str] = []
+    data2: list[Any] = []
+    for g, arr in zip(genders, data):
+        if len(arr) > 0:
+            genders2.append(g)
+            data2.append(arr)
+
+    if not data2:
+        return None
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.boxplot(data2, labels=genders2, showfliers=True)
+    ax.set_title("Exclamation Points per 100 Words by Gender")
+    ax.set_xlabel("Gender")
+    ax.set_ylabel("Exclamations per 100 Words")
+
+    out_path = charts_dir / "graph_b_exclam_by_gender.png"
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return out_path
+
+
+def save_location_flex_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
+    """
+    Graph C: Bar chart of location flexibility.
+    Map:
+      high -> Open to relocate
+      some -> Willing to travel
+      none -> Location-specific
+    """
+    if "locationFlexibility_norm" not in out_df.columns:
+        return None
+
+    mapping = {
+        "high": "Open to relocate",
+        "some": "Willing to travel",
+        "none": "Location-specific",
+        "unknown": "Unknown",
+    }
+
+    df = out_df.copy()
+    labels_order = ["Location-specific", "Willing to travel", "Open to relocate", "Unknown"]
+
+    df["locflex_label"] = (
+        df["locationFlexibility_norm"]
+        .astype(str)
+        .str.lower()
+        .map(mapping)
+        .fillna("Unknown")
+    )
+
+    counts = df["locflex_label"].value_counts().reindex(labels_order, fill_value=0)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.bar(counts.index.astype(str), counts.values)
+    ax.set_title("Location Flexibility Distribution")
+    ax.set_xlabel("Location Flexibility")
+    ax.set_ylabel("Profile Count")
+    ax.tick_params(axis="x", rotation=15)
+
+    out_path = charts_dir / "graph_c_location_flex.png"
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return out_path
+
+
+# -------------------------
 # Main
 # -------------------------
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Analyze demographics + text metrics for Date Me Directory")
+    ap = argparse.ArgumentParser(description="Analyze demographics + text metrics + charts for Date Me Directory")
     ap.add_argument(
         "--input",
         type=Path,
@@ -228,6 +364,17 @@ def main() -> None:
         default=None,
         help="Optional output CSV path for per-profile stylistic metrics",
     )
+    ap.add_argument(
+        "--charts-dir",
+        type=Path,
+        default=Path("data/charts"),
+        help="Directory to save PNG charts (default: data/charts)",
+    )
+    ap.add_argument(
+        "--no-charts",
+        action="store_true",
+        help="Disable chart generation",
+    )
     args = ap.parse_args()
 
     profiles = load_profiles(args.input)
@@ -238,7 +385,6 @@ def main() -> None:
         return
 
     # ---------- Step 2: demographics ----------
-    # Age
     age = pd.to_numeric(df.get("age"), errors="coerce")
     age_valid = age.dropna()
 
@@ -259,7 +405,6 @@ def main() -> None:
     else:
         print("  no valid ages found")
 
-    # Gender
     print("\n[gender]")
     if "gender" in df.columns:
         df["gender_norm"] = df["gender"].apply(normalize_gender)
@@ -268,7 +413,6 @@ def main() -> None:
         df["gender_norm"] = "unknown"
         print("  (no gender field found)")
 
-    # Interested In
     print("\n[interested in]")
     interest_series = None
     if "genderInterestedIn" in df.columns:
@@ -297,7 +441,6 @@ def main() -> None:
         print("\n  top interest combinations:")
         print(combo_counts.head(10).to_string())
 
-    # Location
     print("\n[location]")
     if "location" in df.columns:
         loc = df["location"].fillna("").astype(str).str.strip()
@@ -319,7 +462,6 @@ def main() -> None:
     else:
         print("  (no location field found)")
 
-    # Location flexibility
     print("\n[location flexibility]")
     if "locationFlexibility" in df.columns:
         df["locationFlexibility_norm"] = df["locationFlexibility"].apply(normalize_loc_flex)
@@ -330,7 +472,6 @@ def main() -> None:
 
     # ---------- Step 3: text analysis ----------
     df["fullText"] = df.apply(lambda row: get_full_text(row.to_dict()), axis=1)
-
     metrics = df["fullText"].apply(compute_text_metrics).apply(pd.Series)
 
     out_df = pd.concat(
@@ -362,12 +503,37 @@ def main() -> None:
                 f"min={s.min():.3f} | max={s.max():.3f}"
             )
 
-    # Optional CSV export = “Stylistic metrics for each profile”
+    # Optional CSV export
     if args.out_metrics_csv:
         out_path = args.out_metrics_csv
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_df.to_csv(out_path, index=False)
         print(f"\n[output] wrote per-profile stylistic metrics CSV: {out_path}")
+
+    # ---------- Step 4: charts ----------
+    if not args.no_charts:
+        charts_dir = args.charts_dir
+        ensure_dir(charts_dir)
+
+        a = save_age_patterns_chart(out_df, charts_dir)
+        b = save_exclam_boxplot(out_df, charts_dir)
+        c = save_location_flex_chart(out_df, charts_dir)
+
+        print("\n[charts]")
+        if a:
+            print(f"  wrote: {a}")
+        else:
+            print("  Graph A skipped (missing/invalid age or word_count)")
+
+        if b:
+            print(f"  wrote: {b}")
+        else:
+            print("  Graph B skipped (missing gender or exclam data)")
+
+        if c:
+            print(f"  wrote: {c}")
+        else:
+            print("  Graph C skipped (missing locationFlexibility)")
 
     print("\n[done]\n")
 
