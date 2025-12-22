@@ -9,6 +9,7 @@ from typing import Any
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 # -------------------------
@@ -232,11 +233,7 @@ def save_age_patterns_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | No
     labels = ["18-25", "26-30", "31-35", "36-40", "41+"]
     valid["age_group"] = pd.cut(valid["age_num"], bins=bins, labels=labels, include_lowest=True)
 
-    means = (
-        valid.groupby("age_group", dropna=False)["word_count"]
-        .mean()
-        .reindex(labels)
-    )
+    means = valid.groupby("age_group", dropna=False)["word_count"].mean().reindex(labels)
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -323,7 +320,6 @@ def save_location_flex_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | N
         .map(mapping)
         .fillna("Unknown")
     )
-
     counts = df["locflex_label"].value_counts().reindex(labels_order, fill_value=0)
 
     fig = plt.figure()
@@ -342,10 +338,154 @@ def save_location_flex_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | N
 
 
 # -------------------------
+# TF-IDF helpers (Step 5)
+# -------------------------
+def age_cohort_from_age(age_val: Any) -> str:
+    """
+    Approx cohorts from *age* (not birth year).
+    Using common 2025-ish boundaries:
+      Gen Z: 18-28
+      Millennials: 29-44
+      Gen X: 45+
+    """
+    try:
+        a = int(age_val)
+    except Exception:
+        return "unknown"
+    if 18 <= a <= 28:
+        return "gen_z"
+    if 29 <= a <= 44:
+        return "millennials"
+    if a >= 45:
+        return "gen_x"
+    return "unknown"
+
+
+def build_tfidf_matrix(
+    texts: list[str],
+    min_df: int = 3,
+    max_df: float = 0.85,
+) -> tuple[TfidfVectorizer, Any, list[str]]:
+    """
+    Fit TF-IDF on per-profile documents.
+    Returns (vectorizer, X sparse matrix, feature_names)
+    """
+    vectorizer = TfidfVectorizer(
+        lowercase=True,
+        stop_words="english",
+        min_df=min_df,
+        max_df=max_df,
+        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z']+\b",
+        ngram_range=(1, 2),  # phrases like "emotionally intelligent"
+    )
+    X = vectorizer.fit_transform(texts)
+    feature_names = vectorizer.get_feature_names_out().tolist()
+    return vectorizer, X, feature_names
+
+
+def mean_tfidf(X, mask: list[bool]):
+    """
+    Mean TF-IDF vector for a boolean mask of rows.
+    Returns a 1 x n_features dense array (1D).
+    """
+    import numpy as np
+
+    idx = np.where(mask)[0]
+    if len(idx) == 0:
+        return None
+
+    v = X[idx].mean(axis=0)
+    return v.A1  # flatten to 1D array
+
+
+def top_terms_by_diff(feature_names: list[str], a_vec, b_vec, top_n: int = 25) -> pd.DataFrame:
+    """
+    Return top_n terms where (a_vec - b_vec) is largest.
+    """
+    import numpy as np
+
+    diff = a_vec - b_vec
+    order = np.argsort(diff)[::-1][:top_n]
+    rows = [{"term": feature_names[i], "score": float(diff[i])} for i in order if diff[i] > 0]
+    return pd.DataFrame(rows)
+
+
+def distinctive_terms_two_group(
+    df_text: pd.DataFrame,
+    group_col: str,
+    group_a: str,
+    group_b: str,
+    text_col: str = "fullText",
+    top_n: int = 25,
+    min_df: int = 3,
+    max_df: float = 0.85,
+) -> tuple[pd.DataFrame, pd.DataFrame] | tuple[None, None]:
+    """
+    Compute distinctive TF-IDF terms for group_a vs group_b and group_b vs group_a.
+    Returns (a_over_b_df, b_over_a_df)
+    """
+    df2 = df_text[df_text[text_col].astype(str).str.len() > 0].copy()
+    if len(df2) < 5:
+        return None, None
+
+    texts = df2[text_col].astype(str).tolist()
+    _, X, feature_names = build_tfidf_matrix(texts, min_df=min_df, max_df=max_df)
+
+    mask_a = (df2[group_col].astype(str) == group_a).tolist()
+    mask_b = (df2[group_col].astype(str) == group_b).tolist()
+
+    a_vec = mean_tfidf(X, mask_a)
+    b_vec = mean_tfidf(X, mask_b)
+    if a_vec is None or b_vec is None:
+        return None, None
+
+    a_over_b = top_terms_by_diff(feature_names, a_vec, b_vec, top_n=top_n)
+    b_over_a = top_terms_by_diff(feature_names, b_vec, a_vec, top_n=top_n)
+    return a_over_b, b_over_a
+
+
+def distinctive_terms_multi_group(
+    df_text: pd.DataFrame,
+    group_col: str,
+    groups: list[str],
+    text_col: str = "fullText",
+    top_n: int = 20,
+    min_df: int = 3,
+    max_df: float = 0.85,
+) -> dict[str, pd.DataFrame]:
+    """
+    For each group g, compute top terms where mean(g) - mean(not g) is largest.
+    Returns dict: group -> dataframe(term, score)
+    """
+    df2 = df_text[df_text[text_col].astype(str).str.len() > 0].copy()
+    results: dict[str, pd.DataFrame] = {}
+    if len(df2) < 5:
+        return results
+
+    texts = df2[text_col].astype(str).tolist()
+    _, X, feature_names = build_tfidf_matrix(texts, min_df=min_df, max_df=max_df)
+
+    for g in groups:
+        mask_g = (df2[group_col].astype(str) == g).tolist()
+        mask_not = (df2[group_col].astype(str) != g).tolist()
+
+        g_vec = mean_tfidf(X, mask_g)
+        not_vec = mean_tfidf(X, mask_not)
+        if g_vec is None or not_vec is None:
+            continue
+
+        results[g] = top_terms_by_diff(feature_names, g_vec, not_vec, top_n=top_n)
+
+    return results
+
+
+# -------------------------
 # Main
 # -------------------------
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Analyze demographics + text metrics + charts for Date Me Directory")
+    ap = argparse.ArgumentParser(
+        description="Analyze demographics + text metrics + charts + TF-IDF for Date Me Directory"
+    )
     ap.add_argument(
         "--input",
         type=Path,
@@ -375,6 +515,44 @@ def main() -> None:
         action="store_true",
         help="Disable chart generation",
     )
+
+    # Step 5 args
+    ap.add_argument(
+        "--out-tables-dir",
+        type=Path,
+        default=Path("data/analysis/tables"),
+        help="Directory to save TF-IDF tables as CSVs (default: data/analysis/tables)",
+    )
+    ap.add_argument(
+        "--no-tfidf",
+        action="store_true",
+        help="Disable TF-IDF distinctive vocabulary tables",
+    )
+    ap.add_argument(
+        "--tfidf-min-df",
+        type=int,
+        default=3,
+        help="TF-IDF min_df (default: 3)",
+    )
+    ap.add_argument(
+        "--tfidf-max-df",
+        type=float,
+        default=0.85,
+        help="TF-IDF max_df (default: 0.85)",
+    )
+    ap.add_argument(
+        "--tfidf-top-n",
+        type=int,
+        default=25,
+        help="How many top terms to print/save per group (default: 25)",
+    )
+    ap.add_argument(
+        "--min-group-size",
+        type=int,
+        default=20,
+        help="Minimum profiles required for a group to be included (default: 20)",
+    )
+
     args = ap.parse_args()
 
     profiles = load_profiles(args.input)
@@ -534,6 +712,113 @@ def main() -> None:
             print(f"  wrote: {c}")
         else:
             print("  Graph C skipped (missing locationFlexibility)")
+
+    # ---------- Step 5: TF-IDF distinctive vocabulary ----------
+    if not args.no_tfidf:
+        tables_dir = args.out_tables_dir
+        tables_dir.mkdir(parents=True, exist_ok=True)
+
+        df_text = df.copy()
+        df_text["fullText"] = df_text["fullText"].astype(str)
+
+        df_text["word_count_tmp"] = df_text["fullText"].apply(word_count)
+        df_text = df_text[df_text["word_count_tmp"] > 0].copy()
+
+        print("\n[tfidf] distinctive vocabulary tables")
+
+        # A) Women vs Men
+        df_text["gender_norm"] = df_text.get("gender_norm", "unknown").astype(str)
+        gender_counts = df_text["gender_norm"].value_counts().to_dict()
+        print(f"  gender counts (with text): {gender_counts}")
+
+        if gender_counts.get("female", 0) >= args.min_group_size and gender_counts.get("male", 0) >= args.min_group_size:
+            w_over_m, m_over_w = distinctive_terms_two_group(
+                df_text=df_text,
+                group_col="gender_norm",
+                group_a="female",
+                group_b="male",
+                text_col="fullText",
+                top_n=args.tfidf_top_n,
+                min_df=args.tfidf_min_df,
+                max_df=args.tfidf_max_df,
+            )
+
+            if w_over_m is not None and m_over_w is not None:
+                print("\n  [women vs men] top distinctive terms (women)")
+                print(w_over_m.to_string(index=False))
+
+                print("\n  [women vs men] top distinctive terms (men)")
+                print(m_over_w.to_string(index=False))
+
+                w_over_m.to_csv(tables_dir / "tfidf_women_over_men.csv", index=False)
+                m_over_w.to_csv(tables_dir / "tfidf_men_over_women.csv", index=False)
+
+                print(f"\n  saved: {tables_dir / 'tfidf_women_over_men.csv'}")
+                print(f"  saved: {tables_dir / 'tfidf_men_over_women.csv'}")
+            else:
+                print("  [women vs men] skipped (could not compute vectors)")
+        else:
+            print("  [women vs men] skipped (not enough profiles in female and/or male)")
+
+        # B) Age cohorts
+        df_text["age_cohort"] = df_text.get("age", None).apply(age_cohort_from_age)
+        cohort_counts = df_text["age_cohort"].value_counts().to_dict()
+        print(f"\n  age cohort counts (with text): {cohort_counts}")
+
+        cohorts = [c for c, n in cohort_counts.items() if n >= args.min_group_size and c != "unknown"]
+        if cohorts:
+            results = distinctive_terms_multi_group(
+                df_text=df_text,
+                group_col="age_cohort",
+                groups=cohorts,
+                text_col="fullText",
+                top_n=min(args.tfidf_top_n, 20),
+                min_df=args.tfidf_min_df,
+                max_df=args.tfidf_max_df,
+            )
+
+            for cohort, table in results.items():
+                print(f"\n  [age cohort: {cohort}] top distinctive terms")
+                print(table.to_string(index=False))
+                out_path = tables_dir / f"tfidf_age_{cohort}.csv"
+                table.to_csv(out_path, index=False)
+                print(f"  saved: {out_path}")
+        else:
+            print("  [age cohorts] skipped (no cohort meets min group size)")
+
+        # C) Location groups (if enough data)
+        if "location" in df_text.columns:
+            df_text["region"] = df_text["location"].fillna("").astype(str).str.strip().apply(last_location_token)
+            df_text["region"] = df_text["region"].replace("", "unknown")
+
+            region_counts = df_text["region"].value_counts()
+            eligible_regions = region_counts[region_counts >= args.min_group_size].head(10).index.tolist()
+            eligible_regions = [r for r in eligible_regions if r != "unknown"]
+
+            print(f"\n  region groups eligible (>= {args.min_group_size} profiles): {eligible_regions}")
+
+            if eligible_regions:
+                results = distinctive_terms_multi_group(
+                    df_text=df_text,
+                    group_col="region",
+                    groups=eligible_regions,
+                    text_col="fullText",
+                    top_n=min(args.tfidf_top_n, 20),
+                    min_df=args.tfidf_min_df,
+                    max_df=args.tfidf_max_df,
+                )
+
+                for region, table in results.items():
+                    print(f"\n  [region: {region}] top distinctive terms")
+                    print(table.to_string(index=False))
+                    safe_region = re.sub(r"[^a-zA-Z0-9_]+", "_", str(region)).strip("_")
+                    out_path = tables_dir / f"tfidf_region_{safe_region}.csv"
+                    table.to_csv(out_path, index=False)
+                    print(f"  saved: {out_path}")
+            else:
+                print("  [locations] skipped (no region meets min group size)")
+        else:
+            print("  [locations] skipped (no location field)")
 
     print("\n[done]\n")
 
