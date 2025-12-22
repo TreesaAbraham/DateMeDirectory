@@ -1,0 +1,7 @@
+word,gender,contains,not_contains,total
+adventure,Women,10,86,96
+adventure,Men,27,186,213
+serious,Women,24,72,96
+serious,Men,46,167,213
+emotional,Women,19,77,96
+emotional,Men,50,163,213

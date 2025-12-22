@@ -1,827 +1,708 @@
 # scripts/analyze.py
+# Step 6: Advanced Graphs for DateMeDirectory
+#
+# Generates:
+# 1) Mosaic charts: gender vs word presence (adventure/serious/emotional)
+# 2) "What People Want": top words + categorized bars from "Looking For"
+# 3) Tone classification: humorous vs serious, vulnerable vs guarded + demographic distributions
+#
+# Output: publication-ready PNG + SVG + CSV tables
+
 from __future__ import annotations
 
 import argparse
+import csv
 import json
+import math
+import os
 import re
+from collections import Counter, defaultdict
+from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-# -------------------------
-# Load
-# -------------------------
-def load_profiles(path: Path) -> list[dict[str, Any]]:
-    if not path.exists():
-        raise SystemExit(f"[error] file not found: {path}")
+# -----------------------------
+# Utilities
+# -----------------------------
 
-    data = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(data, list):
-        raise SystemExit("[error] expected a JSON list of profiles")
+TOKEN_RE = re.compile(r"[a-zA-Z']+")
 
-    profiles: list[dict[str, Any]] = []
-    for i, item in enumerate(data):
-        if isinstance(item, dict):
-            profiles.append(item)
-        else:
-            print(f"[warn] skipping non-dict entry at index {i}")
-    return profiles
+# Small, pragmatic stopword list (kept local to avoid extra deps)
+STOPWORDS = {
+    "a", "an", "the", "and", "or", "but", "if", "then", "so", "to", "of", "in", "on", "for", "with",
+    "as", "at", "by", "from", "about", "into", "over", "after", "before", "between", "through",
+    "i", "im", "i'm", "me", "my", "mine", "we", "us", "our", "ours", "you", "your", "yours",
+    "he", "him", "his", "she", "her", "hers", "they", "them", "their", "theirs",
+    "is", "are", "was", "were", "be", "been", "being", "am", "do", "does", "did", "doing",
+    "have", "has", "had", "having", "will", "would", "can", "could", "should", "may", "might", "must",
+    "not", "no", "yes", "yeah", "yep",
+    "this", "that", "these", "those", "it", "its", "it's",
+    "just", "really", "very", "more", "most", "less", "like", "love", "loving",
+    "also", "too", "much", "many", "some", "any", "all",
+}
 
+def safe_slug(s: str) -> str:
+    s = s.strip().lower()
+    s = re.sub(r"[^a-z0-9]+", "_", s)
+    return s.strip("_") or "untitled"
 
-# -------------------------
-# Normalizers (Step 2)
-# -------------------------
-def normalize_gender(x: Any) -> str:
-    s = str(x or "").strip().lower()
-    mapping = {
-        "m": "male",
-        "male": "male",
-        "man": "male",
-        "f": "female",
-        "female": "female",
-        "woman": "female",
-        "nb": "nonbinary",
-        "non-binary": "nonbinary",
-        "nonbinary": "nonbinary",
-        "non binary": "nonbinary",
-        "other": "other",
-    }
-    return mapping.get(s, s or "unknown")
+def ensure_dir(p: Path) -> None:
+    p.mkdir(parents=True, exist_ok=True)
 
+def read_json(path: Path) -> Any:
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
 
-def normalize_loc_flex(x: Any) -> str:
-    s = str(x or "").strip().lower()
-    mapping = {
-        "none": "none",
-        "not flexible": "none",
-        "no": "none",
-        "some": "some",
-        "maybe": "some",
-        "flexible": "high",
-        "very flexible": "high",
-        "high": "high",
-    }
-    return mapping.get(s, s or "unknown")
+def write_csv(path: Path, rows: List[Dict[str, Any]], fieldnames: List[str]) -> None:
+    ensure_dir(path.parent)
+    with path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fieldnames)
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: r.get(k, "") for k in fieldnames})
 
-
-def normalize_interest_tokens(val: Any) -> list[str]:
-    """
-    Accepts either:
-      - genderInterestedIn: ["male","female"]
-      - interestedIn: ["M","F","NB"]
-    Returns normalized list like: ["male","female"] (unique, preserved order).
-    """
-    if val is None:
+def tokenize(text: str) -> List[str]:
+    if not text:
         return []
-    if isinstance(val, str):
-        raw = [val]
-    elif isinstance(val, list):
-        raw = val
-    else:
-        return []
+    toks = [t.lower() for t in TOKEN_RE.findall(text)]
+    return toks
 
-    out: list[str] = []
-    for x in raw:
-        s = str(x or "").strip().lower()
-        mapping = {
-            "m": "male",
-            "male": "male",
-            "man": "male",
-            "f": "female",
-            "female": "female",
-            "woman": "female",
-            "nb": "nonbinary",
-            "non-binary": "nonbinary",
-            "nonbinary": "nonbinary",
-            "other": "other",
-        }
-        normed = mapping.get(s, "")
-        if normed:
-            out.append(normed)
+def contains_any(tokens_set: set, keywords: Iterable[str]) -> bool:
+    return any(k in tokens_set for k in keywords)
 
-    # unique, preserve order
-    seen = set()
-    uniq: list[str] = []
-    for t in out:
-        if t not in seen:
-            seen.add(t)
-            uniq.append(t)
-    return uniq
+def clamp01(x: float) -> float:
+    return max(0.0, min(1.0, x))
+
+def age_group(age: Optional[int]) -> str:
+    if age is None:
+        return "Unknown"
+    if age < 25:
+        return "Gen Z (<25)"
+    if age < 41:
+        return "Millennial (25–40)"
+    if age < 57:
+        return "Gen X (41–56)"
+    return "Boomer+ (57+)"
 
 
-def last_location_token(loc: str) -> str:
+# -----------------------------
+# Data extraction
+# -----------------------------
+
+@dataclass
+class ProfileRecord:
+    id: str
+    gender: str
+    age: Optional[int]
+    location: str
+    tokens_all: List[str]
+    tokens_looking: List[str]
+
+def normalize_gender(g: Any) -> str:
+    if g is None:
+        return "Unknown"
+    s = str(g).strip().lower()
+    if not s:
+        return "Unknown"
+    # loose normalization for common variants
+    if s in {"m", "male", "man", "men"}:
+        return "Men"
+    if s in {"f", "female", "woman", "women"}:
+        return "Women"
+    if "non" in s and "binary" in s:
+        return "Non-binary"
+    return s.title()
+
+def extract_text_fields(profile: Dict[str, Any]) -> Tuple[str, str]:
     """
-    Crude 'pattern' counts:
-    - If location has commas, take last chunk (often state/country)
-    - Otherwise return last word-ish token
+    Returns (all_text, looking_for_text).
+
+    Tries to be robust to whatever shape your profileDetails ended up as.
+    Common patterns:
+    - profile["profileDetails"]["sections"] is a dict of sectionName->text
+    - profile["profileDetails"]["lookingFor"] or ["looking_for"] etc.
+    - profile["profileDetails"] may be a dict of arbitrary strings
     """
-    if not loc:
-        return ""
-    loc = loc.strip()
-    if "," in loc:
-        return loc.split(",")[-1].strip()
-    parts = re.split(r"\s+", loc)
-    return parts[-1].strip() if parts else loc
+    all_chunks: List[str] = []
+    looking_chunks: List[str] = []
 
-
-# -------------------------
-# Text metric helpers (Step 3)
-# -------------------------
-WORD_RE = re.compile(r"\b\w+\b", re.UNICODE)
-
-# heuristic emoji matcher (good enough for trends)
-EMOJI_RE = re.compile(
-    "["  # noqa: W605
-    "\U0001F1E6-\U0001F1FF"  # flags
-    "\U0001F300-\U0001F5FF"
-    "\U0001F600-\U0001F64F"
-    "\U0001F680-\U0001F6FF"
-    "\U0001F700-\U0001F77F"
-    "\U0001F780-\U0001F7FF"
-    "\U0001F800-\U0001F8FF"
-    "\U0001F900-\U0001F9FF"
-    "\U0001FA00-\U0001FAFF"
-    "\u2600-\u26FF"
-    "\u2700-\u27BF"
-    "]",
-    re.UNICODE,
-)
-
-
-def word_count(text: str) -> int:
-    return len(WORD_RE.findall((text or "").strip()))
-
-
-def split_sentences(text: str) -> list[str]:
-    """
-    Simple heuristic: split on whitespace after . ! ?
-    """
-    t = (text or "").strip()
-    if not t:
-        return []
-    parts = re.split(r"(?<=[.!?])\s+", t)
-    return [p for p in parts if word_count(p) > 0]
-
-
-def emoji_count(text: str) -> int:
-    return len(EMOJI_RE.findall(text or ""))
-
-
-def per_100(count: int, words: int) -> float:
-    return 0.0 if words <= 0 else (count / words) * 100.0
-
-
-def compute_text_metrics(full_text: str) -> dict[str, Any]:
-    t = full_text or ""
-    wc = word_count(t)
-    sentences = split_sentences(t)
-    sc = len(sentences)
-
-    avg_sent_len = (sum(word_count(s) for s in sentences) / sc) if sc > 0 else 0.0
-
-    exclam = t.count("!")
-    questions = t.count("?")
-    emojis = emoji_count(t)
-
-    return {
-        "word_count": wc,
-        "sentence_count": sc,
-        "avg_sentence_len_words": float(avg_sent_len),
-        "exclam_count": int(exclam),
-        "exclam_per_100_words": float(per_100(exclam, wc)),
-        "question_count": int(questions),
-        "questions_per_100_words": float(per_100(questions, wc)),
-        "emoji_count": int(emojis),
-        "emoji_per_100_words": float(per_100(emojis, wc)),
-    }
-
-
-def get_full_text(profile: dict[str, Any]) -> str:
-    details = profile.get("profileDetails") or {}
+    # 1) If you stored longform in profileDetails
+    details = profile.get("profileDetails")
     if isinstance(details, dict):
-        return str(details.get("fullText") or "")
-    return ""
+        # sections dict
+        sections = details.get("sections")
+        if isinstance(sections, dict):
+            for k, v in sections.items():
+                if isinstance(v, str) and v.strip():
+                    all_chunks.append(v)
+                    if "looking" in str(k).lower():
+                        looking_chunks.append(v)
 
+        # direct keys
+        for k in ["lookingFor", "looking_for", "looking", "seeking", "whatImLookingFor", "what_i_m_looking_for"]:
+            v = details.get(k)
+            if isinstance(v, str) and v.strip():
+                looking_chunks.append(v)
+                all_chunks.append(v)
 
-# -------------------------
-# Charts (Step 4)
-# -------------------------
-def ensure_dir(path: Path) -> None:
-    path.mkdir(parents=True, exist_ok=True)
+        # if details has other text fields, include them
+        for k, v in details.items():
+            if isinstance(v, str) and v.strip():
+                all_chunks.append(v)
 
+    # 2) Also include any top-level longform (if present)
+    for k in ["bio", "about", "aboutMe", "about_me", "promptAnswers", "prompts", "text"]:
+        v = profile.get(k)
+        if isinstance(v, str) and v.strip():
+            all_chunks.append(v)
 
-def save_age_patterns_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
-    """
-    Graph A: Bar chart of average profile length (word_count) by age group.
-    """
-    if "age" not in out_df.columns or "word_count" not in out_df.columns:
-        return None
+    all_text = "\n".join(all_chunks).strip()
+    looking_text = "\n".join(looking_chunks).strip()
 
-    age = pd.to_numeric(out_df["age"], errors="coerce")
-    valid = out_df.copy()
-    valid["age_num"] = age
-    valid = valid.dropna(subset=["age_num"])
+    return all_text, looking_text
 
-    if len(valid) == 0:
-        return None
+def load_profiles(path: Path) -> List[ProfileRecord]:
+    data = read_json(path)
+    if not isinstance(data, list):
+        raise ValueError(f"Expected a list in {path}, got {type(data)}")
 
-    bins = [17, 25, 30, 35, 40, 120]
-    labels = ["18-25", "26-30", "31-35", "36-40", "41+"]
-    valid["age_group"] = pd.cut(valid["age_num"], bins=bins, labels=labels, include_lowest=True)
-
-    means = valid.groupby("age_group", dropna=False)["word_count"].mean().reindex(labels)
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.bar(means.index.astype(str), means.values)
-    ax.set_title("Average Profile Length by Age Group")
-    ax.set_xlabel("Age Group")
-    ax.set_ylabel("Average Word Count")
-
-    out_path = charts_dir / "graph_a_age_patterns.png"
-    fig.tight_layout()
-    fig.savefig(out_path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    return out_path
-
-
-def save_exclam_boxplot(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
-    """
-    Graph B: Box plot of exclamation points per 100 words by gender.
-    """
-    if "gender_norm" not in out_df.columns or "exclam_per_100_words" not in out_df.columns:
-        return None
-
-    df = out_df.copy()
-    df = df[df["word_count"] > 0]
-    if len(df) == 0:
-        return None
-
-    order = ["female", "male", "nonbinary", "other", "unknown"]
-    genders = [g for g in order if g in set(df["gender_norm"].astype(str))] + [
-        g for g in sorted(set(df["gender_norm"].astype(str))) if g not in order
-    ]
-
-    data = [df.loc[df["gender_norm"] == g, "exclam_per_100_words"].dropna().values for g in genders]
-
-    genders2: list[str] = []
-    data2: list[Any] = []
-    for g, arr in zip(genders, data):
-        if len(arr) > 0:
-            genders2.append(g)
-            data2.append(arr)
-
-    if not data2:
-        return None
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.boxplot(data2, labels=genders2, showfliers=True)
-    ax.set_title("Exclamation Points per 100 Words by Gender")
-    ax.set_xlabel("Gender")
-    ax.set_ylabel("Exclamations per 100 Words")
-
-    out_path = charts_dir / "graph_b_exclam_by_gender.png"
-    fig.tight_layout()
-    fig.savefig(out_path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    return out_path
-
-
-def save_location_flex_chart(out_df: pd.DataFrame, charts_dir: Path) -> Path | None:
-    """
-    Graph C: Bar chart of location flexibility.
-    Map:
-      high -> Open to relocate
-      some -> Willing to travel
-      none -> Location-specific
-    """
-    if "locationFlexibility_norm" not in out_df.columns:
-        return None
-
-    mapping = {
-        "high": "Open to relocate",
-        "some": "Willing to travel",
-        "none": "Location-specific",
-        "unknown": "Unknown",
-    }
-
-    df = out_df.copy()
-    labels_order = ["Location-specific", "Willing to travel", "Open to relocate", "Unknown"]
-
-    df["locflex_label"] = (
-        df["locationFlexibility_norm"]
-        .astype(str)
-        .str.lower()
-        .map(mapping)
-        .fillna("Unknown")
-    )
-    counts = df["locflex_label"].value_counts().reindex(labels_order, fill_value=0)
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.bar(counts.index.astype(str), counts.values)
-    ax.set_title("Location Flexibility Distribution")
-    ax.set_xlabel("Location Flexibility")
-    ax.set_ylabel("Profile Count")
-    ax.tick_params(axis="x", rotation=15)
-
-    out_path = charts_dir / "graph_c_location_flex.png"
-    fig.tight_layout()
-    fig.savefig(out_path, dpi=200, bbox_inches="tight")
-    plt.close(fig)
-    return out_path
-
-
-# -------------------------
-# TF-IDF helpers (Step 5)
-# -------------------------
-def age_cohort_from_age(age_val: Any) -> str:
-    """
-    Approx cohorts from *age* (not birth year).
-    Using common 2025-ish boundaries:
-      Gen Z: 18-28
-      Millennials: 29-44
-      Gen X: 45+
-    """
-    try:
-        a = int(age_val)
-    except Exception:
-        return "unknown"
-    if 18 <= a <= 28:
-        return "gen_z"
-    if 29 <= a <= 44:
-        return "millennials"
-    if a >= 45:
-        return "gen_x"
-    return "unknown"
-
-
-def build_tfidf_matrix(
-    texts: list[str],
-    min_df: int = 3,
-    max_df: float = 0.85,
-) -> tuple[TfidfVectorizer, Any, list[str]]:
-    """
-    Fit TF-IDF on per-profile documents.
-    Returns (vectorizer, X sparse matrix, feature_names)
-    """
-    vectorizer = TfidfVectorizer(
-        lowercase=True,
-        stop_words="english",
-        min_df=min_df,
-        max_df=max_df,
-        token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z']+\b",
-        ngram_range=(1, 2),  # phrases like "emotionally intelligent"
-    )
-    X = vectorizer.fit_transform(texts)
-    feature_names = vectorizer.get_feature_names_out().tolist()
-    return vectorizer, X, feature_names
-
-
-def mean_tfidf(X, mask: list[bool]):
-    """
-    Mean TF-IDF vector for a boolean mask of rows.
-    Returns a 1 x n_features dense array (1D).
-    """
-    import numpy as np
-
-    idx = np.where(mask)[0]
-    if len(idx) == 0:
-        return None
-
-    v = X[idx].mean(axis=0)
-    return v.A1  # flatten to 1D array
-
-
-def top_terms_by_diff(feature_names: list[str], a_vec, b_vec, top_n: int = 25) -> pd.DataFrame:
-    """
-    Return top_n terms where (a_vec - b_vec) is largest.
-    """
-    import numpy as np
-
-    diff = a_vec - b_vec
-    order = np.argsort(diff)[::-1][:top_n]
-    rows = [{"term": feature_names[i], "score": float(diff[i])} for i in order if diff[i] > 0]
-    return pd.DataFrame(rows)
-
-
-def distinctive_terms_two_group(
-    df_text: pd.DataFrame,
-    group_col: str,
-    group_a: str,
-    group_b: str,
-    text_col: str = "fullText",
-    top_n: int = 25,
-    min_df: int = 3,
-    max_df: float = 0.85,
-) -> tuple[pd.DataFrame, pd.DataFrame] | tuple[None, None]:
-    """
-    Compute distinctive TF-IDF terms for group_a vs group_b and group_b vs group_a.
-    Returns (a_over_b_df, b_over_a_df)
-    """
-    df2 = df_text[df_text[text_col].astype(str).str.len() > 0].copy()
-    if len(df2) < 5:
-        return None, None
-
-    texts = df2[text_col].astype(str).tolist()
-    _, X, feature_names = build_tfidf_matrix(texts, min_df=min_df, max_df=max_df)
-
-    mask_a = (df2[group_col].astype(str) == group_a).tolist()
-    mask_b = (df2[group_col].astype(str) == group_b).tolist()
-
-    a_vec = mean_tfidf(X, mask_a)
-    b_vec = mean_tfidf(X, mask_b)
-    if a_vec is None or b_vec is None:
-        return None, None
-
-    a_over_b = top_terms_by_diff(feature_names, a_vec, b_vec, top_n=top_n)
-    b_over_a = top_terms_by_diff(feature_names, b_vec, a_vec, top_n=top_n)
-    return a_over_b, b_over_a
-
-
-def distinctive_terms_multi_group(
-    df_text: pd.DataFrame,
-    group_col: str,
-    groups: list[str],
-    text_col: str = "fullText",
-    top_n: int = 20,
-    min_df: int = 3,
-    max_df: float = 0.85,
-) -> dict[str, pd.DataFrame]:
-    """
-    For each group g, compute top terms where mean(g) - mean(not g) is largest.
-    Returns dict: group -> dataframe(term, score)
-    """
-    df2 = df_text[df_text[text_col].astype(str).str.len() > 0].copy()
-    results: dict[str, pd.DataFrame] = {}
-    if len(df2) < 5:
-        return results
-
-    texts = df2[text_col].astype(str).tolist()
-    _, X, feature_names = build_tfidf_matrix(texts, min_df=min_df, max_df=max_df)
-
-    for g in groups:
-        mask_g = (df2[group_col].astype(str) == g).tolist()
-        mask_not = (df2[group_col].astype(str) != g).tolist()
-
-        g_vec = mean_tfidf(X, mask_g)
-        not_vec = mean_tfidf(X, mask_not)
-        if g_vec is None or not_vec is None:
+    records: List[ProfileRecord] = []
+    for p in data:
+        if not isinstance(p, dict):
             continue
+        pid = str(p.get("id") or p.get("_id") or "")
+        g = normalize_gender(p.get("gender"))
+        loc = str(p.get("location") or "").strip()
+        a_raw = p.get("age")
+        age_val: Optional[int] = None
+        try:
+            if a_raw is not None and str(a_raw).strip() != "":
+                age_val = int(a_raw)
+        except Exception:
+            age_val = None
 
-        results[g] = top_terms_by_diff(feature_names, g_vec, not_vec, top_n=top_n)
+        all_text, looking_text = extract_text_fields(p)
+        toks_all = tokenize(all_text)
+        toks_looking = tokenize(looking_text)
 
-    return results
+        records.append(ProfileRecord(
+            id=pid,
+            gender=g,
+            age=age_val,
+            location=loc,
+            tokens_all=toks_all,
+            tokens_looking=toks_looking,
+        ))
+
+    return records
 
 
-# -------------------------
-# Main
-# -------------------------
-def main() -> None:
-    ap = argparse.ArgumentParser(
-        description="Analyze demographics + text metrics + charts + TF-IDF for Date Me Directory"
-    )
-    ap.add_argument(
-        "--input",
-        type=Path,
-        default=Path("data/profiles_master.json"),
-        help="Path to canonical profiles JSON (default: data/profiles_master.json)",
-    )
-    ap.add_argument(
-        "--top-locations",
-        type=int,
-        default=15,
-        help="How many top locations to display (default: 15)",
-    )
-    ap.add_argument(
-        "--out-metrics-csv",
-        type=Path,
-        default=None,
-        help="Optional output CSV path for per-profile stylistic metrics",
-    )
-    ap.add_argument(
-        "--charts-dir",
-        type=Path,
-        default=Path("data/charts"),
-        help="Directory to save PNG charts (default: data/charts)",
-    )
-    ap.add_argument(
-        "--no-charts",
-        action="store_true",
-        help="Disable chart generation",
-    )
+# -----------------------------
+# Plotting helpers
+# -----------------------------
 
-    # Step 5 args
-    ap.add_argument(
-        "--out-tables-dir",
-        type=Path,
-        default=Path("data/analysis/tables"),
-        help="Directory to save TF-IDF tables as CSVs (default: data/analysis/tables)",
-    )
-    ap.add_argument(
-        "--no-tfidf",
-        action="store_true",
-        help="Disable TF-IDF distinctive vocabulary tables",
-    )
-    ap.add_argument(
-        "--tfidf-min-df",
-        type=int,
-        default=3,
-        help="TF-IDF min_df (default: 3)",
-    )
-    ap.add_argument(
-        "--tfidf-max-df",
-        type=float,
-        default=0.85,
-        help="TF-IDF max_df (default: 0.85)",
-    )
-    ap.add_argument(
-        "--tfidf-top-n",
-        type=int,
-        default=25,
-        help="How many top terms to print/save per group (default: 25)",
-    )
-    ap.add_argument(
-        "--min-group-size",
-        type=int,
-        default=20,
-        help="Minimum profiles required for a group to be included (default: 20)",
-    )
+def save_fig(out_dir: Path, filename_base: str, dpi: int = 300) -> None:
+    ensure_dir(out_dir)
+    png = out_dir / f"{filename_base}.png"
+    svg = out_dir / f"{filename_base}.svg"
+    plt.savefig(png, dpi=dpi, bbox_inches="tight")
+    plt.savefig(svg, bbox_inches="tight")
+    plt.close()
 
-    args = ap.parse_args()
+def mosaic_2x2(
+    counts: Dict[str, Dict[str, int]],
+    title: str,
+    out_dir: Path,
+    filename_base: str,
+    x_label_left: str = "Women",
+    x_label_right: str = "Men",
+    y_label_top: str = "Contains",
+    y_label_bottom: str = "Does not contain",
+) -> None:
+    """
+    Custom mosaic chart (no external libs):
+    - Width of each gender column proportional to its total
+    - Height split within each gender by contains vs not
+    """
+    genders = [x_label_left, x_label_right]
+    for g in genders:
+        counts.setdefault(g, {"contains": 0, "not": 0})
 
-    profiles = load_profiles(args.input)
-    df = pd.DataFrame(profiles)
+    totals = {g: counts[g]["contains"] + counts[g]["not"] for g in genders}
+    grand_total = sum(totals.values()) or 1
 
-    print(f"\n[dataset] profiles: {len(df)}")
-    if len(df) == 0:
+    widths = {g: totals[g] / grand_total for g in genders}
+
+    fig, ax = plt.subplots(figsize=(7.5, 4.8))
+    ax.set_title(title)
+
+    x0 = 0.0
+    for g in genders:
+        w = widths[g]
+        g_total = totals[g] or 1
+        h_contains = counts[g]["contains"] / g_total
+        h_not = counts[g]["not"] / g_total
+
+        # bottom = not
+        ax.add_patch(plt.Rectangle((x0, 0.0), w, h_not, fill=False))
+        # top = contains
+        ax.add_patch(plt.Rectangle((x0, h_not), w, h_contains, fill=False))
+
+        # labels inside rectangles
+        ax.text(x0 + w/2, h_not/2,
+                f"{y_label_bottom}\n{counts[g]['not']}",
+                ha="center", va="center", fontsize=10)
+        ax.text(x0 + w/2, h_not + h_contains/2,
+                f"{y_label_top}\n{counts[g]['contains']}",
+                ha="center", va="center", fontsize=10)
+
+        # gender label under column
+        ax.text(x0 + w/2, -0.06, f"{g}\n(n={totals[g]})",
+                ha="center", va="top", fontsize=10)
+
+        x0 += w
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.spines[:].set_visible(False)
+
+    save_fig(out_dir, filename_base)
+
+def bar_chart(
+    labels: List[str],
+    values: List[float],
+    title: str,
+    out_dir: Path,
+    filename_base: str,
+    xlabel: str = "",
+    ylabel: str = "",
+    rotate: int = 25,
+) -> None:
+    fig, ax = plt.subplots(figsize=(9.5, 5.2))
+    ax.bar(labels, values)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if rotate:
+        plt.xticks(rotation=rotate, ha="right")
+    save_fig(out_dir, filename_base)
+
+def grouped_bar_chart(
+    labels: List[str],
+    series: Dict[str, List[float]],
+    title: str,
+    out_dir: Path,
+    filename_base: str,
+    xlabel: str = "",
+    ylabel: str = "",
+    rotate: int = 25,
+) -> None:
+    """
+    series: name -> list of values aligned with labels
+    """
+    fig, ax = plt.subplots(figsize=(10.5, 5.6))
+    n = len(labels)
+    k = len(series)
+    if n == 0 or k == 0:
         return
+    width = 0.8 / k
+    x = list(range(n))
+    for i, (name, vals) in enumerate(series.items()):
+        ax.bar([xi + i*width for xi in x], vals, width=width, label=name)
 
-    # ---------- Step 2: demographics ----------
-    age = pd.to_numeric(df.get("age"), errors="coerce")
-    age_valid = age.dropna()
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_xticks([xi + (k-1)*width/2 for xi in x])
+    ax.set_xticklabels(labels, rotation=rotate, ha="right")
+    ax.legend()
+    save_fig(out_dir, filename_base)
 
-    print("\n[age]")
-    print(f"  missing: {int(age.isna().sum())}")
-    if len(age_valid) > 0:
-        print(f"  count:   {len(age_valid)}")
-        print(f"  min:     {int(age_valid.min())}")
-        print(f"  max:     {int(age_valid.max())}")
-        print(f"  mean:    {age_valid.mean():.2f}")
-        print(f"  median:  {age_valid.median():.2f}")
+def stacked_bar_distribution(
+    groups: List[str],
+    categories: List[str],
+    matrix: Dict[str, Dict[str, int]],
+    title: str,
+    out_dir: Path,
+    filename_base: str,
+    xlabel: str = "",
+    ylabel: str = "Count",
+    rotate: int = 0,
+) -> None:
+    """
+    matrix[group][category] = count
+    """
+    fig, ax = plt.subplots(figsize=(10.5, 5.6))
+    bottoms = [0] * len(groups)
 
-        bins = [17, 25, 30, 35, 40, 120]
-        labels = ["18-25", "26-30", "31-35", "36-40", "41+"]
-        binned = pd.cut(age_valid, bins=bins, labels=labels, include_lowest=True)
-        print("  by age group:")
-        print(binned.value_counts().reindex(labels, fill_value=0).to_string())
-    else:
-        print("  no valid ages found")
+    for cat in categories:
+        vals = [matrix.get(g, {}).get(cat, 0) for g in groups]
+        ax.bar(groups, vals, bottom=bottoms, label=cat)
+        bottoms = [b + v for b, v in zip(bottoms, vals)]
 
-    print("\n[gender]")
-    if "gender" in df.columns:
-        df["gender_norm"] = df["gender"].apply(normalize_gender)
-        print(df["gender_norm"].value_counts(dropna=False).to_string())
-    else:
-        df["gender_norm"] = "unknown"
-        print("  (no gender field found)")
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    if rotate:
+        plt.xticks(rotation=rotate, ha="right")
+    ax.legend()
+    save_fig(out_dir, filename_base)
 
-    print("\n[interested in]")
-    interest_series = None
-    if "genderInterestedIn" in df.columns:
-        interest_series = df["genderInterestedIn"]
-    elif "interestedIn" in df.columns:
-        interest_series = df["interestedIn"]
 
-    if interest_series is None:
-        df["interested_norm"] = [[] for _ in range(len(df))]
-        print("  (no interestedIn / genderInterestedIn field found)")
-    else:
-        df["interested_norm"] = interest_series.apply(normalize_interest_tokens)
-        interested = df["interested_norm"]
+# -----------------------------
+# Step 6: Analyses
+# -----------------------------
 
-        interested_male = int(interested.apply(lambda xs: "male" in xs).sum())
-        interested_female = int(interested.apply(lambda xs: "female" in xs).sum())
-        interested_both_mf = int(interested.apply(lambda xs: ("male" in xs and "female" in xs)).sum())
-        missing_interest = int(interested.apply(lambda xs: len(xs) == 0).sum())
+MOSAIC_WORDS = ["adventure", "serious", "emotional"]
 
-        print(f"  missing/unknown: {missing_interest}")
-        print(f"  interested in male: {interested_male}")
-        print(f"  interested in female: {interested_female}")
-        print(f"  interested in both male+female: {interested_both_mf}")
+# "What people want" categories: tune freely
+LOOKING_FOR_CATEGORIES: Dict[str, List[str]] = {
+    "Long-term / Commitment": ["relationship", "commitment", "longterm", "long-term", "serious", "partner", "marriage", "wife", "husband"],
+    "Dating / Getting to know": ["dating", "dates", "see", "meet", "connection"],
+    "Casual": ["casual", "hookup", "hook-up", "fun", "fwb", "situationship"],
+    "Friendship": ["friends", "friendship", "buddy", "hangout"],
+    "Adventure / Travel": ["adventure", "travel", "trip", "explore", "hiking", "roadtrip", "road-trip"],
+    "Emotional connection": ["emotional", "vulnerable", "open", "honest", "communication", "feelings"],
+    "Values / Faith": ["faith", "church", "god", "religion", "values"],
+}
 
-        combo_counts = interested.apply(lambda xs: ", ".join(xs) if xs else "unknown").value_counts()
-        print("\n  top interest combinations:")
-        print(combo_counts.head(10).to_string())
+HUMOR_MARKERS = [
+    "lol", "lmao", "haha", "joke", "joking", "funny", "humor", "humour", "sarcasm", "meme", "memes", "pun", "witty",
+]
+SERIOUS_MARKERS = [
+    "serious", "intentional", "commitment", "longterm", "long-term", "relationship", "marriage", "partner", "stable",
+]
 
-    print("\n[location]")
-    if "location" in df.columns:
-        loc = df["location"].fillna("").astype(str).str.strip()
+VULNERABLE_MARKERS = [
+    "vulnerable", "open", "honest", "feelings", "emotional", "therapy", "anxious", "sensitive", "heart", "genuine",
+]
+GUARDED_MARKERS = [
+    "private", "lowkey", "low-key", "chill", "no drama", "nodrama", "guarded", "nonchalant", "not emotional",
+]
 
-        top = loc[loc != ""].value_counts().head(args.top_locations)
-        print(f"  top {args.top_locations} (raw strings):")
-        if len(top) > 0:
-            print(top.to_string())
+def classify_tone(tokens: List[str]) -> Dict[str, str]:
+    """
+    Returns:
+      humor: Humorous | Serious | Neutral
+      vulnerability: Vulnerable | Guarded | Neutral
+    """
+    tset = set(tokens)
+
+    humor_score = sum(1 for w in HUMOR_MARKERS if w in tset)
+    serious_score = sum(1 for w in SERIOUS_MARKERS if w in tset)
+
+    vuln_score = sum(1 for w in VULNERABLE_MARKERS if w in tset)
+    guard_score = 0
+    # include multiword markers by scanning raw join
+    joined = " ".join(tokens)
+    for w in GUARDED_MARKERS:
+        if " " in w:
+            if w in joined:
+                guard_score += 1
         else:
-            print("  (no non-empty locations)")
+            if w in tset:
+                guard_score += 1
 
-        token = loc.apply(last_location_token)
-        token_top = token[token != ""].value_counts().head(args.top_locations)
-        print(f"\n  top {args.top_locations} (last token heuristic):")
-        if len(token_top) > 0:
-            print(token_top.to_string())
-        else:
-            print("  (no tokens)")
+    if humor_score >= 2 and humor_score >= serious_score + 1:
+        humor = "Humorous"
+    elif serious_score >= 2 and serious_score >= humor_score + 1:
+        humor = "Serious"
     else:
-        print("  (no location field found)")
+        humor = "Neutral"
 
-    print("\n[location flexibility]")
-    if "locationFlexibility" in df.columns:
-        df["locationFlexibility_norm"] = df["locationFlexibility"].apply(normalize_loc_flex)
-        print(df["locationFlexibility_norm"].value_counts(dropna=False).to_string())
+    if vuln_score >= 2 and vuln_score >= guard_score + 1:
+        vulnerability = "Vulnerable"
+    elif guard_score >= 2 and guard_score >= vuln_score + 1:
+        vulnerability = "Guarded"
     else:
-        df["locationFlexibility_norm"] = "unknown"
-        print("  (no locationFlexibility field found)")
+        vulnerability = "Neutral"
 
-    # ---------- Step 3: text analysis ----------
-    df["fullText"] = df.apply(lambda row: get_full_text(row.to_dict()), axis=1)
-    metrics = df["fullText"].apply(compute_text_metrics).apply(pd.Series)
+    return {"humor": humor, "vulnerability": vulnerability}
 
-    out_df = pd.concat(
-        [
-            df[["id", "age", "gender_norm", "location", "locationFlexibility_norm", "profileUrl"]],
-            metrics,
-        ],
-        axis=1,
+def top_words(tokens_lists: List[List[str]], n: int = 25) -> List[Tuple[str, int]]:
+    c = Counter()
+    for toks in tokens_lists:
+        for t in toks:
+            if t in STOPWORDS:
+                continue
+            if len(t) <= 2:
+                continue
+            c[t] += 1
+    return c.most_common(n)
+
+def make_step6_charts(records: List[ProfileRecord], out_root: Path) -> None:
+    charts_dir = out_root / "charts"
+    tables_dir = out_root / "tables"
+    ensure_dir(charts_dir)
+    ensure_dir(tables_dir)
+
+    # Filter down to the main two genders for these visuals (keeps mosaics clean)
+    # You still keep other genders in tone distributions below.
+    gender_main = {"Women", "Men"}
+
+    # -------------------------
+    # 1) Mosaic charts: gender vs word presence
+    # -------------------------
+    mosaic_rows: List[Dict[str, Any]] = []
+    for word in MOSAIC_WORDS:
+        counts = {"Women": {"contains": 0, "not": 0}, "Men": {"contains": 0, "not": 0}}
+        for r in records:
+            if r.gender not in gender_main:
+                continue
+            tset = set(r.tokens_all)
+            if word in tset:
+                counts[r.gender]["contains"] += 1
+            else:
+                counts[r.gender]["not"] += 1
+
+        mosaic_2x2(
+            counts=counts,
+            title=f'Gendered Language: "{word}" presence',
+            out_dir=charts_dir,
+            filename_base=f"mosaic_gender_word_{safe_slug(word)}",
+            x_label_left="Women",
+            x_label_right="Men",
+            y_label_top=f'Contains "{word}"',
+            y_label_bottom=f'Does not contain "{word}"',
+        )
+
+        for g in ["Women", "Men"]:
+            mosaic_rows.append({
+                "word": word,
+                "gender": g,
+                "contains": counts[g]["contains"],
+                "not_contains": counts[g]["not"],
+                "total": counts[g]["contains"] + counts[g]["not"],
+            })
+
+    write_csv(
+        tables_dir / "mosaic_gender_word_counts.csv",
+        mosaic_rows,
+        ["word", "gender", "contains", "not_contains", "total"],
     )
 
-    has_text = out_df["word_count"] > 0
+    # -------------------------
+    # 2) What People Want: Looking For analysis
+    # -------------------------
+    looking_tokens = [r.tokens_looking for r in records if r.tokens_looking]
+    top = top_words(looking_tokens, n=25)
+    if top:
+        labels = [w for w, _ in top]
+        values = [float(n) for _, n in top]
+        bar_chart(
+            labels, values,
+            title='Top words in "Looking For" sections (excluding stopwords)',
+            out_dir=charts_dir,
+            filename_base="lookingfor_top_words",
+            xlabel="Word",
+            ylabel="Count",
+            rotate=30,
+        )
 
-    print("\n[text coverage]")
-    print(f"  profiles with any text: {int(has_text.sum())} / {len(out_df)}")
+        write_csv(
+            tables_dir / "lookingfor_top_words.csv",
+            [{"word": w, "count": n} for w, n in top],
+            ["word", "count"],
+        )
 
-    if int(has_text.sum()) > 0:
-        print("\n[summary stats] (profiles with text)")
-        cols = [
-            "word_count",
-            "avg_sentence_len_words",
-            "exclam_per_100_words",
-            "emoji_per_100_words",
-            "questions_per_100_words",
-        ]
-        for c in cols:
-            s = pd.to_numeric(out_df.loc[has_text, c], errors="coerce").dropna()
-            print(
-                f"  {c}: mean={s.mean():.3f} | median={s.median():.3f} | "
-                f"min={s.min():.3f} | max={s.max():.3f}"
-            )
+    # Categorized counts overall + by gender
+    cat_rows: List[Dict[str, Any]] = []
+    counts_overall = Counter()
+    counts_by_gender = defaultdict(Counter)
 
-    # Optional CSV export
-    if args.out_metrics_csv:
-        out_path = args.out_metrics_csv
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_df.to_csv(out_path, index=False)
-        print(f"\n[output] wrote per-profile stylistic metrics CSV: {out_path}")
+    for r in records:
+        if not r.tokens_looking:
+            continue
+        tset = set(r.tokens_looking)
+        for cat, keys in LOOKING_FOR_CATEGORIES.items():
+            if contains_any(tset, keys):
+                counts_overall[cat] += 1
+                counts_by_gender[r.gender][cat] += 1
 
-    # ---------- Step 4: charts ----------
-    if not args.no_charts:
-        charts_dir = args.charts_dir
-        ensure_dir(charts_dir)
+    cats = list(LOOKING_FOR_CATEGORIES.keys())
+    bar_chart(
+        cats,
+        [float(counts_overall[c]) for c in cats],
+        title='What People Want: category counts from "Looking For" sections',
+        out_dir=charts_dir,
+        filename_base="lookingfor_category_counts",
+        xlabel="Category",
+        ylabel="Profiles mentioning category",
+        rotate=25,
+    )
 
-        a = save_age_patterns_chart(out_df, charts_dir)
-        b = save_exclam_boxplot(out_df, charts_dir)
-        c = save_location_flex_chart(out_df, charts_dir)
+    # By gender (keep readable: plot Women/Men/Non-binary/Unknown if present)
+    genders_present = sorted({r.gender for r in records})
+    series = {}
+    for g in genders_present:
+        series[g] = [float(counts_by_gender[g][c]) for c in cats]
 
-        print("\n[charts]")
-        if a:
-            print(f"  wrote: {a}")
-        else:
-            print("  Graph A skipped (missing/invalid age or word_count)")
+    grouped_bar_chart(
+        labels=cats,
+        series=series,
+        title='What People Want by Gender (from "Looking For")',
+        out_dir=charts_dir,
+        filename_base="lookingfor_category_by_gender",
+        xlabel="Category",
+        ylabel="Profiles mentioning category",
+        rotate=25,
+    )
 
-        if b:
-            print(f"  wrote: {b}")
-        else:
-            print("  Graph B skipped (missing gender or exclam data)")
+    for c in cats:
+        cat_rows.append({"category": c, "count_overall": counts_overall[c]})
+    write_csv(
+        tables_dir / "lookingfor_category_counts.csv",
+        cat_rows,
+        ["category", "count_overall"],
+    )
 
-        if c:
-            print(f"  wrote: {c}")
-        else:
-            print("  Graph C skipped (missing locationFlexibility)")
+    # -------------------------
+    # 3) Tone classification + distributions
+    # -------------------------
+    tone_rows: List[Dict[str, Any]] = []
+    humor_dist_by_gender = defaultdict(Counter)
+    vuln_dist_by_gender = defaultdict(Counter)
 
-    # ---------- Step 5: TF-IDF distinctive vocabulary ----------
-    if not args.no_tfidf:
-        tables_dir = args.out_tables_dir
-        tables_dir.mkdir(parents=True, exist_ok=True)
+    humor_dist_by_age = defaultdict(Counter)
+    vuln_dist_by_age = defaultdict(Counter)
 
-        df_text = df.copy()
-        df_text["fullText"] = df_text["fullText"].astype(str)
+    humor_categories = ["Humorous", "Neutral", "Serious"]
+    vuln_categories = ["Vulnerable", "Neutral", "Guarded"]
 
-        df_text["word_count_tmp"] = df_text["fullText"].apply(word_count)
-        df_text = df_text[df_text["word_count_tmp"] > 0].copy()
+    for r in records:
+        tone = classify_tone(r.tokens_all)
+        ag = age_group(r.age)
 
-        print("\n[tfidf] distinctive vocabulary tables")
+        humor_dist_by_gender[r.gender][tone["humor"]] += 1
+        vuln_dist_by_gender[r.gender][tone["vulnerability"]] += 1
 
-        # A) Women vs Men
-        df_text["gender_norm"] = df_text.get("gender_norm", "unknown").astype(str)
-        gender_counts = df_text["gender_norm"].value_counts().to_dict()
-        print(f"  gender counts (with text): {gender_counts}")
+        humor_dist_by_age[ag][tone["humor"]] += 1
+        vuln_dist_by_age[ag][tone["vulnerability"]] += 1
 
-        if gender_counts.get("female", 0) >= args.min_group_size and gender_counts.get("male", 0) >= args.min_group_size:
-            w_over_m, m_over_w = distinctive_terms_two_group(
-                df_text=df_text,
-                group_col="gender_norm",
-                group_a="female",
-                group_b="male",
-                text_col="fullText",
-                top_n=args.tfidf_top_n,
-                min_df=args.tfidf_min_df,
-                max_df=args.tfidf_max_df,
-            )
+        tone_rows.append({
+            "id": r.id,
+            "gender": r.gender,
+            "age": r.age if r.age is not None else "",
+            "age_group": ag,
+            "humor": tone["humor"],
+            "vulnerability": tone["vulnerability"],
+        })
 
-            if w_over_m is not None and m_over_w is not None:
-                print("\n  [women vs men] top distinctive terms (women)")
-                print(w_over_m.to_string(index=False))
+    write_csv(
+        tables_dir / "tone_classification_per_profile.csv",
+        tone_rows,
+        ["id", "gender", "age", "age_group", "humor", "vulnerability"],
+    )
 
-                print("\n  [women vs men] top distinctive terms (men)")
-                print(m_over_w.to_string(index=False))
+    # Stacked bars by gender
+    genders = sorted(humor_dist_by_gender.keys())
+    stacked_bar_distribution(
+        groups=genders,
+        categories=humor_categories,
+        matrix=humor_dist_by_gender,
+        title="Tone: Humorous vs Serious distribution by Gender",
+        out_dir=charts_dir,
+        filename_base="tone_humor_by_gender",
+        xlabel="Gender",
+    )
 
-                w_over_m.to_csv(tables_dir / "tfidf_women_over_men.csv", index=False)
-                m_over_w.to_csv(tables_dir / "tfidf_men_over_women.csv", index=False)
+    stacked_bar_distribution(
+        groups=genders,
+        categories=vuln_categories,
+        matrix=vuln_dist_by_gender,
+        title="Tone: Vulnerable vs Guarded distribution by Gender",
+        out_dir=charts_dir,
+        filename_base="tone_vulnerability_by_gender",
+        xlabel="Gender",
+    )
 
-                print(f"\n  saved: {tables_dir / 'tfidf_women_over_men.csv'}")
-                print(f"  saved: {tables_dir / 'tfidf_men_over_women.csv'}")
-            else:
-                print("  [women vs men] skipped (could not compute vectors)")
-        else:
-            print("  [women vs men] skipped (not enough profiles in female and/or male)")
+    # Stacked bars by age group (fixed order)
+    age_groups = ["Gen Z (<25)", "Millennial (25–40)", "Gen X (41–56)", "Boomer+ (57+)", "Unknown"]
+    age_groups_present = [g for g in age_groups if g in humor_dist_by_age]
 
-        # B) Age cohorts
-        df_text["age_cohort"] = df_text.get("age", None).apply(age_cohort_from_age)
-        cohort_counts = df_text["age_cohort"].value_counts().to_dict()
-        print(f"\n  age cohort counts (with text): {cohort_counts}")
+    stacked_bar_distribution(
+        groups=age_groups_present,
+        categories=humor_categories,
+        matrix=humor_dist_by_age,
+        title="Tone: Humorous vs Serious distribution by Age Group",
+        out_dir=charts_dir,
+        filename_base="tone_humor_by_agegroup",
+        xlabel="Age Group",
+        rotate=15,
+    )
 
-        cohorts = [c for c, n in cohort_counts.items() if n >= args.min_group_size and c != "unknown"]
-        if cohorts:
-            results = distinctive_terms_multi_group(
-                df_text=df_text,
-                group_col="age_cohort",
-                groups=cohorts,
-                text_col="fullText",
-                top_n=min(args.tfidf_top_n, 20),
-                min_df=args.tfidf_min_df,
-                max_df=args.tfidf_max_df,
-            )
+    stacked_bar_distribution(
+        groups=age_groups_present,
+        categories=vuln_categories,
+        matrix=vuln_dist_by_age,
+        title="Tone: Vulnerable vs Guarded distribution by Age Group",
+        out_dir=charts_dir,
+        filename_base="tone_vulnerability_by_agegroup",
+        xlabel="Age Group",
+        rotate=15,
+    )
 
-            for cohort, table in results.items():
-                print(f"\n  [age cohort: {cohort}] top distinctive terms")
-                print(table.to_string(index=False))
-                out_path = tables_dir / f"tfidf_age_{cohort}.csv"
-                table.to_csv(out_path, index=False)
-                print(f"  saved: {out_path}")
-        else:
-            print("  [age cohorts] skipped (no cohort meets min group size)")
+    # Also dump summary tables (counts) for reproducibility
+    summary_rows = []
+    for g in genders:
+        row = {"group": g}
+        for c in humor_categories:
+            row[f"humor_{c.lower()}"] = humor_dist_by_gender[g].get(c, 0)
+        for c in vuln_categories:
+            row[f"vuln_{c.lower()}"] = vuln_dist_by_gender[g].get(c, 0)
+        summary_rows.append(row)
 
-        # C) Location groups (if enough data)
-        if "location" in df_text.columns:
-            df_text["region"] = df_text["location"].fillna("").astype(str).str.strip().apply(last_location_token)
-            df_text["region"] = df_text["region"].replace("", "unknown")
+    write_csv(
+        tables_dir / "tone_summary_by_gender.csv",
+        summary_rows,
+        ["group",
+         "humor_humorous", "humor_neutral", "humor_serious",
+         "vuln_vulnerable", "vuln_neutral", "vuln_guarded"],
+    )
 
-            region_counts = df_text["region"].value_counts()
-            eligible_regions = region_counts[region_counts >= args.min_group_size].head(10).index.tolist()
-            eligible_regions = [r for r in eligible_regions if r != "unknown"]
+    print(f"\nSaved charts to: {charts_dir}")
+    print(f"Saved tables to: {tables_dir}")
+    print("Done. Your profiles have been turned into rectangles and moral judgments.\n")
 
-            print(f"\n  region groups eligible (>= {args.min_group_size} profiles): {eligible_regions}")
 
-            if eligible_regions:
-                results = distinctive_terms_multi_group(
-                    df_text=df_text,
-                    group_col="region",
-                    groups=eligible_regions,
-                    text_col="fullText",
-                    top_n=min(args.tfidf_top_n, 20),
-                    min_df=args.tfidf_min_df,
-                    max_df=args.tfidf_max_df,
-                )
+# -----------------------------
+# CLI
+# -----------------------------
 
-                for region, table in results.items():
-                    print(f"\n  [region: {region}] top distinctive terms")
-                    print(table.to_string(index=False))
-                    safe_region = re.sub(r"[^a-zA-Z0-9_]+", "_", str(region)).strip("_")
-                    out_path = tables_dir / f"tfidf_region_{safe_region}.csv"
-                    table.to_csv(out_path, index=False)
-                    print(f"  saved: {out_path}")
-            else:
-                print("  [locations] skipped (no region meets min group size)")
-        else:
-            print("  [locations] skipped (no location field)")
+def parse_args() -> argparse.Namespace:
+    ap = argparse.ArgumentParser(description="DateMeDirectory analysis: Step 6 advanced graphs")
+    ap.add_argument("--input", type=str, default="data/profiles_master.json", help="Path to profiles JSON")
+    ap.add_argument("--out", type=str, default="", help="Output directory (default: data/analysis/YYYYMMDD)")
+    return ap.parse_args()
 
-    print("\n[done]\n")
+def main() -> None:
+    args = parse_args()
+    in_path = Path(args.input)
 
+    if args.out.strip():
+        out_root = Path(args.out)
+    else:
+        stamp = datetime.now().strftime("%Y%m%d")
+        out_root = Path("data") / "analysis" / stamp
+
+    ensure_dir(out_root)
+
+    records = load_profiles(in_path)
+    print(f"Loaded {len(records)} profiles from {in_path}")
+
+    # quick sanity
+    genders = Counter(r.gender for r in records)
+    print("Gender counts:", dict(genders))
+    ages_known = sum(1 for r in records if r.age is not None)
+    print(f"Ages present: {ages_known}/{len(records)}")
+
+    make_step6_charts(records, out_root)
 
 if __name__ == "__main__":
     main()
