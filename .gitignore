@@ -9,3 +9,8 @@ __pycache__/
 data/raw/
 data/processed/
 data/latest/
+
+echo "" >> .gitignore
+echo "# Repomix outputs" >> .gitignore
+echo "repomix-output.xml" >> .gitignore
+echo "repomix-output.*" >> .gitignore
