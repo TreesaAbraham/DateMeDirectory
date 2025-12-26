@@ -14,3 +14,7 @@ echo "" >> .gitignore
 echo "# Repomix outputs" >> .gitignore
 echo "repomix-output.xml" >> .gitignore
 echo "repomix-output.*" >> .gitignore
+
+# Repomix outputs
+repomix-output.xml
+repomix-output.*
