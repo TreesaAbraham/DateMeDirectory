@@ -1,0 +1,23 @@
+[33mcommit 52a57fa23dceefd110cfafaf4d72283f9eefe615[m
+Author: Treesa Abraham <treesa.abraham106@gmail.com>
+Date:   Fri Dec 26 09:43:25 2025 -0500
+
+    chore: add repomixignore, delete repo outlook
+
+[33mcommit bc222cb1d9eae8200e1bc81e86b01c4f4184bc33[m
+Author: Treesa Abraham <treesa.abraham106@gmail.com>
+Date:   Fri Dec 26 09:38:55 2025 -0500
+
+    chore: add repomix:ignore
+
+[33mcommit 4f59b6f7374f83e4f4956cc85be00a5510067eb2[m
+Author: Treesa Abraham <treesa.abraham106@gmail.com>
+Date:   Wed Nov 5 08:02:47 2025 -0500
+
+    clean slate
+
+[33mcommit ac9bb4ea7555b6cf21331bf6196b0a4837e6d3f9[m
+Author: Treesa Abraham <treesa.abraham106@gmail.com>
+Date:   Sat Nov 1 20:33:20 2025 -0400
+
+    feat: parse profile table for name, age, gender, etc
