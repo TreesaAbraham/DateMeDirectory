@@ -1,0 +1,21 @@
+# Big data / archives
+data/**
+**/*.json
+**/*.ndjson
+**/*.jsonl
+
+# If you keep some small config JSONs, explicitly allow them:
+!package.json
+!tsconfig.json
+!eslint*.json
+!schemas/**/*.json
+
+# Other usual noise
+**/__pycache__/**
+**/.pytest_cache/**
+**/.mypy_cache/**
+**/node_modules/**
+**/.venv/**
+**/dist/**
+**/build/**
+**/.DS_Store
