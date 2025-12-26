@@ -1,21 +1,75 @@
-# Big data / archives
+# -----------------------------
+# Repomix ignore for DateMeDirectory
+# Goal: include code + docs + schemas, exclude data dumps + environments + binaries
+# -----------------------------
+
+# Git internals
+.git/**
+
+# Python / node environments and caches
+.venv/**
+venv/**
+__pycache__/**
+**/__pycache__/**
+.pytest_cache/**
+.mypy_cache/**
+.ruff_cache/**
+*.pyc
+
+node_modules/**
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# Playwright / browser binaries (often huge)
+**/playwright/**
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/**
+.idea/**
+
+# -----------------------------
+# Data + archives (YOUR main repomix killer)
+# -----------------------------
 data/**
+# If you want to include a tiny curated dataset, use a sample folder:
+!data/sample/**
+!data/sample/**
+
+# (Optional) If you keep schemas under data/, allow them explicitly (adjust if needed)
+!data/schemas/**
+!data/schemas/**
+
+# Common massive formats from scraping/exports
+**/*.html
+**/*.htm
 **/*.json
 **/*.ndjson
 **/*.jsonl
+**/*.csv
+**/*.tsv
+**/*.parquet
+**/*.sqlite
+**/*.db
 
-# If you keep some small config JSONs, explicitly allow them:
+# Allowlist important repo JSON configs (keep these even though we ignore *.json)
 !package.json
 !tsconfig.json
 !eslint*.json
+!prettier*.json
+!*.schema.json
 !schemas/**/*.json
+!schemas/**/*.schema.json
 
-# Other usual noise
-**/__pycache__/**
-**/.pytest_cache/**
-**/.mypy_cache/**
-**/node_modules/**
-**/.venv/**
-**/dist/**
-**/build/**
-**/.DS_Store
+# -----------------------------
+# Repomix outputs (do not pack the pack)
+# -----------------------------
+repomix-output.*
+**/repomix-output.*
+
+# Build / dist outputs (if you have any)
+dist/**
+build/**
+coverage/**
