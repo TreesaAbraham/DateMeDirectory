@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#word_graph_08_sentence_complexity_by_interest.py
 """
 Box plot: Sentence complexity by who they're looking for.
 
@@ -149,8 +150,8 @@ def main() -> None:
     ap.add_argument(
         "--complex_min_words",
         type=int,
-        default=15,
-        help="A sentence is 'complex' if it has MORE than this many words (default: >15)",
+        default=20,
+        help="A sentence is 'complex' if it has MORE than this many words (default: >20)",
     )
     ap.add_argument(
         "--order",
@@ -265,7 +266,7 @@ def main() -> None:
 
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.boxplot(plot_data, labels=labels, showfliers=False)
-    ax.set_title("Percent of Sentences That Are Complex (sentence length > 15 words)", pad=12)
+    ax.set_title("Percent of Sentences That Are Complex (sentence length > 20 words)", pad=12)
     ax.set_ylabel("Percent complex sentences")
 
     fig.savefig(out_png, dpi=200, bbox_inches="tight")

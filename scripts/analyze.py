@@ -99,8 +99,10 @@ class ProfileRecord:
     gender: str
     age: Optional[int]
     location: str
+    text_all: str
     tokens_all: List[str]
     tokens_looking: List[str]
+
 
 def normalize_gender(g: Any) -> str:
     if g is None:
@@ -194,9 +196,11 @@ def load_profiles(path: Path) -> List[ProfileRecord]:
             gender=g,
             age=age_val,
             location=loc,
+            text_all=all_text,
             tokens_all=toks_all,
             tokens_looking=toks_looking,
         ))
+
 
     return records
 

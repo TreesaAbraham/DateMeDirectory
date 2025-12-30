@@ -96,6 +96,8 @@ Distribution across demographics
 
 Output: Full set of publication-ready charts
 
+
+
 Step 7: Write Findings
 Create findings.md that:
 
@@ -103,6 +105,10 @@ Explains each graph
 Interprets patterns
 Highlights surprising discoveries
 Connects to broader dating culture observations
+
+
+Notes from the 8 graphs created:
+Graph 1: Views on Serious Relationships
 
 Output: Written analysis ready to share
 

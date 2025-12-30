@@ -1,4 +1,4 @@
 group,n,min,q1,median,q3,max
-Looking for Men,89,9.787,37.838,47.059,61.111,100.0
-Looking for Women,199,6.0,36.603,46.032,57.143,85.714
-Looking for Both,29,21.429,38.793,48.485,55.102,100.0
+Looking for Men,89,0.0,23.077,32.5,40.0,100.0
+Looking for Women,199,0.0,22.475,29.688,38.5,80.0
+Looking for Both,29,9.302,21.975,31.25,38.028,100.0
