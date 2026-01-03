@@ -11,6 +11,9 @@ Outputs:
 - data/charts/word_graph_04_distinctive_us_vs_nonus.png
 - data/charts/word_graph_04_distinctive_us_vs_nonus.svg
 - data/charts/word_graph_04_distinctive_us_vs_nonus.csv
+
+Change:
+- Distinctive candidate words must be >= 6 letters (default).
 """
 
 from __future__ import annotations
@@ -22,7 +25,7 @@ import math
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import matplotlib.pyplot as plt
 
@@ -36,7 +39,7 @@ STOPWORDS = {
     "him","his","i","if","in","is","it","its","me","my","not","of","on","or","our","ours","she",
     "so","that","the","their","theirs","them","then","there","these","they","this","to","too",
     "us","was","we","were","what","when","where","which","who","why","with","you","your","yours",
-    "im","i'm","ive","i've","dont","don't","cant","can't","just","really","like"
+    "im","i'm","ive","i've","dont","don't","cant","can't","just","really","like","because","people","making","arounds","things", "create", "content", "generally", "around", 
 }
 
 US_STATE_ABBRS = {
@@ -78,7 +81,7 @@ def get_fulltext(p: dict) -> str:
 
 def tokenize(text: str, min_len: int) -> List[str]:
     words = [w.lower() for w in WORD_RE.findall(text)]
-    out = []
+    out: List[str] = []
     for w in words:
         if len(w) < min_len:
             continue
@@ -187,6 +190,7 @@ def render_table(
     words_b: List[str],
 ) -> None:
     rows = max(len(words_a), len(words_b))
+
     cell_text = []
     for i in range(rows):
         cell_text.append([
@@ -194,9 +198,14 @@ def render_table(
             words_b[i] if i < len(words_b) else "",
         ])
 
-    fig, ax = plt.subplots(figsize=(8.5, 10))
+    # Bigger canvas = bigger cells (most important change)
+    # Width/height are inches. Increase height for more row spacing.
+    fig_w = 10.5
+    fig_h = max(12, rows * 0.75)  # scales with number of rows
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
+
     ax.axis("off")
-    ax.set_title(title, fontsize=14, pad=12)
+    ax.set_title(title, fontsize=16, pad=18)
 
     tbl = ax.table(
         cellText=cell_text,
@@ -205,14 +214,24 @@ def render_table(
         cellLoc="left",
         colLoc="left",
     )
+
+    # Font settings
     tbl.auto_set_font_size(False)
-    tbl.set_fontsize(11)
-    tbl.scale(1, 1.35)
+    tbl.set_fontsize(12)  # try 11–13 if you want
+
+    # Increase row height (second number) and slightly widen columns (first number)
+    # This is the “make boxes bigger” knob.
+    tbl.scale(1.15, 2.0)
+
+    # Optional: add a little padding inside each cell so text isn't glued to borders
+    for (_, _), cell in tbl.get_celld().items():
+        cell.PAD = 0.15
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_png, dpi=200, bbox_inches="tight")
+    fig.savefig(out_png, dpi=250, bbox_inches="tight")
     fig.savefig(out_svg, bbox_inches="tight")
     plt.close(fig)
+
 
 
 def main() -> None:
@@ -220,7 +239,10 @@ def main() -> None:
     ap.add_argument("--input", required=True, type=Path, help="Path to profiles_master.json")
     ap.add_argument("--outdir", default="data/charts", help="Output directory")
     ap.add_argument("--top_n", type=int, default=20, help="Words per column")
-    ap.add_argument("--min_word_len", type=int, default=3, help="Min token length")
+
+    # CHANGE: default now 6 (but still overridable from CLI)
+    ap.add_argument("--min_word_len", type=int, default=6, help="Min token length (default: 6)")
+
     ap.add_argument("--min_total_count", type=int, default=5, help="Drop words with total count < this")
     ap.add_argument("--alpha", type=float, default=0.01, help="Prior strength multiplier")
     ap.add_argument("--location_field", default="location", help="Field containing location string")
@@ -271,15 +293,26 @@ def main() -> None:
     def total_count(w: str) -> int:
         return counts_us.get(w, 0) + counts_non.get(w, 0)
 
-    items = [(w, score) for w, score in z.items() if total_count(w) >= args.min_total_count]
+    # ALSO enforce min length here (extra safety)
+    items = [
+        (w, score)
+        for w, score in z.items()
+        if total_count(w) >= args.min_total_count and len(w) >= args.min_word_len
+    ]
     if not items:
-        raise SystemExit("No words left after filtering. Lower --min_total_count.")
+        raise SystemExit("No words left after filtering. Lower --min_total_count or --min_word_len.")
 
     items_sorted = sorted(items, key=lambda x: x[1], reverse=True)
-    top_us = [w for w, _ in items_sorted[: args.top_n]]
+    top_us_words = [w for w, _ in items_sorted[: args.top_n]]
 
     items_sorted_non = sorted(items, key=lambda x: x[1])  # ascending => distinctive for NON_US
-    top_non = [w for w, _ in items_sorted_non[: args.top_n]]
+    top_non_words = [w for w, _ in items_sorted_non[: args.top_n]]
+
+    # Display strings that include raw occurrence counts in that group
+    # (These are token counts across the whole corpus for that group.)
+    top_us = [f"{w} ({counts_us.get(w, 0)})" for w in top_us_words]
+    top_non = [f"{w} ({counts_non.get(w, 0)})" for w in top_non_words]
+
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
@@ -289,20 +322,24 @@ def main() -> None:
     out_csv = outdir / "word_graph_04_distinctive_us_vs_nonus.csv"
 
     with out_csv.open("w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["rank", "US_word", "US_z", "NON_US_word", "NON_US_z"])
+        wr = csv.writer(f)
+        wr.writerow(["rank", "US_word", "US_count", "US_z", "NON_US_word", "NON_US_count", "NON_US_z"])
         for i in range(args.top_n):
-            wu = top_us[i] if i < len(top_us) else ""
-            wn = top_non[i] if i < len(top_non) else ""
-            w.writerow([
-                i + 1,
-                wu,
-                round(z.get(wu, 0.0), 4) if wu else "",
-                wn,
-                round(z.get(wn, 0.0), 4) if wn else "",
-            ])
+            wu = top_us_words[i] if i < len(top_us_words) else ""
+            wn = top_non_words[i] if i < len(top_non_words) else ""
 
-    title = "Most Distinctive Words: United States vs Non-US (Date Me Docs)"
+            wr.writerow([
+            i + 1,
+            wu,
+            counts_us.get(wu, 0) if wu else "",
+            round(z.get(wu, 0.0), 4) if wu else "",
+            wn,
+            counts_non.get(wn, 0) if wn else "",
+            round(z.get(wn, 0.0), 4) if wn else "",
+        ])
+
+
+    title = "Most Distinctive Words (>=6 letters): United States vs Non-US (Date Me Docs)"
     render_table(
         out_png=out_png,
         out_svg=out_svg,
@@ -313,7 +350,7 @@ def main() -> None:
         words_b=top_non,
     )
 
-    print(f"[done] US_docs={n_us_docs} | NON_US_docs={n_non_docs}")
+    print(f"[done] US_docs={n_us_docs} | NON_US_docs={n_non_docs} | min_word_len={args.min_word_len}")
     print(f"[skipped] unknown/ambiguous location: {skipped_unknown_loc} | no text: {skipped_no_text}")
     print(f"[out] {out_png}")
     print(f"[out] {out_svg}")

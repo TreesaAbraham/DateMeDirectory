@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 """
-Most Distinctive Words: SF Bay Area vs UK + Central Europe (table figure)
+Most Distinctive Words: SF Bay Area vs UK (incl. London) (table figure)
 
 - Reads: data/profiles_master.json
-- Uses: p["location"] for Bay Area vs UK/Central Europe classification (heuristic)
+- Uses: p["location"] for Bay Area vs UK/London classification (heuristic)
 - Text: profileDetails.fullText (fallbacks included)
 - Distinctiveness: log-odds ratio with Dirichlet prior (z-scored)
 
 Outputs:
-- data/charts/word_graph_05_distinctive_bayarea_vs_centraleurope_uk.png
-- data/charts/word_graph_05_distinctive_bayarea_vs_centraleurope_uk.svg
-- data/charts/word_graph_05_distinctive_bayarea_vs_centraleurope_uk.csv
+- data/charts/word_graph_05_distinctive_bayarea_vs_uk_london.png
+- data/charts/word_graph_05_distinctive_bayarea_vs_uk_london.svg
+- data/charts/word_graph_05_distinctive_bayarea_vs_uk_london.csv
+
+Changes:
+- UK group is ONLY UK/London (no Central Europe)
+- Default min word length is 6 (still overridable)
+- Graph shows counts inline: "word (21)"
+- Table layout is scaled to be legible
+- CSV includes counts
 """
 
 from __future__ import annotations
@@ -27,10 +34,8 @@ from typing import Dict, List, Optional
 import matplotlib.pyplot as plt
 
 
-# Tokenizer: letters + apostrophes
 WORD_RE = re.compile(r"\b[a-zA-Z']+\b")
 
-# Keep this similar to your US vs non-US script (small on purpose)
 STOPWORDS = {
     "a","an","and","are","as","at","be","but","by","for","from","has","have","he","her","hers",
     "him","his","i","if","in","is","it","its","me","my","not","of","on","or","our","ours","she",
@@ -39,10 +44,9 @@ STOPWORDS = {
     "im","i'm","ive","i've","dont","don't","cant","can't","just","really","like"
 }
 
-
 # --- Location heuristics ---
 
-# Bay Area signals (string contains any of these -> BAY_AREA)
+# Bay Area signals
 BAY_AREA_HINTS = {
     "san francisco", "bay area", "silicon valley",
     "oakland", "berkeley", "san jose", "sanjose",
@@ -53,40 +57,24 @@ BAY_AREA_HINTS = {
     "alameda county", "contra costa", "san mateo county", "santa clara county", "marin county",
 }
 
-# Regex to catch “SF” without matching random words
 BAY_AREA_REGEX = [
     re.compile(r"\b(sf|s\.f\.)\b", re.IGNORECASE),
     re.compile(r"\bbay\s+area\b", re.IGNORECASE),
     re.compile(r"\bsilicon\s+valley\b", re.IGNORECASE),
 ]
 
-# UK + Central Europe signals (string contains any of these -> EUROPE_UK)
-EUROPE_UK_HINTS = {
-    # UK / London
+# UK/London only
+UK_HINTS = {
     "uk", "u.k.", "united kingdom", "great britain", "britain",
     "england", "scotland", "wales", "northern ireland",
     "london", "london uk",
-    "manchester", "birmingham", "edinburgh", "glasgow", "bristol", "leeds", "liverpool",
-
-    # Central Europe (and nearby commonly used)
-    "germany", "deutschland", "berlin", "munich", "münchen", "hamburg", "frankfurt", "cologne", "köln",
-    "austria", "vienna", "wien", "salzburg",
-    "switzerland", "zurich", "zürich", "geneva", "basel",
-    "poland", "warsaw", "krakow", "kraków", "wroclaw", "wrocław",
-    "czech", "czech republic", "prague", "praha",
-    "slovakia", "bratislava",
-    "hungary", "budapest",
-    "slovenia", "ljubljana",
-    "croatia", "zagreb",
-
-    # Optional “central-ish” extensions (leave in or remove based on your definition)
-    "netherlands", "amsterdam", "rotterdam",
-    "belgium", "brussels", "antwerp",
 }
 
-EUROPE_UK_REGEX = [
+UK_REGEX = [
     re.compile(r"\b(uk|u\.k\.)\b", re.IGNORECASE),
     re.compile(r"\bunited\s+kingdom\b", re.IGNORECASE),
+    re.compile(r"\bgreat\s+britain\b", re.IGNORECASE),
+    re.compile(r"\bbritain\b", re.IGNORECASE),
     re.compile(r"\blondon\b", re.IGNORECASE),
 ]
 
@@ -104,7 +92,7 @@ def get_fulltext(p: dict) -> str:
 
 def tokenize(text: str, min_len: int) -> List[str]:
     words = [w.lower() for w in WORD_RE.findall(text)]
-    out = []
+    out: List[str] = []
     for w in words:
         if len(w) < min_len:
             continue
@@ -121,19 +109,16 @@ def is_bay_area(loc: str) -> bool:
     return any(rx.search(loc) for rx in BAY_AREA_REGEX)
 
 
-def is_europe_uk(loc: str) -> bool:
+def is_uk(loc: str) -> bool:
     low = loc.lower()
-    if any(h in low for h in EUROPE_UK_HINTS):
+    if any(h in low for h in UK_HINTS):
         return True
-    return any(rx.search(loc) for rx in EUROPE_UK_REGEX)
+    return any(rx.search(loc) for rx in UK_REGEX)
 
 
-def classify_bayarea_vs_europe_uk(location: Optional[str]) -> Optional[str]:
+def classify_bayarea_vs_uk(location: Optional[str]) -> Optional[str]:
     """
-    STRICT classifier:
-    Returns "BAY_AREA", "EUROPE_UK", or None (exclude).
-
-    We ONLY want Bay Area vs UK/Central Europe. Everything else is ignored.
+    STRICT classifier: only Bay Area vs UK/London, everything else excluded.
     """
     if not isinstance(location, str):
         return None
@@ -141,11 +126,10 @@ def classify_bayarea_vs_europe_uk(location: Optional[str]) -> Optional[str]:
     if not s:
         return None
 
-    # If something weird matches both (rare), prefer Bay Area.
     if is_bay_area(s):
         return "BAY_AREA"
-    if is_europe_uk(s):
-        return "EUROPE_UK"
+    if is_uk(s):
+        return "UK"
     return None
 
 
@@ -155,10 +139,6 @@ def log_odds_zscores(
     prior: Counter,
     alpha: float,
 ) -> Dict[str, float]:
-    """
-    z-scored log-odds ratio with informative Dirichlet prior.
-    Positive => distinctive for A; Negative => distinctive for B.
-    """
     n_a = sum(counts_a.values())
     n_b = sum(counts_b.values())
     n_0 = sum(prior.values())
@@ -203,9 +183,12 @@ def render_table(
             words_b[i] if i < len(words_b) else "",
         ])
 
-    fig, ax = plt.subplots(figsize=(8.5, 10))
+    fig_w = 11
+    fig_h = max(12, rows * 0.6)
+    fig, ax = plt.subplots(figsize=(fig_w, fig_h))
+
     ax.axis("off")
-    ax.set_title(title, fontsize=14, pad=12)
+    ax.set_title(title, fontsize=16, pad=18)
 
     tbl = ax.table(
         cellText=cell_text,
@@ -214,12 +197,16 @@ def render_table(
         cellLoc="left",
         colLoc="left",
     )
+
     tbl.auto_set_font_size(False)
-    tbl.set_fontsize(11)
-    tbl.scale(1, 1.35)
+    tbl.set_fontsize(12)
+    tbl.scale(1.15, 1.7)
+
+    for (_, _), cell in tbl.get_celld().items():
+        cell.PAD = 0.15
 
     out_png.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_png, dpi=200, bbox_inches="tight")
+    fig.savefig(out_png, dpi=250, bbox_inches="tight")
     fig.savefig(out_svg, bbox_inches="tight")
     plt.close(fig)
 
@@ -229,7 +216,7 @@ def main() -> None:
     ap.add_argument("--input", required=True, type=Path, help="Path to profiles_master.json")
     ap.add_argument("--outdir", default="data/charts", help="Output directory")
     ap.add_argument("--top_n", type=int, default=20, help="Words per column")
-    ap.add_argument("--min_word_len", type=int, default=3, help="Min token length")
+    ap.add_argument("--min_word_len", type=int, default=6, help="Min token length (default: 6)")
     ap.add_argument("--min_total_count", type=int, default=5, help="Drop words with total count < this")
     ap.add_argument("--alpha", type=float, default=0.01, help="Prior strength multiplier")
     ap.add_argument("--location_field", default="location", help="Field containing location string")
@@ -240,16 +227,16 @@ def main() -> None:
         raise SystemExit("Input JSON must be a list of profiles.")
 
     counts_bay = Counter()
-    counts_eu = Counter()
+    counts_uk = Counter()
 
     n_bay_docs = 0
-    n_eu_docs = 0
+    n_uk_docs = 0
     skipped_not_in_regions = 0
     skipped_no_text = 0
 
     for p in profiles:
         loc = p.get(args.location_field)
-        group = classify_bayarea_vs_europe_uk(loc)
+        group = classify_bayarea_vs_uk(loc)
         if group is None:
             skipped_not_in_regions += 1
             continue
@@ -264,65 +251,75 @@ def main() -> None:
         if group == "BAY_AREA":
             counts_bay.update(tokens)
             n_bay_docs += 1
-        elif group == "EUROPE_UK":
-            counts_eu.update(tokens)
-            n_eu_docs += 1
+        elif group == "UK":
+            counts_uk.update(tokens)
+            n_uk_docs += 1
 
-    if n_bay_docs == 0 or n_eu_docs == 0:
+    if n_bay_docs == 0 or n_uk_docs == 0:
         raise SystemExit(
-            f"Not enough classified profiles. BAY_AREA={n_bay_docs}, EUROPE_UK={n_eu_docs}. "
-            f"(Adjust BAY_AREA_HINTS / EUROPE_UK_HINTS to match your location strings.)"
+            f"Not enough classified profiles. BAY_AREA={n_bay_docs}, UK={n_uk_docs}. "
+            f"(Adjust BAY_AREA_HINTS / UK_HINTS to match your location strings.)"
         )
 
-    prior = counts_bay + counts_eu
-    z = log_odds_zscores(counts_bay, counts_eu, prior=prior, alpha=args.alpha)
+    prior = counts_bay + counts_uk
+    z = log_odds_zscores(counts_bay, counts_uk, prior=prior, alpha=args.alpha)
 
     def total_count(w: str) -> int:
-        return counts_bay.get(w, 0) + counts_eu.get(w, 0)
+        return counts_bay.get(w, 0) + counts_uk.get(w, 0)
 
-    items = [(w, score) for w, score in z.items() if total_count(w) >= args.min_total_count]
+    items = [
+        (w, score)
+        for w, score in z.items()
+        if total_count(w) >= args.min_total_count and len(w) >= args.min_word_len
+    ]
     if not items:
-        raise SystemExit("No words left after filtering. Lower --min_total_count.")
+        raise SystemExit("No words left after filtering. Lower --min_total_count or --min_word_len.")
 
     items_sorted = sorted(items, key=lambda x: x[1], reverse=True)
-    top_bay = [w for w, _ in items_sorted[: args.top_n]]
+    top_bay_words = [w for w, _ in items_sorted[: args.top_n]]
 
-    items_sorted_eu = sorted(items, key=lambda x: x[1])  # ascending => distinctive for EUROPE_UK
-    top_eu = [w for w, _ in items_sorted_eu[: args.top_n]]
+    items_sorted_uk = sorted(items, key=lambda x: x[1])  # ascending => distinctive for UK
+    top_uk_words = [w for w, _ in items_sorted_uk[: args.top_n]]
+
+    # Inline counts: "word (21)"
+    top_bay = [f"{w} ({counts_bay.get(w, 0)})" for w in top_bay_words]
+    top_uk = [f"{w} ({counts_uk.get(w, 0)})" for w in top_uk_words]
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
 
-    out_png = outdir / "word_graph_05_distinctive_bayarea_vs_centraleurope_uk.png"
-    out_svg = outdir / "word_graph_05_distinctive_bayarea_vs_centraleurope_uk.svg"
-    out_csv = outdir / "word_graph_05_distinctive_bayarea_vs_centraleurope_uk.csv"
+    out_png = outdir / "word_graph_05_distinctive_bayarea_vs_uk_london.png"
+    out_svg = outdir / "word_graph_05_distinctive_bayarea_vs_uk_london.svg"
+    out_csv = outdir / "word_graph_05_distinctive_bayarea_vs_uk_london.csv"
 
     with out_csv.open("w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
-        w.writerow(["rank", "BAY_AREA_word", "BAY_AREA_z", "EUROPE_UK_word", "EUROPE_UK_z"])
+        wr = csv.writer(f)
+        wr.writerow(["rank", "BAY_AREA_word", "BAY_AREA_count", "BAY_AREA_z", "UK_word", "UK_count", "UK_z"])
         for i in range(args.top_n):
-            wb = top_bay[i] if i < len(top_bay) else ""
-            we = top_eu[i] if i < len(top_eu) else ""
-            w.writerow([
+            wb = top_bay_words[i] if i < len(top_bay_words) else ""
+            wk = top_uk_words[i] if i < len(top_uk_words) else ""
+            wr.writerow([
                 i + 1,
                 wb,
+                counts_bay.get(wb, 0) if wb else "",
                 round(z.get(wb, 0.0), 4) if wb else "",
-                we,
-                round(z.get(we, 0.0), 4) if we else "",
+                wk,
+                counts_uk.get(wk, 0) if wk else "",
+                round(z.get(wk, 0.0), 4) if wk else "",
             ])
 
-    title = "Most Distinctive Words: SF Bay Area vs UK + Central Europe (Date Me Docs)"
+    title = f"Most Distinctive Words (>= {args.min_word_len} letters): SF Bay Area vs UK/London (Date Me Docs)"
     render_table(
         out_png=out_png,
         out_svg=out_svg,
         title=title,
         col_a="SF BAY AREA",
-        col_b="UK + CENTRAL EUROPE",
+        col_b="UK / LONDON",
         words_a=top_bay,
-        words_b=top_eu,
+        words_b=top_uk,
     )
 
-    print(f"[done] BAY_AREA_docs={n_bay_docs} | EUROPE_UK_docs={n_eu_docs}")
+    print(f"[done] BAY_AREA_docs={n_bay_docs} | UK_docs={n_uk_docs} | min_word_len={args.min_word_len}")
     print(f"[skipped] not in these regions: {skipped_not_in_regions} | no text: {skipped_no_text}")
     print(f"[out] {out_png}")
     print(f"[out] {out_svg}")
