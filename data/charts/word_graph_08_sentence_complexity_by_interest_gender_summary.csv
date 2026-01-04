@@ -1,0 +1,51 @@
+target,source,n,min,q1,median,q3,max
+M,F,93,0.0,9.04,15.534,26.087,72.727
+M,M,17,0.0,2.676,14.194,19.78,31.034
+M,NB,3,12.5,14.145,15.789,23.315,30.841
+F,F,13,5.0,9.091,24.658,28.571,72.727
+F,M,206,0.0,6.4,14.629,25.318,65.789
+F,NB,3,12.5,15.709,18.919,24.88,30.841
+NB,F,15,4.878,9.065,18.824,32.917,72.727
+NB,M,26,0.0,12.177,16.486,25.436,42.373
+NB,NB,1,12.5,12.5,12.5,12.5,12.5
+
+
+We create THREE graphs:
+
+1) Looking for Men:
+   Bars for Women vs Men vs NB (all profiles whose interestedIn includes Men)
+2) Looking for Women:
+   Bars for Women vs Men vs NB (interestedIn includes Women)
+3) Looking for Non-binary:
+   Bars for Women vs Men vs NB (interestedIn includes NB)
+
+Multi-target rule:
+- If someone is looking for multiple genders, they are included in MULTIPLE graphs.
+
+Sentence complexity definition (per profile):
+- Split text into sentences
+- Tokenize words per sentence
+- A "long sentence" is one with word_count > --min_sentence_words (default 20)
+- sentence_complex_pct = (long_sentences / total_sentences) * 100
+
+Style:
+- For each bar/group, draw a vertical IQR bar (Q1->Q3) with a median line and median label.
+
+Text source:
+- profileDetails.fullText (fallbacks included)
+
+Outputs:
+- data/charts/word_graph_08_sentence_complexity_looking_for_men.png
+- data/charts/word_graph_08_sentence_complexity_looking_for_men.svg
+- data/charts/word_graph_08_sentence_complexity_looking_for_women.png
+- data/charts/word_graph_08_sentence_complexity_looking_for_women.svg
+- data/charts/word_graph_08_sentence_complexity_looking_for_nb.png
+- data/charts/word_graph_08_sentence_complexity_looking_for_nb.svg
+- data/charts/word_graph_08_sentence_complexity_by_interest_gender_per_profile.csv
+- data/charts/word_graph_08_sentence_complexity_by_interest_gender_summary.csv
+"""
+
+Most interesting bar to note: 
+Women tended to have higher sentence complexity than men and non binary across all gender interests,
+but especifally for women looking for women, where the median sentence complexity was 24.658% (Q1=9.091%, Q3=28.571%),
+compared to men looking for women (median=14.194%) and non-binary looking for women (median=18.824%).
