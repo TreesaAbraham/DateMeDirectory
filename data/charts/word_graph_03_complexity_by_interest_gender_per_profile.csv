@@ -1,0 +1,378 @@
+id,source_gender,target_gender,group,word_count,complex_pct,interestedIn_raw
+usr_62111231bc,F,F,Women → Women,1592,17.776,"['F', 'M']"
+usr_62111231bc,F,M,Women → Men,1592,17.776,"['F', 'M']"
+usr_18c02c17a2,M,F,Men → Women,906,9.934,['F']
+usr_1c58a6a0e7,F,M,Women → Men,1224,14.461,['M']
+usr_f2fa5eadbf,M,F,Men → Women,839,13.826,['F']
+usr_aea53a8142,F,M,Women → Men,2030,14.039,['M']
+usr_957f29464f,F,M,Women → Men,335,10.746,['M']
+usr_9256c466fb,M,F,Men → Women,566,20.318,['F']
+usr_f79f5f2b1b,M,F,Men → Women,2080,12.548,['F']
+usr_f98cae6f00,F,M,Women → Men,1336,25.449,"['M', 'NB']"
+usr_f98cae6f00,F,NB,Women → NB,1336,25.449,"['M', 'NB']"
+usr_77c62063c9,M,F,Men → Women,1000,12.2,['F']
+usr_5bd7339095,M,F,Men → Women,1512,13.228,['F']
+usr_323f919897,F,M,Women → Men,568,21.479,"['M', 'NB']"
+usr_323f919897,F,NB,Women → NB,568,21.479,"['M', 'NB']"
+usr_44b02483f3,F,M,Women → Men,1157,15.644,['M']
+usr_9368a27fa1,M,F,Men → Women,1385,23.466,['F']
+usr_15f3bdcf80,F,M,Women → Men,369,20.325,"['M', 'NB']"
+usr_15f3bdcf80,F,NB,Women → NB,369,20.325,"['M', 'NB']"
+usr_69c6656a7e,M,F,Men → Women,645,9.922,['F']
+usr_5d1b9d55a6,M,F,Men → Women,384,10.938,['F']
+usr_db2dae94d0,M,F,Men → Women,1040,13.846,['F']
+usr_3647e23669,M,F,Men → Women,2850,13.754,['F']
+usr_6dc2e0bdb6,M,F,Men → Women,853,20.516,['F']
+usr_a4dd2a5faa,M,F,Men → Women,568,18.486,['F']
+usr_ca7ce7ccf9,F,M,Women → Men,892,16.592,['M']
+usr_1a3dd3479b,M,F,Men → Women,396,17.172,['F']
+usr_a6812c96de,F,M,Women → Men,817,14.688,['M']
+usr_8734675044,F,M,Women → Men,535,15.327,"['M', 'NB']"
+usr_8734675044,F,NB,Women → NB,535,15.327,"['M', 'NB']"
+usr_a7a9bad78b,M,F,Men → Women,762,18.373,['F']
+usr_78ece4944a,M,F,Men → Women,326,6.442,['F']
+usr_3089c6389f,M,F,Men → Women,1144,12.15,['F']
+usr_7b6463a41f,F,M,Women → Men,369,13.279,['M']
+usr_41855fc328,F,M,Women → Men,2686,23.641,['M']
+usr_e4e1b0b7c4,M,F,Men → Women,1159,23.727,"['F', 'M', 'NB']"
+usr_e4e1b0b7c4,M,M,Men → Men,1159,23.727,"['F', 'M', 'NB']"
+usr_e4e1b0b7c4,M,NB,Men → NB,1159,23.727,"['F', 'M', 'NB']"
+usr_2baef7757a,M,F,Men → Women,853,12.544,['F']
+usr_29f94af17f,M,F,Men → Women,748,18.048,['F']
+usr_bc8943c1f6,M,F,Men → Women,119,21.849,['F']
+usr_07f65c8d00,M,F,Men → Women,368,10.326,['F']
+usr_9ea93eae4d,M,F,Men → Women,339,17.404,['F']
+usr_05416c339c,M,F,Men → Women,886,13.77,['F']
+usr_2d2e80e632,F,M,Women → Men,788,11.421,['M']
+usr_b249276aff,F,M,Women → Men,1877,10.762,['M']
+usr_28c25b686b,M,F,Men → Women,323,14.241,['F']
+usr_af082a73b0,M,F,Men → Women,476,12.395,['F']
+usr_de9267b485,M,F,Men → Women,1361,13.666,['F']
+usr_fc017d82c9,F,F,Women → Women,178,20.787,"['F', 'M', 'NB']"
+usr_fc017d82c9,F,M,Women → Men,178,20.787,"['F', 'M', 'NB']"
+usr_fc017d82c9,F,NB,Women → NB,178,20.787,"['F', 'M', 'NB']"
+usr_7abe6d26c5,M,F,Men → Women,1686,15.718,['F']
+usr_55a09b3eb6,M,F,Men → Women,434,14.977,['F']
+usr_5c454914d9,M,F,Men → Women,571,14.186,"['F', 'NB']"
+usr_5c454914d9,M,NB,Men → NB,571,14.186,"['F', 'NB']"
+usr_bea9a0b648,M,F,Men → Women,924,10.498,['F']
+usr_1a96b561a7,M,F,Men → Women,392,16.582,['F']
+usr_1fb73e4836,M,F,Men → Women,840,14.048,['F']
+usr_9e07ccdaa5,M,F,Men → Women,364,8.791,['F']
+usr_f1fa07879a,M,F,Men → Women,1871,11.331,"['F', 'M', 'NB']"
+usr_f1fa07879a,M,M,Men → Men,1871,11.331,"['F', 'M', 'NB']"
+usr_f1fa07879a,M,NB,Men → NB,1871,11.331,"['F', 'M', 'NB']"
+usr_2b3c84d078,F,M,Women → Men,324,13.58,['M']
+usr_76e12533b0,M,F,Men → Women,1172,15.956,"['F', 'NB']"
+usr_76e12533b0,M,NB,Men → NB,1172,15.956,"['F', 'NB']"
+usr_e02afc30b9,F,M,Women → Men,420,10.238,['M']
+usr_7beff3f364,M,F,Men → Women,446,15.022,['F']
+usr_ec665788c6,M,F,Men → Women,1201,9.659,['F']
+usr_1d7ce6b95c,F,F,Women → Women,103,7.767,"['F', 'M', 'NB']"
+usr_1d7ce6b95c,F,M,Women → Men,103,7.767,"['F', 'M', 'NB']"
+usr_1d7ce6b95c,F,NB,Women → NB,103,7.767,"['F', 'M', 'NB']"
+usr_8c045e9342,M,F,Men → Women,1118,14.132,['F']
+usr_482e943750,M,F,Men → Women,307,9.446,['F']
+usr_c7b0287a2e,M,F,Men → Women,402,16.418,['F']
+usr_2b2bbb68f8,F,M,Women → Men,1041,11.239,['M']
+usr_8a66d8f970,M,F,Men → Women,12555,15.93,['F']
+usr_dc07f2432e,M,F,Men → Women,429,10.49,['F']
+usr_b8ae6cc066,M,F,Men → Women,832,9.856,['F']
+usr_eafd834d0c,M,F,Men → Women,183,14.208,['F']
+usr_5cb6a47d0b,F,M,Women → Men,326,11.35,['M']
+usr_a64be45867,M,F,Men → Women,175,20.0,['F']
+usr_65da957f53,M,F,Men → Women,375,13.867,['F']
+usr_086121af0b,M,F,Men → Women,1292,13.854,['F']
+usr_d011560031,M,F,Men → Women,1347,13.512,"['F', 'NB']"
+usr_d011560031,M,NB,Men → NB,1347,13.512,"['F', 'NB']"
+usr_4542e591bd,M,F,Men → Women,670,14.478,['F']
+usr_87ae7e8e85,M,F,Men → Women,720,11.25,"['F', 'NB']"
+usr_87ae7e8e85,M,NB,Men → NB,720,11.25,"['F', 'NB']"
+usr_c95879af82,M,F,Men → Women,855,16.257,['F']
+usr_3eb7c032c3,M,F,Men → Women,1492,18.097,['F']
+usr_b1841bcdb4,F,M,Women → Men,592,9.291,['M']
+usr_4c79d89899,M,F,Men → Women,1557,12.46,['F']
+usr_ad37c5c484,F,F,Women → Women,501,17.166,"['F', 'M', 'NB']"
+usr_ad37c5c484,F,M,Women → Men,501,17.166,"['F', 'M', 'NB']"
+usr_ad37c5c484,F,NB,Women → NB,501,17.166,"['F', 'M', 'NB']"
+usr_e913712157,M,F,Men → Women,1280,15.937,['F']
+usr_f9d016cd0b,M,F,Men → Women,648,10.031,['F']
+usr_dee75989a8,M,F,Men → Women,866,14.781,['F']
+usr_f84a619384,M,M,Men → Men,110,12.727,['M']
+usr_1ffec2b180,M,F,Men → Women,1513,12.954,['F']
+usr_5807311f43,M,F,Men → Women,1078,10.853,['F']
+usr_3f5b9628fc,F,M,Women → Men,435,11.034,['M']
+usr_7bea345c09,M,F,Men → Women,1749,16.695,"['F', 'NB']"
+usr_7bea345c09,M,NB,Men → NB,1749,16.695,"['F', 'NB']"
+usr_f6860f2591,M,F,Men → Women,1074,11.825,['F']
+usr_6c48cb097e,M,F,Men → Women,273,7.692,['F']
+usr_74299a606e,F,M,Women → Men,258,17.442,['M']
+usr_f99d050fdb,M,F,Men → Women,1663,10.764,"['F', 'NB']"
+usr_f99d050fdb,M,NB,Men → NB,1663,10.764,"['F', 'NB']"
+usr_23903e6cac,M,F,Men → Women,1057,11.637,['F']
+usr_1cbd809ad9,M,F,Men → Women,1647,13.783,['F']
+usr_64aaeab250,M,F,Men → Women,2515,11.213,['F']
+usr_f8b3720cf2,M,F,Men → Women,1904,13.55,['F']
+usr_13d918dd1a,M,F,Men → Women,1215,12.428,['F']
+usr_f3d4b8d4e3,M,F,Men → Women,1361,11.095,"['F', 'M']"
+usr_f3d4b8d4e3,M,M,Men → Men,1361,11.095,"['F', 'M']"
+usr_582385d5f1,F,F,Women → Women,1049,11.725,"['F', 'M']"
+usr_582385d5f1,F,M,Women → Men,1049,11.725,"['F', 'M']"
+usr_211c9de06e,M,F,Men → Women,181,25.967,['F']
+usr_a0ee1d96bb,M,F,Men → Women,289,11.073,['F']
+usr_c5f611665c,F,M,Women → Men,275,15.636,['M']
+usr_574998da53,M,F,Men → Women,1492,13.606,['F']
+usr_2af60cf596,M,M,Men → Men,268,9.328,['M']
+usr_5585b9cd21,M,F,Men → Women,697,8.465,['F']
+usr_54d1128b0f,F,M,Women → Men,105,13.333,['M']
+usr_4da5e702b2,M,F,Men → Women,126,15.079,['F']
+usr_6abed675ba,F,M,Women → Men,860,14.884,['M']
+usr_e546949ddc,M,M,Men → Men,635,16.063,['M']
+usr_ba83e1402b,M,F,Men → Women,533,11.445,['F']
+usr_e2e23a6e0e,F,M,Women → Men,345,15.652,['M']
+usr_8e08991398,M,F,Men → Women,596,8.557,['F']
+usr_0e7b7af163,M,F,Men → Women,1832,11.681,['F']
+usr_04732cb97b,M,F,Men → Women,295,22.034,['F']
+usr_5f8a6bcd88,M,F,Men → Women,871,22.732,['F']
+usr_b3064cef67,M,F,Men → Women,1619,13.465,['F']
+usr_f0b57d5086,M,F,Men → Women,126,18.254,['F']
+usr_175108006f,M,F,Men → Women,838,18.854,['F']
+usr_02bf46161c,M,F,Men → Women,480,16.042,"['F', 'NB']"
+usr_02bf46161c,M,NB,Men → NB,480,16.042,"['F', 'NB']"
+usr_75b14a324e,M,F,Men → Women,2069,12.228,['F']
+usr_67f17eb9e6,M,F,Men → Women,1040,12.692,['F']
+usr_f57ea7ef5b,F,F,Women → Women,514,13.813,"['F', 'M', 'NB']"
+usr_f57ea7ef5b,F,M,Women → Men,514,13.813,"['F', 'M', 'NB']"
+usr_f57ea7ef5b,F,NB,Women → NB,514,13.813,"['F', 'M', 'NB']"
+usr_088df0aede,M,F,Men → Women,653,14.855,['F']
+usr_c5959f611c,F,M,Women → Men,732,14.891,['M']
+usr_612c0a9acf,M,F,Men → Women,866,10.508,['F']
+usr_aff5b99157,F,F,Women → Women,2318,13.287,"['F', 'NB']"
+usr_aff5b99157,F,NB,Women → NB,2318,13.287,"['F', 'NB']"
+usr_84dc6a034d,F,M,Women → Men,239,18.828,['M']
+usr_f81ea6a0d9,M,F,Men → Women,332,9.94,"['F', 'NB']"
+usr_f81ea6a0d9,M,NB,Men → NB,332,9.94,"['F', 'NB']"
+usr_646043becc,M,F,Men → Women,743,11.44,['F']
+usr_0434dfa104,M,F,Men → Women,421,10.689,['F']
+usr_aeebbaacd1,M,F,Men → Women,331,16.616,['F']
+usr_fb725bc901,F,M,Women → Men,113,9.735,['M']
+usr_fa70caacaa,M,F,Men → Women,854,13.817,"['F', 'M', 'NB']"
+usr_fa70caacaa,M,M,Men → Men,854,13.817,"['F', 'M', 'NB']"
+usr_fa70caacaa,M,NB,Men → NB,854,13.817,"['F', 'M', 'NB']"
+usr_2f8c26e8f2,F,M,Women → Men,933,9.968,['M']
+usr_2f7814b980,F,M,Women → Men,1488,12.097,['M']
+usr_0815a0bd72,M,F,Men → Women,123,13.821,['F']
+usr_65ff9bd76e,M,F,Men → Women,677,13.737,"['F', 'NB']"
+usr_65ff9bd76e,M,NB,Men → NB,677,13.737,"['F', 'NB']"
+usr_5a5a1b1133,M,F,Men → Women,1091,16.04,['F']
+usr_7a4f5b5298,F,M,Women → Men,870,13.793,['M']
+usr_5b651e5d8a,F,F,Women → Women,1051,12.94,"['F', 'M', 'NB']"
+usr_5b651e5d8a,F,M,Women → Men,1051,12.94,"['F', 'M', 'NB']"
+usr_5b651e5d8a,F,NB,Women → NB,1051,12.94,"['F', 'M', 'NB']"
+usr_ce8d89cc9a,M,F,Men → Women,146,12.329,['F']
+usr_0595390b2a,M,F,Men → Women,580,10.517,['F']
+usr_b7dffef9dd,M,F,Men → Women,1127,11.18,['F']
+usr_e2c15ff14e,F,M,Women → Men,502,17.729,['M']
+usr_1b22b88b8c,M,F,Men → Women,461,11.497,['F']
+usr_ec181fb208,F,M,Women → Men,1019,13.248,['M']
+usr_8e01aabd7b,F,M,Women → Men,1157,15.644,['M']
+usr_3861e7bb44,M,F,Men → Women,963,11.215,"['F', 'NB']"
+usr_3861e7bb44,M,NB,Men → NB,963,11.215,"['F', 'NB']"
+usr_2a6d2a2d9e,M,F,Men → Women,641,12.637,['F']
+usr_0ddd44ddab,M,F,Men → Women,561,10.517,['F']
+usr_f31f1ef82d,M,F,Men → Women,523,15.296,['F']
+usr_b0cbb72cba,M,F,Men → Women,1030,9.806,['F']
+usr_f8264ce8ea,M,F,Men → Women,271,22.509,['F']
+usr_f753263e7c,F,M,Women → Men,1202,16.722,['M']
+usr_ad51f6fcde,M,F,Men → Women,1206,15.423,['F']
+usr_62a591d357,M,F,Men → Women,685,9.781,['F']
+usr_a5a2e6db18,M,F,Men → Women,811,11.097,['F']
+usr_043cba3ae0,M,F,Men → Women,1572,13.359,['F']
+usr_7bae480261,M,F,Men → Women,1046,12.428,"['F', 'NB']"
+usr_7bae480261,M,NB,Men → NB,1046,12.428,"['F', 'NB']"
+usr_a554d0a027,M,F,Men → Women,1258,9.3,['F']
+usr_c171b85fd5,F,M,Women → Men,3115,13.9,"['M', 'NB']"
+usr_c171b85fd5,F,NB,Women → NB,3115,13.9,"['M', 'NB']"
+usr_0cf7f3e282,M,F,Men → Women,249,11.647,['F']
+usr_5048f38377,M,F,Men → Women,1054,11.954,['F']
+usr_087fbc195a,F,M,Women → Men,1621,9.192,['M']
+usr_338869b614,F,M,Women → Men,216,8.333,['M']
+usr_7c05cf7f82,M,F,Men → Women,708,16.384,['F']
+usr_dab34ae3eb,M,F,Men → Women,1853,14.787,['F']
+usr_91520afa39,M,F,Men → Women,2314,15.946,['F']
+usr_472fe7a708,F,M,Women → Men,1020,14.412,['M']
+usr_eeb1bca3df,F,M,Women → Men,728,10.44,['M']
+usr_720699db56,F,M,Women → Men,358,10.056,['M']
+usr_48faf2fb83,M,F,Men → Women,769,10.403,['F']
+usr_5404818004,M,F,Men → Women,240,20.417,['F']
+usr_e6786b8495,M,F,Men → Women,511,10.372,['F']
+usr_f93929ccfe,M,F,Men → Women,1368,12.646,['F']
+usr_83dfcfab4f,M,F,Men → Women,448,21.205,['F']
+usr_2a41c33405,F,M,Women → Men,613,12.887,['M']
+usr_e85937d6f1,M,M,Men → Men,433,19.4,['M']
+usr_6d33a4613e,F,M,Women → Men,534,12.921,['M']
+usr_73fb709f6f,M,F,Men → Women,359,9.192,['F']
+usr_e77eb2eb7d,M,F,Men → Women,1436,16.713,"['F', 'NB']"
+usr_e77eb2eb7d,M,NB,Men → NB,1436,16.713,"['F', 'NB']"
+usr_8b8fa88e38,M,F,Men → Women,4353,11.808,['F']
+usr_afcc6e0593,M,F,Men → Women,944,13.559,['F']
+usr_f6f09aa842,M,F,Men → Women,2081,12.158,"['F', 'M']"
+usr_f6f09aa842,M,M,Men → Men,2081,12.158,"['F', 'M']"
+usr_eca6230bc7,F,M,Women → Men,971,9.99,['M']
+usr_455248a8c2,F,M,Women → Men,1890,15.556,['M']
+usr_cb1f4df9ab,F,M,Women → Men,473,11.416,['M']
+usr_9114a08dc7,F,M,Women → Men,1821,10.928,['M']
+usr_ff0b88a130,M,F,Men → Women,1742,18.829,['F']
+usr_8cff506150,F,M,Women → Men,231,6.926,['M']
+usr_9125241386,F,M,Women → Men,1125,12.889,['M']
+usr_edae9f254b,M,F,Men → Women,566,13.604,['F']
+usr_3386c9dc77,F,M,Women → Men,231,6.926,['M']
+usr_210314bef7,F,M,Women → Men,2705,10.795,"['M', 'F']"
+usr_210314bef7,F,F,Women → Women,2705,10.795,"['M', 'F']"
+usr_c4f7451f7e,M,F,Men → Women,430,18.605,['F']
+usr_0ea1d233e4,F,M,Women → Men,758,16.359,['M']
+usr_a4ecbea0a1,F,M,Women → Men,956,20.711,['M']
+usr_7a86b09354,F,M,Women → Men,102,20.588,['M']
+usr_145d4094eb,M,F,Men → Women,240,20.417,['F']
+usr_4cabf006ea,F,M,Women → Men,359,15.877,['M']
+usr_002801e2b5,F,M,Women → Men,379,10.29,['M']
+usr_92a91ee01b,F,M,Women → Men,667,14.393,['M']
+usr_096c1fc308,F,M,Women → Men,136,14.706,['M']
+usr_8f91ad41be,F,M,Women → Men,223,11.211,['M']
+usr_772c480194,F,M,Women → Men,295,6.78,['M']
+usr_a3452c4d95,M,F,Men → Women,572,9.79,['F']
+usr_a316ad1ed3,M,F,Men → Women,286,12.937,['F']
+usr_f6e0013eab,M,F,Men → Women,687,12.955,['F']
+usr_c0b3a89595,M,F,Men → Women,368,10.326,['F']
+usr_527d3d9c91,M,F,Men → Women,579,15.026,['F']
+usr_66fbc11cf7,F,M,Women → Men,720,10.278,['M']
+usr_c77d61e581,NB,F,NB → Women,384,14.062,['F']
+usr_9c7bd4050f,M,F,Men → Women,585,15.214,"['F', 'M', 'NB']"
+usr_9c7bd4050f,M,M,Men → Men,585,15.214,"['F', 'M', 'NB']"
+usr_9c7bd4050f,M,NB,Men → NB,585,15.214,"['F', 'M', 'NB']"
+usr_5675b58976,F,M,Women → Men,609,13.136,['M']
+usr_a685339a27,M,F,Men → Women,643,11.353,['F']
+usr_169fe68959,M,F,Men → Women,2285,10.372,['F']
+usr_3471ae2b14,F,M,Women → Men,314,13.694,['M']
+usr_076c084131,M,F,Men → Women,780,12.436,['F']
+usr_75f07f3e1a,M,F,Men → Women,1410,13.404,['F']
+usr_6220c53bd4,M,F,Men → Women,989,12.942,"['F', 'NB']"
+usr_6220c53bd4,M,NB,Men → NB,989,12.942,"['F', 'NB']"
+usr_df563a8c21,M,F,Men → Women,135,8.148,['F']
+usr_8d798f2ac8,F,M,Women → Men,117,12.821,['M']
+usr_36af460751,M,F,Men → Women,497,12.676,['F']
+usr_870452fa93,M,F,Men → Women,359,9.192,['F']
+usr_ca9dfe4c14,F,F,Women → Women,891,18.182,"['F', 'M', 'NB']"
+usr_ca9dfe4c14,F,M,Women → Men,891,18.182,"['F', 'M', 'NB']"
+usr_ca9dfe4c14,F,NB,Women → NB,891,18.182,"['F', 'M', 'NB']"
+usr_bacc2418a5,M,F,Men → Women,107,28.972,['F']
+usr_ba9d8d1b92,M,M,Men → Men,142,8.451,['M']
+usr_8ab426951e,F,M,Women → Men,2033,15.347,['M']
+usr_52bf981f18,M,F,Men → Women,3850,19.143,"['F', 'M', 'NB']"
+usr_52bf981f18,M,M,Men → Men,3850,19.143,"['F', 'M', 'NB']"
+usr_52bf981f18,M,NB,Men → NB,3850,19.143,"['F', 'M', 'NB']"
+usr_80c22d2507,M,F,Men → Women,821,12.911,['F']
+usr_df98b38087,F,M,Women → Men,310,5.161,['M']
+usr_b1185a9599,M,F,Men → Women,1832,11.681,['F']
+usr_f40be05c5f,M,M,Men → Men,707,10.75,"['M', 'F', 'NB']"
+usr_f40be05c5f,M,F,Men → Women,707,10.75,"['M', 'F', 'NB']"
+usr_f40be05c5f,M,NB,Men → NB,707,10.75,"['M', 'F', 'NB']"
+usr_321cbee0ad,F,M,Women → Men,1024,14.746,"['M', 'NB']"
+usr_321cbee0ad,F,NB,Women → NB,1024,14.746,"['M', 'NB']"
+usr_90a20138cd,F,M,Women → Men,794,10.327,['M']
+usr_3b7ae0f59b,M,F,Men → Women,159,19.497,['F']
+usr_2cf51205d0,M,F,Men → Women,435,9.885,['F']
+usr_564edb5079,M,F,Men → Women,861,13.937,['F']
+usr_c4a83cbbdf,M,F,Men → Women,2507,14.081,['F']
+usr_657eb75a0a,M,F,Men → Women,1067,17.338,['F']
+usr_6604a51053,M,F,Men → Women,785,18.089,['F']
+usr_370e9dbeca,F,F,Women → Women,746,17.694,"['F', 'M', 'NB']"
+usr_370e9dbeca,F,M,Women → Men,746,17.694,"['F', 'M', 'NB']"
+usr_370e9dbeca,F,NB,Women → NB,746,17.694,"['F', 'M', 'NB']"
+usr_f524dc772d,M,F,Men → Women,293,21.16,['F']
+usr_655f1ed2c4,F,M,Women → Men,358,14.525,['M']
+usr_60221ab882,F,M,Women → Men,1125,18.4,['M']
+usr_5d19c07e30,M,F,Men → Women,234,56.41,['F']
+usr_4fc014d179,M,F,Men → Women,605,12.727,"['F', 'NB']"
+usr_4fc014d179,M,NB,Men → NB,605,12.727,"['F', 'NB']"
+usr_da31a54b44,M,F,Men → Women,305,9.508,['F']
+usr_91f5407cf3,F,M,Women → Men,168,11.31,['M']
+usr_91a4ee8192,M,F,Men → Women,928,14.547,['F']
+usr_77683bbfb9,M,F,Men → Women,401,12.718,['F']
+usr_2d35fdfcae,M,F,Men → Women,1040,10.673,['F']
+usr_b4914ffd72,M,F,Men → Women,1358,15.169,['F']
+usr_e095117d98,M,F,Men → Women,280,10.714,['F']
+usr_e10455e54d,M,F,Men → Women,1619,13.527,['F']
+usr_b388085011,M,F,Men → Women,512,10.938,['F']
+usr_174539e3d3,M,F,Men → Women,1141,16.564,['F']
+usr_2d1d90850d,M,F,Men → Women,545,13.211,['F']
+usr_1c94368b35,F,M,Women → Men,292,10.959,"['M', 'F', 'NB']"
+usr_1c94368b35,F,F,Women → Women,292,10.959,"['M', 'F', 'NB']"
+usr_1c94368b35,F,NB,Women → NB,292,10.959,"['M', 'F', 'NB']"
+usr_b59b3aa4ec,M,F,Men → Women,143,10.49,['F']
+usr_aef0bc1982,M,F,Men → Women,333,16.817,['F']
+usr_51bb038ab9,F,M,Women → Men,1797,10.072,['M']
+usr_bc27cf28c9,M,F,Men → Women,398,9.296,['F']
+usr_dfe670cf74,M,F,Men → Women,422,13.744,['F']
+usr_aca50c1241,NB,F,NB → Women,535,12.71,"['F', 'M', 'NB']"
+usr_aca50c1241,NB,M,NB → Men,535,12.71,"['F', 'M', 'NB']"
+usr_aca50c1241,NB,NB,NB → NB,535,12.71,"['F', 'M', 'NB']"
+usr_72ee7b01b7,F,M,Women → Men,657,11.111,['M']
+usr_340e6cc34d,M,F,Men → Women,113,11.504,['F']
+usr_30ff43ad3f,F,M,Women → Men,934,13.169,['M']
+usr_c2d0e67189,M,F,Men → Women,205,18.049,['F']
+usr_d78fe9d889,M,F,Men → Women,806,12.035,['F']
+usr_d97a99c3b7,M,M,Men → Men,135,9.63,"['M', 'NB']"
+usr_d97a99c3b7,M,NB,Men → NB,135,9.63,"['M', 'NB']"
+usr_58fe5bb1ed,M,F,Men → Women,1000,9.4,['F']
+usr_e180f374be,F,M,Women → Men,751,9.987,['M']
+usr_298b38ef40,M,F,Men → Women,178,29.775,['F']
+usr_4b7db33b94,F,M,Women → Men,144,22.222,['M']
+usr_8e94444f6f,F,F,Women → Women,1478,13.532,"['F', 'M']"
+usr_8e94444f6f,F,M,Women → Men,1478,13.532,"['F', 'M']"
+usr_bac751c66d,M,F,Men → Women,130,11.538,['F']
+usr_fd38a10137,M,F,Men → Women,192,18.229,['F']
+usr_ad60c5f6a0,F,M,Women → Men,2299,10.004,['M']
+usr_b25bc47508,M,F,Men → Women,293,11.945,['F']
+usr_8bec96c14b,M,F,Men → Women,2932,17.087,['F']
+usr_d8d708ea6b,M,F,Men → Women,109,12.844,['F']
+usr_65721f6fe3,M,F,Men → Women,476,13.025,['F']
+usr_80304fd0b5,M,F,Men → Women,785,18.089,['F']
+usr_d76a063805,M,F,Men → Women,489,11.452,['F']
+usr_33e12a81c2,F,M,Women → Men,499,12.826,['M']
+usr_95a9b10018,M,F,Men → Women,429,17.716,['F']
+usr_9c3df10c8e,F,M,Women → Men,708,14.266,['M']
+usr_4ca3dd5a11,M,F,Men → Women,2640,11.402,['F']
+usr_3da85ea3ec,M,F,Men → Women,8401,11.463,['F']
+usr_5d087ea782,M,F,Men → Women,2398,15.847,['F']
+usr_88c85ecc38,M,F,Men → Women,1301,14.988,['F']
+usr_66a6bdc77b,M,F,Men → Women,1077,9.285,['F']
+usr_ab89eb0bb3,M,F,Men → Women,1674,11.768,['F']
+usr_c5a8d4db9f,M,F,Men → Women,840,14.048,"['F', 'NB']"
+usr_c5a8d4db9f,M,NB,Men → NB,840,14.048,"['F', 'NB']"
+usr_7fd82cd0b4,M,F,Men → Women,489,15.951,"['F', 'NB']"
+usr_7fd82cd0b4,M,NB,Men → NB,489,15.951,"['F', 'NB']"
+usr_81ad59323d,M,F,Men → Women,892,11.659,['F']
+usr_107b467dd6,F,M,Women → Men,535,16.075,['M']
+usr_a3164c38df,F,M,Women → Men,1309,13.293,['M']
+usr_98a3a766b8,M,F,Men → Women,159,19.497,['F']
+usr_dc0f7360e9,M,F,Men → Women,924,17.1,['F']
+usr_6c464a7f53,M,F,Men → Women,568,8.979,['F']
+usr_e8711d37b3,M,F,Men → Women,1746,13.975,"['F', 'M']"
+usr_e8711d37b3,M,M,Men → Men,1746,13.975,"['F', 'M']"
+usr_5279084c35,M,F,Men → Women,2074,11.524,"['F', 'M', 'NB']"
+usr_5279084c35,M,M,Men → Men,2074,11.524,"['F', 'M', 'NB']"
+usr_5279084c35,M,NB,Men → NB,2074,11.524,"['F', 'M', 'NB']"
+usr_58c9686525,M,F,Men → Women,1279,13.604,['F']
+usr_781710d5f3,NB,F,NB → Women,3116,12.099,"['F', 'M']"
+usr_781710d5f3,NB,M,NB → Men,3116,12.099,"['F', 'M']"
+usr_adef7c72b1,M,F,Men → Women,195,17.436,['F']
+usr_687f8c5cbf,M,F,Men → Women,241,15.353,['F']
+usr_75045befd8,F,M,Women → Men,661,11.195,['M']
+usr_f12e7c6cb0,M,F,Men → Women,194,9.278,"['F', 'M', 'NB']"
+usr_f12e7c6cb0,M,M,Men → Men,194,9.278,"['F', 'M', 'NB']"
+usr_f12e7c6cb0,M,NB,Men → NB,194,9.278,"['F', 'M', 'NB']"
+usr_466c43842b,NB,M,NB → Men,223,16.143,['M']
+usr_48e483544a,M,F,Men → Women,7524,14.593,"['F', 'NB']"
+usr_48e483544a,M,NB,Men → NB,7524,14.593,"['F', 'NB']"
+usr_448a88249a,M,F,Men → Women,596,13.926,['F']

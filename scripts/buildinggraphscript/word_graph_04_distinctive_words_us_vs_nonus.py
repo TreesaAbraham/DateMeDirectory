@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# scripts/buildinggraphscript/word_graph_04_distinctive_words_us_vs_nonus.py
 """
 Most Distinctive Words: US vs Non-US (table figure)
 

@@ -136,3 +136,8 @@ This tells a story about gendered expectations in dating culture.
 
 💡 Key Principle
 Build incrementally. Get scraping working, then add one analysis at a time, then add one graph at a time. Each step should produce something you can look at and verify before moving forward.
+
+
+
+
+
