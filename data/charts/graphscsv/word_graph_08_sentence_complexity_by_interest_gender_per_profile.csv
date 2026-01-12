@@ -2,6 +2,9 @@ id,source_gender,target_gender,word_count,sentence_count,long_sentence_pct,inter
 usr_62111231bc,F,F,1592,114,20.175,"['F', 'M']"
 usr_62111231bc,F,M,1592,114,20.175,"['F', 'M']"
 usr_18c02c17a2,M,F,906,77,9.091,['F']
+usr_c05d895fb7,F,F,535,23,43.478,"['F', 'M', 'NB']"
+usr_c05d895fb7,F,M,535,23,43.478,"['F', 'M', 'NB']"
+usr_c05d895fb7,F,NB,535,23,43.478,"['F', 'M', 'NB']"
 usr_1c58a6a0e7,F,M,1224,143,10.49,['M']
 usr_f2fa5eadbf,M,F,839,59,25.424,['F']
 usr_aea53a8142,F,M,2030,178,15.73,['M']
