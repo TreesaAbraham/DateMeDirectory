@@ -22,3 +22,4 @@ we took the most distinctive words from bay area vs non-bay area (from word_grap
 We did the same for UK/LONDON style words, using the distinctive words identified from the UK/LONDON vs non-UK/LONDON comparison.
 
 Then through script 9, we calculated the prevalence of these word sets in the text data from users in the ALL_US, BAY_AREA, and UK_LONDON groups. The results show that bay area style words are more prevalent in bay area profiles, while uk/london style words are more prevalent in uk/london profiles, confirming the distinct linguistic characteristics of these regions.
+

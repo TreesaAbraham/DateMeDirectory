@@ -140,4 +140,15 @@ Build incrementally. Get scraping working, then add one analysis at a time, then
 
 
 
+mathplotlab
+seaborn graph visualization
+d3
 
+seaborn:
+chore: add seaborn + shared plot style/save helpers
+feat: seaborn exclamation boxplots (generation + gender)
+feat: seaborn em-dash bucket bar chart
+feat: seaborn grouped prevalence bar chart
+chore: apply seaborn theme to remaining matplotlib charts
+test: add graphs smoke-runner + output checks
+docs: update graph workflow
