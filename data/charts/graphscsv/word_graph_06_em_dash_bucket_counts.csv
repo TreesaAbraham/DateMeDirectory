@@ -6,4 +6,4 @@ bucket,count,percent
 4,5,1.55
 5+,20,6.21
 
-This chart was initially supposed to calculated the likelieness of AI based on the use of EM dashes in text. However, after analysis, it was determined that the presence of EM dashes did not significantly correlate with AI-generated text in a meaningful way. Therefore, this chart was repurposed to show the distribution of EM dash usage across the dataset, providing insights into how frequently EM dashes are used in general writing within the analyzed texts.
+
