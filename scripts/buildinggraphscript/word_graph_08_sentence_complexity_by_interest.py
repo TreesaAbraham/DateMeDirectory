@@ -18,8 +18,8 @@ Multi-target rule:
 Sentence complexity definition (per profile):
 - Split text into sentences
 - Tokenize words per sentence
-- A "long sentence" is one with word_count > --min_sentence_words (default 20)
-- sentence_complex_pct = (long_sentences / total_sentences) * 100
+- A "complex sentence" is one with word_count >= --min_sentence_words (default 21)
+- sentence_complex_pct = (complex_sentences / total_sentences) * 100
 
 Style:
 - For each bar/group, draw a vertical IQR bar (Q1->Q3) with a median line and median label.
@@ -171,12 +171,12 @@ def sentence_word_count(sentence: str) -> int:
 
 def sentence_complexity_percent(sentences: List[str], min_sentence_words: int) -> float:
     """
-    Percent of sentences with word_count > min_sentence_words.
+    Percent of sentences with word_count >= min_sentence_words.
     """
     if not sentences:
         return 0.0
-    long_ct = sum(1 for s in sentences if sentence_word_count(s) > min_sentence_words)
-    return (long_ct / len(sentences)) * 100.0
+    complex_ct = sum(1 for s in sentences if sentence_word_count(s) >= min_sentence_words)
+    return (complex_ct / len(sentences)) * 100.0
 
 
 # -------------------- Stats + plotting --------------------
@@ -211,7 +211,7 @@ def plot_target_graph(
 ) -> None:
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.set_title(title, pad=12)
-    ax.set_ylabel("Percent of sentences > threshold")
+    ax.set_ylabel("Percent of sentences ≥ threshold")
     ax.set_xticks(range(1, len(labels) + 1))
     ax.set_xticklabels(labels)
 
@@ -250,7 +250,12 @@ def main() -> None:
 
     ap.add_argument("--min_words", type=int, default=50, help="Skip profiles with fewer than this many words (overall)")
     ap.add_argument("--min_sentences", type=int, default=3, help="Skip profiles with fewer than this many sentences")
-    ap.add_argument("--min_sentence_words", type=int, default=20, help="Long sentence threshold (strictly greater)")
+    ap.add_argument(
+        "--min_sentence_words",
+        type=int,
+        default=21,
+        help="Complex sentence threshold (word_count ≥ this value).",
+    )
 
     ap.add_argument(
         "--shared_ylim",
@@ -401,7 +406,7 @@ def main() -> None:
         plot_target_graph(
             out_png=out_m_png,
             out_svg=out_m_svg,
-            title=f"Sentence Complexity (Looking for Men) — % sentences > {args.min_sentence_words} words",
+            title=f"Sentence Complexity (Looking for Men) — % sentences ≥ {args.min_sentence_words} words",
             labels=labels_m,
             stats=stats_m,
             ylim=shared_ylim,
@@ -414,7 +419,7 @@ def main() -> None:
         plot_target_graph(
             out_png=out_f_png,
             out_svg=out_f_svg,
-            title=f"Sentence Complexity (Looking for Women) — % sentences > {args.min_sentence_words} words",
+            title=f"Sentence Complexity (Looking for Women) — % sentences ≥ {args.min_sentence_words} words",
             labels=labels_f,
             stats=stats_f,
             ylim=shared_ylim,
@@ -427,7 +432,7 @@ def main() -> None:
         plot_target_graph(
             out_png=out_nb_png,
             out_svg=out_nb_svg,
-            title=f"Sentence Complexity (Looking for Non-binary) — % sentences > {args.min_sentence_words} words",
+            title=f"Sentence Complexity (Looking for Non-binary) — % sentences ≥ {args.min_sentence_words} words",
             labels=labels_nb,
             stats=stats_nb,
             ylim=shared_ylim,

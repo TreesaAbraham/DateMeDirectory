@@ -16,9 +16,12 @@ SOURCE_ORDER = ["F", "M", "NB"]
 TARGET_ORDER = ["F", "M", "NB"]
 
 # Pick ONE:
-BOX_COLOR = "#7B2CBF"  # purple (definitely not blue)
-# BOX_COLOR = "#D97706"  # orange
-# BOX_COLOR = "#2F855A"  # green
+TARGET_COLOR = {
+    "F": "#E11D74",   # fuchsia
+    "NB": "#7B2CBF",  # purple
+    "M": "#2563EB",   # blue
+}
+
 
 
 def render_one(df: pd.DataFrame, target: str) -> None:
@@ -44,7 +47,8 @@ def render_one(df: pd.DataFrame, target: str) -> None:
         order=SOURCE_ORDER,
         showfliers=False,      # <- excludes outliers
         ax=ax,
-        color=BOX_COLOR,
+        color=TARGET_COLOR.get(target, "#6B7280"),  # fallback gray
+
     )
 
 
