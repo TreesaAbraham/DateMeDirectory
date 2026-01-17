@@ -47,7 +47,7 @@ def _prep(df: pd.DataFrame) -> pd.DataFrame:
     df["group"] = df["group"].astype(str)
 
     # Keep only expected groups, and order them
-    df = df[df["group"].isin(GROUP_ORDER)].copy()
+    df = df[df["group"].isin(GROUP_ORDER)]
     df["group"] = pd.Categorical(df["group"], categories=GROUP_ORDER, ordered=True)
     df = df.sort_values("group")
 
@@ -71,13 +71,10 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
         "uk_wordset_rate_per_10k": "UK wordset",
     })
 
-    # Avoid categorical fillna issues: build labels from plain strings
+    # Avoid categorical fillna weirdness: use plain strings for labels
     plot_df["group_str"] = plot_df["group"].astype(str)
     plot_df["group_label"] = plot_df["group_str"].map(GROUP_LABELS)
-    plot_df["group_label"] = plot_df["group_label"].fillna(plot_df["group_str"])
-
-    # Ensure x order matches GROUP_ORDER via labels
-    group_label_order = [GROUP_LABELS[g] for g in GROUP_ORDER]
+    plot_df["group_label"] = plot_df["group_label"].where(plot_df["group_label"].notna(), plot_df["group_str"])
 
     # Theme + serif + larger text (consistent with your other seaborn scripts)
     sns.set_theme(style="whitegrid", context="poster")
@@ -89,8 +86,6 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
 
     palette = {"Bay wordset": BAY_COLOR, "UK wordset": UK_COLOR}
 
-    title = "Prevalence of Bay vs UK wordsets (per 10k tokens)"
-
     fig, ax = plt.subplots(figsize=(12, 7))
 
     sns.barplot(
@@ -98,18 +93,19 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
         x="group_label",
         y="rate_per_10k",
         hue="wordset",
-        order=group_label_order,
         palette=palette,
         ax=ax,
         edgecolor="black",
     )
 
-    # Title top-left
-    ax.set_title(title, loc="left", pad=12)
+    # Title top-right
+    title = "Prevalence of Bay vs UK wordsets (per 10k tokens)"
+    ax.set_title(title, loc="right", pad=18)
+
     ax.set_xlabel("")
     ax.set_ylabel("Rate per 10k tokens")
 
-    # Legend outside so it never covers bars
+    # Legend outside so it can't cover bars
     ax.legend(
         title="Wordset",
         loc="center left",
@@ -121,7 +117,7 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
     for container in ax.containers:
         ax.bar_label(container, fmt="%.1f", padding=3, fontsize=11)
 
-    # Context line under title: docs + tokens
+    # Context line UNDER the title area (won't overlap)
     ctx = " | ".join(
         f"{GROUP_LABELS.get(r.group, r.group)}: {int(r.docs)} docs, {int(r.total_tokens)} tokens"
         for r in df.itertuples(index=False)
@@ -129,7 +125,7 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
     )
     ax.text(
         0.0,
-        1.02,
+        1.01,  # lower this to 0.99 if your title/context still collide
         ctx,
         transform=ax.transAxes,
         ha="left",
@@ -138,11 +134,11 @@ def render(in_csv: Path, out_dir: Path, dpi: int) -> None:
         fontfamily="DejaVu Serif",
     )
 
+    out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     out_png = out_dir / "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png"
     out_svg = out_dir / "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.svg"
 
-    # tight_layout + bbox_inches="tight" so the outside legend gets included
     fig.tight_layout()
     fig.savefig(out_png, dpi=dpi, bbox_inches="tight")
     fig.savefig(out_svg, bbox_inches="tight")
