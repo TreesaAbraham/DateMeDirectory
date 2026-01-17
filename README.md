@@ -143,6 +143,7 @@ Build incrementally. Get scraping working, then add one analysis at a time, then
 mathplotlab
 seaborn graph visualization
 d3
+vercel
 
 seaborn:
 chore: add seaborn + shared plot style/save helpers
