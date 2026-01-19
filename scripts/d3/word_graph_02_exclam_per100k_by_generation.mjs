@@ -44,6 +44,7 @@ const Y_LABEL = "Exclamation points per 100k words";
 
 // stable order
 const GEN_ORDER = ["Gen Z", "Millennial", "Gen X", "Boomer"];
+const TEXT_COLOR = "#ad1f15";
 
 // ---------- Helpers ----------
 
@@ -189,7 +190,8 @@ function draw({ rows, outPath, width, height }) {
     .attr("width", width)
     .attr("height", height)
     .style("font-family", '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif')
-    .style("font-size", "12px");
+    .style("font-size", "12px")
+    .style("fill", TEXT_COLOR);
 
   // Title
   svg
@@ -199,7 +201,7 @@ function draw({ rows, outPath, width, height }) {
     .attr("text-anchor", "middle")
     .attr("font-size", 18)
     .attr("font-weight", 700)
-    .attr("fill", "#111")
+    .attr("fill", TEXT_COLOR)
     .text(TITLE);
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -228,7 +230,7 @@ function draw({ rows, outPath, width, height }) {
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
     .attr("font-weight", 600)
-    .attr("fill", "#111")
+    .attr("fill", TEXT_COLOR)
     .text(X_LABEL);
 
   svg
@@ -237,7 +239,7 @@ function draw({ rows, outPath, width, height }) {
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
     .attr("font-weight", 600)
-    .attr("fill", "#111")
+    .attr("fill", TEXT_COLOR)
     .text(Y_LABEL);
 
   // Draw per generation
@@ -257,7 +259,7 @@ function draw({ rows, outPath, width, height }) {
       .attr("x2", cx)
       .attr("y1", y(st.whiskerLow))
       .attr("y2", y(st.whiskerHigh))
-      .attr("stroke", "#111")
+      .attr("stroke", TEXT_COLOR)
       .attr("stroke-width", 1.2);
 
     // whisker caps
@@ -266,7 +268,7 @@ function draw({ rows, outPath, width, height }) {
       .attr("x2", cx + boxW * 0.35)
       .attr("y1", y(st.whiskerLow))
       .attr("y2", y(st.whiskerLow))
-      .attr("stroke", "#111")
+      .attr("stroke", TEXT_COLOR)
       .attr("stroke-width", 1.2);
 
     g.append("line")
@@ -274,7 +276,7 @@ function draw({ rows, outPath, width, height }) {
       .attr("x2", cx + boxW * 0.35)
       .attr("y1", y(st.whiskerHigh))
       .attr("y2", y(st.whiskerHigh))
-      .attr("stroke", "#111")
+      .attr("stroke", TEXT_COLOR)
       .attr("stroke-width", 1.2);
 
     // box
@@ -284,7 +286,7 @@ function draw({ rows, outPath, width, height }) {
       .attr("width", boxW)
       .attr("height", Math.max(0, y(st.q1) - y(st.q3)))
       .attr("fill", "rgba(17,17,17,0.10)")
-      .attr("stroke", "#111")
+      .attr("stroke", TEXT_COLOR)
       .attr("stroke-width", 1.2);
 
     // median
@@ -293,7 +295,7 @@ function draw({ rows, outPath, width, height }) {
       .attr("x2", cx + boxW / 2)
       .attr("y1", y(st.med))
       .attr("y2", y(st.med))
-      .attr("stroke", "#111")
+      .attr("stroke", TEXT_COLOR)
       .attr("stroke-width", 2);
 
     // points (with Tukey outliers)
