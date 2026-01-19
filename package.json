@@ -1,0 +1,29 @@
+{
+  "name": "datemedirectory",
+  "version": "1.0.0",
+  "description": "git add . git commit -m 'message' git push origin main",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TreesaAbraham/DateMeDirectory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TreesaAbraham/DateMeDirectory/issues"
+  },
+  "homepage": "https://github.com/TreesaAbraham/DateMeDirectory#readme",
+  "dependencies": {
+    "commander": "^14.0.2",
+    "d3": "^7.9.0",
+    "d3-dsv": "^3.0.1",
+    "jsdom": "^27.0.1"
+  }
+}
