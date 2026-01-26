@@ -31,30 +31,34 @@ Thumbs.db
 .idea/**
 
 # -----------------------------
-# Data + archives (YOUR main repomix killer)
+# Data
 # -----------------------------
-data/**
-# If you want to include a tiny curated dataset, use a sample folder:
-!data/sample/**
-!data/sample/**
+# Only ignore the archive folder under data
+data/archive/**
 
-# (Optional) If you keep schemas under data/, allow them explicitly (adjust if needed)
+# Common massive formats from scraping/exports (ignore ONLY under data/)
+data/**/*.html
+data/**/*.htm
+data/**/*.ndjson
+data/**/*.jsonl
+data/**/*.parquet
+data/**/*.sqlite
+data/**/*.db
+data/**/*.tsv
+data/**/*.csv
+data/**/*.json
+
+# (Optional) If you keep schemas under data/, allow them explicitly
 !data/schemas/**
 !data/schemas/**
 
-# Common massive formats from scraping/exports
-**/*.html
-**/*.htm
-**/*.json
-**/*.ndjson
-**/*.jsonl
-**/*.csv
-**/*.tsv
-**/*.parquet
-**/*.sqlite
-**/*.db
+# If you want to include a tiny curated dataset, allow it explicitly
+!data/sample/**
+!data/sample/**
 
-# Allowlist important repo JSON configs (keep these even though we ignore *.json)
+# -----------------------------
+# Allowlist important repo JSON configs (keep these even though we ignore data/**/*.json)
+# -----------------------------
 !package.json
 !tsconfig.json
 !eslint*.json
