@@ -383,3 +383,121 @@ Chart X.5 — Verification (lightweight)
  Sanity check categories + min/max
  Confirm output path + naming convention
 Commit: chore: verify d3 output for word_graph_XX
+
+
+
+Edit graphs
+
+
+## Static Site Build Checklist (3 commits per step)
+
+### Step 1: Site foundation (3 commits)
+
+- [ ] **Commit 1.1 — `feat(site): add static site skeleton`**
+  - [ ] Add folders:
+    - [ ] `site/`
+    - [ ] `site/assets/charts/`
+    - [ ] `site/assets/images/`
+    - [ ] `site/data/`
+    - [ ] `site/writeups/`
+  - [ ] Add placeholder files:
+    - [ ] `site/index.html`
+    - [ ] `site/styles.css`
+    - [ ] `site/app.js` (can be empty for now)
+
+- [ ] **Commit 1.2 — `feat(site): add report page sections`**
+  - [ ] Build `site/index.html` sections:
+    - [ ] Overview
+    - [ ] Method
+    - [ ] Key findings
+    - [ ] Charts
+    - [ ] Appendix/Notes (optional)
+  - [ ] Add semantic wrappers (`header`, `main`, `section`, `footer`)
+  - [ ] Add classnames you’ll style later (`container`, `prose`, `grid`, etc.)
+
+- [ ] **Commit 1.3 — `docs(site): add local preview and update instructions`**
+  - [ ] Add `site/README.md` with:
+    - [ ] Local preview command: `python3 -m http.server --directory site 8000`
+    - [ ] Where to drop SVG/PNG files
+    - [ ] How to update captions/write-up
+
+
+### Step 2: Make it lovely (Option C aesthetics) (3 commits)
+
+- [ ] **Commit 2.1 — `style(site): add report typography and layout`**
+  - [ ] Update `site/styles.css` with:
+    - [ ] container width
+    - [ ] heading scale
+    - [ ] paragraph spacing
+    - [ ] link styles
+    - [ ] subtle background + section spacing
+
+- [ ] **Commit 2.2 — `style(site): add callouts and collapsible sections`**
+  - [ ] Add callout HTML blocks in `site/index.html` under Key findings:
+    - [ ] `<div class="callout">...</div>`
+  - [ ] Add `details/summary` for Method expansion
+  - [ ] Add CSS for `.callout`, `details`, `.muted`, etc.
+
+- [ ] **Commit 2.3 — `style(site): add chart card grid and caption styling`**
+  - [ ] Add CSS for:
+    - [ ] `.grid` responsive layout
+    - [ ] `.card` styling
+    - [ ] `.chart` sizing with `aspect-ratio` + `object-fit: contain`
+    - [ ] captions (`figcaption`)
+  - [ ] Add one sample chart card in HTML (placeholder)
+
+
+### Step 3: Get real content on the page (3 commits)
+
+- [ ] **Commit 3.1 — `feat(site): add initial chart assets`**
+  - [ ] Copy a representative set (not everything):
+    - [ ] `site/assets/charts/*.svg`
+    - [ ] `site/assets/images/*.png`
+
+- [ ] **Commit 3.2 — `feat(site): embed charts with captions`**
+  - [ ] Add real `<figure class="card">` entries to `site/index.html`:
+    - [ ] Embed a few SVG + PNG charts
+    - [ ] Captions under each
+
+- [ ] **Commit 3.3 — `feat(site): add findings write-up content`**
+  - [ ] Put your write-up directly into `site/index.html` sections (or link out to `site/writeups/findings.html`)
+  - [ ] Add 1–2 callouts tied to your actual results
+
+
+### Step 4: Deploy to Vercel (3 commits)
+
+- [ ] **Commit 4.1 — `docs(deploy): add Vercel static deployment steps`**
+  - [ ] Add `site/DEPLOY.md` (or root `DEPLOY.md`) with:
+    - [ ] Root Directory: `site`
+    - [ ] Framework: `Other`
+    - [ ] Build Command: *(blank)*
+    - [ ] Output Directory: `.`
+
+- [ ] **Commit 4.2 — `chore(deploy): add vercel config`**
+  - [ ] Add root `vercel.json`:
+    - [ ] `{ "cleanUrls": true }` (optional but nice)
+
+- [ ] **Commit 4.3 — `chore(site): prep static site for deployment`**
+  - [ ] Verify all asset paths start with `/assets/...`
+  - [ ] Ensure `site/index.html` loads `styles.css` and `app.js`
+  - [ ] Note: `.nojekyll` not required for Vercel
+
+
+### Step 5: Make it maintainable (manifest + auto gallery) (3 commits)
+
+- [ ] **Commit 5.1 — `feat(site): add chart manifest`**
+  - [ ] Create `site/data/manifest.json` with chart metadata:
+    - [ ] `id, title, file, caption, type, section`
+
+- [ ] **Commit 5.2 — `feat(site): add manifest generator script`**
+  - [ ] Add `scripts/site/generate_manifest.py` (or `.js`)
+  - [ ] Reads:
+    - [ ] `site/assets/charts/`
+    - [ ] `site/assets/images/`
+  - [ ] Writes:
+    - [ ] `site/data/manifest.json`
+
+- [ ] **Commit 5.3 — `feat(site): render chart gallery from manifest`**
+  - [ ] Update `site/app.js` to fetch `/data/manifest.json`
+  - [ ] Generate the same `.card` markup you styled earlier
+  - [ ] Replace manual chart HTML (or keep a small “featured” section)
