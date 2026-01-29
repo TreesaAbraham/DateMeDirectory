@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Date Me Directory Report" />
+    <title>Date Me Directory</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Date Me Directory</h1>
+        <p class="site-subtitle">A report site for charts + writeups (because spreadsheets don’t spark joy).</p>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#overview">Overview</a>
+          <a href="#charts">Charts</a>
+          <a href="#writeups">Writeups</a>
+          <a href="#notes">Notes</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main">
+      <section id="overview" class="section">
+        <div class="container prose">
+          <h2>Overview</h2>
+          <p>
+            This is a placeholder skeleton for a static site that will be deployed on Vercel.
+            Charts will live in <code>site/assets/charts/</code>, images in <code>site/assets/images/</code>,
+            and data + writeups in <code>site/data/</code> and <code>site/writeups/</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="charts" class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Charts</h2>
+            <p class="muted">
+              Chart assets will be dropped into <code>site/assets/charts/</code> and referenced here.
+            </p>
+          </div>
+
+          <div class="grid">
+            <article class="card">
+              <h3 class="card-title">Chart placeholder</h3>
+              <p class="card-body muted">Drop an SVG/PNG into <code>site/assets/charts/</code> and wire it up later.</p>
+              <div class="chart-frame" aria-label="Chart placeholder">
+                <div class="chart-placeholder">Chart goes here</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="writeups" class="section">
+        <div class="container prose">
+          <h2>Writeups</h2>
+          <p>
+            Writeups will live in <code>site/writeups/</code>. Later we can fetch and render markdown or HTML snippets.
+            For now, this exists so the folder isn’t lonely.
+          </p>
+        </div>
+      </section>
+
+      <section id="notes" class="section">
+        <div class="container prose">
+          <h2>Notes</h2>
+          <ul>
+            <li>This is intentionally minimal. You’ll add structure in Commit 1.2.</li>
+            <li>JS is loaded at the end for sane loading behavior.</li>
+            <li>Everything is relative-path safe for static hosting.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted">
+          Built as a static site. Deployed on Vercel when humans eventually press the buttons.
+        </p>
+      </div>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
