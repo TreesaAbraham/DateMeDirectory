@@ -442,11 +442,11 @@ Goal: publish a static report page (Vercel) that includes:
     - [x] link styles
     - [x] subtle background + section spacing
 
-- [ ] **Commit 2.2 — `style(site): add callouts and collapsible sections`**
-  - [ ] Add callout HTML blocks in `site/index.html` under Key findings:
-    - [ ] `<div class="callout">...</div>`
-  - [ ] Add `details/summary` for Method expansion
-  - [ ] Add CSS for `.callout`, `details`, `.muted`, etc.
+- [x] **Commit 2.2 — `style(site): add callouts and collapsible sections`**
+  - [x] Add callout HTML blocks in `site/index.html` under Key findings:
+    - [x] `<div class="callout">...</div>`
+  - [x] Add `details/summary` for Method expansion
+  - [x] Add CSS for `.callout`, `details`, `.muted`, etc.
 
 - [ ] **Commit 2.3 — `style(site): add chart card grid and caption + writeup styling`**
   - [ ] Add CSS for:

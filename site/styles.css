@@ -449,3 +449,104 @@ a:hover {
   margin-top: 1rem;
 }
 
+/* -----------------------------
+   Commit 2.3 — Chart cards + captions + writeups
+------------------------------ */
+
+/* Make the grid a little more “report” and less “random boxes” */
+.grid {
+  gap: clamp(1rem, 2.2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+/* Card polish (subtle hover, better spacing) */
+.card {
+  padding: 1.15rem;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(125, 211, 252, 0.22);
+  background: rgba(17, 19, 26, 0.94);
+}
+
+/* Chart figure layout */
+.chart-figure {
+  margin: 0;
+}
+
+/* The chart viewport: consistent size via aspect-ratio */
+.chart-media {
+  border: 1px dashed rgba(38, 42, 54, 0.9);
+  border-radius: calc(var(--radius) - 4px);
+  background: rgba(0, 0, 0, 0.16);
+  padding: 0.85rem;
+
+  aspect-ratio: 16 / 10;
+  width: 100%;
+
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Make images behave like polite adults */
+.chart-media img,
+.chart-media svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Keep your existing .chart-img class compatible */
+.chart-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Captions */
+figcaption,
+.chart-caption {
+  margin-top: 0.7rem;
+  font-size: var(--small);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+figcaption strong,
+.chart-caption strong {
+  color: var(--text);
+  font-weight: 650;
+}
+
+/* Writeup block (per-chart) */
+.writeup {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(38, 42, 54, 0.75);
+}
+
+.writeup-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.02rem;
+  letter-spacing: 0.15px;
+}
+
+.writeup p {
+  margin: 0 0 0.85rem;
+}
+
+.writeup ul {
+  margin: 0.5rem 0 0.85rem 1.15rem;
+}
+
+.writeup li {
+  margin: 0.3rem 0;
+}
+
+/* Slightly calmer card body spacing when used under charts */
+.chart-card .card-body {
+  margin-bottom: 0.65rem;
+}
