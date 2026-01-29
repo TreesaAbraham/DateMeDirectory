@@ -8,48 +8,133 @@
 
     <link rel="stylesheet" href="./styles.css" />
   </head>
+
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
       <div class="container">
         <h1 class="site-title">Date Me Directory</h1>
-        <p class="site-subtitle">A report site for charts + writeups (because spreadsheets don’t spark joy).</p>
+        <p class="site-subtitle">
+          A report site for charts + writeups (because spreadsheets don’t spark joy).
+        </p>
 
         <nav class="site-nav" aria-label="Primary">
           <a href="#overview">Overview</a>
+          <a href="#method">Method</a>
+          <a href="#key-findings">Key findings</a>
           <a href="#charts">Charts</a>
-          <a href="#writeups">Writeups</a>
-          <a href="#notes">Notes</a>
+          <a href="#appendix">Appendix</a>
         </nav>
       </div>
     </header>
 
     <main id="main" class="site-main">
+      <!-- Overview -->
       <section id="overview" class="section">
         <div class="container prose">
           <h2>Overview</h2>
           <p>
-            This is a placeholder skeleton for a static site that will be deployed on Vercel.
-            Charts will live in <code>site/assets/charts/</code>, images in <code>site/assets/images/</code>,
-            and data + writeups in <code>site/data/</code> and <code>site/writeups/</code>.
+            This report summarizes patterns found in the Date Me Directory dataset, combining quantitative
+            summaries with visualizations and short interpretive writeups.
+          </p>
+          <p class="muted">
+            Replace this text later with the real “why this project exists” blurb and a one-paragraph TL;DR.
           </p>
         </div>
       </section>
 
+      <!-- Method -->
+      <section id="method" class="section">
+        <div class="container prose">
+          <h2>Method</h2>
+          <p>
+            This section describes how the dataset was collected, cleaned, and analyzed, including any
+            exclusions, normalization decisions, and how charts were generated.
+          </p>
+          <ul>
+            <li><strong>Data source:</strong> (placeholder)</li>
+            <li><strong>Processing:</strong> (placeholder)</li>
+            <li><strong>Visualization:</strong> (placeholder)</li>
+          </ul>
+          <p class="muted">
+            We’ll replace these placeholders with specifics once the writeups are wired in.
+          </p>
+        </div>
+      </section>
+
+      <!-- Key Findings -->
+      <section id="key-findings" class="section">
+        <div class="container">
+          <div class="section-header prose">
+            <h2>Key findings</h2>
+            <p class="muted">
+              High-level takeaways. Later, each item can link to the chart + writeup that supports it.
+            </p>
+          </div>
+
+          <div class="grid">
+            <article class="card">
+              <h3 class="card-title">Finding #1 (placeholder)</h3>
+              <p class="card-body muted">
+                One sentence summary of the finding. Add supporting chart references later.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Finding #2 (placeholder)</h3>
+              <p class="card-body muted">
+                One sentence summary of the finding. Add supporting chart references later.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Finding #3 (placeholder)</h3>
+              <p class="card-body muted">
+                One sentence summary of the finding. Add supporting chart references later.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts -->
       <section id="charts" class="section">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header prose">
             <h2>Charts</h2>
             <p class="muted">
-              Chart assets will be dropped into <code>site/assets/charts/</code> and referenced here.
+              Chart assets will live in <code>site/assets/charts/</code>. Later commits will load them
+              dynamically and attach captions/writeups.
             </p>
           </div>
 
           <div class="grid">
             <article class="card">
               <h3 class="card-title">Chart placeholder</h3>
-              <p class="card-body muted">Drop an SVG/PNG into <code>site/assets/charts/</code> and wire it up later.</p>
+              <p class="card-body muted">
+                Drop an SVG/PNG into <code>site/assets/charts/</code> and wire it up later.
+              </p>
+              <div class="chart-frame" aria-label="Chart placeholder">
+                <div class="chart-placeholder">Chart goes here</div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Chart placeholder</h3>
+              <p class="card-body muted">
+                Another placeholder. Later we’ll generate these cards from data.
+              </p>
+              <div class="chart-frame" aria-label="Chart placeholder">
+                <div class="chart-placeholder">Chart goes here</div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3 class="card-title">Chart placeholder</h3>
+              <p class="card-body muted">
+                You get the idea. Humans love repetition when it’s called “structure.”
+              </p>
               <div class="chart-frame" aria-label="Chart placeholder">
                 <div class="chart-placeholder">Chart goes here</div>
               </div>
@@ -58,23 +143,18 @@
         </div>
       </section>
 
-      <section id="writeups" class="section">
+      <!-- Appendix / Notes -->
+      <section id="appendix" class="section">
         <div class="container prose">
-          <h2>Writeups</h2>
+          <h2>Appendix / Notes</h2>
           <p>
-            Writeups will live in <code>site/writeups/</code>. Later we can fetch and render markdown or HTML snippets.
-            For now, this exists so the folder isn’t lonely.
+            Optional space for definitions, caveats, data limitations, or anything you don’t want to cram
+            into the main narrative.
           </p>
-        </div>
-      </section>
-
-      <section id="notes" class="section">
-        <div class="container prose">
-          <h2>Notes</h2>
           <ul>
-            <li>This is intentionally minimal. You’ll add structure in Commit 1.2.</li>
-            <li>JS is loaded at the end for sane loading behavior.</li>
-            <li>Everything is relative-path safe for static hosting.</li>
+            <li><strong>Limitations:</strong> (placeholder)</li>
+            <li><strong>Definitions:</strong> (placeholder)</li>
+            <li><strong>Reproducibility:</strong> (placeholder)</li>
           </ul>
         </div>
       </section>
@@ -82,9 +162,7 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p class="muted">
-          Built as a static site. Deployed on Vercel when humans eventually press the buttons.
-        </p>
+        <p class="muted">Built as a static site. Deployed on Vercel when humans eventually press the buttons.</p>
       </div>
     </footer>
 

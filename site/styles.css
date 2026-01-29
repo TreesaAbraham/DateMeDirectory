@@ -1,0 +1,171 @@
+/* Minimal, readable defaults. We'll style properly later. */
+
+:root {
+  --bg: #0b0c10;
+  --panel: #11131a;
+  --text: #e7e7e7;
+  --muted: #a7adbb;
+  --border: #262a36;
+  --link: #7dd3fc;
+
+  --max: 1000px;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 600px at 20% 0%, #141826 0%, var(--bg) 55%);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  font-size: 0.95em;
+}
+
+.container {
+  width: min(var(--max), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.prose {
+  max-width: 70ch;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  padding: 0.6rem 0.8rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 1000;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(17, 19, 26, 0.75);
+  backdrop-filter: blur(10px);
+}
+
+.site-header .container {
+  padding: 2rem 0 1.5rem;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.2px;
+}
+
+.site-subtitle {
+  margin: 0.4rem 0 1.2rem;
+  color: var(--muted);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.site-nav a:hover {
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+}
+
+.section {
+  padding: 2.5rem 0;
+}
+
+.section-header {
+  margin-bottom: 1.25rem;
+}
+
+.section-header h2 {
+  margin: 0 0 0.25rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: rgba(17, 19, 26, 0.9);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.card-title {
+  margin: 0 0 0.4rem;
+}
+
+.card-body {
+  margin: 0 0 1rem;
+}
+
+.chart-frame {
+  border: 1px dashed var(--border);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.15);
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+}
+
+.chart-placeholder {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  background: rgba(17, 19, 26, 0.6);
+}
