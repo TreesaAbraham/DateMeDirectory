@@ -391,6 +391,14 @@ Edit graphs
 
 ## Static Site Build Checklist (3 commits per step)
 
+Goal: publish a static report page (Vercel) that includes:
+- 1) **marplot PNG**
+- 2) **seaborn PNG**
+- 3) **d3 SVG**
+- 4) **write-ups for each chart**
+
+---
+
 ### Step 1: Site foundation (3 commits)
 
 - [ ] **Commit 1.1 — `feat(site): add static site skeleton`**
@@ -419,8 +427,10 @@ Edit graphs
   - [ ] Add `site/README.md` with:
     - [ ] Local preview command: `python3 -m http.server --directory site 8000`
     - [ ] Where to drop SVG/PNG files
-    - [ ] How to update captions/write-up
+    - [ ] How to update captions/write-ups
 
+
+---
 
 ### Step 2: Make it lovely (Option C aesthetics) (3 commits)
 
@@ -438,31 +448,44 @@ Edit graphs
   - [ ] Add `details/summary` for Method expansion
   - [ ] Add CSS for `.callout`, `details`, `.muted`, etc.
 
-- [ ] **Commit 2.3 — `style(site): add chart card grid and caption styling`**
+- [ ] **Commit 2.3 — `style(site): add chart card grid and caption + writeup styling`**
   - [ ] Add CSS for:
     - [ ] `.grid` responsive layout
     - [ ] `.card` styling
     - [ ] `.chart` sizing with `aspect-ratio` + `object-fit: contain`
     - [ ] captions (`figcaption`)
+    - [ ] `.writeup` (spacing/typography for per-chart writeups)
   - [ ] Add one sample chart card in HTML (placeholder)
 
+
+---
 
 ### Step 3: Get real content on the page (3 commits)
 
 - [ ] **Commit 3.1 — `feat(site): add initial chart assets`**
-  - [ ] Copy a representative set (not everything):
-    - [ ] `site/assets/charts/*.svg`
-    - [ ] `site/assets/images/*.png`
+  - [ ] Copy the required set first:
+    - [ ] `site/assets/images/<marplot>.png`
+    - [ ] `site/assets/images/<seaborn>.png`
+    - [ ] `site/assets/charts/<d3>.svg`
+    - [ ] `site/writeups/<chart-id>.md` (or `.html`)
+  - [ ] (Optional) Copy a few extra charts after the required set is in
 
-- [ ] **Commit 3.2 — `feat(site): embed charts with captions`**
+- [ ] **Commit 3.2 — `feat(site): embed charts with captions + writeups`**
   - [ ] Add real `<figure class="card">` entries to `site/index.html`:
-    - [ ] Embed a few SVG + PNG charts
-    - [ ] Captions under each
+    - [ ] Use `<img>` for **both** `.png` and `.svg` embeds
+    - [ ] `<figcaption>` = 1–2 line caption
+    - [ ] Add a `.writeup` block under each chart **or** link to `site/writeups/...`
+  - [ ] Make sure each chart has:
+    - [ ] Visual (PNG/SVG)
+    - [ ] Caption
+    - [ ] Write-up (inline or linked)
 
 - [ ] **Commit 3.3 — `feat(site): add findings write-up content`**
   - [ ] Put your write-up directly into `site/index.html` sections (or link out to `site/writeups/findings.html`)
   - [ ] Add 1–2 callouts tied to your actual results
 
+
+---
 
 ### Step 4: Deploy to Vercel (3 commits)
 
@@ -472,32 +495,42 @@ Edit graphs
     - [ ] Framework: `Other`
     - [ ] Build Command: *(blank)*
     - [ ] Output Directory: `.`
+    - [ ] Note: do **not** include `/site/` in asset paths
 
 - [ ] **Commit 4.2 — `chore(deploy): add vercel config`**
   - [ ] Add root `vercel.json`:
     - [ ] `{ "cleanUrls": true }` (optional but nice)
 
 - [ ] **Commit 4.3 — `chore(site): prep static site for deployment`**
-  - [ ] Verify all asset paths start with `/assets/...`
+  - [ ] Verify all asset paths use either:
+    - [ ] Rooted: `/assets/...`
+    - [ ] or relative: `./assets/...`
   - [ ] Ensure `site/index.html` loads `styles.css` and `app.js`
   - [ ] Note: `.nojekyll` not required for Vercel
 
+
+---
 
 ### Step 5: Make it maintainable (manifest + auto gallery) (3 commits)
 
 - [ ] **Commit 5.1 — `feat(site): add chart manifest`**
   - [ ] Create `site/data/manifest.json` with chart metadata:
-    - [ ] `id, title, file, caption, type, section`
+    - [ ] `id, title, file, type, section, caption`
+    - [ ] `writeup` (either inline text or a path like `/writeups/<id>.html`)
 
 - [ ] **Commit 5.2 — `feat(site): add manifest generator script`**
   - [ ] Add `scripts/site/generate_manifest.py` (or `.js`)
   - [ ] Reads:
     - [ ] `site/assets/charts/`
     - [ ] `site/assets/images/`
+    - [ ] `site/writeups/`
   - [ ] Writes:
     - [ ] `site/data/manifest.json`
 
 - [ ] **Commit 5.3 — `feat(site): render chart gallery from manifest`**
   - [ ] Update `site/app.js` to fetch `/data/manifest.json`
-  - [ ] Generate the same `.card` markup you styled earlier
+  - [ ] Generate the same `.card` markup you styled earlier:
+    - [ ] `<img ...>` for charts (PNG/SVG)
+    - [ ] `<figcaption>` for captions
+    - [ ] `.writeup` for writeup text or a link to the writeup path
   - [ ] Replace manual chart HTML (or keep a small “featured” section)
