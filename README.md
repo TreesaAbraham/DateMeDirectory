@@ -401,27 +401,27 @@ Goal: publish a static report page (Vercel) that includes:
 
 ### Step 1: Site foundation (3 commits)
 
-- [ ] **Commit 1.1 — `feat(site): add static site skeleton`**
-  - [ ] Add folders:
-    - [ ] `site/`
-    - [ ] `site/assets/charts/`
-    - [ ] `site/assets/images/`
-    - [ ] `site/data/`
-    - [ ] `site/writeups/`
-  - [ ] Add placeholder files:
-    - [ ] `site/index.html`
-    - [ ] `site/styles.css`
-    - [ ] `site/app.js` (can be empty for now)
+- [x] **Commit 1.1 — `feat(site): add static site skeleton`**
+  - [x] Add folders:
+    - [x] `site/`
+    - [x] `site/assets/charts/`
+    - [x] `site/assets/images/`
+    - [x] `site/data/`
+    - [x] `site/writeups/`
+  - [x] Add placeholder files:
+    - [x] `site/index.html`
+    - [x] `site/styles.css`
+    - [x] `site/app.js` (can be empty for now)
 
-- [ ] **Commit 1.2 — `feat(site): add report page sections`**
-  - [ ] Build `site/index.html` sections:
-    - [ ] Overview
-    - [ ] Method
-    - [ ] Key findings
-    - [ ] Charts
-    - [ ] Appendix/Notes (optional)
-  - [ ] Add semantic wrappers (`header`, `main`, `section`, `footer`)
-  - [ ] Add classnames you’ll style later (`container`, `prose`, `grid`, etc.)
+- [x] **Commit 1.2 — `feat(site): add report page sections`**
+  - [x] Build `site/index.html` sections:
+    - [x] Overview
+    - [x] Method
+    - [x] Key findings
+    - [x] Charts
+    - [x] Appendix/Notes (optional)
+  - [x] Add semantic wrappers (`header`, `main`, `section`, `footer`)
+  - [x] Add classnames you’ll style later (`container`, `prose`, `grid`, etc.)
 
 - [ ] **Commit 1.3 — `docs(site): add local preview and update instructions`**
   - [ ] Add `site/README.md` with:
