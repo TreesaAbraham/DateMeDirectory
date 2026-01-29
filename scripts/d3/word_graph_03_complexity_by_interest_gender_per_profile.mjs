@@ -70,8 +70,17 @@ const inPath = args.in ? path.resolve(args.in) : DEFAULT_IN;
 const outDir = args.outdir ? path.resolve(args.outdir) : DEFAULT_OUTDIR;
 
 const USE_WEIGHTED = args.unweighted ? false : true;
-const TEXT_COLOR = args.textColor ?? "#111111";
-const BG_COLOR = args.bgColor ?? "white";
+
+// ---- Styling defaults (your request) ----
+const BG_COLOR = args.bgColor ?? "#000000";        // black background
+const TEXT_COLOR = args.textColor ?? "#EDEDED";    // light text on black
+const AXIS_COLOR = args.axisColor ?? "rgba(237,237,237,0.55)";
+const GRID_COLOR = args.gridColor ?? "rgba(237,237,237,0.12)";
+
+// serif text
+const FONT_FAMILY =
+  args.fontFamily ??
+  'ui-serif, Georgia, "Times New Roman", Times, serif';
 
 // Order and labels
 const SOURCE_ORDER = ["M", "F", "NB"];
@@ -83,11 +92,12 @@ const LABEL = {
   NB: "Non-binary",
 };
 
-// Per-chart colors (your request)
+// Per-chart colors
+// Women graph: fuchsia (not hot pink)
 const TARGET_COLOR = {
-  M: "blue",     // interest in men
-  F: "fuchsia",  // interest in women
-  NB: "purple",  // interest in nonbinary
+  M: "#2563EB",   // blue
+  F: "#e20093ff",   // fuchsia
+  NB: "#7C3AED",  // purple
 };
 
 // ---------------- Helpers ----------------
@@ -210,7 +220,7 @@ function drawBarChart({ data, target }) {
   const height = 520;
   const margin = { top: 90, right: 40, bottom: 70, left: 80 };
 
-  const barColor = TARGET_COLOR[target] ?? "#666";
+  const barColor = TARGET_COLOR[target] ?? "#888";
 
   const dom = new JSDOM(`<!DOCTYPE html><body></body>`);
   const document = dom.window.document;
@@ -221,10 +231,7 @@ function drawBarChart({ data, target }) {
     .attr("width", width)
     .attr("height", height)
     .style("background", BG_COLOR)
-    .style(
-      "font-family",
-      '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif'
-    )
+    .style("font-family", FONT_FAMILY)
     .style("fill", TEXT_COLOR);
 
   const title = `Word complexity (%) by profile gender`;
@@ -238,7 +245,7 @@ function drawBarChart({ data, target }) {
     .append("text")
     .attr("x", margin.left)
     .attr("y", 34)
-    .attr("font-size", 20)
+    .attr("font-size", 24)
     .attr("font-weight", 700)
     .attr("fill", barColor)
     .text(title);
@@ -246,9 +253,10 @@ function drawBarChart({ data, target }) {
   svg
     .append("text")
     .attr("x", margin.left)
-    .attr("y", 58)
-    .attr("font-size", 13)
+    .attr("y", 60)
+    .attr("font-size", 14)
     .attr("fill", TEXT_COLOR)
+    .attr("opacity", 0.92)
     .text(subtitle);
 
   svg
@@ -258,6 +266,7 @@ function drawBarChart({ data, target }) {
     .attr("text-anchor", "end")
     .attr("font-size", 12)
     .attr("fill", TEXT_COLOR)
+    .attr("opacity", 0.85)
     .text(`n=${nTotal}`);
 
   const g = svg
@@ -277,20 +286,33 @@ function drawBarChart({ data, target }) {
 
   const y = scaleLinear().domain([0, yTop]).range([innerH, 0]);
 
+  // Gridlines (subtle)
+  g.append("g")
+    .selectAll("line.grid")
+    .data(y.ticks(6))
+    .join("line")
+    .attr("class", "grid")
+    .attr("x1", 0)
+    .attr("x2", innerW)
+    .attr("y1", (d) => y(d))
+    .attr("y2", (d) => y(d))
+    .attr("stroke", GRID_COLOR)
+    .attr("stroke-width", 1);
+
   // Axes
   const yAxis = axisLeft(y).ticks(6).tickFormat(format(".0f"));
   const xAxis = axisBottom(x).tickFormat((d) => LABEL[d] ?? d);
 
   g.append("g")
     .call(yAxis)
-    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR))
-    .call((sel) => sel.selectAll("path,line").attr("stroke", TEXT_COLOR).attr("opacity", 0.35));
+    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9))
+    .call((sel) => sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1));
 
   g.append("g")
     .attr("transform", `translate(0,${innerH})`)
     .call(xAxis)
-    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR))
-    .call((sel) => sel.selectAll("path,line").attr("stroke", TEXT_COLOR).attr("opacity", 0.35));
+    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9))
+    .call((sel) => sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1));
 
   // Y label
   svg
@@ -298,8 +320,9 @@ function drawBarChart({ data, target }) {
     .attr("x", 18)
     .attr("y", margin.top + innerH / 2)
     .attr("transform", `rotate(-90, 18, ${margin.top + innerH / 2})`)
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .attr("fill", TEXT_COLOR)
+    .attr("opacity", 0.95)
     .text("Word complexity (%)");
 
   // Bars
@@ -314,7 +337,7 @@ function drawBarChart({ data, target }) {
     .attr("width", x.bandwidth())
     .attr("height", (d) => y(0) - y(d.value))
     .attr("fill", barColor)
-    .attr("opacity", (d) => (d.n === 0 ? 0.25 : 0.9));
+    .attr("opacity", (d) => (d.n === 0 ? 0.25 : 0.92));
 
   // Value labels
   g.append("g")
@@ -323,9 +346,9 @@ function drawBarChart({ data, target }) {
     .join("text")
     .attr("class", "value")
     .attr("x", (d) => x(d.source_gender) + x.bandwidth() / 2)
-    .attr("y", (d) => y(d.value) - 8)
+    .attr("y", (d) => y(d.value) - 10)
     .attr("text-anchor", "middle")
-    .attr("font-size", 13)
+    .attr("font-size", 14)
     .attr("font-weight", 700)
     .attr("fill", TEXT_COLOR)
     .text((d) => (d.n === 0 ? "–" : fmt1(d.value)));
@@ -339,8 +362,9 @@ function drawBarChart({ data, target }) {
     .attr("x", (d) => x(d.source_gender) + x.bandwidth() / 2)
     .attr("y", innerH + 42)
     .attr("text-anchor", "middle")
-    .attr("font-size", 11)
+    .attr("font-size", 12)
     .attr("fill", TEXT_COLOR)
+    .attr("opacity", 0.9)
     .text((d) => `n=${d.n}`);
 
   return { document };
