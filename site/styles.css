@@ -341,3 +341,111 @@ a:hover {
 .site-footer p {
   margin: 0;
 }
+/* -----------------------------
+   Callouts
+------------------------------ */
+.callouts {
+  display: grid;
+  gap: var(--gap);
+  margin: 1.25rem 0 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .callouts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.callout {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1rem;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+
+.callout::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: rgba(125, 211, 252, 0.55);
+}
+
+.callout-title {
+  font-weight: 650;
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.2px;
+}
+
+.callout p {
+  margin: 0;
+}
+
+/* Variant: warning-ish (still subtle) */
+.callout-warn::before {
+  background: rgba(251, 191, 36, 0.55);
+}
+
+/* -----------------------------
+   Details / Summary (Method accordion)
+------------------------------ */
+.details {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.details > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.95rem 1rem;
+  display: grid;
+  gap: 0.2rem;
+  user-select: none;
+}
+
+.details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.details > summary {
+  position: relative;
+}
+
+.details > summary::after {
+  content: "▾";
+  position: absolute;
+  right: 1rem;
+  top: 1.05rem;
+  color: var(--muted);
+  transform: rotate(0deg);
+  transition: transform 160ms ease;
+}
+
+.details[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.summary-title {
+  font-weight: 650;
+}
+
+.summary-hint {
+  font-size: var(--small);
+}
+
+.details-body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid rgba(38, 42, 54, 0.8);
+}
+
+.details-body h3 {
+  margin-top: 1rem;
+}
+

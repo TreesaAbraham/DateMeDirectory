@@ -48,55 +48,74 @@
       <section id="method" class="section">
         <div class="container prose">
           <h2>Method</h2>
-          <p>
-            This section describes how the dataset was collected, cleaned, and analyzed, including any
-            exclusions, normalization decisions, and how charts were generated.
-          </p>
-          <ul>
-            <li><strong>Data source:</strong> (placeholder)</li>
-            <li><strong>Processing:</strong> (placeholder)</li>
-            <li><strong>Visualization:</strong> (placeholder)</li>
-          </ul>
           <p class="muted">
-            We’ll replace these placeholders with specifics once the writeups are wired in.
+            This section explains collection, cleaning, and how visualizations were produced. It’s collapsible so the report
+            stays readable for people who don’t enjoy methodology as a recreational activity.
           </p>
+
+          <details class="details">
+            <summary>
+              <span class="summary-title">Expand methodology</span>
+              <span class="summary-hint muted">Data sources, cleaning rules, and chart generation notes</span>
+            </summary>
+
+            <div class="details-body">
+              <h3>Data</h3>
+              <ul>
+                <li><strong>Source:</strong> (placeholder)</li>
+                <li><strong>Timeframe:</strong> (placeholder)</li>
+                <li><strong>Inclusions/exclusions:</strong> (placeholder)</li>
+              </ul>
+
+              <h3>Processing</h3>
+              <ul>
+                <li><strong>Normalization:</strong> (placeholder)</li>
+                <li><strong>Tokenization:</strong> (placeholder)</li>
+                <li><strong>Derived metrics:</strong> (placeholder)</li>
+              </ul>
+
+              <h3>Visualization</h3>
+              <ul>
+                <li><strong>Matplotlib / Seaborn:</strong> static PNG generation scripts</li>
+                <li><strong>D3:</strong> SVG exports (and/or browser-rendered versions later)</li>
+              </ul>
+
+              <p class="muted">
+                Replace placeholders with your real pipeline notes. Future commit can link directly to the scripts or
+                README sections that reproduce each figure.
+              </p>
+            </div>
+          </details>
         </div>
       </section>
+
 
       <!-- Key Findings -->
-      <section id="key-findings" class="section">
-        <div class="container">
-          <div class="section-header prose">
-            <h2>Key findings</h2>
-            <p class="muted">
-              High-level takeaways. Later, each item can link to the chart + writeup that supports it.
-            </p>
-          </div>
-
-          <div class="grid">
-            <article class="card">
-              <h3 class="card-title">Finding #1 (placeholder)</h3>
-              <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
-              </p>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">Finding #2 (placeholder)</h3>
-              <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
-              </p>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">Finding #3 (placeholder)</h3>
-              <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
-              </p>
-            </article>
-          </div>
+      <div class="callouts">
+        <div class="callout">
+          <div class="callout-title">How to read this report</div>
+          <p class="muted">
+            Each finding should map to one or more charts. Captions give the “what,” writeups give the “so what.”
+          </p>
         </div>
-      </section>
+
+        <div class="callout">
+          <div class="callout-title">Renderer legend</div>
+          <p class="muted">
+            Charts are tagged by how they were made: <strong>D3</strong> (SVG), <strong>Seaborn</strong> (PNG),
+            and <strong>Matplotlib</strong> (PNG).
+          </p>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-title">Caveat</div>
+          <p class="muted">
+            This is observational text analysis. It shows patterns in the dataset, not universal truths about humans
+            (tragically, humans remain unpredictable).
+          </p>
+        </div>
+      </div>
+
 
       <!-- Charts -->
     <section id="charts" class="section">

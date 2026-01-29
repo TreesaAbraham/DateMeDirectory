@@ -423,24 +423,24 @@ Goal: publish a static report page (Vercel) that includes:
   - [x] Add semantic wrappers (`header`, `main`, `section`, `footer`)
   - [x] Add classnames you’ll style later (`container`, `prose`, `grid`, etc.)
 
-- [ ] **Commit 1.3 — `docs(site): add local preview and update instructions`**
-  - [ ] Add `site/README.md` with:
-    - [ ] Local preview command: `python3 -m http.server --directory site 8000`
-    - [ ] Where to drop SVG/PNG files
-    - [ ] How to update captions/write-ups
+- [x] **Commit 1.3 — `docs(site): add local preview and update instructions`**
+  - [x] Add `site/README.md` with:
+    - [x] Local preview command: `python3 -m http.server --directory site 8000`
+    - [x] Where to drop SVG/PNG files
+    - [x] How to update captions/write-ups
 
 
 ---
 
 ### Step 2: Make it lovely (Option C aesthetics) (3 commits)
 
-- [ ] **Commit 2.1 — `style(site): add report typography and layout`**
-  - [ ] Update `site/styles.css` with:
-    - [ ] container width
-    - [ ] heading scale
-    - [ ] paragraph spacing
-    - [ ] link styles
-    - [ ] subtle background + section spacing
+- [x] **Commit 2.1 — `style(site): add report typography and layout`**
+  - [x] Update `site/styles.css` with:
+    - [x] container width
+    - [x] heading scale
+    - [x] paragraph spacing
+    - [x] link styles
+    - [x] subtle background + section spacing
 
 - [ ] **Commit 2.2 — `style(site): add callouts and collapsible sections`**
   - [ ] Add callout HTML blocks in `site/index.html` under Key findings:
