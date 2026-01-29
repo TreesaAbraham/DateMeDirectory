@@ -550,3 +550,13 @@ figcaption strong,
 .chart-card .card-body {
   margin-bottom: 0.65rem;
 }
+/* Writeup pre blocks (temporary plain-text rendering) */
+.writeup pre {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  padding: 0.85rem;
+  border: 1px solid rgba(38, 42, 54, 0.75);
+  border-radius: calc(var(--radius) - 4px);
+  background: rgba(0, 0, 0, 0.2);
+}
