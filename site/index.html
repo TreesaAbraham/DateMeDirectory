@@ -99,49 +99,27 @@
       </section>
 
       <!-- Charts -->
-      <section id="charts" class="section">
-        <div class="container">
-          <div class="section-header prose">
-            <h2>Charts</h2>
-            <p class="muted">
-              Chart assets will live in <code>site/assets/charts/</code>. Later commits will load them
-              dynamically and attach captions/writeups.
-            </p>
-          </div>
+    <section id="charts" class="section">
+         <div class="container">
+            <div class="section-header prose">
+                <h2>Charts</h2>
+                <p class="muted">
+                     Charts are loaded from <code>site/data/charts_manifest.json</code> and rendered automatically.
+                      Put files in <code>site/assets/charts/d3</code>, <code>seaborn</code>, or <code>matplotlib</code>.
+                 </p>
+             </div>
 
-          <div class="grid">
-            <article class="card">
-              <h3 class="card-title">Chart placeholder</h3>
-              <p class="card-body muted">
-                Drop an SVG/PNG into <code>site/assets/charts/</code> and wire it up later.
-              </p>
-              <div class="chart-frame" aria-label="Chart placeholder">
-                <div class="chart-placeholder">Chart goes here</div>
-              </div>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">Chart placeholder</h3>
-              <p class="card-body muted">
-                Another placeholder. Later we’ll generate these cards from data.
-              </p>
-              <div class="chart-frame" aria-label="Chart placeholder">
-                <div class="chart-placeholder">Chart goes here</div>
-              </div>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">Chart placeholder</h3>
-              <p class="card-body muted">
-                You get the idea. Humans love repetition when it’s called “structure.”
-              </p>
-              <div class="chart-frame" aria-label="Chart placeholder">
-                <div class="chart-placeholder">Chart goes here</div>
-              </div>
-            </article>
-          </div>
+             <div id="charts-grid" class="grid" aria-live="polite">
+                <article class="card">
+                    <h3 class="card-title">Loading charts…</h3>
+                    <p class="card-body muted">
+                      If this never changes, you probably forgot to generate the manifest.
+                    </p>
+                </article>
+            </div>
         </div>
-      </section>
+    </section>
+
 
       <!-- Appendix / Notes -->
       <section id="appendix" class="section">

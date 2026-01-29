@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-01-29T05:57:38.245Z",
+  "count": 25,
+  "charts": [
+    {
+      "id": "d3/word_graph_01_mosaic_serious_relationship.svg",
+      "title": "Word graph 01 mosaic serious relationship",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_01_mosaic_serious_relationship.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg",
+      "title": "Word graph 02 exclam per100k by generation per profile",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_03_word_complexity_looking_for_F.svg",
+      "title": "Word graph 03 word complexity looking for F",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_F.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_03_word_complexity_looking_for_M.svg",
+      "title": "Word graph 03 word complexity looking for M",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_M.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_03_word_complexity_looking_for_NB.svg",
+      "title": "Word graph 03 word complexity looking for NB",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_NB.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
+      "title": "Word graph 04 distinctive words us vs nonus",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
+      "title": "Word graph 05 distinctive bayarea vs uk london",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_06_em_dash_per_profile.svg",
+      "title": "Word graph 06 em dash per profile",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
+      "title": "Word graph 08 sentence complexity by interest gender per profile F",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
+      "title": "Word graph 08 sentence complexity by interest gender per profile M",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
+      "title": "Word graph 08 sentence complexity by interest gender per profile NB",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
+      "title": "Word graph 09 prevalence bay uk wordsets vs all us",
+      "renderer": "d3",
+      "format": "svg",
+      "url": "assets/charts/d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_01_mosaic_serious_relationship_seaborn.png",
+      "title": "Word graph 01 mosaic serious relationship seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_01_mosaic_serious_relationship_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
+      "title": "Word graph 02 exclam per100k by generation seaborn no outliers",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png",
+      "title": "Word graph 02 exclam per100k by generation seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_03_complexity_by_interest_in_F_seaborn.png",
+      "title": "Word graph 03 complexity by interest in F seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_F_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_03_complexity_by_interest_in_M_seaborn.png",
+      "title": "Word graph 03 complexity by interest in M seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_M_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_03_complexity_by_interest_in_NB_seaborn.png",
+      "title": "Word graph 03 complexity by interest in NB seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_NB_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
+      "title": "Word graph 04 distinctive us vs nonus z seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
+      "title": "Word graph 05 distinctive bayarea vs uk london z seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
+      "title": "Word graph 06 em dash bucket counts seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
+      "title": "Word graph 08 sentence complexity looking for F seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
+      "title": "Word graph 08 sentence complexity looking for M seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
+      "title": "Word graph 08 sentence complexity looking for NB seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    },
+    {
+      "id": "seaborn/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
+      "title": "Word graph 09 prevalence bay uk wordsets vs all us seaborn",
+      "renderer": "seaborn",
+      "format": "png",
+      "url": "assets/charts/seaborn/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
+      "caption": "",
+      "writeup": ""
+    }
+  ]
+}
