@@ -534,3 +534,164 @@ Goal: publish a static report page (Vercel) that includes:
     - [ ] `<figcaption>` for captions
     - [ ] `.writeup` for writeup text or a link to the writeup path
   - [ ] Replace manual chart HTML (or keep a small “featured” section)
+
+
+
+
+----------------------------------------------------------------------------------------------------
+# Updated Checklist (Repo-Accurate + Graph-Number Plan)
+
+## ✅ Step 1: Site foundation (3 commits)
+
+- [x] **Commit 1.1 — `feat(site): add static site skeleton`**
+- [x] **Commit 1.2 — `feat(site): add report page sections`**
+- [x] **Commit 1.3 — `docs(site): add local preview and update instructions`**
+
+> All accurate and done.
+
+---
+
+## ✅ Step 2: Make it lovely (Option C aesthetics) (3 commits)
+
+- [x] **Commit 2.1 — `style(site): add report typography and layout`**
+- [x] **Commit 2.2 — `style(site): add callouts and collapsible sections`**
+- [x] **Commit 2.3 — `style(site): add chart card grid and caption + writeup styling`**
+  - [x] `.grid`, `.card`, `.chart-media`, `figcaption`, `.writeup` already exist in `site/styles.css`
+  - [x] Sample card exists in `site/index.html`
+
+> Your old checklist said 2.3 was pending. The repo says it’s done. The repo wins.
+
+---
+
+## 🧱 Step 3: Normalize the site structure for “Graph #” pages (3 commits)
+
+- [ ] **Commit 3.1 — `chore(site): normalize chart asset folders`**
+  - **Goal:** remove the `matplotlip` landmine and make paths consistent.
+  - [ ] Rename folder:
+    - [ ] `site/assets/charts/matplotlip/` → `site/assets/charts/matplotlib/`
+  - [ ] Update any docs/strings that reference the old path:
+    - [ ] `site/index.html` (currently mentions `/matplotlib`, which is correct but not true yet)
+  - [ ] Optional cleanup (only if you want):
+    - [ ] Keep `site/assets/images/` empty or delete it later; right now everything is under `assets/charts/`
+
+- [ ] **Commit 3.2 — `fix(site): align manifest schema with frontend`**
+  - **Goal:** pick one manifest shape and stop the JS from hallucinating.
+  - [ ] Decide the canonical manifest format: **graph-grouped** (matches your plan)
+  - [ ] Update `site/app.js` and `site/index.html` to use:
+    - [ ] `manifest.graphs[]` (NOT `manifest.charts[]`)
+  - [ ] Update `site/index.html` Charts blurb so it matches the real structure:
+    - [ ] Don’t claim a flat auto-gallery if you’re doing graph-number group pages
+
+- [ ] **Commit 3.3 — `feat(site): add graph renderer script for graph pages`**
+  - **Goal:** make `site/graphs/*/*.html` actually work.
+  - [ ] Add missing file: `site/graph.js`
+    - [ ] Reads `data-graph` + `data-renderer` from `<main id="graph-page">`
+    - [ ] Loads the correct image from the manifest (or a predictable filename convention)
+    - [ ] Renders:
+      - [ ] Title
+      - [ ] Chart image (SVG/PNG)
+      - [ ] Caption (if available)
+      - [ ] Writeup link/inline (if available)
+
+---
+
+## 📚 Step 4: Implement the “Graph # hub” concept (3 commits)
+
+- [ ] **Commit 4.1 — `feat(site): add per-graph hub pages`**
+  - **Goal:** one page per graph number that shows all renderers together.
+  - [ ] For each graph folder (01–06, 08–09):
+    - [ ] Create `site/graphs/<id>/index.html`
+    - [ ] Page includes three sections/cards:
+      - [ ] Matplotlib PNG
+      - [ ] Seaborn PNG
+      - [ ] D3 SVG
+    - [ ] Page includes:
+      - [ ] Question
+      - [ ] Method
+      - [ ] Key finding(s)
+      - [ ] Notes/caveats
+  - _Note:_ You currently have renderer-specific pages only. This adds the combined view you want.
+
+- [ ] **Commit 4.2 — `feat(site): convert homepage into graph directory`**
+  - **Goal:** homepage links to graph hubs, not individual renderer cards.
+  - [ ] Replace the auto “charts grid” on `site/index.html` with a Graph Directory grid:
+    - [ ] “Graph 01” → `/graphs/01/`
+    - [ ] … etc
+  - [ ] Keep a smaller “Featured” strip if you want, but don’t duplicate everything.
+
+- [ ] **Commit 4.3 — `feat(site): add initial writeups + findings tied to real graphs`**
+  - [ ] Add writeup files (repo currently has no `site/writeups/*` files):
+    - [ ] `site/writeups/graphs/01.md` (or `.html`)
+    - [ ] Repeat for at least a few graphs
+  - [ ] Update homepage Key Findings:
+    - [ ] Replace placeholders with findings that cite specific graph numbers
+
+---
+
+## 🧰 Step 5: Make the manifest actually reflect your assets (3 commits)
+
+**Right now:**
+- You have the assets for many graphs
+- But `site/data/charts_manifest.json` only lists 01–02, with blank file/url fields
+- You also have a generator script that outputs a totally different schema (`charts[]`)
+
+So we fix that.
+
+- [ ] **Commit 5.1 — `feat(site): define graph-grouped manifest as canonical`**
+  - [ ] Keep `site/data/charts_manifest.json` as the canonical manifest
+  - [ ] Make it complete for graphs you already have (01–06, 08–09)
+  - [ ] For each graph:
+    - [ ] `graph_id`, `title`
+    - [ ] `question`, `method`, `key_findings`, `notes`
+    - [ ] `renderers.matplotlib[].url` pointing to real PNG path
+    - [ ] `renderers.seaborn[].url` pointing to real PNG path
+    - [ ] `renderers.d3[].url` pointing to real SVG path
+    - [ ] Optional `writeup_path`
+
+- [ ] **Commit 5.2 — `fix(site): update manifest generator to output graphs schema`**
+  - [ ] Update `scripts/site/generate_charts_manifest.mjs` so it generates `graphs[]`, not `charts[]`
+  - [ ] Make it detect graph id from filenames like:
+    - [ ] `word_graph_01_...`
+  - [ ] Make it resilient to multiple PNGs per renderer (Graph 02 has multiple variants)
+
+- [ ] **Commit 5.3 — `feat(site): add page generator for graph hubs`**
+  - You already have: `scripts/site/generate_graph_pages.mjs` (renderer pages)
+  - [ ] Expand it to also generate:
+    - [ ] `site/graphs/<id>/index.html` (hub page)
+  - [ ] Or add a sibling script:
+    - [ ] `scripts/site/generate_graph_hubs.mjs`
+
+---
+
+## 🚀 Step 6: Deploy to Vercel (3 commits)
+
+> Still valid, just updated to match your actual paths.
+
+- [ ] **Commit 6.1 — `docs(deploy): add Vercel static deployment steps`**
+  - [ ] Add `DEPLOY.md` (root or `site/DEPLOY.md`)
+  - [ ] Root Directory: `site`
+  - [ ] Framework: `Other`
+  - [ ] Build Command: *(blank)*
+  - [ ] Output Directory: `.`
+  - [ ] Note: no `/site/` in asset paths
+
+- [ ] **Commit 6.2 — `chore(deploy): add vercel config`**
+  - [ ] Add root `vercel.json` (optional)
+    - [ ] `{ "cleanUrls": true }`
+
+- [ ] **Commit 6.3 — `chore(site): preflight for deployment`**
+  - [ ] Ensure every page uses consistent asset paths:
+    - [ ] `../assets/...` or rooted `/assets/...` (pick one and stick to it)
+  - [ ] Confirm `graph.js` exists and loads on graph pages
+  - [ ] Confirm homepage directory links work
+
+---
+
+## 🧹 Optional cleanup (because you will forget later)
+
+- [ ] **Commit O.1 — `chore(site): deprecate old chart gallery pages`**
+  - [ ] Decide whether to keep:
+    - [ ] `site/chart.html`
+    - [ ] `site/topics/*`
+  - [ ] If you keep them, update them to use `graphs[]` manifest
+  - [ ] If not, remove or link them from somewhere “Archive”
