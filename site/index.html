@@ -156,8 +156,11 @@
           <div class="section-header prose">
             <h2>Charts</h2>
             <p class="muted">
-              Charts are loaded from <code>site/data/charts_manifest.json</code> and rendered automatically.
-              Put files in <code>site/assets/charts/d3</code>, <code>seaborn</code>, or <code>matplotlib</code>.
+              Charts are loaded from <code>site/data/charts_manifest.json</code> (graph-grouped schema).
+              For now, the homepage flattens each graph’s renderers into individual chart cards.
+              Graph-number hub pages will live under <code>/graphs/&lt;id&gt;/</code>.
+              Put files in <code>site/assets/charts/d3</code>, <code>site/assets/charts/seaborn</code>, or
+              <code>site/assets/charts/matplotlib</code>.
             </p>
           </div>
 

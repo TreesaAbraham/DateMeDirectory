@@ -565,22 +565,22 @@ Goal: publish a static report page (Vercel) that includes:
 
 ## 🧱 Step 3: Normalize the site structure for “Graph #” pages (3 commits)
 
-- [ ] **Commit 3.1 — `chore(site): normalize chart asset folders`**
+- [x] **Commit 3.1 — `chore(site): normalize chart asset folders`**
   - **Goal:** remove the `matplotlip` landmine and make paths consistent.
-  - [ ] Rename folder:
-    - [ ] `site/assets/charts/matplotlip/` → `site/assets/charts/matplotlib/`
-  - [ ] Update any docs/strings that reference the old path:
-    - [ ] `site/index.html` (currently mentions `/matplotlib`, which is correct but not true yet)
-  - [ ] Optional cleanup (only if you want):
-    - [ ] Keep `site/assets/images/` empty or delete it later; right now everything is under `assets/charts/`
+  - [x] Rename folder:
+    - [x] `site/assets/charts/matplotlip/` → `site/assets/charts/matplotlib/`
+  - [x] Update any docs/strings that reference the old path:
+    - [x] `site/index.html` (currently mentions `/matplotlib`, which is correct but not true yet)
+  - [x] Optional cleanup (only if you want):
+    - [x] Keep `site/assets/images/` empty or delete it later; right now everything is under `assets/charts/`
 
-- [ ] **Commit 3.2 — `fix(site): align manifest schema with frontend`**
+- [x] **Commit 3.2 — `fix(site): align manifest schema with frontend`**
   - **Goal:** pick one manifest shape and stop the JS from hallucinating.
-  - [ ] Decide the canonical manifest format: **graph-grouped** (matches your plan)
-  - [ ] Update `site/app.js` and `site/index.html` to use:
-    - [ ] `manifest.graphs[]` (NOT `manifest.charts[]`)
-  - [ ] Update `site/index.html` Charts blurb so it matches the real structure:
-    - [ ] Don’t claim a flat auto-gallery if you’re doing graph-number group pages
+  - [x] Decide the canonical manifest format: **graph-grouped** (matches your plan)
+  - [x] Update `site/app.js` and `site/index.html` to use:
+    - [x] `manifest.graphs[]` (NOT `manifest.charts[]`)
+  - [x] Update `site/index.html` Charts blurb so it matches the real structure:
+    - [x] Don’t claim a flat auto-gallery if you’re doing graph-number group pages
 
 - [ ] **Commit 3.3 — `feat(site): add graph renderer script for graph pages`**
   - **Goal:** make `site/graphs/*/*.html` actually work.
