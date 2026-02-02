@@ -260,12 +260,12 @@ Edit graphs
       - [x] Notes/caveats
   - _Note:_ You currently have renderer-specific pages only. This adds the combined view you want.
 
-- [ ] **Commit 4.2 — `feat(site): convert homepage into graph directory`**
+- [x] **Commit 4.2 — `feat(site): convert homepage into graph directory`**
   - **Goal:** homepage links to graph hubs, not individual renderer cards.
-  - [ ] Replace the auto “charts grid” on `site/index.html` with a Graph Directory grid:
-    - [ ] “Graph 01” → `/graphs/01/`
-    - [ ] … etc
-  - [ ] Keep a smaller “Featured” strip if you want, but don’t duplicate everything.
+  - [x] Replace the auto “charts grid” on `site/index.html` with a Graph Directory grid:
+    - [x] “Graph 01” → `/graphs/01/`
+    - [x] … etc
+  - [x] Keep a smaller “Featured” strip if you want, but don’t duplicate everything.
 
 - [ ] **Commit 4.3 — `feat(site): add initial writeups + findings tied to real graphs`**
   - [ ] Add writeup files (repo currently has no `site/writeups/*` files):
