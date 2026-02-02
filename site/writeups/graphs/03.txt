@@ -1,0 +1,33 @@
+There are several graphs calculating word complexity based on who the user was looking for.
+There were 9 categories:
+- Female looking for  Female
+- Female looking for Male
+- Female looking for Non-Binary
+
+- Male looking for  Female
+- Male looking for Male
+- Male looking for Non-Binary
+
+- Non-Binary looking for Female
+- Non-Binary looking for Male
+- Non-Binary looking for Non-Binary
+
+The data above represents individual user records with the following fields:
+- User ID
+- Gender
+- Looking For
+- Number of Words Used
+- Average Word Complexity
+Using this data, please generate a summary of average word complexity for each of the nine categories listed above.
+To calculate the average word complexity for each of the nine categories based on the provided user data, we can follow these steps:
+1. Initialize a dictionary to hold the total word complexity and count of users for each category.
+2. Iterate through each user record, extract the relevant fields, and update the totals and counts in the dictionary based
+
+We then built sepearate graphs for each category using the calculated averages. on the user's on the extracted data.
+We made sure the graphs were based on the gender the person was looking for. 
+
+While all fields had similar word complexity percentage (around 12-15%), we observed some variations
+Regardless of which gender the user was looking for women always had at least 1% word complextity compared to millenial
+This could indicate that wommen may be using more complex language when searching for partners compared to men in order to seem more sophisticated or appealing.
+That or they just read a lot more novels (aka smut, this is for you Lorenzo). And know how to use big words.
+

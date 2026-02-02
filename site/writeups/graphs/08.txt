@@ -1,0 +1,28 @@
+
+This graph analyzed sentence complexty acroos different users
+we created 9 categories and combined them based on gender interested in
+
+male interested in male
+female interested in male
+non-binary interested in male
+
+male interested in female
+female interested in female
+non-binary interested in female
+
+male interested in non-binary
+female interested in non-binary
+non-binary interested in non-binary
+
+Split text into sentences → split_sentences(text) uses regex to break on ., !, ?, and newlines
+Count words per sentence → sentence_word_count(sentence) tokenizes using the WORD_RE pattern
+Identify long sentences → Counts sentences where word_count > min_sentence_words (default: 20 words)
+Calculate percentage → (long_sentences / total_sentences) * 100
+Key gotcha: The threshold is strictly greater than (>), not >=. So a 20-word sentence with --min_sentence_words=20 is not considered complex.
+
+The script runs this calculation per profile, then aggregates results by (target_gender, source_gender) pairs to generate the IQR statistics in your CSV.
+
+Across all genders interested in women always had higher sentence complexity than men and non-binary users.
+Most notablly, for female looking for femaile, the percentage of complex sentences is much higher (median: 25.965) compared to other groups.
+This indicates a noticealble difference in writing style or communication approach
+It's also interesting to notices that the range for sentence complext (26-13% is wider and greater than the range for word complexty
