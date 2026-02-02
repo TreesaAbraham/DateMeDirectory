@@ -245,19 +245,19 @@ Edit graphs
 
 ## 📚 Step 4: Implement the “Graph # hub” concept (3 commits)
 
-- [ ] **Commit 4.1 — `feat(site): add per-graph hub pages`**
+- [x] **Commit 4.1 — `feat(site): add per-graph hub pages`**
   - **Goal:** one page per graph number that shows all renderers together.
-  - [ ] For each graph folder (01–06, 08–09):
-    - [ ] Create `site/graphs/<id>/index.html`
-    - [ ] Page includes three sections/cards:
-      - [ ] Matplotlib PNG
-      - [ ] Seaborn PNG
-      - [ ] D3 SVG
-    - [ ] Page includes:
-      - [ ] Question
-      - [ ] Method
-      - [ ] Key finding(s)
-      - [ ] Notes/caveats
+  - [x] For each graph folder (01–06, 08–09):
+    - [x] Create `site/graphs/<id>/index.html`
+    - [x] Page includes three sections/cards:
+      - [x] Matplotlib PNG
+      - [x] Seaborn PNG
+      - [x] D3 SVG
+    - [x] Page includes:
+      - [x] Question
+      - [x] Method
+      - [x] Key finding(s)
+      - [x] Notes/caveats
   - _Note:_ You currently have renderer-specific pages only. This adds the combined view you want.
 
 - [ ] **Commit 4.2 — `feat(site): convert homepage into graph directory`**

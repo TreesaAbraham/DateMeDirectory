@@ -23,7 +23,7 @@
           <a href="#overview">Overview</a>
           <a href="#method">Method</a>
           <a href="#key-findings">Key findings</a>
-          <a href="#charts">Charts</a>
+          <a href="#charts">Graphs</a>
           <a href="#appendix">Appendix</a>
         </nav>
       </div>
@@ -95,7 +95,7 @@
           <div class="section-header prose">
             <h2>Key findings</h2>
             <p class="muted">
-              High-level takeaways. Later, each item can link to the chart + writeup that supports it.
+              High-level takeaways. Later, each item can link to the graph hub page that supports it.
             </p>
           </div>
 
@@ -104,15 +104,15 @@
             <div class="callout">
               <div class="callout-title">How to read this report</div>
               <p class="muted">
-                Each finding should map to one or more charts. Captions give the “what,” writeups give the “so what.”
+                Each finding should map to one or more graphs. Captions give the “what,” writeups give the “so what.”
               </p>
             </div>
 
             <div class="callout">
               <div class="callout-title">Renderer legend</div>
               <p class="muted">
-                Charts are tagged by how they were made: <strong>D3</strong> (SVG), <strong>Seaborn</strong> (PNG),
-                and <strong>Matplotlib</strong> (PNG).
+                Each graph hub shows: <strong>Matplotlib</strong> (PNG), <strong>Seaborn</strong> (PNG),
+                and <strong>D3</strong> (SVG).
               </p>
             </div>
 
@@ -129,79 +129,61 @@
             <article class="card">
               <h3 class="card-title">Finding #1 (placeholder)</h3>
               <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
+                One sentence summary of the finding. Add supporting graph references later.
               </p>
             </article>
 
             <article class="card">
               <h3 class="card-title">Finding #2 (placeholder)</h3>
               <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
+                One sentence summary of the finding. Add supporting graph references later.
               </p>
             </article>
 
             <article class="card">
               <h3 class="card-title">Finding #3 (placeholder)</h3>
               <p class="card-body muted">
-                One sentence summary of the finding. Add supporting chart references later.
+                One sentence summary of the finding. Add supporting graph references later.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- Charts -->
+      <!-- Graph Directory (replaces flat chart gallery) -->
       <section id="charts" class="section">
         <div class="container">
           <div class="section-header prose">
-            <h2>Charts</h2>
+            <h2>Graph directory</h2>
             <p class="muted">
-              Charts are loaded from <code>site/data/charts_manifest.json</code> (graph-grouped schema).
-              For now, the homepage flattens each graph’s renderers into individual chart cards.
-              Graph-number hub pages will live under <code>/graphs/&lt;id&gt;/</code>.
-              Put files in <code>site/assets/charts/d3</code>, <code>site/assets/charts/seaborn</code>, or
-              <code>site/assets/charts/matplotlib</code>.
+              Choose a graph number to view the combined hub page (Matplotlib + Seaborn + D3 together).
+              This directory is generated from <code>site/data/charts_manifest.json</code>.
             </p>
           </div>
 
-          <!-- Sample chart card (structure + styling reference) -->
-          <div class="grid" aria-label="Sample chart card">
-            <article class="card chart-card">
-              <div class="chart-card-header">
-                <h3 class="card-title">Sample chart card (placeholder)</h3>
-                <span class="badge" title="Rendered with D3">D3</span>
-              </div>
-
-              <figure class="chart-figure">
-                <div class="chart-media" aria-label="Sample chart placeholder">
-                  <div class="chart-placeholder">Chart preview goes here</div>
-                </div>
-
-                <figcaption>
-                  <strong>Caption:</strong> One or two sentences explaining what the chart shows, plus the important takeaway.
-                </figcaption>
-              </figure>
-
-              <div class="writeup">
-                <h4 class="writeup-title">Writeup</h4>
-                <p class="muted">
-                  This is where the longer interpretation lives: why it matters, what might explain it, and any caveats.
-                </p>
-                <ul class="muted">
-                  <li>Point one (interpretation)</li>
-                  <li>Point two (method note)</li>
-                  <li>Point three (limitation)</li>
-                </ul>
-              </div>
+          <!-- Auto-generated directory grid -->
+          <div id="graph-directory" class="grid" aria-live="polite">
+            <article class="card">
+              <h3 class="card-title">Loading graphs…</h3>
+              <p class="card-body muted">
+                If this never changes, your manifest isn’t loading.
+              </p>
             </article>
           </div>
 
-          <!-- Auto-generated chart grid -->
-          <div id="charts-grid" class="grid" aria-live="polite">
+          <!-- Optional: Featured strip (small, not the whole site again) -->
+          <div class="section-header prose" style="margin-top: 2rem;">
+            <h3>Featured</h3>
+            <p class="muted">
+              A small highlight reel. Keep it small so you don’t duplicate the entire directory on the homepage.
+            </p>
+          </div>
+
+          <div id="featured-grid" class="grid" aria-label="Featured graphs">
             <article class="card">
-              <h3 class="card-title">Loading charts…</h3>
+              <h3 class="card-title">No featured graphs yet</h3>
               <p class="card-body muted">
-                If this never changes, you probably forgot to generate the manifest.
+                Edit <code>FEATURED_GRAPH_IDS</code> in <code>site/app.js</code>.
               </p>
             </article>
           </div>

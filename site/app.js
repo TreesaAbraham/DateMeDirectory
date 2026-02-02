@@ -1,5 +1,17 @@
 // site/app.js
-// Renders: main chart grid (#charts-grid), chart detail (#chart-detail), topic pages (#topic-charts)
+// Homepage logic:
+// - Render Graph Directory (one card per graph -> /graphs/<id>/)
+// - Optional Featured strip (small list, not a full gallery)
+
+async function loadManifest() {
+  const res = await fetch("/data/charts_manifest.json", { cache: "no-store" });
+  if (!res.ok) throw new Error(`Manifest load failed: HTTP ${res.status}`);
+  return res.json();
+}
+
+function graphsFromManifest(manifest) {
+  return Array.isArray(manifest?.graphs) ? manifest.graphs : [];
+}
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -10,343 +22,145 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
-function rendererLabel(renderer) {
-  if (!renderer) return "Unknown";
-  const r = renderer.toLowerCase();
-  if (r === "d3") return "D3";
-  if (r === "seaborn") return "Seaborn";
-  if (r === "matplotlib") return "Matplotlib";
-  return renderer;
+function hasRenderer(graph, key) {
+  const list = graph?.renderers?.[key];
+  return Array.isArray(list) && list.length > 0;
 }
 
-async function loadManifest(relativePrefix = ".") {
-  const url = `${relativePrefix}/data/charts_manifest.json`;
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load manifest: ${res.status}`);
-  return res.json();
+function rendererSummary(graph) {
+  const parts = [];
+  if (hasRenderer(graph, "matplotlib")) parts.push("Matplotlib");
+  if (hasRenderer(graph, "seaborn")) parts.push("Seaborn");
+  if (hasRenderer(graph, "d3")) parts.push("D3");
+  return parts.length ? parts.join(" · ") : "No renderers linked yet";
 }
 
-/**
- * Manifest helpers (canonical = graph-grouped)
- */
+function graphCard(graph) {
+  const id = String(graph?.graph_id ?? "").trim();
+  const title = String(graph?.title ?? `Graph ${id}`).trim() || `Graph ${id}`;
+  const href = `/graphs/${encodeURIComponent(id)}/`;
 
-function getGraphs(manifest) {
-  return Array.isArray(manifest?.graphs) ? manifest.graphs : [];
-}
-
-function normalizeChartUrl(renderer, entry) {
-  const url = String(entry?.url || "").trim();
-  if (url) return url.replace(/^\.\//, "");
-  const file = String(entry?.file || "").trim();
-  if (file) return `assets/charts/${renderer}/${file}`;
-  return "";
-}
-
-// Keeps legacy pages working by flattening graph-grouped manifest into chart cards.
-function flattenChartsFromGraphs(graphs) {
-  const charts = [];
-
-  for (const g of graphs) {
-    const graphId = String(g?.graph_id || "").trim();
-    const graphTitle =
-      String(g?.title || "").trim() ||
-      (graphId ? `Graph ${graphId}` : "Graph");
-
-    const renderers =
-      g?.renderers && typeof g.renderers === "object" ? g.renderers : {};
-
-    for (const [renderer, entries] of Object.entries(renderers)) {
-      if (!Array.isArray(entries)) continue;
-
-      for (const e of entries) {
-        const id = String(e?.id || "").trim();
-        if (!id) continue;
-
-        charts.push({
-          // chart-level fields used by the existing UI
-          id,
-          title: `${graphTitle} (${rendererLabel(renderer)})`,
-          renderer,
-          caption: String(e?.caption || "").trim(),
-          url: normalizeChartUrl(renderer, e),
-          writeup: String(e?.writeup || "").trim(),
-          tags: Array.isArray(e?.tags)
-            ? e.tags
-            : Array.isArray(g?.tags)
-              ? g.tags
-              : [],
-
-          // bring graph-level context into chart detail pages
-          question: String(g?.question || "").trim(),
-          method: String(g?.method || "").trim(),
-          key_findings: Array.isArray(g?.key_findings) ? g.key_findings : [],
-          notes: String(g?.notes || "").trim(),
-
-          // extra context for future graph-hub pages / filtering
-          graph_id: graphId,
-          graph_title: graphTitle,
-        });
-      }
-    }
-  }
-
-  return charts;
-}
-
-/**
- * Card templates
- */
-
-function chartCard(chart, linkPrefix = ".") {
-  const title = escapeHtml(chart.title || chart.id);
-  const badge = rendererLabel(chart.renderer);
-  const url = `${linkPrefix}/${chart.url}`.replaceAll("//", "/");
-  const caption = escapeHtml(chart.caption || "");
-  const id = encodeURIComponent(chart.id);
+  const q = String(graph?.question ?? "").trim();
+  const subtitle = q ? q : "Open hub page to see all renderers + context.";
+  const renderers = rendererSummary(graph);
 
   return `
-    <article class="card chart-card" data-renderer="${escapeHtml(
-      chart.renderer || ""
-    )}">
-      <div class="chart-card-header">
-        <h3 class="card-title">${title}</h3>
-        <span class="badge" title="Rendered with ${escapeHtml(
-          badge
-        )}">${escapeHtml(badge)}</span>
-      </div>
-
-      <figure class="chart-figure">
-        <div class="chart-media" aria-label="${title}">
-          <img class="chart-img" src="${escapeHtml(
-            url
-          )}" alt="${title}" loading="lazy" />
-        </div>
-
-        <figcaption>
-          ${
-            caption
-              ? `<strong>Caption:</strong> ${caption}`
-              : `<span class="muted">No caption yet.</span>`
-          }
-        </figcaption>
-      </figure>
-
-      <div class="chart-links">
-        <a class="small-link" href="${linkPrefix}/chart.html?id=${id}">View details</a>
-      </div>
+    <article class="card">
+      <h3 class="card-title">
+        <a href="${href}">${escapeHtml(title)}</a>
+      </h3>
+      <p class="card-body muted">${escapeHtml(subtitle)}</p>
+      <p class="muted" style="margin-top:0.75rem;">
+        <strong>Renderers:</strong> ${escapeHtml(renderers)}
+      </p>
+      <p style="margin-top:0.75rem;">
+        <a href="${href}">View graph hub</a>
+      </p>
     </article>
   `;
 }
 
-function chartDetailTemplate(chart, linkPrefix = ".") {
-  const title = escapeHtml(chart.title || chart.id);
-  const badge = rendererLabel(chart.renderer);
-  const url = `${linkPrefix}/${chart.url}`.replaceAll("//", "/");
-  const caption = escapeHtml(chart.caption || "");
-  const tags = Array.isArray(chart.tags) ? chart.tags : [];
-  const tagBadges = tags.length
-    ? tags.map((t) => `<span class="badge" title="Tag">${escapeHtml(t)}</span>`).join(" ")
-    : `<span class="muted">No tags yet.</span>`;
+// Optional: featured charts. Keep this SMALL.
+// Use renderer-entry IDs from the manifest, or just feature graph hubs.
+const FEATURED_GRAPH_IDS = ["01", "02", "05"]; // change or empty to disable
 
-  const method = escapeHtml(chart.method || "");
-  const findings = Array.isArray(chart.key_findings) ? chart.key_findings : [];
-  const findingsHtml = findings.length
-    ? `<ul>${findings.map((f) => `<li>${escapeHtml(f)}</li>`).join("")}</ul>`
-    : `<p class="muted">No key findings yet. Add <code>key_findings</code> for this graph in the manifest.</p>`;
-
-  const question = escapeHtml(chart.question || "");
-  const notes = escapeHtml(chart.notes || "");
+function featuredCard(graph) {
+  const id = String(graph?.graph_id ?? "").trim();
+  const title = String(graph?.title ?? `Graph ${id}`).trim() || `Graph ${id}`;
+  const href = `/graphs/${encodeURIComponent(id)}/`;
+  const renderers = rendererSummary(graph);
 
   return `
-    <div class="chart-detail">
-      <div class="chart-card-header">
-        <h2 style="margin:0;">${title}</h2>
-        <span class="badge" title="Rendered with ${escapeHtml(badge)}">${escapeHtml(badge)}</span>
-      </div>
-
-      <div style="margin-top:0.65rem;">
-        ${tagBadges}
-      </div>
-
-      <figure class="chart-figure" style="margin-top:1rem;">
-        <div class="chart-media" aria-label="${title}">
-          <img class="chart-img" src="${escapeHtml(url)}" alt="${title}" />
-        </div>
-        <figcaption>
-          ${caption ? `<strong>Caption:</strong> ${caption}` : `<span class="muted">No caption yet.</span>`}
-        </figcaption>
-      </figure>
-
-      <div class="prose" style="margin-top:1rem;">
-        ${question ? `<h3>Question</h3><p>${question}</p>` : ""}
-        <h3>Method</h3>
-        ${method ? `<p>${method}</p>` : `<p class="muted">No method yet. Add <code>method</code> for this graph in the manifest.</p>`}
-
-        <h3>Key findings</h3>
-        ${findingsHtml}
-
-        ${notes ? `<h3>Notes</h3><p>${notes}</p>` : ""}
-      </div>
-
-      <div class="writeup" style="margin-top:1rem;">
-        <h3 style="margin-top:0;">Write-up</h3>
-        <div id="chart-writeup"></div>
-      </div>
-    </div>
+    <article class="card">
+      <h3 class="card-title">
+        <a href="${href}">${escapeHtml(title)}</a>
+      </h3>
+      <p class="card-body muted">
+        Quick jump to the hub page.
+      </p>
+      <p class="muted" style="margin-top:0.75rem;">
+        <strong>Renderers:</strong> ${escapeHtml(renderers)}
+      </p>
+      <p style="margin-top:0.75rem;">
+        <a href="${href}">Open</a>
+      </p>
+    </article>
   `;
 }
 
-/**
- * Page detection helpers
- */
+async function main() {
+  const dirEl = document.getElementById("graph-directory");
+  const featuredEl = document.getElementById("featured-grid");
 
-function getQueryParam(name) {
-  try {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name);
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Page renderers
- */
-
-async function renderMainGrid() {
-  const grid = document.getElementById("charts-grid");
-  if (!grid) return;
+  // If someone deletes the section, just do nothing quietly.
+  if (!dirEl && !featuredEl) return;
 
   try {
-    const manifest = await loadManifest(".");
-    const graphs = getGraphs(manifest);
-    const charts = flattenChartsFromGraphs(graphs);
+    const manifest = await loadManifest();
+    const graphs = graphsFromManifest(manifest);
 
-    if (charts.length === 0) {
-      grid.innerHTML = `
+    // Directory
+    if (dirEl) {
+      if (!graphs.length) {
+        dirEl.innerHTML = `
+          <article class="card">
+            <h3 class="card-title">No graphs found</h3>
+            <p class="card-body muted">
+              <code>data/charts_manifest.json</code> loaded, but <code>graphs[]</code> is empty.
+            </p>
+          </article>
+        `;
+      } else {
+        // Sort by numeric graph id (01, 02, 03...)
+        const sorted = [...graphs].sort((a, b) => {
+          const ai = parseInt(String(a?.graph_id ?? ""), 10);
+          const bi = parseInt(String(b?.graph_id ?? ""), 10);
+          return (Number.isNaN(ai) ? 999 : ai) - (Number.isNaN(bi) ? 999 : bi);
+        });
+
+        dirEl.innerHTML = sorted.map(graphCard).join("");
+      }
+    }
+
+    // Featured
+    if (featuredEl) {
+      const featured = graphs.filter((g) => FEATURED_GRAPH_IDS.includes(String(g?.graph_id ?? "").trim()));
+      if (!featured.length) {
+        featuredEl.innerHTML = `
+          <article class="card">
+            <h3 class="card-title">No featured charts yet</h3>
+            <p class="card-body muted">
+              Edit <code>FEATURED_GRAPH_IDS</code> in <code>site/app.js</code>.
+            </p>
+          </article>
+        `;
+      } else {
+        featuredEl.innerHTML = featured.map(featuredCard).join("");
+      }
+    }
+  } catch (err) {
+    const msg = (err && err.message) ? err.message : String(err);
+
+    if (dirEl) {
+      dirEl.innerHTML = `
         <article class="card">
-          <h3 class="card-title">No charts found</h3>
-          <p class="card-body muted">Generate or edit <code>site/data/charts_manifest.json</code> (graph-grouped schema).</p>
+          <h3 class="card-title">Couldn’t load directory</h3>
+          <p class="card-body muted">${escapeHtml(msg)}</p>
+          <p class="muted">Check that <code>/data/charts_manifest.json</code> is reachable.</p>
         </article>
       `;
-      return;
     }
-
-    grid.innerHTML = charts.map((c) => chartCard(c, ".")).join("");
-  } catch (err) {
-    grid.innerHTML = `
-      <article class="card">
-        <h3 class="card-title">Couldn’t load charts</h3>
-        <p class="card-body muted">${escapeHtml(err.message || String(err))}</p>
-      </article>
-    `;
-    console.error(err);
-  }
-}
-
-async function renderTopicPage() {
-  const el = document.getElementById("topic-charts");
-  if (!el) return;
-
-  const tag = el.getAttribute("data-topic-tag") || "";
-  const prefix = ".."; // topic pages live in /topics, so assets are one level up
-
-  try {
-    const manifest = await loadManifest(prefix);
-    const graphs = getGraphs(manifest);
-    const charts = flattenChartsFromGraphs(graphs);
-
-    const filtered = charts.filter(
-      (c) => Array.isArray(c.tags) && c.tags.includes(tag)
-    );
-
-    if (filtered.length === 0) {
-      el.innerHTML = `
+    if (featuredEl) {
+      featuredEl.innerHTML = `
         <article class="card">
-          <h3 class="card-title">No charts tagged “${escapeHtml(tag)}”</h3>
-          <p class="card-body muted">
-            Add <code>"tags": ["${escapeHtml(tag)}"]</code> to the relevant entries in
-            <code>site/data/charts_manifest.json</code>.
-          </p>
+          <h3 class="card-title">Couldn’t load featured</h3>
+          <p class="card-body muted">${escapeHtml(msg)}</p>
         </article>
       `;
-      return;
     }
 
-    el.innerHTML = filtered.map((c) => chartCard(c, prefix)).join("");
-  } catch (err) {
-    el.innerHTML = `
-      <article class="card">
-        <h3 class="card-title">Couldn’t load topic charts</h3>
-        <p class="card-body muted">${escapeHtml(err.message || String(err))}</p>
-      </article>
-    `;
     console.error(err);
   }
 }
 
-async function renderChartDetail() {
-  const el = document.getElementById("chart-detail");
-  if (!el) return;
-
-  const id = getQueryParam("id");
-  if (!id) {
-    el.innerHTML = `
-      <h2>Missing chart id</h2>
-      <p class="muted">Open this page like <code>chart.html?id=01-d3-01</code>.</p>
-    `;
-    return;
-  }
-
-  try {
-    const manifest = await loadManifest(".");
-    const graphs = getGraphs(manifest);
-    const charts = flattenChartsFromGraphs(graphs);
-    const chart = charts.find((c) => c.id === id);
-
-    if (!chart) {
-      el.innerHTML = `
-        <h2>Chart not found</h2>
-        <p class="muted">No chart with id <code>${escapeHtml(id)}</code> in the manifest.</p>
-      `;
-      return;
-    }
-
-    document.title = chart.title
-      ? `${chart.title} | Date Me Directory`
-      : "Chart | Date Me Directory";
-
-    el.innerHTML = chartDetailTemplate(chart, ".");
-
-    // Load writeup file if provided
-    const writeupEl = document.getElementById("chart-writeup");
-    const writeupPath = (chart.writeup || "").trim();
-
-    if (!writeupPath) {
-      writeupEl.innerHTML = `<p class="muted">No writeup linked. Add <code>writeup</code> in the manifest.</p>`;
-      return;
-    }
-
-    try {
-      const res = await fetch(`./${writeupPath}`, { cache: "no-store" });
-      if (!res.ok) throw new Error(`Writeup not found (${res.status})`);
-
-      // For now: treat as plain text. (We can upgrade to markdown rendering later.)
-      const text = await res.text();
-      writeupEl.innerHTML = `<pre style="white-space:pre-wrap;margin:0;">${escapeHtml(text)}</pre>`;
-    } catch (werr) {
-      writeupEl.innerHTML = `<p class="muted">${escapeHtml(werr.message || String(werr))}</p>`;
-    }
-  } catch (err) {
-    el.innerHTML = `
-      <h2>Couldn’t load chart</h2>
-      <p class="muted">${escapeHtml(err.message || String(err))}</p>
-    `;
-    console.error(err);
-  }
-}
-
-/* Boot */
-renderMainGrid();
-renderTopicPage();
-renderChartDetail();
+main();
