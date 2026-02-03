@@ -2,32 +2,31 @@
 
 This project is a static site located in `site/` and requires **no build step**.
 
-## Vercel Dashboard Setup
+## Vercel Project Settings
 
-1. Create a new Vercel project and import the repo.
-2. In **Build & Output Settings**, set:
-   - **Root Directory:** `site`
-   - **Framework Preset:** `Other`
-   - **Build Command:** *(leave blank / override and leave empty)*
-   - **Output Directory:** `.`
+When importing the repo into Vercel, set:
 
-Vercel supports configuring/overriding build behavior in the dashboard and via `vercel.json`.  
-See: “Configuring a Build” and Project Configuration docs. :contentReference[oaicite:0]{index=0}
+- **Root Directory:** `site`
+- **Framework Preset:** `Other`
+- **Build Command:** (leave blank)
+- **Output Directory:** `.`
 
-## Required URL + Asset Conventions
+## Asset Path Rule
 
-Because Vercel will deploy `site/` as the project root:
+Because `site/` becomes the deployment root, do **not** include `/site/` in any URLs.
 
-- ✅ Use **rooted paths** everywhere:
-  - CSS: `/styles.css`
-  - JS: `/app.js`, `/graph.js`, `/graph_hub.js`
-  - Manifest: `/data/charts_manifest.json`
-  - Images/charts: `/assets/...`
-- ❌ Do not include `/site/` in any URL or asset path
+Use rooted asset paths everywhere, e.g.:
 
-## Optional: Clean URLs
+- `/styles.css`
+- `/app.js`
+- `/graph.js`
+- `/graph_hub.js`
+- `/data/charts_manifest.json`
+- `/assets/charts/...`
 
-If you add `vercel.json` with:
+## Local Preflight
 
-```json
-{ "cleanUrls": true }
+From repo root, run:
+
+```bash
+python3 -m http.server --directory site 8000
