@@ -330,13 +330,13 @@ Edit graphs
 
 > Still valid, just updated to match your actual paths.
 
-- [ ] **Commit 6.1 — `docs(deploy): add Vercel static deployment steps`**
-  - [ ] Add `DEPLOY.md` (root or `site/DEPLOY.md`)
-  - [ ] Root Directory: `site`
-  - [ ] Framework: `Other`
-  - [ ] Build Command: *(blank)*
-  - [ ] Output Directory: `.`
-  - [ ] Note: no `/site/` in asset paths
+- [x] **Commit 6.1 — `docs(deploy): add Vercel static deployment steps`**
+  - [x] Add `DEPLOY.md` (root or `site/DEPLOY.md`)
+  - [x] Root Directory: `site`
+  - [x] Framework: `Other`
+  - [x] Build Command: *(blank)*
+  - [x] Output Directory: `.`
+  - [x] Note: no `/site/` in asset paths
 
 - [ ] **Commit 6.2 — `chore(deploy): add vercel config`**
   - [ ] Add root `vercel.json` (optional)
