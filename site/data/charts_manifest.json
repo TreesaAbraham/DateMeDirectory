@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-02-01",
+  "generated_at": "2026-02-03T03:34:44.803Z",
   "graphs": [
     {
       "graph_id": "01",
@@ -25,7 +25,7 @@
       "renderers": {
         "matplotlib": [
           {
-            "id": "01-matplotlib-01",
+            "id": "01-matplotlib-word_graph_01_mosaic_serious_relationship",
             "file": "word_graph_01_mosaic_serious_relationship.png",
             "url": "assets/charts/matplotlib/word_graph_01_mosaic_serious_relationship.png",
             "writeup": "writeups/graphs/01.txt"
@@ -33,7 +33,7 @@
         ],
         "seaborn": [
           {
-            "id": "01-seaborn-01",
+            "id": "01-seaborn-word_graph_01_mosaic_serious_relationship_seaborn",
             "file": "word_graph_01_mosaic_serious_relationship_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_01_mosaic_serious_relationship_seaborn.png",
             "writeup": "writeups/graphs/01.txt"
@@ -41,7 +41,7 @@
         ],
         "d3": [
           {
-            "id": "01-d3-01",
+            "id": "01-d3-word_graph_01_mosaic_serious_relationship",
             "file": "word_graph_01_mosaic_serious_relationship.svg",
             "url": "assets/charts/d3/word_graph_01_mosaic_serious_relationship.svg",
             "writeup": "writeups/graphs/01.txt"
@@ -61,7 +61,6 @@
         "Profiles were grouped by generation. [Gen Z: born 1997-2012, Millennials: born 1981-1996, Gen X: born 1965-1980, Boomers: born 1946-1964]",
         "Group-level averages were visualized to compare punctuation usage across generations."
       ],
-
       "key_findings": [
         "Exclamation mark usage per 100,000 words varies across generations, indicating meaningful differences in punctuation style.",
         "Gen Z shows the highest exclamation mark rate, suggesting a more expressive or emphatic communication style relative to older cohorts.",
@@ -73,35 +72,35 @@
       "renderers": {
         "matplotlib": [
           {
-            "id": "02-matplotlib-01",
-            "file": "word_graph_02_exclam_per100k_by_generation.png",
-            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation.png",
+            "id": "02-matplotlib-word_graph_02_exclam_per100k_by_generation_outliers_dots",
+            "file": "word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
+            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
             "writeup": "writeups/graphs/02.txt"
           },
           {
-            "id": "02-matplotlib-02",
-            "file": "word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
-            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
+            "id": "02-matplotlib-word_graph_02_exclam_per100k_by_generation",
+            "file": "word_graph_02_exclam_per100k_by_generation.png",
+            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation.png",
             "writeup": "writeups/graphs/02.txt"
           }
         ],
         "seaborn": [
           {
-            "id": "02-seaborn-01",
-            "file": "word_graph_02_exclam_per100k_by_generation_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png",
+            "id": "02-seaborn-word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers",
+            "file": "word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
+            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
             "writeup": "writeups/graphs/02.txt"
           },
           {
-            "id": "02-seaborn-02",
-            "file": "word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
-            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
+            "id": "02-seaborn-word_graph_02_exclam_per100k_by_generation_seaborn",
+            "file": "word_graph_02_exclam_per100k_by_generation_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png",
             "writeup": "writeups/graphs/02.txt"
           }
         ],
         "d3": [
           {
-            "id": "02-d3-01",
+            "id": "02-d3-word_graph_02_exclam_per100k_by_generation_per_profile",
             "file": "word_graph_02_exclam_per100k_by_generation_per_profile.svg",
             "url": "assets/charts/d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg",
             "writeup": "writeups/graphs/02.txt"
@@ -128,25 +127,24 @@
         "This consistent (though modest) gap suggests that women’s profiles may use longer or more complex words more frequently, regardless of who they are seeking.",
         "Because differences are small, this should be interpreted as a subtle stylistic tendency rather than a major separation between groups.",
         "A possible explanation is that profiles differ in tone or self-presentation strategies across genders, which can influence vocabulary choices; this analysis does not measure intent directly."
-
       ],
       "notes": "",
       "renderers": {
         "matplotlib": [
           {
-            "id": "03-matplotlib-01",
+            "id": "03-matplotlib-word_graph_03_complexity_looking_for_men",
             "file": "word_graph_03_complexity_looking_for_men.png",
             "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_men.png",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-matplotlib-02",
+            "id": "03-matplotlib-word_graph_03_complexity_looking_for_nb",
             "file": "word_graph_03_complexity_looking_for_nb.png",
             "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_nb.png",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-matplotlib-03",
+            "id": "03-matplotlib-word_graph_03_complexity_looking_for_women",
             "file": "word_graph_03_complexity_looking_for_women.png",
             "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_women.png",
             "writeup": "writeups/graphs/03.txt"
@@ -154,19 +152,19 @@
         ],
         "seaborn": [
           {
-            "id": "03-seaborn-01",
+            "id": "03-seaborn-word_graph_03_complexity_by_interest_in_F_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_F_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_F_seaborn.png",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-seaborn-02",
+            "id": "03-seaborn-word_graph_03_complexity_by_interest_in_M_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_M_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_M_seaborn.png",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-seaborn-03",
+            "id": "03-seaborn-word_graph_03_complexity_by_interest_in_NB_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_NB_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_NB_seaborn.png",
             "writeup": "writeups/graphs/03.txt"
@@ -174,19 +172,19 @@
         ],
         "d3": [
           {
-            "id": "03-d3-01",
+            "id": "03-d3-word_graph_03_word_complexity_looking_for_F",
             "file": "word_graph_03_word_complexity_looking_for_F.svg",
             "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_F.svg",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-d3-02",
+            "id": "03-d3-word_graph_03_word_complexity_looking_for_M",
             "file": "word_graph_03_word_complexity_looking_for_M.svg",
             "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_M.svg",
             "writeup": "writeups/graphs/03.txt"
           },
           {
-            "id": "03-d3-03",
+            "id": "03-d3-word_graph_03_word_complexity_looking_for_NB",
             "file": "word_graph_03_word_complexity_looking_for_NB.svg",
             "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_NB.svg",
             "writeup": "writeups/graphs/03.txt"
@@ -199,14 +197,14 @@
       "slug": "graph-04",
       "title": "Graph 04",
       "question": "What are the most distinctive words used in US profiles and non-US profiles?",
-     "method": [
+      "method": [
         "Profiles were split into US vs Non-US based on the selection on the location field.",
         "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
         "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both groups were retained.",
         "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = US, negative = Non-US).",
         "The top-ranked words for each group were exported to CSV and visualized as a two-column table figure."
       ],
-     "key_findings": [
+      "key_findings": [
         "Using z-scored log-odds with a Dirichlet prior, several words were strongly distinctive for US profiles, including \"google\" (z=3.73), \"business\" (z=2.85), and \"travel\" (z=2.82).",
         "Several words were strongly distinctive for Non-US profiles, including \"london\" (z=-4.20), \"listening\" (z=-3.15), and \"interest\" (z=-3.05).",
         "Overall, the most distinctive US words skew toward tech/professional and leisure themes, while the most distinctive Non-US words skew toward place references and stated interests.",
@@ -217,7 +215,7 @@
       "renderers": {
         "matplotlib": [
           {
-            "id": "04-matplotlib-01",
+            "id": "04-matplotlib-word_graph_04_distinctive_us_vs_nonus",
             "file": "word_graph_04_distinctive_us_vs_nonus.png",
             "url": "assets/charts/matplotlib/word_graph_04_distinctive_us_vs_nonus.png",
             "writeup": "writeups/graphs/04.txt"
@@ -225,7 +223,7 @@
         ],
         "seaborn": [
           {
-            "id": "04-seaborn-01",
+            "id": "04-seaborn-word_graph_04_distinctive_us_vs_nonus_z_seaborn",
             "file": "word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
             "writeup": "writeups/graphs/04.txt"
@@ -233,7 +231,7 @@
         ],
         "d3": [
           {
-            "id": "04-d3-01",
+            "id": "04-d3-word_graph_04_distinctive_words_us_vs_nonus",
             "file": "word_graph_04_distinctive_words_us_vs_nonus.svg",
             "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
             "writeup": "writeups/graphs/04.txt"
@@ -246,7 +244,7 @@
       "slug": "graph-05",
       "title": "Graph 05",
       "question": "What are the most distinctive words used in SF Bay Area profiles and UK/London profiles?",
-     "method": [
+      "method": [
         "Profiles were classified strictly into SF Bay Area vs UK/London using based on the selection on the location field.",
         "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
         "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both regions were retained.",
@@ -264,7 +262,7 @@
       "renderers": {
         "matplotlib": [
           {
-            "id": "05-matplotlib-01",
+            "id": "05-matplotlib-word_graph_05_distinctive_bayarea_vs_uk_london",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london.png",
             "url": "assets/charts/matplotlib/word_graph_05_distinctive_bayarea_vs_uk_london.png",
             "writeup": "writeups/graphs/05.txt"
@@ -272,7 +270,7 @@
         ],
         "seaborn": [
           {
-            "id": "05-seaborn-01",
+            "id": "05-seaborn-word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
             "writeup": "writeups/graphs/05.txt"
@@ -280,7 +278,7 @@
         ],
         "d3": [
           {
-            "id": "05-d3-01",
+            "id": "05-d3-word_graph_05_distinctive_bayarea_vs_uk_london",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london.svg",
             "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
             "writeup": "writeups/graphs/05.txt"
@@ -293,24 +291,24 @@
       "slug": "graph-06",
       "title": "Graph 06",
       "question": "How many em-dashes are used in profiles?",
-     "method": [
-      "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
-      "The Unicode em dash character (—) was counted per profile using exact character matching.",
-      "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
-      "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
-      "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
-    ],
-    "key_findings": [
-      "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
-      "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
-      "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
-      "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
-    ],
+      "method": [
+        "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
+        "The Unicode em dash character (—) was counted per profile using exact character matching.",
+        "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
+        "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
+        "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
+      ],
+      "key_findings": [
+        "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
+        "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
+        "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
+        "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
+      ],
       "notes": "",
       "renderers": {
         "matplotlib": [
           {
-            "id": "06-matplotlib-01",
+            "id": "06-matplotlib-word_graph_06_em_dash_bar",
             "file": "word_graph_06_em_dash_bar.png",
             "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png",
             "writeup": "writeups/graphs/06.txt"
@@ -318,7 +316,7 @@
         ],
         "seaborn": [
           {
-            "id": "06-seaborn-01",
+            "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
             "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
             "writeup": "writeups/graphs/06.txt"
@@ -326,7 +324,7 @@
         ],
         "d3": [
           {
-            "id": "06-d3-01",
+            "id": "06-d3-word_graph_06_em_dash_per_profile",
             "file": "word_graph_06_em_dash_per_profile.svg",
             "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg",
             "writeup": "writeups/graphs/06.txt"
@@ -344,31 +342,31 @@
         "For each profile, sentence complexity was calculated as the percent of sentences meeting the complexity threshold.",
         "Profiles were grouped by source gender and by target gender of interest; multi-target profiles were included in multiple target groups.",
         "Distributions were summarized with medians and interquartile ranges and visualized as IQR bars with median labels."
-       ],
+      ],
       "key_findings": [
-          "Across groups, median sentence complexity (percent of sentences ≥ 21 words) generally falls in the mid-teens, with several groups showing substantial spread (wide IQRs and high maxima).",
-          "For profiles looking for men (target=M), medians are similar across source genders: Women 15.632% (n=94) vs Men 14.194% (n=17) vs NB 15.789% (n=3).",
-          "For profiles looking for women (target=F), Women have the highest median long-sentence rate at 25.965% (n=14), compared to Men at 14.629% (n=206) and NB at 18.919% (n=3).",
-          "For profiles looking for non-binary people (target=NB), Women again show higher median sentence complexity at 21.741% (n=16) relative to Men at 16.486% (n=26), though the NB source group is not interpretable (n=1).",
-          "Several categories have very small sample sizes (especially NB source groups), so those medians should be treated as descriptive rather than strong evidence of stable group differences."
-        ],
+        "Across groups, median sentence complexity (percent of sentences ≥ 21 words) generally falls in the mid-teens, with several groups showing substantial spread (wide IQRs and high maxima).",
+        "For profiles looking for men (target=M), medians are similar across source genders: Women 15.632% (n=94) vs Men 14.194% (n=17) vs NB 15.789% (n=3).",
+        "For profiles looking for women (target=F), Women have the highest median long-sentence rate at 25.965% (n=14), compared to Men at 14.629% (n=206) and NB at 18.919% (n=3).",
+        "For profiles looking for non-binary people (target=NB), Women again show higher median sentence complexity at 21.741% (n=16) relative to Men at 16.486% (n=26), though the NB source group is not interpretable (n=1).",
+        "Several categories have very small sample sizes (especially NB source groups), so those medians should be treated as descriptive rather than strong evidence of stable group differences."
+      ],
       "notes": "",
       "renderers": {
         "matplotlib": [
           {
-            "id": "08-matplotlib-01",
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_men",
             "file": "word_graph_08_sentence_complexity_looking_for_men.png",
             "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_men.png",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-matplotlib-02",
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_nb",
             "file": "word_graph_08_sentence_complexity_looking_for_nb.png",
             "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_nb.png",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-matplotlib-03",
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_women",
             "file": "word_graph_08_sentence_complexity_looking_for_women.png",
             "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_women.png",
             "writeup": "writeups/graphs/08.txt"
@@ -376,19 +374,19 @@
         ],
         "seaborn": [
           {
-            "id": "08-seaborn-01",
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-seaborn-02",
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_M_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-seaborn-03",
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_NB_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
             "writeup": "writeups/graphs/08.txt"
@@ -396,19 +394,19 @@
         ],
         "d3": [
           {
-            "id": "08-d3-01",
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_F",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
             "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-d3-02",
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_M",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
             "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
             "writeup": "writeups/graphs/08.txt"
           },
           {
-            "id": "08-d3-03",
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
             "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
             "writeup": "writeups/graphs/08.txt"
@@ -421,14 +419,13 @@
       "slug": "graph-09",
       "title": "Graph 09",
       "question": "Are there SF Bay Area vs UK/London differences in the prevalence of words from Bay Area-specific wordsets compared to all US/non-US profiles?",
-     "method": [
+      "method": [
         "Profile text was tokenized into words and lowercased.",
         "Two curated wordsets representing SF Bay Area and UK/London vocabulary were defined.",
         "Matches to each wordset were counted within each profile.",
         "Counts were aggregated by location group and normalized per 10,000 tokens.",
         "Rates were visualized as grouped bar charts to compare regional prevalence."
       ],
-
       "key_findings": [
         "Wordset prevalence patterns align strongly with region: Bay Area profiles show the highest Bay-wordset rate (370.29 per 10k tokens), while UK/London profiles show the highest UK-wordset rate (460.33 per 10k tokens).",
         "Compared to the ALL_US baseline (Bay=262.74; UK=261.36 per 10k), Bay Area profiles over-index on Bay-wordset terms (370.29) but not on UK-wordset terms (257.83).",
@@ -440,7 +437,7 @@
       "renderers": {
         "matplotlib": [
           {
-            "id": "09-matplotlib-01",
+            "id": "09-matplotlib-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.png",
             "url": "assets/charts/matplotlib/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.png",
             "writeup": "writeups/graphs/09.txt"
@@ -448,7 +445,7 @@
         ],
         "seaborn": [
           {
-            "id": "09-seaborn-01",
+            "id": "09-seaborn-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
             "url": "assets/charts/seaborn/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
             "writeup": "writeups/graphs/09.txt"
@@ -456,7 +453,7 @@
         ],
         "d3": [
           {
-            "id": "09-d3-01",
+            "id": "09-d3-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
             "url": "assets/charts/d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
             "writeup": "writeups/graphs/09.txt"

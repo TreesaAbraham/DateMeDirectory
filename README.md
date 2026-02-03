@@ -278,36 +278,51 @@ Edit graphs
 
 ## 🧰 Step 5: Make the manifest actually reflect your assets (3 commits)
 
-**Right now:**
-- You have the assets for many graphs
-- But `site/data/charts_manifest.json` only lists 01–02, with blank file/url fields
-- You also have a generator script that outputs a totally different schema (`charts[]`)
+## 🧰 Step 5: Make the manifest actually reflect your assets (3 commits)
 
-So we fix that.
+**Goal:** your site should be driven by one canonical manifest that accurately points to real chart assets and real writeups, and your generated pages should consistently consume that manifest.
 
-- [ ] **Commit 5.1 — `feat(site): define graph-grouped manifest as canonical`**
-  - [ ] Keep `site/data/charts_manifest.json` as the canonical manifest
-  - [ ] Make it complete for graphs you already have (01–06, 08–09)
-  - [ ] For each graph:
-    - [ ] `graph_id`, `title`
-    - [ ] `question`, `method`, `key_findings`, `notes`
-    - [ ] `renderers.matplotlib[].url` pointing to real PNG path
-    - [ ] `renderers.seaborn[].url` pointing to real PNG path
-    - [ ] `renderers.d3[].url` pointing to real SVG path
-    - [ ] Optional `writeup_path`
+---
+
+- [x] **Commit 5.1 — `feat(site): define graph-grouped manifest as canonical`**
+  - [x] Keep `site/data/charts_manifest.json` as the canonical manifest (served at `/data/charts_manifest.json`)
+  - [x] Make it complete for graphs you already have (01–06, 08–09)
+  - [x] For each graph, include:
+    - [x] `graph_id`, `slug`, `title`
+    - [x] `question`
+    - [x] `method` (as a list of readable steps)
+    - [x] `key_findings` (as a list of bullets)
+    - [x] `notes` (can be empty string)
+    - [x] `renderers.matplotlib[].url` pointing to real PNG path
+    - [x] `renderers.seaborn[].url` pointing to real PNG path
+    - [x] `renderers.d3[].url` pointing to real SVG path
+    - [x] Link writeups (now `.txt`) via `renderers.*[].writeup` paths like `writeups/graphs/01.txt`
+
+  - [x] **Cleanup bundled into this phase**
+    - [x] Remove captions under graphs (no more “No caption yet.”)
+    - [x] Remove the homepage “Featured” section
+    - [x] Remove the extra Graph 02 promo/spotlight content on the homepage
+
+---
 
 - [ ] **Commit 5.2 — `fix(site): update manifest generator to output graphs schema`**
-  - [ ] Update `scripts/site/generate_charts_manifest.mjs` so it generates `graphs[]`, not `charts[]`
-  - [ ] Make it detect graph id from filenames like:
-    - [ ] `word_graph_01_...`
-  - [ ] Make it resilient to multiple PNGs per renderer (Graph 02 has multiple variants)
+  - [ ] Update `scripts/site/generate_charts_manifest.mjs` so it generates `graphs[]` (not `charts[]`)
+  - [ ] Detect graph id from filenames like `word_graph_01_...`
+  - [ ] Support multiple outputs per renderer (ex: Graph 02 variants)
+  - [ ] Ensure the generator writes to: `site/data/charts_manifest.json`
+
+---
 
 - [ ] **Commit 5.3 — `feat(site): add page generator for graph hubs`**
-  - You already have: `scripts/site/generate_graph_pages.mjs` (renderer pages)
-  - [ ] Expand it to also generate:
-    - [ ] `site/graphs/<id>/index.html` (hub page)
-  - [ ] Or add a sibling script:
+  - [ ] Ensure each graph has a hub page at:
+    - [ ] `site/graphs/<id>/index.html`
+  - [ ] Hub page should show:
+    - [ ] Context (Question / Method / Key Findings / Notes)
+    - [ ] Renderer preview cards (Matplotlib / Seaborn / D3)
+    - [ ] Writeup content loaded from `writeups/graphs/<id>.txt`
+  - [ ] If not already automated, add a generator script:
     - [ ] `scripts/site/generate_graph_hubs.mjs`
+
 
 ---
 
