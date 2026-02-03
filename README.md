@@ -305,11 +305,11 @@ Edit graphs
 
 ---
 
-- [ ] **Commit 5.2 — `fix(site): update manifest generator to output graphs schema`**
-  - [ ] Update `scripts/site/generate_charts_manifest.mjs` so it generates `graphs[]` (not `charts[]`)
-  - [ ] Detect graph id from filenames like `word_graph_01_...`
-  - [ ] Support multiple outputs per renderer (ex: Graph 02 variants)
-  - [ ] Ensure the generator writes to: `site/data/charts_manifest.json`
+- [x] **Commit 5.2 — `fix(site): update manifest generator to output graphs schema`**
+  - [x] Update `scripts/site/generate_charts_manifest.mjs` so it generates `graphs[]` (not `charts[]`)
+  - [x] Detect graph id from filenames like `word_graph_01_...`
+  - [x] Support multiple outputs per renderer (ex: Graph 02 variants)
+  - [x] Ensure the generator writes to: `site/data/charts_manifest.json`
 
 ---
 
