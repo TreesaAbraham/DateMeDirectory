@@ -267,12 +267,12 @@ Edit graphs
     - [x] … etc
   - [x] Keep a smaller “Featured” strip if you want, but don’t duplicate everything.
 
-- [ ] **Commit 4.3 — `feat(site): add initial writeups + findings tied to real graphs`**
-  - [ ] Add writeup files (repo currently has no `site/writeups/*` files):
-    - [ ] `site/writeups/graphs/01.md` (or `.html`)
-    - [ ] Repeat for at least a few graphs
-  - [ ] Update homepage Key Findings:
-    - [ ] Replace placeholders with findings that cite specific graph numbers
+- [x] **Commit 4.3 — `feat(site): add initial writeups + findings tied to real graphs`**
+  - [x] Add writeup files (repo currently has no `site/writeups/*` files):
+    - [x] `site/writeups/graphs/01.md` (or `.html`)
+    - [x] Repeat for at least a few graphs
+  - [x] Update homepage Key Findings:
+    - [x] Replace placeholders with findings that cite specific graph numbers
 
 ---
 
