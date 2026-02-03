@@ -2,7 +2,7 @@
 // Graph hub page renderer.
 // Reads: <main id="graph-hub" data-graph="01"></main>
 // Loads: /data/charts_manifest.json (graph-grouped)
-// Renders: Question/Method/Key Findings/Notes + 3 renderer cards (Matplotlib/Seaborn/D3)
+// Renders: Context + ALL renderer outputs (Matplotlib/Seaborn/D3) + writeup
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -41,43 +41,80 @@ function findGraph(manifest, graphId) {
   return graphs.find((g) => String(g?.graph_id) === String(graphId));
 }
 
-// Pick first entry for each renderer by default.
-function pickFirstEntry(graph, renderer) {
+function getRendererEntries(graph, renderer) {
   const list = graph?.renderers?.[renderer];
-  if (!Array.isArray(list) || list.length === 0) return null;
-  return list[0];
+  return Array.isArray(list) ? list : [];
 }
 
-function rendererCard({ graphId, renderer, entry }) {
-  const label = rendererLabel(renderer);
-  const url = toRootedUrl(entry?.url || "");
+function detailHref(graphId, renderer, entryId) {
+  const base = `/graphs/${encodeURIComponent(graphId)}/${encodeURIComponent(renderer)}.html`;
+  if (!entryId) return base;
+  // graph.js already supports ?chart=<id>
+  return `${base}?chart=${encodeURIComponent(entryId)}`;
+}
 
-  // /graphs/<id>/matplotlib.html, seaborn.html, d3.html
-  const detailHref = `/graphs/${encodeURIComponent(graphId)}/${encodeURIComponent(renderer)}.html`;
+// Renders ALL entries for a renderer (so Graph 03 and 08 show all 9 outputs)
+function rendererSection({ graphId, renderer, entries }) {
+  const label = rendererLabel(renderer);
+
+  if (!entries.length) {
+    return `
+      <article class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="card-title">${escapeHtml(label)}</h3>
+          <span class="badge">${escapeHtml(label)}</span>
+        </div>
+        <p class="muted">No ${escapeHtml(label)} outputs linked in the manifest yet.</p>
+      </article>
+    `;
+  }
+
+  const figures = entries
+    .map((entry, idx) => {
+      const url = toRootedUrl(entry?.url || "");
+      const entryId = String(entry?.id || "").trim();
+      const link = detailHref(graphId, renderer, entryId);
+      const ordinal = entries.length > 1 ? ` ${idx + 1}/${entries.length}` : "";
+      const title = `${label}${ordinal}`;
+
+      if (!url) {
+        return `
+          <div class="muted" style="margin-top:0.75rem;">
+            Missing url for ${escapeHtml(label)} entry ${escapeHtml(entryId || String(idx + 1))}.
+          </div>
+        `;
+      }
+
+      // NO captions. You asked. Humans love removing context.
+      return `
+        <figure class="chart-figure" style="margin-top:0.75rem;">
+          <div class="chart-media" aria-label="${escapeHtml(title)} chart">
+            <a href="${link}" class="unstyled-link" title="Open renderer page">
+              <img
+                class="chart-img"
+                src="${escapeHtml(url)}"
+                alt="${escapeHtml(title)} for Graph ${escapeHtml(graphId)}"
+                loading="lazy"
+              />
+            </a>
+          </div>
+          <div class="muted" style="margin-top:0.35rem;">
+            <a class="small-link" href="${link}">Open this version</a>
+          </div>
+        </figure>
+      `;
+    })
+    .join("");
 
   return `
     <article class="card chart-card">
       <div class="chart-card-header">
         <h3 class="card-title">${escapeHtml(label)}</h3>
-        <span class="badge" title="Rendered with ${escapeHtml(label)}">${escapeHtml(label)}</span>
+        <span class="badge">${escapeHtml(label)}</span>
       </div>
-
-      ${
-        url
-          ? `
-        <figure class="chart-figure">
-          <div class="chart-media" aria-label="${escapeHtml(label)} chart">
-            <img class="chart-img" src="${escapeHtml(url)}" alt="${escapeHtml(label)} chart for Graph ${escapeHtml(graphId)}" loading="lazy" />
-          </div>
-        </figure>
-      `
-          : `
-        <p class="muted">No URL linked for ${escapeHtml(label)} in the manifest.</p>
-      `
-      }
-
-      <div class="chart-links">
-        <a class="small-link" href="${detailHref}">Open renderer page</a>
+      ${figures}
+      <div class="chart-links" style="margin-top:0.75rem;">
+        <a class="small-link" href="${detailHref(graphId, renderer, "")}">Open renderer page</a>
       </div>
     </article>
   `;
@@ -94,9 +131,21 @@ async function loadWriteup(writeupPath) {
 
 function contextBlock(graph) {
   const question = String(graph?.question || "").trim();
-  const method = String(graph?.method || "").trim();
   const notes = String(graph?.notes || "").trim();
+
+  // method in your manifest is an array (good), but support string too.
+  const methodVal = graph?.method;
+  const methodList = Array.isArray(methodVal) ? methodVal : (methodVal ? [String(methodVal)] : []);
+
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
+
+  const methodHtml = methodList.length
+    ? `<ol>${methodList.map((m) => `<li>${escapeHtml(m)}</li>`).join("")}</ol>`
+    : `<p class="muted">No method yet.</p>`;
+
+  const findingsHtml = findings.length
+    ? `<ul>${findings.map((f) => `<li>${escapeHtml(f)}</li>`).join("")}</ul>`
+    : `<p class="muted">No key findings yet.</p>`;
 
   return `
     <article class="card">
@@ -105,14 +154,10 @@ function contextBlock(graph) {
         ${question ? `<h4>Question</h4><p>${escapeHtml(question)}</p>` : `<p class="muted">No question yet.</p>`}
 
         <h4>Method</h4>
-        ${method ? `<p>${escapeHtml(method)}</p>` : `<p class="muted">No method yet.</p>`}
+        ${methodHtml}
 
         <h4>Key findings</h4>
-        ${
-          findings.length
-            ? `<ul>${findings.map((f) => `<li>${escapeHtml(f)}</li>`).join("")}</ul>`
-            : `<p class="muted">No key findings yet.</p>`
-        }
+        ${findingsHtml}
 
         ${notes ? `<h4>Notes</h4><p>${escapeHtml(notes)}</p>` : ""}
       </div>
@@ -152,13 +197,13 @@ async function main() {
 
     const title = String(graph?.title || "").trim() || `Graph ${graphId}`;
 
-    const mEntry = pickFirstEntry(graph, "matplotlib");
-    const sEntry = pickFirstEntry(graph, "seaborn");
-    const dEntry = pickFirstEntry(graph, "d3");
+    const mEntries = getRendererEntries(graph, "matplotlib");
+    const sEntries = getRendererEntries(graph, "seaborn");
+    const dEntries = getRendererEntries(graph, "d3");
 
-    // Writeup: prefer any renderer entry’s writeup, otherwise conventional path
+    // Writeup: prefer any renderer entry’s writeup, otherwise default
     const writeupPath =
-      (mEntry?.writeup || sEntry?.writeup || dEntry?.writeup || "").trim() ||
+      (mEntries[0]?.writeup || sEntries[0]?.writeup || dEntries[0]?.writeup || "").trim() ||
       `writeups/graphs/${graphId}.txt`;
 
     mount.innerHTML = `
@@ -167,7 +212,7 @@ async function main() {
           <div class="section-header prose">
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
             <p class="muted" style="margin-top:0.35rem;">
-              One graph, three renderers.
+              One graph, multiple outputs.
               <span class="muted"> · </span>
               <a href="/#charts">Back to homepage</a>
             </p>
@@ -175,9 +220,9 @@ async function main() {
 
           <div class="grid">
             ${contextBlock(graph)}
-            ${mEntry ? rendererCard({ graphId, renderer: "matplotlib", entry: mEntry }) : `<article class="card"><h3 class="card-title">Matplotlib</h3><p class="muted">No entry yet.</p></article>`}
-            ${sEntry ? rendererCard({ graphId, renderer: "seaborn", entry: sEntry }) : `<article class="card"><h3 class="card-title">Seaborn</h3><p class="muted">No entry yet.</p></article>`}
-            ${dEntry ? rendererCard({ graphId, renderer: "d3", entry: dEntry }) : `<article class="card"><h3 class="card-title">D3</h3><p class="muted">No entry yet.</p></article>`}
+            ${rendererSection({ graphId, renderer: "matplotlib", entries: mEntries })}
+            ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
+            ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
 
           <div class="writeup" style="margin-top:1rem;">
@@ -188,6 +233,7 @@ async function main() {
       </section>
     `;
 
+    // Load writeup text
     const writeupEl = document.getElementById("hub-writeup");
     try {
       const text = await loadWriteup(writeupPath);
