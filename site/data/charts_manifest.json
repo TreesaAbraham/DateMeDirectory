@@ -6,8 +6,15 @@
       "graph_id": "01",
       "slug": "graph-01",
       "title": "Graph 01",
-      "question": "",
-      "method": "",
+      "question": "Is there a difference in the use of serious relationship keywords based on gender (male vs female)?",
+      "method": [
+        "Profile text was tokenized into individual words and lowercased.",
+        "A curated set of words associated with serious relationship intent was defined.",
+        "Occurrences of these words were counted within each profile.",
+        "Serious words that followed a negation (e.g., 'not looking for a serious relationship') were excluded from counts.",
+        "Counts were normalized by total word count per profile to control for length differences.",
+        "Aggregate rates were compared across profiles using bar charts."
+      ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -44,8 +51,15 @@
       "graph_id": "02",
       "slug": "graph-02",
       "title": "Graph 02",
-      "question": "",
-      "method": "",
+      "question": "How does the use of exclamation points vary across different generations?",
+      "method": [
+        "Profile text was scanned for exclamation points.",
+        "Total exclamation counts were calculated per profile.",
+        "Counts were normalized per 100,000 characters to account for profile length.",
+        "Profiles were grouped by generation. [Gen Z: born 1997-2012, Millennials: born 1981-1996, Gen X: born 1965-1980, Boomers: born 1946-1964]",
+        "Group-level averages were visualized to compare punctuation usage across generations."
+      ],
+
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -96,8 +110,15 @@
       "graph_id": "03",
       "slug": "graph-03",
       "title": "Graph 03",
-      "question": "",
-      "method": "",
+      "question": "When gender preference changes, how does word complexity across genders (male, female, non-binary) change?",
+      "method": [
+        "Profile text was tokenized into words and lowercased.",
+        "A word was classified as complex if it contained eight or more characters.",
+        "For each profile, complexity was calculated as the percentage of complex words.",
+        "Profiles were grouped by gender and by the genders they expressed interest in.",
+        "Profiles interested in multiple genders were included in multiple groups.",
+        "Distributions were summarized using medians and interquartile ranges and visualized as bar charts."
+      ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -176,8 +197,14 @@
       "graph_id": "04",
       "slug": "graph-04",
       "title": "Graph 04",
-      "question": "",
-      "method": "",
+      "question": "What are the most distinctive words used in US profiles and non-US profiles?",
+     "method": [
+        "Profiles were split into US vs Non-US based on the selection on the location field.",
+        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
+        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both groups were retained.",
+        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = US, negative = Non-US).",
+        "The top-ranked words for each group were exported to CSV and visualized as a two-column table figure."
+      ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -214,8 +241,14 @@
       "graph_id": "05",
       "slug": "graph-05",
       "title": "Graph 05",
-      "question": "",
-      "method": "",
+      "question": "What are the most distinctive words used in SF Bay Area profiles and UK/London profiles?",
+     "method": [
+        "Profiles were classified strictly into SF Bay Area vs UK/London using based on the selection on the location field.",
+        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
+        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both regions were retained.",
+        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = Bay Area, negative = UK/London).",
+        "Top-ranked words for each region were exported to CSV and visualized as a two-column table with inline token counts."
+      ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -252,8 +285,14 @@
       "graph_id": "06",
       "slug": "graph-06",
       "title": "Graph 06",
-      "question": "",
-      "method": "",
+      "question": "How many em-dashes are used in profiles?",
+     "method": [
+      "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
+      "The Unicode em dash character (—) was counted per profile using exact character matching.",
+      "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
+      "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
+      "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
+    ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -290,8 +329,13 @@
       "graph_id": "08",
       "slug": "graph-08",
       "title": "Graph 08",
-      "question": "",
-      "method": "",
+      "question": "When gender preference changes, how does sentence complexity across genders (male, female, non-binary) change?",
+     "method": [
+        "A sentence was defined as complex if it contained at least 21 words (threshold configurable).",
+        "For each profile, sentence complexity was calculated as the percent of sentences meeting the complexity threshold.",
+        "Profiles were grouped by source gender and by target gender of interest; multi-target profiles were included in multiple target groups.",
+        "Distributions were summarized with medians and interquartile ranges and visualized as IQR bars with median labels."
+      ],
       "key_findings": [],
       "notes": "",
       "renderers": {
@@ -370,8 +414,15 @@
       "graph_id": "09",
       "slug": "graph-09",
       "title": "Graph 09",
-      "question": "",
-      "method": "",
+      "question": "Are there SF Bay Area vs UK/London differences in the prevalence of words from Bay Area-specific wordsets compared to all US/non-US profiles?",
+     "method": [
+        "Profile text was tokenized into words and lowercased.",
+        "Two curated wordsets representing SF Bay Area and UK/London vocabulary were defined.",
+        "Matches to each wordset were counted within each profile.",
+        "Counts were aggregated by location group and normalized per 10,000 tokens.",
+        "Rates were visualized as grouped bar charts to compare regional prevalence."
+      ],
+
       "key_findings": [],
       "notes": "",
       "renderers": {
