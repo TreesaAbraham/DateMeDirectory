@@ -87,8 +87,6 @@ function buildPageHtml({ graphId, renderer, graphTitle, graph, entry }) {
   const badge = rendererLabel(renderer);
   const title = graphTitle || (graphId ? `Graph ${graphId}` : "Graph");
   const chartUrl = normalizeSiteUrl(entry?.url || "");
-  const caption = String(entry?.caption || "").trim();
-  const writeupPath = normalizeSiteUrl(entry?.writeup || "");
 
   const question = String(graph?.question || "").trim();
   const method = String(graph?.method || "").trim();
@@ -116,6 +114,7 @@ function buildPageHtml({ graphId, renderer, graphTitle, graph, entry }) {
       </article>
     `;
 
+  const writeupPath = normalizeSiteUrl(entry?.writeup || "");
   const writeupBlock = writeupPath
     ? `
       <div class="writeup">

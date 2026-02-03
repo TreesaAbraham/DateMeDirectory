@@ -31,7 +31,6 @@ function toRootedUrl(url) {
 }
 
 async function loadManifest() {
-  // Rooted path is the best for nested pages on Vercel
   const res = await fetch("/data/charts_manifest.json", { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to load manifest: HTTP ${res.status}`);
   return res.json();
@@ -43,7 +42,6 @@ function findGraph(manifest, graphId) {
 }
 
 // Pick first entry for each renderer by default.
-// If you later want "preferred" charts, we can add a `primary: true` flag in the manifest.
 function pickFirstEntry(graph, renderer) {
   const list = graph?.renderers?.[renderer];
   if (!Array.isArray(list) || list.length === 0) return null;
@@ -53,9 +51,7 @@ function pickFirstEntry(graph, renderer) {
 function rendererCard({ graphId, renderer, entry }) {
   const label = rendererLabel(renderer);
   const url = toRootedUrl(entry?.url || "");
-  const caption = String(entry?.caption || "").trim();
 
-  // Existing renderer-specific pages you already have:
   // /graphs/<id>/matplotlib.html, seaborn.html, d3.html
   const detailHref = `/graphs/${encodeURIComponent(graphId)}/${encodeURIComponent(renderer)}.html`;
 
@@ -73,13 +69,6 @@ function rendererCard({ graphId, renderer, entry }) {
           <div class="chart-media" aria-label="${escapeHtml(label)} chart">
             <img class="chart-img" src="${escapeHtml(url)}" alt="${escapeHtml(label)} chart for Graph ${escapeHtml(graphId)}" loading="lazy" />
           </div>
-          <figcaption>
-            ${
-              caption
-                ? `<strong>Caption:</strong> ${escapeHtml(caption)}`
-                : `<span class="muted">No caption yet.</span>`
-            }
-          </figcaption>
         </figure>
       `
           : `
@@ -163,12 +152,11 @@ async function main() {
 
     const title = String(graph?.title || "").trim() || `Graph ${graphId}`;
 
-    // Pick first entry for each renderer
     const mEntry = pickFirstEntry(graph, "matplotlib");
     const sEntry = pickFirstEntry(graph, "seaborn");
     const dEntry = pickFirstEntry(graph, "d3");
 
-    // Writeup: prefer any renderer entry’s writeup, otherwise use conventional path
+    // Writeup: prefer any renderer entry’s writeup, otherwise conventional path
     const writeupPath =
       (mEntry?.writeup || sEntry?.writeup || dEntry?.writeup || "").trim() ||
       `writeups/graphs/${graphId}.txt`;
@@ -200,7 +188,6 @@ async function main() {
       </section>
     `;
 
-    // Load writeup text
     const writeupEl = document.getElementById("hub-writeup");
     try {
       const text = await loadWriteup(writeupPath);

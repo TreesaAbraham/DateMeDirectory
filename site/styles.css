@@ -506,20 +506,6 @@ a:hover {
   object-fit: contain;
 }
 
-/* Captions */
-figcaption,
-.chart-caption {
-  margin-top: 0.7rem;
-  font-size: var(--small);
-  line-height: 1.45;
-  color: var(--muted);
-}
-
-figcaption strong,
-.chart-caption strong {
-  color: var(--text);
-  font-weight: 650;
-}
 
 /* Writeup block (per-chart) */
 .writeup {
@@ -559,9 +545,4 @@ figcaption strong,
   border: 1px solid rgba(38, 42, 54, 0.75);
   border-radius: calc(var(--radius) - 4px);
   background: rgba(0, 0, 0, 0.2);
-}
-
-/* Hide chart captions everywhere */
-figcaption {
-  display: none !important;
 }
