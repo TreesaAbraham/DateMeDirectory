@@ -560,3 +560,8 @@ figcaption strong,
   border-radius: calc(var(--radius) - 4px);
   background: rgba(0, 0, 0, 0.2);
 }
+
+/* Hide chart captions everywhere */
+figcaption {
+  display: none !important;
+}

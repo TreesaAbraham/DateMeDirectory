@@ -105,13 +105,6 @@ function buildPageHtml({ graphId, renderer, graphTitle, graph, entry }) {
         <div class="chart-media" aria-label="${escapeHtml(title)} chart">
           <img class="chart-img" src="${escapeHtml(chartUrl)}" alt="${escapeHtml(title)} (${escapeHtml(badge)})" />
         </div>
-        <figcaption>
-          ${
-            caption
-              ? `<strong>Caption:</strong> ${escapeHtml(caption)}`
-              : `<span class="muted">No caption yet.</span>`
-          }
-        </figcaption>
       </figure>
     `
     : `
