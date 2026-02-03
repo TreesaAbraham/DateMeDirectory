@@ -313,15 +313,15 @@ Edit graphs
 
 ---
 
-- [ ] **Commit 5.3 — `feat(site): add page generator for graph hubs`**
-  - [ ] Ensure each graph has a hub page at:
-    - [ ] `site/graphs/<id>/index.html`
-  - [ ] Hub page should show:
-    - [ ] Context (Question / Method / Key Findings / Notes)
-    - [ ] Renderer preview cards (Matplotlib / Seaborn / D3)
-    - [ ] Writeup content loaded from `writeups/graphs/<id>.txt`
-  - [ ] If not already automated, add a generator script:
-    - [ ] `scripts/site/generate_graph_hubs.mjs`
+- [x] **Commit 5.3 — `feat(site): add page generator for graph hubs`**
+  - [x] Ensure each graph has a hub page at:
+    - [x] `site/graphs/<id>/index.html`
+  - [x] Hub page should show:
+    - [x] Context (Question / Method / Key Findings / Notes)
+    - [x] Renderer preview cards (Matplotlib / Seaborn / D3)
+    - [x] Writeup content loaded from `writeups/graphs/<id>.txt`
+  - [x] If not already automated, add a generator script:
+    - [x] `scripts/site/generate_graph_hubs.mjs`
 
 
 ---

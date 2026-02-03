@@ -483,21 +483,26 @@ a:hover {
   background: rgba(0, 0, 0, 0.16);
   padding: 0.85rem;
 
-  aspect-ratio: 16 / 10;
   width: 100%;
+  min-height: 420px;
+  max-height: 80vh;
 
   display: grid;
   place-items: center;
-  overflow: hidden;
+
+  /* the important part */
+  overflow: auto;
 }
 
-/* Make images behave like polite adults */
 .chart-media img,
 .chart-media svg {
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   object-fit: contain;
 }
+
+
 
 /* Keep your existing .chart-img class compatible */
 .chart-img {
