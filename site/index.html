@@ -1,413 +1,81 @@
-// site/app.js
-// Homepage Graph Directory renderer.
-// Order comes from /data/charts_manifest.json exactly as written (NO sorting).
-// Cards show NO preview images (carousel will handle favorites elsewhere).
-//
-// Adds a 3-item "Favorites" carousel with arrow buttons (no overlap).
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Date Me Directory Report" />
+    <title>Date Me Directory</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
 
-function escapeHtml(str) {
-  return String(str ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+  </head>
 
-async function loadManifest() {
-  const res = await fetch("/data/charts_manifest.json", { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load manifest: HTTP ${res.status}`);
-  return res.json();
-}
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-function graphHref(graphId) {
-  return `/graphs/${encodeURIComponent(graphId)}/`;
-}
-
-function countRendererEntries(graph, renderer) {
-  const arr = graph?.renderers?.[renderer];
-  return Array.isArray(arr) ? arr.length : 0;
-}
-
-function toRootedUrl(url) {
-  const u = String(url ?? "").trim();
-  if (!u) return "";
-  if (u.startsWith("http://") || u.startsWith("https://")) return u;
-  if (u.startsWith("/")) return u;
-  return `/${u}`;
-}
-
-function findGraph(manifest, graphId) {
-  const graphs = Array.isArray(manifest?.graphs) ? manifest.graphs : [];
-  return graphs.find((g) => String(g?.graph_id) === String(graphId));
-}
-
-function getRendererEntries(graph, renderer) {
-  const list = graph?.renderers?.[renderer];
-  return Array.isArray(list) ? list : [];
-}
-
-function pickEntry(entries, entryId) {
-  if (!entries.length) return null;
-  if (!entryId) return entries[0];
-  const match = entries.find((e) => String(e?.id) === String(entryId));
-  return match || entries[0];
-}
-
-function renderChartMedia(url, title) {
-  const u = toRootedUrl(url);
-
-  // SVG: use <object> so it scales cleanly inside the card
-  if (u.toLowerCase().endsWith(".svg")) {
-    return `
-      <object data="${escapeHtml(u)}"
-              type="image/svg+xml"
-              class="chart-object"
-              aria-label="${escapeHtml(title)}"></object>
-    `;
-  }
-
-  // PNG/JPG/etc
-  return `<img src="${escapeHtml(u)}" alt="${escapeHtml(title)}" loading="lazy" />`;
-}
-
-function rendererLabel(renderer) {
-  const r = String(renderer || "").toLowerCase();
-  if (r === "d3") return "D3";
-  if (r === "seaborn") return "Seaborn";
-  if (r === "matplotlib") return "Matplotlib";
-  return renderer || "Unknown";
-}
-
-function graphCardHtml(graph) {
-  const id = String(graph?.graph_id ?? "").trim();
-  const title = String(graph?.title ?? "").trim() || `Graph ${id}`;
-  const question = String(graph?.question ?? "").trim();
-  const href = graphHref(id);
-
-  const nM = countRendererEntries(graph, "matplotlib");
-  const nS = countRendererEntries(graph, "seaborn");
-  const nD = countRendererEntries(graph, "d3");
-
-  const metaBits = [];
-  if (nM) metaBits.push(`Matplotlib: ${nM}`);
-  if (nS) metaBits.push(`Seaborn: ${nS}`);
-  if (nD) metaBits.push(`D3: ${nD}`);
-  const meta = metaBits.length ? metaBits.join(" • ") : "No renders linked";
-
-  return `
-    <article class="card">
-      <div class="prose">
-        <h3 style="margin:0;">
-          <a href="${escapeHtml(href)}" class="small-link" style="font-size:1.05em;">
-            ${escapeHtml(title)}
-          </a>
-        </h3>
-
-        ${
-          question
-            ? `<p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(question)}</p>`
-            : ""
-        }
-
-        <p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(meta)}</p>
-
-        <div class="muted" style="margin-top:0.5rem;">
-          <a class="small-link" href="${escapeHtml(href)}">Open graph hub</a>
-        </div>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Date Me Directory</h1>
+       <h2>Data Analysis Report</h2>
+       <p>This is a literary analysis based on the Date Me Directory dataset. Using 323 profiles and scraping their data, I analyzed how language varies across gender, sexuality, age, and region. Hope you enjoy my findings.</p>
       </div>
-    </article>
-  `;
-}
+    </header>
 
-function injectCarouselStyles() {
-  if (document.getElementById("favorites-carousel-styles")) return;
-
-  const style = document.createElement("style");
-  style.id = "favorites-carousel-styles";
-  style.textContent = `
-    .favorites-wrap { margin-bottom: 1rem; }
-    .favorites-header { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
-    .favorites-controls { display:flex; gap:0.5rem; align-items:center; }
-
-    .carousel-btn {
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-      color: inherit;
-      padding: 0.35rem 0.65rem;
-      border-radius: 999px;
-      cursor: pointer;
-      user-select: none;
-      font: inherit;
-    }
-    .carousel-btn:disabled { opacity: 0.35; cursor: not-allowed; }
-    .carousel-btn:focus { outline: 2px solid rgba(255,255,255,0.25); outline-offset: 2px; }
-
-    .carousel-viewport { overflow: hidden; border-radius: 16px; }
-    .carousel-track {
-      display:flex;
-      transition: transform 220ms ease;
-      will-change: transform;
-    }
-    .carousel-slide {
-      min-width: 100%;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Ensure media fits the card */
-    .carousel-slide .chart-media {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-    .carousel-slide img,
-    .carousel-slide object.chart-object {
-      width: 100%;
-      height: auto;
-      display: block;
-      max-width: 100%;
-    }
-
-    .carousel-meta {
-      margin-top: 0.35rem;
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:0.75rem;
-      flex-wrap:wrap;
-    }
-
-    .carousel-dots { display:flex; gap:0.35rem; align-items:center; }
-    .carousel-dot {
-      width: 8px; height: 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.25);
-    }
-    .carousel-dot.active { background: rgba(255,255,255,0.70); }
-  `;
-  document.head.appendChild(style);
-}
-
-function buildFavoritesSlides(manifest) {
-  // Your 3 favorites, pinned by exact manifest entry id.
-  const favorites = [
-    {
-      graphId: "02",
-      renderer: "d3",
-      entryId: "02-d3-word_graph_02_exclam_per100k_by_generation_per_profile",
-      blurb: "D3 • Exclamation usage by generation",
-    },
-    {
-      graphId: "08",
-      renderer: "seaborn",
-      entryId: "08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
-      blurb: "Seaborn • Sentence complexity (looking for women)",
-    },
-    {
-      graphId: "05",
-      renderer: "d3",
-      entryId: "05-d3-word_graph_05_distinctive_bayarea_vs_uk_london",
-      blurb: "D3 • Distinctive words (Bay Area vs UK/London)",
-    },
-  ];
-
-  const slides = favorites
-    .map((fav) => {
-      const graph = findGraph(manifest, fav.graphId);
-      if (!graph) return null;
-
-      const entries = getRendererEntries(graph, fav.renderer);
-      const entry = pickEntry(entries, fav.entryId);
-      if (!entry?.url) return null;
-
-      const graphTitle = String(graph?.title || "").trim() || `Graph ${fav.graphId}`;
-      const rLabel = rendererLabel(fav.renderer);
-      const detailHref = `/graphs/${encodeURIComponent(fav.graphId)}/${encodeURIComponent(
-        fav.renderer
-      )}.html?chart=${encodeURIComponent(String(entry.id || ""))}`;
-
-      return {
-        title: graphTitle,
-        rLabel,
-        detailHref,
-        mediaHtml: renderChartMedia(entry.url, `${graphTitle} (${rLabel})`),
-        blurb: fav.blurb,
-      };
-    })
-    .filter(Boolean);
-
-  return slides;
-}
-
-function favoritesCarouselHtml(slides) {
-  if (!slides.length) {
-    return `
-      <article class="card favorites-wrap">
-        <div class="prose">
-          <h3 style="margin:0;">Favorites</h3>
-          <p class="muted" style="margin-top:0.35rem;">
-            Couldn’t load the 3 favorites (manifest ids didn’t match). The directory still works.
+    <main id="main" class="site-main">
+      <!-- Overview -->
+      <section id="overview" class="section">
+        <div class="container prose">
+          <h2>Overview</h2>
+          <p>
+            This report summarizes patterns found in the Date Me Directory dataset, combining quantitative
+            summaries with visualizations and short interpretive writeups.
+          </p>
+          <p class="muted">
+            I started this analysis as a project for my internship at Valyria Studios. As a data science major, I hoped to understand more about the usage of data science on fields I never considered, such as DateMe documents. This project helped me learn about data scraping, cleaning, and visualization. I hope you learn more about how our language is shaped by more factors than we may have considered. 
           </p>
         </div>
-      </article>
-    `;
-  }
-
-  const slideHtml = slides
-    .map((s, i) => {
-      return `
-        <div class="carousel-slide" data-slide="${i}">
-          <article class="card chart-card">
-            <div class="chart-media" aria-label="${escapeHtml(s.title)} ${escapeHtml(
-        s.rLabel
-      )} chart">
-              ${s.mediaHtml}
-            </div>
-
-            <div class="carousel-meta muted">
-              <div>
-                <span class="renderer-text">${escapeHtml(s.blurb || s.rLabel)}</span>
-              </div>
-              <div>
-                <a class="small-link" href="${escapeHtml(s.detailHref)}">Open this chart</a>
-              </div>
-            </div>
-          </article>
+      </section>
+          <!-- JS will render the carousel here -->
+          <div id="favorites-carousel"></div>
         </div>
-      `;
-    })
-    .join("");
+      </section>
 
-  const dots = slides
-    .map(
-      (_s, i) => `<span class="carousel-dot ${i === 0 ? "active" : ""}" data-dot="${i}"></span>`
-    )
-    .join("");
 
-  return `
-    <section class="favorites-wrap">
-      <div class="favorites-header prose" style="margin-bottom:0.5rem;">
-        <div>
-          <h2 style="margin:0;">Favorites</h2>
-          <p class="muted" style="margin:0.25rem 0 0;">Three charts worth showing off.</p>
-        </div>
-
-        <div class="favorites-controls">
-          <button class="carousel-btn" id="fav-prev" type="button" aria-label="Previous favorite">←</button>
-          <button class="carousel-btn" id="fav-next" type="button" aria-label="Next favorite">→</button>
-          <div class="carousel-dots" aria-hidden="true" id="fav-dots">${dots}</div>
-        </div>
-      </div>
-
-      <div class="carousel-viewport">
-        <div class="carousel-track" id="fav-track">
-          ${slideHtml}
-        </div>
-      </div>
-    </section>
-  `;
-}
-
-function wireFavoritesCarousel(slideCount) {
-  const track = document.getElementById("fav-track");
-  const prevBtn = document.getElementById("fav-prev");
-  const nextBtn = document.getElementById("fav-next");
-  const dotsWrap = document.getElementById("fav-dots");
-  if (!track || !prevBtn || !nextBtn || !dotsWrap || slideCount <= 0) return;
-
-  let idx = 0;
-
-  function setIdx(next) {
-    idx = ((next % slideCount) + slideCount) % slideCount; // wrap
-    track.style.transform = `translateX(${-idx * 100}%)`;
-
-    // update dots
-    dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
-      d.classList.toggle("active", i === idx);
-    });
-  }
-
-  prevBtn.addEventListener("click", () => setIdx(idx - 1));
-  nextBtn.addEventListener("click", () => setIdx(idx + 1));
-
-  // Optional: click dots
-  dotsWrap.addEventListener("click", (e) => {
-    const t = e.target;
-    if (!(t instanceof HTMLElement)) return;
-    const n = t.getAttribute("data-dot");
-    if (n == null) return;
-    const num = Number(n);
-    if (Number.isFinite(num)) setIdx(num);
-  });
-
-  // Keyboard support if focused
-  document.addEventListener("keydown", (e) => {
-    // don’t hijack typing in inputs, if you ever add them
-    const tag = String(document.activeElement?.tagName || "").toLowerCase();
-    if (tag === "input" || tag === "textarea") return;
-
-    if (e.key === "ArrowLeft") setIdx(idx - 1);
-    if (e.key === "ArrowRight") setIdx(idx + 1);
-  });
-
-  setIdx(0);
-}
-
-async function main() {
-  // Mount target: try common ids first, then fall back to the first <main>.
-  const mount =
-    document.getElementById("app") ||
-    document.getElementById("charts") ||
-    document.querySelector("main");
-
-  if (!mount) return;
-
-  injectCarouselStyles();
-
-  try {
-    const manifest = await loadManifest();
-    const graphs = Array.isArray(manifest?.graphs) ? manifest.graphs : [];
-
-    if (!graphs.length) {
-      mount.innerHTML = `
-        <div class="container prose">
-          <h2>No graphs found</h2>
-          <p class="muted"><code>/data/charts_manifest.json</code> loaded, but <code>graphs[]</code> is empty.</p>
-        </div>
-      `;
-      return;
-    }
-
-    // Favorites (carousel)
-    const favSlides = buildFavoritesSlides(manifest);
-    const favHtml = favoritesCarouselHtml(favSlides);
-
-    // IMPORTANT: DO NOT sort. Manifest order is your curated order.
-    const cards = graphs.map(graphCardHtml).join("");
-
-    mount.innerHTML = `
-      <section class="section">
+      <!-- Graph Directory (replaces flat chart gallery) -->
+      <section id="charts" class="section">
         <div class="container">
-          ${favHtml}
-          <div class="grid">
-            ${cards}
+          <div class="section-header prose">
+            <h2>Graph directory</h2>
+            <p class="muted">
+              Choose a graph number to view the combined hub page (Matplotlib + Seaborn + D3 together).
+              This directory is generated from <span class="inline-path">site/data/charts_manifest.json</span>.
+
+            </p>
+          </div>
+
+          <!-- Auto-generated directory grid -->
+          <div id="graph-directory" class="grid" aria-live="polite">
+            <article class="card">
+              <h3 class="card-title">Loading graphs…</h3>
+              <p class="card-body muted">
+                If this never changes, your manifest isn’t loading.
+              </p>
+            </article>
           </div>
         </div>
       </section>
-    `;
 
-    wireFavoritesCarousel(favSlides.length);
-  } catch (err) {
-    mount.innerHTML = `
-      <div class="container prose">
-        <h2>Couldn’t load directory</h2>
-        <p class="muted">${escapeHtml(err.message || String(err))}</p>
-        <p class="muted">Check that <code>/data/charts_manifest.json</code> is reachable.</p>
-      </div>
-    `;
-    console.error(err);
-  }
-}
+      <!-- Appendix / Notes -->
+      <section id="appendix" class="section">
+        <div class="container prose">
+          <h2>Appendix / Notes</h2>
+          <ul>
+            <li><strong>Important Information:<br></strong> First, This is a static analysis of a sample of profiles. DateMe Docs are constantly being added and deleted. The data for this project is the 323 accessible profiles that were available in December 2025. <br>Second, It does not represent all users in the dataset. This project analyzes a non-random sample of public DateMeDirectory profiles, so findings shouldn't be generalized for the entire dating landscape. <br>Third, while this data is public, the users were unaware a college freshman would be analyzing them.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
 
-main();
+    <script src="./app.js" defer></script>
+  </body>
+</html>
