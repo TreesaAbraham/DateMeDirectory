@@ -1,4 +1,17 @@
 #!/usr/bin/env node
+/**
+ * word_graph_05_distinctive_bayarea_vs_uk_london.mjs
+ *
+ * Input CSV:
+ *   rank,BAY_AREA_word,BAY_AREA_count,BAY_AREA_z,UK_word,UK_count,UK_z
+ *
+ * Output SVG:
+ *   data/charts/d3/svg/word_graph_05_distinctive_bayarea_vs_uk_london.svg
+ *
+ * Optional PNG (if sharp installed):
+ *   data/charts/d3/png/word_graph_05_distinctive_bayarea_vs_uk_london.png
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,8 +38,12 @@ const DEFAULT_OUT_PNG = path.join(
   "data/charts/d3/png/word_graph_05_distinctive_bayarea_vs_uk_london.png"
 );
 
-function ensureDir(p) {
-  fs.mkdirSync(path.dirname(p), { recursive: true });
+// Padded viewBox so edge labels don't get clipped in embeds
+const VB_PAD_X = 140; // left/right breathing room
+const VB_PAD_Y = 60;  // top/bottom breathing room
+
+function ensureDirForFile(filePath) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
 }
 
 function readCsvOrDie(inPath) {
@@ -95,7 +112,7 @@ function buildLong(rows, topN) {
         side: "UK/London",
         word: r.uk_word,
         count: r.uk_count,
-        z: -Math.abs(uz),
+        z: -Math.abs(uz), // force negative to the left
         rank: r.rank,
       });
     }
@@ -115,8 +132,11 @@ function renderSvg(data, opts) {
     subtitle,
     leftColor,
     rightColor,
+    bgColor,
     textColor,
     axisColor,
+    mutedText,
+    fontFamily,
   } = opts;
 
   const ordered = data
@@ -126,127 +146,177 @@ function renderSvg(data, opts) {
   const height = marginTop + marginBottom + ordered.length * rowH;
 
   const maxAbs = d3.max(ordered, (d) => Math.abs(d.z)) ?? 1;
+  const bound = Math.max(1, maxAbs) * 1.12;
+
   const x = d3
     .scaleLinear()
-    .domain([-maxAbs, maxAbs])
+    .domain([-bound, bound])
     .range([marginLeft, width - marginRight])
     .nice();
 
   const yMid = (_d, i) => marginTop + i * rowH + rowH / 2;
 
   const dom = new JSDOM(`<!doctype html><html><body></body></html>`);
-  const body = d3.select(dom.window.document).select("body");
+  const document = dom.window.document;
+  const body = d3.select(document).select("body");
 
   const svg = body
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("width", width)
-    .attr("height", height);
 
+    // Keep natural size for export…
+    .attr("width", width)
+    .attr("height", height)
+
+    // …but make it responsive + padded when embedded
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style("font-family", fontFamily)
+    .style("font-size", "12px");
+
+  // Background covers the *entire padded viewBox*
+  svg
+    .append("rect")
+    .attr("x", -VB_PAD_X)
+    .attr("y", -VB_PAD_Y)
+    .attr("width", width + VB_PAD_X * 2)
+    .attr("height", height + VB_PAD_Y * 2)
+    .attr("fill", bgColor);
+
+  // Title
   svg
     .append("text")
     .attr("x", marginLeft)
-    .attr("y", 28)
+    .attr("y", 32)
     .attr("fill", textColor)
     .attr("font-size", 18)
-    .attr("font-weight", 700)
+    .attr("font-weight", 800)
     .text(title);
 
+  // Subtitle
   svg
     .append("text")
     .attr("x", marginLeft)
-    .attr("y", 48)
+    .attr("y", 54)
     .attr("fill", textColor)
-    .attr("font-size", 12)
+    .attr("font-size", 12.5)
     .attr("opacity", 0.9)
     .text(subtitle);
 
+  // Side headers
+  svg
+    .append("text")
+    .attr("x", marginLeft)
+    .attr("y", marginTop - 14)
+    .attr("text-anchor", "start")
+    .attr("fill", leftColor)
+    .attr("font-size", 12.5)
+    .attr("font-weight", 800)
+    .text("UK/London distinctive (−z)");
+
+  svg
+    .append("text")
+    .attr("x", width - marginRight)
+    .attr("y", marginTop - 14)
+    .attr("text-anchor", "end")
+    .attr("fill", rightColor)
+    .attr("font-size", 12.5)
+    .attr("font-weight", 800)
+    .text("Bay Area distinctive (+z)");
+
+  // Zero line
   svg
     .append("line")
     .attr("x1", x(0))
     .attr("x2", x(0))
     .attr("y1", marginTop - 6)
-    .attr("y2", height - marginBottom)
+    .attr("y2", height - marginBottom + 2)
     .attr("stroke", axisColor)
-    .attr("stroke-width", 1)
-    .attr("opacity", 0.8);
+    .attr("stroke-width", 1.4)
+    .attr("opacity", 0.9);
 
-  const axis = d3.axisBottom(x).ticks(6);
+  // Bottom axis
+  const axis = d3.axisBottom(x).ticks(6).tickFormat(d3.format(".1f"));
   const axisG = svg
     .append("g")
-    .attr("transform", `translate(0, ${height - marginBottom + 6})`)
+    .attr("transform", `translate(0, ${height - marginBottom + 12})`)
     .call(axis);
 
-  axisG.selectAll("path,line").attr("stroke", axisColor).attr("opacity", 0.7);
-  axisG.selectAll("text").attr("fill", textColor).attr("font-size", 11);
+  axisG.selectAll("path,line").attr("stroke", axisColor).attr("opacity", 0.75);
+  axisG.selectAll("text").attr("fill", mutedText).attr("font-size", 11);
 
+  // Bars
   svg
     .append("g")
-    .selectAll("rect")
+    .selectAll("rect.bar")
     .data(ordered)
     .join("rect")
+    .attr("class", "bar")
     .attr("x", (d) => Math.min(x(0), x(d.z)))
     .attr("y", (_d, i) => marginTop + i * rowH + 6)
     .attr("width", (d) => Math.abs(x(d.z) - x(0)))
     .attr("height", rowH - 12)
     .attr("rx", 3)
+    .attr("ry", 3)
     .attr("fill", (d) => (d.side === "Bay Area" ? rightColor : leftColor))
-    .attr("opacity", 0.9);
+    .attr("opacity", 0.92);
 
+  // Word labels (outside bar ends)
   svg
     .append("g")
     .selectAll("text.word")
     .data(ordered)
     .join("text")
-    .attr("x", (d) => (d.side === "Bay Area" ? x(d.z) + 6 : x(d.z) - 6))
+    .attr("class", "word")
+    .attr("x", (d) => (d.side === "Bay Area" ? x(d.z) + 8 : x(d.z) - 8))
     .attr("y", (_d, i) => yMid(_d, i) + 4)
     .attr("text-anchor", (d) => (d.side === "Bay Area" ? "start" : "end"))
     .attr("fill", textColor)
-    .attr("font-size", 12)
-    .attr("font-weight", 600)
+    .attr("font-size", 12.2)
+    .attr("font-weight", 650)
     .text((d) => d.word);
 
+  // Value labels near center
+  const fmt = d3.format(".2f");
   svg
     .append("g")
     .selectAll("text.val")
     .data(ordered)
     .join("text")
-    .attr("x", (d) => (d.side === "Bay Area" ? x(0) - 6 : x(0) + 6))
+    .attr("class", "val")
+    .attr("x", (d) => (d.side === "Bay Area" ? x(0) - 8 : x(0) + 8))
     .attr("y", (_d, i) => yMid(_d, i) + 4)
     .attr("text-anchor", (d) => (d.side === "Bay Area" ? "end" : "start"))
-    .attr("fill", textColor)
+    .attr("fill", mutedText)
     .attr("font-size", 11)
-    .attr("opacity", 0.9)
-    .text((d) => d3.format(".2f")(d.z));
+    .attr("opacity", 0.95)
+    .text((d) => fmt(d.z));
 
+  // Axis label
   svg
     .append("text")
-    .attr("x", x(maxAbs))
-    .attr("y", marginTop - 12)
-    .attr("text-anchor", "end")
-    .attr("fill", rightColor)
+    .attr("x", marginLeft + (width - marginLeft - marginRight) / 2)
+    .attr("y", height - 14)
+    .attr("text-anchor", "middle")
+    .attr("fill", mutedText)
     .attr("font-size", 12)
-    .attr("font-weight", 700)
-    .text("Bay Area distinctive (+z)");
+    .text("Z-score (distinctiveness)");
 
-  svg
-    .append("text")
-    .attr("x", x(-maxAbs))
-    .attr("y", marginTop - 12)
-    .attr("text-anchor", "start")
-    .attr("fill", leftColor)
-    .attr("font-size", 12)
-    .attr("font-weight", 700)
-    .text("UK/London distinctive (−z)");
-
-  return body.html();
+  // Return just the SVG markup
+  const svgNode = document.querySelector("svg");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n${svgNode.outerHTML}\n`;
 }
 
 async function maybeWritePng(svgPath, pngPath) {
   try {
     const { default: sharp } = await import("sharp");
     const svgBuf = fs.readFileSync(svgPath);
-    ensureDir(pngPath);
+    ensureDirForFile(pngPath);
     await sharp(svgBuf).png().toFile(pngPath);
     console.log(`[out] ${pngPath}`);
   } catch {
@@ -260,6 +330,7 @@ async function main() {
   const inPath = args.in ? path.resolve(args.in) : DEFAULT_IN;
   const outPath = args.out ? path.resolve(args.out) : DEFAULT_OUT;
   const outPngPath = args.outPng ? path.resolve(args.outPng) : DEFAULT_OUT_PNG;
+
   const topN = args.top ?? 20;
 
   const csvText = readCsvOrDie(inPath);
@@ -267,21 +338,33 @@ async function main() {
   const long = buildLong(rows, topN);
 
   const svgText = renderSvg(long, {
-    width: 980,
-    rowH: 26,
-    marginTop: 80,
-    marginRight: 40,
-    marginBottom: 42,
-    marginLeft: 40,
+    width: Number(args.width ?? 980),
+    rowH: Number(args.rowH ?? 26),
+    marginTop: Number(args.marginTop ?? 92),
+    marginRight: Number(args.marginRight ?? 70),
+    marginBottom: Number(args.marginBottom ?? 54),
+    marginLeft: Number(args.marginLeft ?? 70),
+
     title: args.title ?? "Most distinctive words: SF Bay Area vs UK/London",
-    subtitle: `Top ${topN} per side. Bars are z-scores (Bay positive, UK negative).`,
-    leftColor: "#B84CF0",   // UK/London
-    rightColor: "#2F6FED",  // Bay Area
-    textColor: "#000000",
-    axisColor: "#000000",
+    subtitle:
+      args.subtitle ??
+      `Top ${topN} per side. Bars are z-scores (Bay positive, UK negative).`,
+
+    // Colors + styling (match the “dark site” look)
+    bgColor: args.bgColor ?? "#000000",
+    textColor: args.textColor ?? "#FFFFFF",
+    mutedText: args.mutedText ?? "rgba(255,255,255,0.75)",
+    axisColor: args.axisColor ?? "rgba(255,255,255,0.55)",
+
+    leftColor: args.leftColor ?? "#B84CF0",  // UK/London
+    rightColor: args.rightColor ?? "#2F6FED", // Bay Area
+
+    fontFamily:
+      args.fontFamily ??
+      'ui-serif, Georgia, "Times New Roman", Times, serif',
   });
 
-  ensureDir(outPath);
+  ensureDirForFile(outPath);
   fs.writeFileSync(outPath, svgText, "utf8");
   console.log(`[out] ${outPath}`);
 
@@ -291,6 +374,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  console.error(e);
+  console.error(e?.stack ?? String(e));
   process.exit(1);
 });
