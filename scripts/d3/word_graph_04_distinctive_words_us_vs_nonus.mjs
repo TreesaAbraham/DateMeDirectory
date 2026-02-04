@@ -63,18 +63,22 @@ const args = parseArgs(process.argv);
 const inPath = args.in ? path.resolve(args.in) : DEFAULT_IN;
 const outPath = args.out ? path.resolve(args.out) : DEFAULT_OUT;
 
-// -------- style (match SF vs Bay/UK look) --------
+// -------- style --------
 const BG_COLOR = args.bgColor ?? "#121212";
 const TEXT_COLOR = args.textColor ?? "rgba(255,255,255,0.92)";
 const MUTED_TEXT = args.mutedText ?? "rgba(255,255,255,0.65)";
 const GRID_COLOR = args.gridColor ?? "rgba(255,255,255,0.18)";
 const GRID_OPACITY = args.gridOpacity ? Number(args.gridOpacity) : 1;
 
-const US_COLOR = args.usColor ?? "#3b82f6";       // bright blue
+const US_COLOR = args.usColor ?? "#3b82f6"; // blue
 const NONUS_COLOR = args.nonUsColor ?? "#a855f7"; // purple
 
 const FONT_FAMILY =
   args.fontFamily ?? 'ui-serif, Georgia, "Times New Roman", Times, serif';
+
+// Padded viewBox so edge/long labels don't get clipped in embeds
+const VB_PAD_X = args.vbPadX ? Number(args.vbPadX) : 160; // extra room for long words
+const VB_PAD_Y = args.vbPadY ? Number(args.vbPadY) : 60;  // room for headers/axis label
 
 function toNum(x) {
   const n = Number(x);
@@ -96,7 +100,9 @@ async function readCsv(p) {
   ];
   for (const c of required) {
     if (!rows.columns.includes(c)) {
-      throw new Error(`Missing required column "${c}". Found: ${rows.columns.join(", ")}`);
+      throw new Error(
+        `Missing required column "${c}". Found: ${rows.columns.join(", ")}`
+      );
     }
   }
 
@@ -133,7 +139,7 @@ function svgToString(document) {
 }
 
 function draw(rows) {
-  // layout: more generous like your screenshot
+  // layout
   const rowH = 26;
   const topPad = 84;
   const bottomPad = 54;
@@ -163,13 +169,43 @@ function draw(rows) {
   const svg = select(document.body)
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
+
+    // Keep natural size for export…
     .attr("width", width)
     .attr("height", height)
-    .style("background", BG_COLOR)
-    .style("font-family", FONT_FAMILY)
-    .style("fill", TEXT_COLOR);
 
-  // Side headers like the screenshot
+    // …but make it responsive + prevent clipping when embedded
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style("font-family", FONT_FAMILY)
+    .style("font-size", "12px");
+
+  // Background: cover padded extents too (so labels don’t spill onto page bg)
+  svg
+    .append("rect")
+    .attr("x", -VB_PAD_X)
+    .attr("y", -VB_PAD_Y)
+    .attr("width", width + VB_PAD_X * 2)
+    .attr("height", height + VB_PAD_Y * 2)
+    .attr("fill", BG_COLOR);
+
+  // Global text styling: readable on dark bg + consistent with your other D3
+  svg.append("style").text(`
+    text {
+      fill: ${TEXT_COLOR};
+      stroke: rgba(0,0,0,0.70);
+      stroke-width: 3px;
+      paint-order: stroke;
+      stroke-linejoin: round;
+    }
+  `);
+
+  // Side headers
   svg
     .append("text")
     .attr("x", margin.left)
@@ -177,6 +213,7 @@ function draw(rows) {
     .attr("font-size", 14)
     .attr("font-weight", 700)
     .attr("fill", NONUS_COLOR)
+    .attr("stroke", "none")
     .text("Non-US distinctive (−z)");
 
   svg
@@ -187,6 +224,7 @@ function draw(rows) {
     .attr("font-size", 14)
     .attr("font-weight", 700)
     .attr("fill", US_COLOR)
+    .attr("stroke", "none")
     .text("US distinctive (+z)");
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -205,7 +243,7 @@ function draw(rows) {
     .attr("stroke", GRID_COLOR)
     .attr("opacity", GRID_OPACITY);
 
-  // zero line (stronger)
+  // zero line
   g.append("line")
     .attr("x1", x(0))
     .attr("x2", x(0))
@@ -244,7 +282,7 @@ function draw(rows) {
     .attr("fill", US_COLOR)
     .attr("opacity", 0.92);
 
-  // Words on bars (white, bold-ish)
+  // Words on bars
   g.append("g")
     .selectAll("text.wordLeft")
     .data(rows)
@@ -255,7 +293,6 @@ function draw(rows) {
     .attr("text-anchor", "end")
     .attr("font-size", 12.2)
     .attr("font-weight", 650)
-    .attr("fill", TEXT_COLOR)
     .text((d) => d.nonWord);
 
   g.append("g")
@@ -268,10 +305,9 @@ function draw(rows) {
     .attr("text-anchor", "start")
     .attr("font-size", 12.2)
     .attr("font-weight", 650)
-    .attr("fill", TEXT_COLOR)
     .text((d) => d.usWord);
 
-  // z-score labels near center, small + muted (like screenshot)
+  // z-score labels near center
   const fmt = format(".2f");
 
   g.append("g")
@@ -284,6 +320,7 @@ function draw(rows) {
     .attr("text-anchor", "end")
     .attr("font-size", 11)
     .attr("fill", MUTED_TEXT)
+    .attr("stroke", "none")
     .text((d) => fmt(d.nonZ));
 
   g.append("g")
@@ -296,14 +333,15 @@ function draw(rows) {
     .attr("text-anchor", "start")
     .attr("font-size", 11)
     .attr("fill", MUTED_TEXT)
+    .attr("stroke", "none")
     .text((d) => fmt(d.usZ));
 
-  // bottom axis (subtle)
+  // bottom axis
   const axis = axisBottom(x).ticks(6).tickFormat(format(".1f"));
   g.append("g")
     .attr("transform", `translate(0,${innerH})`)
     .call(axis)
-    .call((sel) => sel.selectAll("text").attr("fill", MUTED_TEXT))
+    .call((sel) => sel.selectAll("text").attr("fill", MUTED_TEXT).attr("stroke", "none"))
     .call((sel) =>
       sel.selectAll("path,line").attr("stroke", "rgba(255,255,255,0.28)").attr("opacity", 1)
     );
@@ -316,6 +354,7 @@ function draw(rows) {
     .attr("text-anchor", "middle")
     .attr("font-size", 12)
     .attr("fill", MUTED_TEXT)
+    .attr("stroke", "none")
     .text("Z-score (distinctiveness)");
 
   return { document };
