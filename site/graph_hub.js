@@ -189,7 +189,6 @@ async function main() {
         <div class="container prose">
           <h2>Graph not found</h2>
           <p class="muted">No graph with id <code>${escapeHtml(graphId)}</code> in the manifest.</p>
-          <p><a href="/#charts">Back to homepage</a></p>
         </div>
       `;
       return;
