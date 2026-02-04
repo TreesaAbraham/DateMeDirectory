@@ -193,17 +193,26 @@ function draw({ rows, outPath, width, height }) {
   const document = dom.window.document;
 
   const svg = select(document)
-    .select("body")
-    .append("svg")
-    .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("width", width)
-    .attr("height", height)
-    .style(
-      "font-family",
-      '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif'
-    )
-    .style("font-size", "12px")
-    .style("fill", THEME.primary);
+  .select("body")
+  .append("svg")
+  .attr("xmlns", "http://www.w3.org/2000/svg")
+  .attr("width", width)
+  .attr("height", height)
+  .style(
+    "font-family",
+    '"DejaVu Serif", Georgia, "Times New Roman", Times, serif'
+  )
+  .style("font-size", "12px");
+
+/* Background: solid black */
+svg
+  .append("rect")
+  .attr("x", 0)
+  .attr("y", 0)
+  .attr("width", width)
+  .attr("height", height)
+  .attr("fill", "#000000");
+
 
   // Title
   svg

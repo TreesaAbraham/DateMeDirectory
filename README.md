@@ -350,18 +350,6 @@ Edit graphs
 
 ---
 
-## 🧹 Optional cleanup (because you will forget later)
-
-- [ ] **Commit O.1 — `chore(site): deprecate old chart gallery pages`**
-  - [ ] Decide whether to keep:
-    - [ ] `site/chart.html`
-    - [ ] `site/topics/*`
-  - [ ] If you keep them, update them to use `graphs[]` manifest
-  - [ ] If not, remove or link them from somewhere “Archive”
-
-
-
-
 
 
 
@@ -509,3 +497,24 @@ This may also indicate what users from different regions prioritize when present
 
 This chart was initially supposed to calculated the likelieness of AI based on the use of EM dashes in text. However, after analysis, it was determined that the presence of EM dashes did not significantly correlate with AI-generated text in a meaningful way. Therefore, this chart was repurposed to show the distribution of EM dash usage across the dataset, providing insights into how frequently EM dashes are used in general writing within the analyzed texts.
 
+
+
+
+
+
+
+This is a literary analysis based on the Date Me Directory dataset. Using 323 profiles and scraping their data, I analyzed how language varies across gender, sexuality, age, and region. Hope you enjoy my findings.</p>
+
+
+ This report summarizes patterns found in the Date Me Directory dataset, combining quantitative
+            summaries with visualizations and short interpretive writeups.
+          </p>'
+
+
+
+       I started this analysis as a project for my internship at Valyria Studios. As a data science major, I hoped to understand more about the usage of data science on fields I never considered, such as DateMe documents. This project helped me learn about data scraping, cleaning, and visualization. I hope you learn more about how our language is shaped by more factors than we may have considered. 
+          </p>
+
+
+     <li><strong>Important Information:<br></strong> First, This is a static analysis of a sample of profiles. DateMe Docs are constantly being added and deleted. The data for this project is the 323 accessible profiles that were available in December 2025. <br>Second, It does not represent all users in the dataset. This project analyzes a non-random sample of public DateMeDirectory profiles, so findings shouldn't be generalized for the entire dating landscape. <br>Third, while this data is public, the users were unaware a college freshman would be analyzing them.</li>
+         

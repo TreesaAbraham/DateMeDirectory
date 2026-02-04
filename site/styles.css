@@ -1,298 +1,462 @@
-/* Date Me Directory — Static Report Styles
-   Commit 2.1: typography + layout polish (Option C aesthetics)
+/* Date Me Directory — Deep Sea (Controlled) Theme
+   Palette anchors:
+   Grecian Blue: #2988BC
+   Sea:          #2F496E
+   Plaster:      #F4EADE
+   Coral:        #ED8C72
 */
 
 /* -----------------------------
-   Design tokens
+   Tokens
 ------------------------------ */
 :root {
-  /* Colors */
-  --bg: #0b0c10;
-  --bg2: #0f1220;
-  --panel: rgba(17, 19, 26, 0.9);
-  --panel-2: rgba(17, 19, 26, 0.65);
+  --blue: #2988BC;
+  --sea: #2F496E;
+  --plaster: #F4EADE;
+  --coral: #ED8C72;
 
-  --text: #e7e7e7;
-  --muted: #a7adbb;
-  --border: #262a36;
+  /* tight variations (still same family) */
+  --sea-2: #223652;
+  --sea-3: #465f83;
+  --blue-2: #1F6F9E;
+  --blue-3: #6FB7DA;
+  --plaster-2: #FBF4EA;
+  --plaster-3: #EDE2D3;
+  --coral-2: #D8755C;
+  --coral-3: #F2A28E;
 
-  --link: #7dd3fc;
-  --link-hover: #a5e7ff;
+  --ink: #000000;
+  --muted: rgba(0, 0, 0, 0.70);
 
-  /* Layout */
-  --max: 1040px;         /* container width */
-  --prose: 72ch;         /* readable line length */
-  --radius: 16px;
-  --shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --border: rgba(47, 73, 110, 0.22);
+  --border-strong: rgba(47, 73, 110, 0.34);
 
-  /* Spacing */
-  --section-y: 3.25rem;  /* section spacing */
-  --section-y-lg: 4.25rem;
-  --gap: 1.25rem;
+  --panel: rgba(251, 244, 234, 0.94);
 
-  /* Type scale */
-  --font-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond,
-  "Georgia", serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+  --shadow: 0 20px 54px rgba(34, 54, 82, 0.20);
+  --shadow-sm: 0 12px 26px rgba(34, 54, 82, 0.14);
 
-  --h1: clamp(2.1rem, 3.3vw, 2.75rem);
-  --h2: clamp(1.55rem, 2.2vw, 1.95rem);
-  --h3: 1.2rem;
-  --body: 1rem;
+  --max: 1080px;
+  --prose: 74ch;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --section-y: 3rem;
+  --section-y-lg: 4.2rem;
+
+  --font-serif: ui-serif, Iowan Old Style, Palatino Linotype, Palatino, Garamond, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --h1: clamp(2.35rem, 3.5vw, 3.2rem);
+  --h2: clamp(1.6rem, 2.25vw, 2.15rem);
+  --h3: 1.22rem;
+  --body: 1.05rem;
   --small: 0.92rem;
 
-  --lh: 1.6;
-  --lh-tight: 1.25;
+  --lh: 1.70;
+  --lh-tight: 1.18;
 }
 
 /* -----------------------------
-   Base reset-ish
+   Base
 ------------------------------ */
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   font-family: var(--font-serif);
   font-size: var(--body);
   line-height: var(--lh);
-  color: var(--text);
+  color: var(--ink);
 
-  /* subtle background: deep gradient + vignette */
+  /* IMPORTANT:
+     No page-wide navy bands. Navy should show ONLY in header + selected section headers. */
   background:
-    radial-gradient(1200px 650px at 18% -10%, #1a2040 0%, rgba(26, 32, 64, 0) 60%),
-    radial-gradient(900px 520px at 85% 10%, #162233 0%, rgba(22, 34, 51, 0) 55%),
-    radial-gradient(800px 520px at 50% 105%, #111827 0%, rgba(17, 24, 39, 0) 60%),
-    linear-gradient(180deg, var(--bg2) 0%, var(--bg) 50%, var(--bg) 100%);
+    radial-gradient(1100px 650px at 12% 10%, rgba(41, 136, 188, 0.18) 0%, rgba(41, 136, 188, 0) 60%),
+    radial-gradient(900px 520px at 86% 22%, rgba(47, 73, 110, 0.12) 0%, rgba(47, 73, 110, 0) 58%),
+    linear-gradient(180deg, var(--plaster-2) 0%, var(--plaster) 70%, #ffffff 100%);
 }
 
-/* Keep media from exploding layouts */
-img,
-svg,
-video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+img, svg, video { max-width: 100%; height: auto; display: block; }
 
-/* Focus styles that aren't tragic */
 :focus-visible {
-  outline: 2px solid rgba(125, 211, 252, 0.55);
-  outline-offset: 2px;
+  outline: 3px solid rgba(41, 136, 188, 0.45);
+  outline-offset: 3px;
   border-radius: 10px;
+}
+
+/* Optional utility: any element you explicitly mark as blue-surface forces white text */
+.blue-surface,
+.blue-surface * {
+  color: #ffffff !important;
 }
 
 /* -----------------------------
    Typography
 ------------------------------ */
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   line-height: var(--lh-tight);
-  letter-spacing: 0.2px;
   margin: 0 0 0.65rem;
-  font-family: var(--font-serif);
+  letter-spacing: -0.2px;
 }
 
-h1 {
-  font-size: var(--h1);
-}
-
-h2 {
-  font-size: var(--h2);
-  margin-top: 0;
-}
-
-h3 {
-  font-size: var(--h3);
-}
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); color: var(--sea-2); }
+h3 { font-size: var(--h3); color: var(--sea-2); }
 
 p {
-  margin: 0 0 1rem; /* paragraph spacing */
+  margin: 0 0 1rem;
+  color: #000; /* forced black for paragraphs (per your requirement) */
 }
 
-ul,
-ol {
-  margin: 0.5rem 0 1rem 1.25rem;
-  padding: 0;
-}
+.muted { color: var(--muted); }
+p.muted { color: var(--muted); }
 
-li {
-  margin: 0.35rem 0;
-}
+ul, ol { margin: 0.6rem 0 1rem 1.25rem; padding: 0; }
+li { margin: 0.35rem 0; }
 
 code {
   font-family: var(--font-mono);
   font-size: 0.95em;
-  padding: 0.12rem 0.35rem;
-  border: 1px solid rgba(38, 42, 54, 0.9);
+  padding: 0.14rem 0.38rem;
+  border: 1px solid rgba(47, 73, 110, 0.20);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(251, 244, 234, 0.95);
+  color: var(--sea-2);
 }
 
-/* Link styles */
+/* Links: blue underline, coral hover */
 a {
-  color: var(--link);
-  text-decoration: underline;
-  text-decoration-color: rgba(125, 211, 252, 0.35);
-  text-underline-offset: 3px;
+  color: var(--blue);
+  text-decoration: none;
+  background-image: linear-gradient(to right, rgba(41, 136, 188, 0.65), rgba(41, 136, 188, 0.65));
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
 }
-
 a:hover {
-  color: var(--link-hover);
-  text-decoration-color: rgba(165, 231, 255, 0.7);
-}
-
-/* Muted text helper */
-.muted {
-  color: var(--muted);
+  color: var(--coral-2);
+  background-image: linear-gradient(to right, rgba(237, 140, 114, 0.80), rgba(237, 140, 114, 0.80));
 }
 
 /* -----------------------------
-   Layout helpers
+   Layout
 ------------------------------ */
 .container {
   width: min(var(--max), calc(100% - 2rem));
   margin-inline: auto;
 }
 
-.prose {
-  max-width: var(--prose);
-}
+.prose { max-width: var(--prose); }
 
-.section {
-  padding: var(--section-y) 0; /* section spacing */
-}
+.section { padding: var(--section-y) 0; }
+@media (min-width: 900px) { .section { padding: var(--section-y-lg) 0; } }
 
-@media (min-width: 900px) {
-  .section {
-    padding: var(--section-y-lg) 0;
-  }
-}
-
-/* -----------------------------
-   Header / Nav
------------------------------- */
+/* Skip link */
 .skip-link {
   position: absolute;
   left: -999px;
   top: 0;
   padding: 0.6rem 0.8rem;
-  background: var(--panel);
+  background: var(--plaster-2);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
+.skip-link:focus { left: 1rem; top: 1rem; z-index: 1000; }
 
-.skip-link:focus {
-  left: 1rem;
-  top: 1rem;
-  z-index: 1000;
-}
-
+/* -----------------------------
+   Site header (navy = white text)
+------------------------------ */
 .site-header {
-  border-bottom: 1px solid var(--border);
-  background: rgba(17, 19, 26, 0.62);
-  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(900px 420px at 18% 20%, rgba(41, 136, 188, 0.35) 0%, rgba(41, 136, 188, 0) 62%),
+    linear-gradient(180deg, rgba(34, 54, 82, 0.96) 0%, rgba(47, 73, 110, 0.92) 60%, rgba(47, 73, 110, 0.78) 100%);
 }
 
-.site-header .container {
-  padding: 2.25rem 0 1.5rem;
-}
+.site-header .container { padding: 2.35rem 0 1.35rem; }
 
-.site-title {
-  margin: 0;
-}
+/* Anytime background is blue/navy (header), text must be white */
+.site-header,
+.site-header * { color: #fff; }
+
+/* kill link underline decoration inside header */
+.site-header a { background-image: none; padding-bottom: 0; }
+
+.site-title { margin: 0; color: #ffffff; }
 
 .site-subtitle {
-  margin: 0.5rem 0 1.25rem;
-  color: var(--muted);
+  margin: 0.6rem 0 1.2rem;
   max-width: var(--prose);
+  color: rgba(255, 255, 255, 0.88);
 }
 
+/* Nav buttons: centered text */
 .site-nav {
   display: flex;
-  gap: 0.65rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
 }
 
+/* Fix nav pill vertical centering (Safari + serif combo can sit low) */
 .site-nav a {
-  text-decoration: none;
-  padding: 0.42rem 0.7rem;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
+  /* already inline-flex, but force consistent centering */
+  align-items: center;
+  justify-content: center;
+
+  /* ensure baseline weirdness doesn't pull it down */
+  line-height: 1;
+  padding-top: 0.48rem;
+  padding-bottom: 0.62rem;
 }
 
 .site-nav a:hover {
-  border-color: var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px); /* keep the hover lift consistent */
+}
+
+
+/* -----------------------------
+   Section headers
+   Default: plain (NO random navy lines)
+------------------------------ */
+.section-header {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.section-header::after { content: none !important; }
+
+/* ONLY Overview / Graphs / Appendix get navy header bands */
+#overview .section-header,
+#graphs .section-header,
+#appendix .section-header,
+#notes .section-header { /* fallback if appendix is still #notes */
+  background: linear-gradient(180deg, var(--sea-2), var(--sea));
+  border: 0;
+  border-radius: var(--radius);
+  padding: 1.4rem 1.25rem;
+  margin-bottom: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+/* White text inside those blue bands */
+#overview .section-header,
+#graphs .section-header,
+#appendix .section-header,
+#notes .section-header { color: #fff; }
+
+#overview .section-header *,
+#graphs .section-header *,
+#appendix .section-header *,
+#notes .section-header * { color: #fff !important; }
+
+/* Bigger title on those bands (Graph directory becomes prominent) */
+#overview .section-header h2,
+#graphs .section-header h2,
+#appendix .section-header h2,
+#notes .section-header h2 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Subtitle within the band (if present) */
+#overview .section-header p,
+#graphs .section-header p,
+#appendix .section-header p,
+#notes .section-header p {
+  margin: 0.6rem auto 0;
+  max-width: 70ch;
+  color: rgba(255, 255, 255, 0.88) !important;
 }
 
 /* -----------------------------
-   Cards / Grid
+   Top layout (overview + context card)
+------------------------------ */
+.top-layout {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .top-layout { grid-template-columns: minmax(0, 1fr) 390px; }
+}
+
+@media (min-width: 900px) {
+  .context-card { position: sticky; top: 1rem; }
+}
+
+.context-block {
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
+}
+.context-block:first-of-type { border-top: none; padding-top: 0; }
+
+.context-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(47, 73, 110, 0.80);
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+/* -----------------------------
+   Grid / Cards
 ------------------------------ */
 .grid {
   display: grid;
-  gap: var(--gap);
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .card {
   background: var(--panel);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
+  padding: 1.2rem;
+
+  border: 1px solid rgba(47, 73, 110, 0.26);
+  border-top: 6px solid rgba(41, 136, 188, 0.90);
+
   box-shadow: var(--shadow);
-  padding: 1.1rem;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.card-title {
-  margin: 0 0 0.45rem;
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(41, 136, 188, 0.45);
+  box-shadow: 0 26px 66px rgba(34, 54, 82, 0.22);
 }
 
-.card-body {
-  margin: 0 0 0.9rem;
+.card-title { margin: 0 0 0.45rem; color: var(--sea-2); }
+.card-body { margin: 0 0 0.9rem; }
+
+/* Cards used as links should not inherit link underline */
+a.card {
+  display: block;
+  color: inherit;
+  background-image: none;
+  padding-bottom: 0;
 }
 
-.section-header {
-  margin-bottom: 1.25rem;
-}
-
-.section-header h2 {
-  margin: 0 0 0.35rem;
+/* Badge (blue/navy with coral hint) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.24rem 0.64rem;
+  font-size: 0.78rem;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 140, 114, 0.35);
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.78));
+  white-space: nowrap;
 }
 
 /* -----------------------------
-   Chart frame
+   Callouts
 ------------------------------ */
-.chart-frame {
-  border: 1px dashed rgba(38, 42, 54, 0.9);
-  border-radius: calc(var(--radius) - 4px);
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.16);
-  min-height: 200px;
+.callouts {
   display: grid;
-  place-items: center;
+  gap: 1.1rem;
+  margin: 1.25rem 0 1.5rem;
 }
 
-.chart-placeholder {
-  color: var(--muted);
-  font-size: var(--small);
+@media (min-width: 900px) {
+  .callouts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.callout {
+  background: rgba(251, 244, 234, 0.96);
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  border-radius: var(--radius);
+  padding: 1rem 1rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.callout::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10px;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.92));
+}
+
+.callout-title {
+  font-weight: 850;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.1px;
+  color: var(--sea-2);
+}
+
+.callout p { margin: 0; }
+
+.callout-warn::before {
+  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(41, 136, 188, 0.78));
 }
 
 /* -----------------------------
-   Chart card extras (kept from Step 1 work)
+   Details / Summary
+------------------------------ */
+.details {
+  margin-top: 1rem;
+  border: 1px solid rgba(47, 73, 110, 0.26);
+  border-left: 10px solid rgba(41, 136, 188, 0.90);
+  border-radius: var(--radius);
+  background: rgba(251, 244, 234, 0.96);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.details > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.95rem 1rem;
+  user-select: none;
+  position: relative;
+}
+
+.details > summary::-webkit-details-marker { display: none; }
+
+.details > summary::after {
+  content: "▾";
+  position: absolute;
+  right: 1rem;
+  top: 1.05rem;
+  color: rgba(47, 73, 110, 0.85);
+  transform: rotate(0deg);
+  transition: transform 160ms ease;
+}
+
+.details[open] > summary::after { transform: rotate(180deg); }
+
+.summary-title { font-weight: 900; color: var(--sea-2); }
+.summary-hint {
+  font-size: var(--small);
+  color: rgba(47, 73, 110, 0.78);
+  margin-top: 0.25rem;
+}
+
+.details-body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
+}
+
+/* -----------------------------
+   Charts
 ------------------------------ */
 .chart-card-header {
   display: flex;
@@ -302,252 +466,117 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.55rem;
-  font-size: 0.78rem;
+.chart-media {
+  border: 1px solid rgba(47, 73, 110, 0.28);
+  border-top: 4px solid rgba(41, 136, 188, 0.78);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 0.9rem;
+  background: rgba(244, 234, 222, 0.72);
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+
+.chart-media img,
+.chart-media svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.chart-placeholder {
+  color: rgba(47, 73, 110, 0.78);
+  font-size: var(--small);
+}
+
+/* -----------------------------
+   Writeups
+------------------------------ */
+.writeup {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
+}
+
+.writeup-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.02rem;
+  font-weight: 900;
+  color: var(--sea-2);
+}
+
+.writeup pre {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  padding: 0.85rem;
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  border-radius: calc(var(--radius) - 4px);
+  background: rgba(251, 244, 234, 0.96);
+  overflow: auto;
+}
+
+/* -----------------------------
+   Buttons (if used)
+------------------------------ */
+.button, button {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  padding: 0.64rem 0.95rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.03);
-  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.96), rgba(41, 136, 188, 0.78));
+  box-shadow: 0 14px 28px rgba(10, 18, 32, 0.22);
+
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+  background-image: none;
 }
 
-.chart-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.button:hover, button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(237, 140, 114, 0.45);
+  box-shadow: 0 18px 36px rgba(10, 18, 32, 0.28);
 }
 
-.chart-links {
-  margin-top: 0.75rem;
-}
-
-.small-link {
-  font-size: 0.9rem;
+.button.secondary, button.secondary {
+  background: rgba(251, 244, 234, 0.95);
+  color: var(--sea-2);
+  border: 1px solid rgba(47, 73, 110, 0.26);
 }
 
 /* -----------------------------
    Footer
 ------------------------------ */
 .site-footer {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
   padding: 1.6rem 0;
-  background: rgba(17, 19, 26, 0.5);
+  background: linear-gradient(180deg, rgba(244, 234, 222, 0.92), rgba(244, 234, 222, 0.78));
 }
 
-.site-footer p {
-  margin: 0;
-}
-/* -----------------------------
-   Callouts
------------------------------- */
-.callouts {
-  display: grid;
-  gap: var(--gap);
-  margin: 1.25rem 0 1.5rem;
-}
-
-@media (min-width: 900px) {
-  .callouts {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.callout {
-  background: var(--panel-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1rem 1rem;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-  position: relative;
-  overflow: hidden;
-}
-
-.callout::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  background: rgba(125, 211, 252, 0.55);
-}
-
-.callout-title {
-  font-weight: 650;
-  margin: 0 0 0.35rem;
-  letter-spacing: 0.2px;
-}
-
-.callout p {
-  margin: 0;
-}
-
-/* Variant: warning-ish (still subtle) */
-.callout-warn::before {
-  background: rgba(251, 191, 36, 0.55);
-}
+.site-footer p { margin: 0; }
 
 /* -----------------------------
-   Details / Summary (Method accordion)
+   Dividers
 ------------------------------ */
-.details {
-  margin-top: 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--panel-2);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
-  overflow: hidden;
+hr {
+  border: none;
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  margin: 1.4rem 0;
 }
 
-.details > summary {
-  cursor: pointer;
-  list-style: none;
-  padding: 0.95rem 1rem;
-  display: grid;
-  gap: 0.2rem;
-  user-select: none;
+/* Hide redundant renderer badge/pills inside cards */
+.card .badge,
+.card .pill,
+.card .tag,
+.card .chip {
+  display: none !important;
 }
 
-.details > summary::-webkit-details-marker {
-  display: none;
-}
-
-.details > summary {
-  position: relative;
-}
-
-.details > summary::after {
-  content: "▾";
-  position: absolute;
-  right: 1rem;
-  top: 1.05rem;
-  color: var(--muted);
-  transform: rotate(0deg);
-  transition: transform 160ms ease;
-}
-
-.details[open] > summary::after {
-  transform: rotate(180deg);
-}
-
-.summary-title {
-  font-weight: 650;
-}
-
-.summary-hint {
-  font-size: var(--small);
-}
-
-.details-body {
-  padding: 0 1rem 1rem;
-  border-top: 1px solid rgba(38, 42, 54, 0.8);
-}
-
-.details-body h3 {
-  margin-top: 1rem;
-}
-
-/* -----------------------------
-   Commit 2.3 — Chart cards + captions + writeups
------------------------------- */
-
-/* Make the grid a little more “report” and less “random boxes” */
-.grid {
-  gap: clamp(1rem, 2.2vw, 1.4rem);
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-/* Card polish (subtle hover, better spacing) */
-.card {
-  padding: 1.15rem;
-  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(125, 211, 252, 0.22);
-  background: rgba(17, 19, 26, 0.94);
-}
-
-/* Chart figure layout */
-.chart-figure {
-  margin: 0;
-}
-
-/* The chart viewport: consistent size via aspect-ratio */
-.chart-media {
-  border: 1px dashed rgba(38, 42, 54, 0.9);
-  border-radius: calc(var(--radius) - 4px);
-  background: rgba(0, 0, 0, 0.16);
-  padding: 0.85rem;
-
-  width: 100%;
-  min-height: 420px;
-  max-height: 80vh;
-
-  display: grid;
-  place-items: center;
-
-  /* the important part */
-  overflow: auto;
-}
-
-.chart-media img,
-.chart-media svg {
-  width: 100%;
-  height: auto;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-
-
-/* Keep your existing .chart-img class compatible */
-.chart-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-
-/* Writeup block (per-chart) */
-.writeup {
-  margin-top: 0.9rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(38, 42, 54, 0.75);
-}
-
-.writeup-title {
-  margin: 0 0 0.45rem;
-  font-size: 1.02rem;
-  letter-spacing: 0.15px;
-}
-
-.writeup p {
-  margin: 0 0 0.85rem;
-}
-
-.writeup ul {
-  margin: 0.5rem 0 0.85rem 1.15rem;
-}
-
-.writeup li {
-  margin: 0.3rem 0;
-}
-
-/* Slightly calmer card body spacing when used under charts */
-.chart-card .card-body {
-  margin-bottom: 0.65rem;
-}
-/* Writeup pre blocks (temporary plain-text rendering) */
-.writeup pre {
-  font-family: var(--font-mono);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  padding: 0.85rem;
-  border: 1px solid rgba(38, 42, 54, 0.75);
-  border-radius: calc(var(--radius) - 4px);
-  background: rgba(0, 0, 0, 0.2);
-}

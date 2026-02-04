@@ -5,7 +5,7 @@
     {
       "graph_id": "01",
       "slug": "graph-01",
-      "title": "Graph 01",
+      "title": "For a Serious Relationship, You Need Serious Words",
       "question": "Is there a difference in the use of serious relationship keywords based on gender (male vs female)?",
       "method": [
         "Profile text was tokenized into individual words and lowercased.",
@@ -52,7 +52,7 @@
     {
       "graph_id": "02",
       "slug": "graph-02",
-      "title": "Graph 02",
+      "title": "Excitement through Exclamation: Generational Differences in Exclamation Mark Usage",
       "question": "How does the use of exclamation points vary across different generations?",
       "method": [
         "Profile text was scanned for exclamation points.",
@@ -111,7 +111,7 @@
     {
       "graph_id": "03",
       "slug": "graph-03",
-      "title": "Graph 03",
+      "title": "Does Complexity Attract More Interest? Word Complexity based on Gender Preferences",
       "question": "When gender preference changes, how does word complexity across genders (male, female, non-binary) change?",
       "method": [
         "Profile text was tokenized into words and lowercased.",
@@ -193,149 +193,9 @@
       }
     },
     {
-      "graph_id": "04",
-      "slug": "graph-04",
-      "title": "Graph 04",
-      "question": "What are the most distinctive words used in US profiles and non-US profiles?",
-      "method": [
-        "Profiles were split into US vs Non-US based on the selection on the location field.",
-        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
-        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both groups were retained.",
-        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = US, negative = Non-US).",
-        "The top-ranked words for each group were exported to CSV and visualized as a two-column table figure."
-      ],
-      "key_findings": [
-        "Using z-scored log-odds with a Dirichlet prior, several words were strongly distinctive for US profiles, including \"google\" (z=3.73), \"business\" (z=2.85), and \"travel\" (z=2.82).",
-        "Several words were strongly distinctive for Non-US profiles, including \"london\" (z=-4.20), \"listening\" (z=-3.15), and \"interest\" (z=-3.05).",
-        "Overall, the most distinctive US words skew toward tech/professional and leisure themes, while the most distinctive Non-US words skew toward place references and stated interests.",
-        "These differences highlight regional variation in self-presentation style and profile content, which can inform how dating platforms localize prompts, marketing, or onboarding to better match regional norms.",
-        "Because region classification is heuristic and the analysis focuses on relative word usage, findings should be interpreted as theme-level tendencies rather than fixed traits of individual users."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "04-matplotlib-word_graph_04_distinctive_us_vs_nonus",
-            "file": "word_graph_04_distinctive_us_vs_nonus.png",
-            "url": "assets/charts/matplotlib/word_graph_04_distinctive_us_vs_nonus.png",
-            "writeup": "writeups/graphs/04.txt"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "04-seaborn-word_graph_04_distinctive_us_vs_nonus_z_seaborn",
-            "file": "word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
-            "writeup": "writeups/graphs/04.txt"
-          }
-        ],
-        "d3": [
-          {
-            "id": "04-d3-word_graph_04_distinctive_words_us_vs_nonus",
-            "file": "word_graph_04_distinctive_words_us_vs_nonus.svg",
-            "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
-            "writeup": "writeups/graphs/04.txt"
-          }
-        ]
-      }
-    },
-    {
-      "graph_id": "05",
-      "slug": "graph-05",
-      "title": "Graph 05",
-      "question": "What are the most distinctive words used in SF Bay Area profiles and UK/London profiles?",
-      "method": [
-        "Profiles were classified strictly into SF Bay Area vs UK/London using based on the selection on the location field.",
-        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
-        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both regions were retained.",
-        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = Bay Area, negative = UK/London).",
-        "Top-ranked words for each region were exported to CSV and visualized as a two-column table with inline token counts."
-      ],
-      "key_findings": [
-        "Several words were strongly distinctive for SF Bay Area profiles, including \"favorite\" (z=3.68), \"working\" (z=3.40), and \"research\" (z=3.21).",
-        "Several words were strongly distinctive for UK/London profiles, including \"london\" (z=-5.27), \"fiction\" (z=-3.74), and \"berlin\" (z=-3.52).",
-        "Overall, Bay Area profiles skew toward work/academia and partnership-oriented language (e.g., \"research\", \"berkeley\", \"partnership\", \"relationships\"), while UK/London profiles show more location and interest markers (e.g., \"london\", \"travelling\", \"fiction\") and British spelling (\"favourite\").",
-        "These differences highlight regional variation in self-presentation, where Bay Area users may foreground career/education and relationship framing, while UK/London users more often include place references and personal interests.",
-        "Because region classification is heuristic and the analysis captures relative word frequency, results should be interpreted as theme-level tendencies rather than fixed traits of individual users."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "05-matplotlib-word_graph_05_distinctive_bayarea_vs_uk_london",
-            "file": "word_graph_05_distinctive_bayarea_vs_uk_london.png",
-            "url": "assets/charts/matplotlib/word_graph_05_distinctive_bayarea_vs_uk_london.png",
-            "writeup": "writeups/graphs/05.txt"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "05-seaborn-word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn",
-            "file": "word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
-            "writeup": "writeups/graphs/05.txt"
-          }
-        ],
-        "d3": [
-          {
-            "id": "05-d3-word_graph_05_distinctive_bayarea_vs_uk_london",
-            "file": "word_graph_05_distinctive_bayarea_vs_uk_london.svg",
-            "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
-            "writeup": "writeups/graphs/05.txt"
-          }
-        ]
-      }
-    },
-    {
-      "graph_id": "06",
-      "slug": "graph-06",
-      "title": "Graph 06",
-      "question": "How many em-dashes are used in profiles?",
-      "method": [
-        "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
-        "The Unicode em dash character (—) was counted per profile using exact character matching.",
-        "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
-        "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
-        "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
-      ],
-      "key_findings": [
-        "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
-        "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
-        "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
-        "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "06-matplotlib-word_graph_06_em_dash_bar",
-            "file": "word_graph_06_em_dash_bar.png",
-            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png",
-            "writeup": "writeups/graphs/06.txt"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
-            "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
-            "writeup": "writeups/graphs/06.txt"
-          }
-        ],
-        "d3": [
-          {
-            "id": "06-d3-word_graph_06_em_dash_per_profile",
-            "file": "word_graph_06_em_dash_per_profile.svg",
-            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg",
-            "writeup": "writeups/graphs/06.txt"
-          }
-        ]
-      }
-    },
-    {
       "graph_id": "08",
       "slug": "graph-08",
-      "title": "Graph 08",
+      "title": "Does Complexity Attract More Interest? Sentence Complexity based on Gender Preferences",
       "question": "When gender preference changes, how does sentence complexity across genders (male, female, non-binary) change?",
       "method": [
         "A sentence was defined as complex if it contained at least 21 words (threshold configurable).",
@@ -415,9 +275,103 @@
       }
     },
     {
+      "graph_id": "04",
+      "slug": "graph-04",
+      "title": "US vs Non-US Regional Word Differences",
+      "question": "What are the most distinctive words used in US profiles and non-US profiles?",
+      "method": [
+        "Profiles were split into US vs Non-US based on the selection on the location field.",
+        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
+        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both groups were retained.",
+        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = US, negative = Non-US).",
+        "The top-ranked words for each group were exported to CSV and visualized as a two-column table figure."
+      ],
+      "key_findings": [
+        "Using z-scored log-odds with a Dirichlet prior, several words were strongly distinctive for US profiles, including \"google\" (z=3.73), \"business\" (z=2.85), and \"travel\" (z=2.82).",
+        "Several words were strongly distinctive for Non-US profiles, including \"london\" (z=-4.20), \"listening\" (z=-3.15), and \"interest\" (z=-3.05).",
+        "Overall, the most distinctive US words skew toward tech/professional and leisure themes, while the most distinctive Non-US words skew toward place references and stated interests.",
+        "These differences highlight regional variation in self-presentation style and profile content, which can inform how dating platforms localize prompts, marketing, or onboarding to better match regional norms.",
+        "Because region classification is heuristic and the analysis focuses on relative word usage, findings should be interpreted as theme-level tendencies rather than fixed traits of individual users."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "04-matplotlib-word_graph_04_distinctive_us_vs_nonus",
+            "file": "word_graph_04_distinctive_us_vs_nonus.png",
+            "url": "assets/charts/matplotlib/word_graph_04_distinctive_us_vs_nonus.png",
+            "writeup": "writeups/graphs/04.txt"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "04-seaborn-word_graph_04_distinctive_us_vs_nonus_z_seaborn",
+            "file": "word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
+            "writeup": "writeups/graphs/04.txt"
+          }
+        ],
+        "d3": [
+          {
+            "id": "04-d3-word_graph_04_distinctive_words_us_vs_nonus",
+            "file": "word_graph_04_distinctive_words_us_vs_nonus.svg",
+            "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
+            "writeup": "writeups/graphs/04.txt"
+          }
+        ]
+      }
+    },
+    {
+      "graph_id": "05",
+      "slug": "graph-05",
+      "title": "SF Bay Area vs UK/London Slang: Regional Word Differences",
+      "question": "What are the most distinctive words used in SF Bay Area profiles and UK/London profiles?",
+      "method": [
+        "Profiles were classified strictly into SF Bay Area vs UK/London using based on the selection on the location field.",
+        "Profile text was tokenized into lowercase word tokens (letters + apostrophes) and filtered to remove stopwords.",
+        "Only candidate words with length ≥ 6 and total frequency ≥ 5 across both regions were retained.",
+        "Distinctive words were identified using z-scored log-odds ratios with a Dirichlet prior (positive = Bay Area, negative = UK/London).",
+        "Top-ranked words for each region were exported to CSV and visualized as a two-column table with inline token counts."
+      ],
+      "key_findings": [
+        "Several words were strongly distinctive for SF Bay Area profiles, including \"favorite\" (z=3.68), \"working\" (z=3.40), and \"research\" (z=3.21).",
+        "Several words were strongly distinctive for UK/London profiles, including \"london\" (z=-5.27), \"fiction\" (z=-3.74), and \"berlin\" (z=-3.52).",
+        "Overall, Bay Area profiles skew toward work/academia and partnership-oriented language (e.g., \"research\", \"berkeley\", \"partnership\", \"relationships\"), while UK/London profiles show more location and interest markers (e.g., \"london\", \"travelling\", \"fiction\") and British spelling (\"favourite\").",
+        "These differences highlight regional variation in self-presentation, where Bay Area users may foreground career/education and relationship framing, while UK/London users more often include place references and personal interests.",
+        "Because region classification is heuristic and the analysis captures relative word frequency, results should be interpreted as theme-level tendencies rather than fixed traits of individual users."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "05-matplotlib-word_graph_05_distinctive_bayarea_vs_uk_london",
+            "file": "word_graph_05_distinctive_bayarea_vs_uk_london.png",
+            "url": "assets/charts/matplotlib/word_graph_05_distinctive_bayarea_vs_uk_london.png",
+            "writeup": "writeups/graphs/05.txt"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "05-seaborn-word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn",
+            "file": "word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
+            "writeup": "writeups/graphs/05.txt"
+          }
+        ],
+        "d3": [
+          {
+            "id": "05-d3-word_graph_05_distinctive_bayarea_vs_uk_london",
+            "file": "word_graph_05_distinctive_bayarea_vs_uk_london.svg",
+            "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
+            "writeup": "writeups/graphs/05.txt"
+          }
+        ]
+      }
+    },
+      {
       "graph_id": "09",
       "slug": "graph-09",
-      "title": "Graph 09",
+      "title": "Regional Slang Prevalence: SF Bay Area vs UK/London Wordsets",
       "question": "Are there SF Bay Area vs UK/London differences in the prevalence of words from Bay Area-specific wordsets compared to all US/non-US profiles?",
       "method": [
         "Profile text was tokenized into words and lowercased.",
@@ -460,6 +414,54 @@
           }
         ]
       }
+    },
+    {
+      "graph_id": "06",
+      "slug": "graph-06",
+      "title": "Sometimes, Em-Dashes aren't AI indicators, They Just Add Flair",
+      "question": "How many em-dashes are used in profiles?",
+      "method": [
+        "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
+        "The Unicode em dash character (—) was counted per profile using exact character matching.",
+        "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
+        "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
+        "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
+      ],
+      "key_findings": [
+        "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
+        "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
+        "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
+        "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "06-matplotlib-word_graph_06_em_dash_bar",
+            "file": "word_graph_06_em_dash_bar.png",
+            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png",
+            "writeup": "writeups/graphs/06.txt"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
+            "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
+            "writeup": "writeups/graphs/06.txt"
+          }
+        ],
+        "d3": [
+          {
+            "id": "06-d3-word_graph_06_em_dash_per_profile",
+            "file": "word_graph_06_em_dash_per_profile.svg",
+            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg",
+            "writeup": "writeups/graphs/06.txt"
+          }
+        ]
+      }
     }
+    
+  
   ]
 }
