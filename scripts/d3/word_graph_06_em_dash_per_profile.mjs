@@ -25,6 +25,10 @@ const DEFAULT_OUT_PNG = path.join(
   "data/charts/d3/png/word_graph_06_em_dash_per_profile.png"
 );
 
+// Padded viewBox so edge/rotated labels don't get clipped in embeds
+const VB_PAD_X = 80; // left/right breathing room (covers y-axis label + ticks)
+const VB_PAD_Y = 50; // top/bottom breathing room
+
 function ensureDir(p) {
   fs.mkdirSync(path.dirname(p), { recursive: true });
 }
@@ -90,18 +94,20 @@ function buildCounts(rows) {
     (d) => d.bucket
   );
 
-  const buckets = Array.from(counts.keys()).sort((a, b) => bucketOrderKey(a) - bucketOrderKey(b));
-
   // Ensure all canonical buckets exist, even if count=0
   const canonical = ["0", "1", "2", "3", "4", "5+"];
   for (const c of canonical) {
     if (!counts.has(c)) counts.set(c, 0);
   }
 
-  return canonical.map((b) => ({
-    bucket: b,
-    count: counts.get(b) ?? 0,
-  }));
+  // Return in canonical order
+  return canonical
+    .slice()
+    .sort((a, b) => bucketOrderKey(a) - bucketOrderKey(b))
+    .map((b) => ({
+      bucket: b,
+      count: counts.get(b) ?? 0,
+    }));
 }
 
 function renderSvg(data, opts) {
@@ -118,6 +124,7 @@ function renderSvg(data, opts) {
     textColor,
     axisColor,
     bgColor,
+    fontFamily,
   } = opts;
 
   const x = d3
@@ -140,16 +147,29 @@ function renderSvg(data, opts) {
   const svg = body
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("width", width)
-    .attr("height", height);
 
-  // Background
-  svg
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
+    // Natural export size
     .attr("width", width)
     .attr("height", height)
+
+    // Responsive embed + padding against clipping
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style("font-family", fontFamily)
+    .style("font-size", "12px");
+
+  // Background: cover padded viewBox so labels don't spill onto page bg
+  svg
+    .append("rect")
+    .attr("x", -VB_PAD_X)
+    .attr("y", -VB_PAD_Y)
+    .attr("width", width + VB_PAD_X * 2)
+    .attr("height", height + VB_PAD_Y * 2)
     .attr("fill", bgColor);
 
   // Title
@@ -231,12 +251,15 @@ function renderSvg(data, opts) {
   yG.selectAll("path,line").attr("stroke", axisColor).attr("opacity", 0.7);
   yG.selectAll("text").attr("fill", textColor).attr("font-size", 11);
 
-  // Y axis label
+  // Y axis label (rotated, needs padding -> viewBox handles it)
+  const yLabelX = 14;
+  const yLabelY = (marginTop + (height - marginBottom)) / 2;
+
   svg
     .append("text")
-    .attr("x", 14)
-    .attr("y", (marginTop + (height - marginBottom)) / 2)
-    .attr("transform", `rotate(-90, 14, ${(marginTop + (height - marginBottom)) / 2})`)
+    .attr("x", yLabelX)
+    .attr("y", yLabelY)
+    .attr("transform", `rotate(-90, ${yLabelX}, ${yLabelY})`)
     .attr("text-anchor", "middle")
     .attr("fill", textColor)
     .attr("font-size", 12)
@@ -283,10 +306,13 @@ async function main() {
     marginLeft: 60,
     title,
     subtitle,
-    barColor: "#FF5555",  // consistent with your “make it red” phase
-    textColor: "#EAEAEA",
-    axisColor: "#EAEAEA",
-    bgColor: "#0B0B0F",
+    barColor: args.barColor ?? "#FF5555",
+    textColor: args.textColor ?? "#EAEAEA",
+    axisColor: args.axisColor ?? "#EAEAEA",
+    bgColor: args.bgColor ?? "#0B0B0F",
+    fontFamily:
+      args.fontFamily ??
+      '"DejaVu Serif", Georgia, "Times New Roman", Times, serif',
   });
 
   ensureDir(outPath);
