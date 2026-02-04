@@ -1,5 +1,3 @@
-# Graph 03 — Word complexity by “interested in” gender
-
 This graph explores how word complexity varies based on the gender the profile author is interested in. The same underlying metric is compared across three groups (interested in men, interested in women, interested in non-binary people), allowing us to see whether writing style differs by stated preference.
 
 ## What the chart shows

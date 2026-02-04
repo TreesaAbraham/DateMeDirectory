@@ -1,5 +1,3 @@
-# Graph 02 — Exclamation points per 100k words (by generation)
-
 This data analyzes the number of exclamation points per 100k words by generation (Gen Z, Millennial, Gen X, Boomer) and age. It includes user IDs, ages, birth years, generations, total words written, total exclamation points used, and calculated exclamation points per 100k words.
 
 This data includes any outliers that were outside (Q1 - 1.5*IQR, Q3 + 1.5*IQR).

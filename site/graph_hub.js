@@ -59,7 +59,9 @@ function contextBlock(graph) {
   const methodVal = graph?.method;
   const methodList = Array.isArray(methodVal)
     ? methodVal
-    : (methodVal ? [String(methodVal)] : []);
+    : methodVal
+      ? [String(methodVal)]
+      : [];
 
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
@@ -75,7 +77,11 @@ function contextBlock(graph) {
     <article class="card">
       <h3 class="card-title">Context</h3>
       <div class="prose">
-        ${question ? `<h4>Question</h4><p>${escapeHtml(question)}</p>` : `<p class="muted">No question yet.</p>`}
+        ${
+          question
+            ? `<h4>Question</h4><p>${escapeHtml(question)}</p>`
+            : `<p class="muted">No question yet.</p>`
+        }
         <h4>Method</h4>
         ${methodHtml}
         <h4>Key findings</h4>
@@ -155,6 +161,33 @@ async function loadWriteup(writeupPath) {
   return res.text();
 }
 
+// Plain-text -> HTML that matches normal font (no <pre>, no monospace)
+function writeupTextToHtml(text) {
+  const safe = escapeHtml(text);
+  const lines = safe.split(/\r?\n/);
+
+  // Preserve empty lines as spacing between paragraphs
+  const parts = [];
+  let buf = [];
+
+  function flush() {
+    if (!buf.length) return;
+    parts.push(`<p>${buf.join("<br>")}</p>`);
+    buf = [];
+  }
+
+  for (const line of lines) {
+    if (line.trim() === "") {
+      flush();
+      continue;
+    }
+    buf.push(line);
+  }
+  flush();
+
+  return parts.join("");
+}
+
 async function main() {
   const mount = document.getElementById("graph-hub");
   if (!mount) return;
@@ -202,16 +235,17 @@ async function main() {
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
           </div>
 
-                    <div class="hub-context">
+          <!-- Context is full-width under title -->
+          <div class="hub-context">
             ${contextBlock(graph)}
           </div>
 
+          <!-- Renderer cards in grid -->
           <div class="grid">
             ${rendererSection({ graphId, renderer: "matplotlib", entries: mEntries })}
             ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
             ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
-
 
           <div class="writeup" style="margin-top:1rem;">
             <h3 class="writeup-title">Writeup</h3>
@@ -224,7 +258,10 @@ async function main() {
     const writeupEl = document.getElementById("hub-writeup");
     try {
       const text = await loadWriteup(writeupPath);
-      writeupEl.innerHTML = `<pre style="white-space:pre-wrap;margin:0;">${escapeHtml(text)}</pre>`;
+      // Use normal text styling instead of monospace <pre>
+      writeupEl.classList.remove("muted");
+      writeupEl.classList.add("prose");
+      writeupEl.innerHTML = writeupTextToHtml(text);
     } catch (werr) {
       writeupEl.innerHTML = `<p class="muted">${escapeHtml(werr.message || String(werr))}</p>`;
     }

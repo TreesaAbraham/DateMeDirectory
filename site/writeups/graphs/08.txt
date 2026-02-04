@@ -1,5 +1,3 @@
-# Graph 08 — Sentence complexity by “interested in” gender
-
 This graph analyzes sentence complexity, grouped by the gender the profile author is interested in. The goal is to see whether sentence structure (short/simple vs longer/more complex) varies across the “interested in” categories.
 
 ## What the chart shows

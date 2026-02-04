@@ -1,6 +1,3 @@
-
-# Graph 09 — Bay Area + UK wordset prevalence (vs All US)
-
 This graph compares wordset rates per 10k tokens across groups (All US, Bay Area, UK/London), focusing on the prevalence of SF/Bay-area wordset terms and UK/London wordset terms.
 
 Interpretation goals:

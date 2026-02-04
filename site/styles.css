@@ -602,4 +602,17 @@ hr {
   margin-bottom: 1rem;
 }
 
+/* Make writeups use the same font as the rest of the site */
+.writeup,
+.writeup pre,
+.writeup code {
+  font-family: inherit;
+}
+
+/* Optional: undo "code block" vibes if the writeup container is a <pre> */
+.writeup pre {
+  white-space: normal;      /* let it wrap */
+  margin: 0;
+}
+
 

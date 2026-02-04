@@ -1,5 +1,3 @@
-# Graph 05 — Distinctive words: SF Bay Area vs UK/London
-
 This graph compares region-linked language by highlighting words that appear more distinctive in SF Bay Area profiles versus UK/London profiles.
 
 What to look for:

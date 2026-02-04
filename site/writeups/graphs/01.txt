@@ -1,5 +1,3 @@
-# Graph 01 — Serious relationship language (mosaic)
-
 This graph visualizes the prevalence of “serious relationship” language in the dataset using a mosaic-style summary.
 
 What to look for:

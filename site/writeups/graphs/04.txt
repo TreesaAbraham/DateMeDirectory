@@ -1,5 +1,3 @@
-# Graph 04 — Distinctive words: US vs Non-US
-
 This graph compares vocabulary that is more distinctive in US profiles versus non-US profiles. The goal is to identify words that appear disproportionately in one group relative to the other, which can surface differences in cultural references, spelling conventions, and lifestyle cues.
 
 ## What the chart shows
