@@ -418,7 +418,7 @@
     {
       "graph_id": "06",
       "slug": "graph-06",
-      "title": "Sometimes, Em-Dashes aren't AI indicators, They Just Add Flair",
+      "title": "Sometimes, Em-Dashes aren't AI indicators. They Just Add Flair",
       "question": "How many em-dashes are used in profiles?",
       "method": [
         "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
