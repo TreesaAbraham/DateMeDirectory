@@ -19,9 +19,9 @@ const OUT_DIR_SVG = path.join(REPO_ROOT, "data/charts/d3/svg");
 const OUT_DIR_PNG = path.join(REPO_ROOT, "data/charts/d3/png");
 
 const COLORS = {
-  M: "#2F6BFF",   // blue
-  F: "#FF2EA6",   // fuschia
-  NB: "#7B2CBF",  // purple
+  M: "#2F6BFF", // blue
+  F: "#FF2EA6", // fuschia
+  NB: "#7B2CBF", // purple
 };
 
 const TARGET_LABEL = {
@@ -32,6 +32,14 @@ const TARGET_LABEL = {
 
 const SOURCE_ORDER = ["M", "F", "NB"];
 const SOURCE_LABEL = { M: "Men", F: "Women", NB: "Nonbinary" };
+
+// ---- The “don’t get cut off in embeds” fix ----
+// Extra breathing room around the artboard so rotated labels / outer text never clip.
+const VB_PAD_X = 90;
+const VB_PAD_Y = 55;
+
+const FONT_FAMILY =
+  'ui-serif, Georgia, "Times New Roman", Times, serif';
 
 function ensureDir(p) {
   fs.mkdirSync(path.dirname(p), { recursive: true });
@@ -152,6 +160,7 @@ function renderSvg(summary, opts) {
   const maxX = d3.max(allNums) ?? 1;
 
   const pad = (maxX - minX) * 0.08 || 2;
+
   const x = d3
     .scaleLinear()
     .domain([Math.max(0, minX - pad), maxX + pad])
@@ -170,16 +179,29 @@ function renderSvg(summary, opts) {
   const svg = body
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("width", width)
-    .attr("height", height);
 
-  // Background
-  svg
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
+    // keep fixed export size…
     .attr("width", width)
     .attr("height", height)
+
+    // …but make responsive + padded so nothing clips in <object>/<img> embeds
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style("font-family", FONT_FAMILY)
+    .style("font-size", "12px");
+
+  // Background covers the entire padded viewBox (prevents labels “falling off” onto page bg)
+  svg
+    .append("rect")
+    .attr("x", -VB_PAD_X)
+    .attr("y", -VB_PAD_Y)
+    .attr("width", width + VB_PAD_X * 2)
+    .attr("height", height + VB_PAD_Y * 2)
     .attr("fill", bgColor);
 
   // Title + subtitle
@@ -200,6 +222,20 @@ function renderSvg(summary, opts) {
     .attr("font-size", 12)
     .attr("opacity", 0.9)
     .text(subtitle);
+
+  // Light vertical gridlines (behind everything)
+  const ticks = x.ticks(7);
+  svg
+    .append("g")
+    .selectAll("line.grid")
+    .data(ticks)
+    .join("line")
+    .attr("x1", (d) => x(d))
+    .attr("x2", (d) => x(d))
+    .attr("y1", marginTop)
+    .attr("y2", height - marginBottom)
+    .attr("stroke", axisColor)
+    .attr("opacity", 0.08);
 
   // X axis
   const xAxis = d3.axisBottom(x).ticks(7).tickFormat((d) => `${d}%`);
@@ -273,21 +309,7 @@ function renderSvg(summary, opts) {
     .attr("font-weight", 700)
     .text((d) => `${d.mean.toFixed(1)}%  (n=${d.n})`);
 
-  // Light vertical gridlines
-  const ticks = x.ticks(7);
-  svg
-    .append("g")
-    .selectAll("line.grid")
-    .data(ticks)
-    .join("line")
-    .attr("x1", (d) => x(d))
-    .attr("x2", (d) => x(d))
-    .attr("y1", marginTop)
-    .attr("y2", height - marginBottom)
-    .attr("stroke", axisColor)
-    .attr("opacity", 0.08);
-
-  return body.html();
+  return body.html(); // returns just <svg>…</svg>
 }
 
 async function maybeWritePng(svgPath, pngPath) {
