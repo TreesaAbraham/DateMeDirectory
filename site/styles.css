@@ -200,21 +200,7 @@ a:hover {
   flex-wrap: wrap;
 }
 
-/* Fix nav pill vertical centering (Safari + serif combo can sit low) */
-.site-nav a {
-  /* already inline-flex, but force consistent centering */
-  align-items: center;
-  justify-content: center;
 
-  /* ensure baseline weirdness doesn't pull it down */
-  line-height: 1;
-  padding-top: 0.48rem;
-  padding-bottom: 0.62rem;
-}
-
-.site-nav a:hover {
-  transform: translateY(-2px); /* keep the hover lift consistent */
-}
 
 
 /* -----------------------------
@@ -247,15 +233,6 @@ a:hover {
 
   /* remove any inherited text effects */
   text-shadow: none;
-}
-
-/* Optional: improve spacing in the band so the pill feels centered */
-#overview .section-header,
-#graphs .section-header,
-#appendix .section-header,
-#notes .section-header {
-  padding-top: 1.35rem;
-  padding-bottom: 1.35rem;
 }
 
 
@@ -583,13 +560,7 @@ hr {
   margin: 1.4rem 0;
 }
 
-/* Hide redundant renderer badge/pills inside cards */
-.card .badge,
-.card .pill,
-.card .tag,
-.card .chip {
-  display: none !important;
-}
+
 
 
 /* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */

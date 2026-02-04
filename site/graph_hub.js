@@ -1,7 +1,7 @@
 // site/graph_hub.js
 // Graph hub page renderer.
-// Reads: <main id="graph-hub" data-graph="01"></main>
-// Loads: /data/charts_manifest.json (graph-grouped)
+// Reads: <main id="graph-hub" data-graph="04"></main>
+// Loads: /data/charts_manifest.json
 // Renders: Context + ALL renderer outputs (Matplotlib/Seaborn/D3) + writeup
 
 function escapeHtml(str) {
@@ -21,13 +21,13 @@ function rendererLabel(renderer) {
   return renderer || "Unknown";
 }
 
-// From nested routes (/graphs/01/), always use rooted URLs
+// From nested routes (/graphs/04/), always use rooted URLs
 function toRootedUrl(url) {
   const u = String(url ?? "").trim();
   if (!u) return "";
   if (u.startsWith("http://") || u.startsWith("https://")) return u;
   if (u.startsWith("/")) return u;
-  return `/${u}`; // "assets/..." -> "/assets/..."
+  return `/${u}`;
 }
 
 async function loadManifest() {
@@ -59,9 +59,7 @@ function contextBlock(graph) {
   const methodVal = graph?.method;
   const methodList = Array.isArray(methodVal)
     ? methodVal
-    : methodVal
-      ? [String(methodVal)]
-      : [];
+    : (methodVal ? [String(methodVal)] : []);
 
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
@@ -77,25 +75,18 @@ function contextBlock(graph) {
     <article class="card">
       <h3 class="card-title">Context</h3>
       <div class="prose">
-        ${
-          question
-            ? `<h4>Question</h4><p>${escapeHtml(question)}</p>`
-            : `<p class="muted">No question yet.</p>`
-        }
-
+        ${question ? `<h4>Question</h4><p>${escapeHtml(question)}</p>` : `<p class="muted">No question yet.</p>`}
         <h4>Method</h4>
         ${methodHtml}
-
         <h4>Key findings</h4>
         ${findingsHtml}
-
         ${notes ? `<h4>Notes</h4><p>${escapeHtml(notes)}</p>` : ""}
       </div>
     </article>
   `;
 }
 
-// Renders ALL entries for a renderer (so Graph 03 and 08 show all outputs)
+// Renders ALL entries for a renderer
 function rendererSection({ graphId, renderer, entries }) {
   const label = rendererLabel(renderer);
 
@@ -104,6 +95,7 @@ function rendererSection({ graphId, renderer, entries }) {
       <article class="card chart-card">
         <div class="chart-card-header">
           <h3 class="card-title">${escapeHtml(label)}</h3>
+          <span class="badge">${escapeHtml(label)}</span>
         </div>
         <p class="muted">No ${escapeHtml(label)} outputs linked in the manifest yet.</p>
       </article>
@@ -135,7 +127,6 @@ function rendererSection({ graphId, renderer, entries }) {
           <div class="chart-media" aria-label="${escapeHtml(title)} chart">
             <img src="${escapeHtml(url)}" alt="${escapeHtml(title)} chart" loading="lazy" />
           </div>
-
           <div class="muted" style="margin-top:0.35rem;">
             <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
           </div>
@@ -148,6 +139,7 @@ function rendererSection({ graphId, renderer, entries }) {
     <article class="card chart-card">
       <div class="chart-card-header">
         <h3 class="card-title">${escapeHtml(label)}</h3>
+        <span class="badge">${escapeHtml(label)}</span>
       </div>
       ${figures}
     </article>
@@ -172,7 +164,7 @@ async function main() {
     mount.innerHTML = `
       <div class="container prose">
         <h2>Missing graph id</h2>
-        <p class="muted">Add <code>data-graph="01"</code> to <code>&lt;main id="graph-hub"&gt;</code>.</p>
+        <p class="muted">Add <code>data-graph="04"</code> to <code>&lt;main id="graph-hub"&gt;</code>.</p>
       </div>
     `;
     return;

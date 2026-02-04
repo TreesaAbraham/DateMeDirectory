@@ -1,13 +1,8 @@
 // site/graph.js
-// Renderer page for ONE graph + ONE renderer.
-// Used by pages like: /graphs/01/matplotlib.html, /graphs/01/seaborn.html, /graphs/01/d3.html
-//
-// Expected HTML:
-// <main id="graph-page" data-graph="01" data-renderer="matplotlib"></main>
-//
-// Behavior:
-// - shows only the selected chart (via ?chart=<id>) or the first entry
-// - NO context, NO writeup, NO renderer pill/capsule UI
+// Renderer detail page script.
+// Expected page path: /graphs/<graphId>/<renderer>.html
+// Optional query: ?chart=<entryId>
+// Renders: Header + ONE chart only (no context, no writeup)
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -15,7 +10,16 @@ function escapeHtml(str) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
+    .replaceAll("'", "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function rendererLabel(renderer) {
+  const r = String(renderer || "").toLowerCase();
+  if (r === "d3") return "D3";
+  if (r === "seaborn") return "Seaborn";
+  if (r === "matplotlib") return "Matplotlib";
+  return renderer || "Unknown";
 }
 
 function toRootedUrl(url) {
@@ -42,52 +46,56 @@ function getRendererEntries(graph, renderer) {
   return Array.isArray(list) ? list : [];
 }
 
-function getSelectedEntry(entries) {
+function pickEntry(entries, entryId) {
+  if (!entries.length) return null;
+  if (!entryId) return entries[0];
+  const match = entries.find((e) => String(e?.id) === String(entryId));
+  return match || entries[0];
+}
+
+function parseRoute() {
+  // /graphs/04/d3.html  -> ["graphs","04","d3.html"]
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const graphsIdx = parts.indexOf("graphs");
+  const graphId = graphsIdx >= 0 ? parts[graphsIdx + 1] : "";
+  const rendererFile = graphsIdx >= 0 ? parts[graphsIdx + 2] : "";
+  const renderer = rendererFile ? rendererFile.replace(/\.html$/i, "") : "";
+  return { graphId, renderer };
+}
+
+function getChartParam() {
   const params = new URLSearchParams(window.location.search);
-  const chartId = (params.get("chart") || "").trim();
-  if (!chartId) return entries[0] || null;
-  return entries.find((e) => String(e?.id || "").trim() === chartId) || entries[0] || null;
+  return params.get("chart") || "";
 }
 
-function isImageUrl(url) {
-  const u = String(url || "").toLowerCase();
-  return u.endsWith(".png") || u.endsWith(".jpg") || u.endsWith(".jpeg") || u.endsWith(".webp") || u.endsWith(".gif") || u.endsWith(".svg");
-}
+function renderChartHtml(url, title) {
+  const u = toRootedUrl(url);
 
-function chartEmbedHtml(url, title) {
-  const safeUrl = escapeHtml(url);
-  const safeTitle = escapeHtml(title);
-
-  // If it's an image, show <img>. If it's an html (common for D3), use <iframe>.
-  if (isImageUrl(url)) {
-    return `<img src="${safeUrl}" alt="${safeTitle}" loading="lazy" style="max-width:100%;height:auto;" />`;
+  // If it's an SVG file, use <object> so it scales nicely.
+  if (u.toLowerCase().endsWith(".svg")) {
+    return `
+      <object data="${escapeHtml(u)}" type="image/svg+xml" class="chart-object" aria-label="${escapeHtml(title)}"></object>
+    `;
   }
 
-  return `
-    <iframe
-      src="${safeUrl}"
-      title="${safeTitle}"
-      loading="lazy"
-      style="width:100%;height:70vh;border:0;border-radius:12px;background:transparent;"
-    ></iframe>
-  `;
+  // Default: image
+  return `<img src="${escapeHtml(u)}" alt="${escapeHtml(title)}" loading="lazy" />`;
 }
 
 async function main() {
-  const mount = document.getElementById("graph-page");
+  // Your detail pages probably mount into <main id="graph"></main>.
+  // If your HTML uses a different id, change it here.
+  const mount = document.getElementById("graph") || document.querySelector("main");
   if (!mount) return;
 
-  const graphId = (mount.getAttribute("data-graph") || "").trim();
-  const renderer = (mount.getAttribute("data-renderer") || "").trim();
+  const { graphId, renderer } = parseRoute();
+  const entryId = getChartParam();
 
   if (!graphId || !renderer) {
     mount.innerHTML = `
       <div class="container prose">
-        <h2>Missing page attributes</h2>
-        <p class="muted">
-          Add <code>data-graph="01"</code> and <code>data-renderer="matplotlib"</code> to
-          <code>&lt;main id="graph-page"&gt;</code>.
-        </p>
+        <h2>Bad route</h2>
+        <p class="muted">Expected URL like <code>/graphs/04/d3.html</code>.</p>
       </div>
     `;
     return;
@@ -96,50 +104,36 @@ async function main() {
   try {
     const manifest = await loadManifest();
     const graph = findGraph(manifest, graphId);
-
-    if (!graph) {
-      mount.innerHTML = `
-        <div class="container prose">
-          <h2>Graph not found</h2>
-          <p class="muted">No graph with id <code>${escapeHtml(graphId)}</code> in the manifest.</p>
-        </div>
-      `;
-      return;
-    }
+    if (!graph) throw new Error(`Graph ${graphId} not found in manifest.`);
 
     const entries = getRendererEntries(graph, renderer);
-    if (!entries.length) {
-      mount.innerHTML = `
-        <div class="container prose">
-          <h2>No outputs found</h2>
-          <p class="muted">No entries for <code>${escapeHtml(renderer)}</code> on graph <code>${escapeHtml(graphId)}</code>.</p>
-          <p><a class="small-link" href="/index.html">Back to charts</a></p>
-        </div>
-      `;
-      return;
-    }
+    if (!entries.length) throw new Error(`No ${rendererLabel(renderer)} outputs linked for Graph ${graphId}.`);
 
-    const entry = getSelectedEntry(entries);
-    const url = toRootedUrl(entry?.url || "");
-    const graphTitle = String(graph?.title || "").trim() || `Graph ${graphId}`;
+    const entry = pickEntry(entries, entryId);
+    if (!entry?.url) throw new Error(`Missing url for this chart entry.`);
 
-    const chartTitle = entry?.title
-      ? String(entry.title).trim()
-      : `${graphTitle}`;
+    const pageTitle = String(graph?.title || "").trim() || `Graph ${graphId}`;
+    const rLabel = rendererLabel(renderer);
+
+    // Back goes to the graph hub, not the homepage.
+    const backHref = `/graphs/${encodeURIComponent(graphId)}/`;
 
     mount.innerHTML = `
       <section class="section">
-        <div class="container prose">
-          <h1 style="margin-bottom:0.25rem;">${escapeHtml(graphTitle)}</h1>
-          <p style="margin-top:0;">
-            <a class="small-link" href="/index.html">Back to charts</a>
-          </p>
-        </div>
+        <div class="container">
+          <div class="prose" style="margin-bottom:1rem;">
+            <h1 style="margin-bottom:0.35rem;">${escapeHtml(pageTitle)}</h1>
 
-        <div class="container" style="margin-top:1rem;">
-          <article class="card">
-            <div class="chart-media" aria-label="${escapeHtml(chartTitle)}">
-              ${url ? chartEmbedHtml(url, chartTitle) : `<p class="muted">Missing chart URL in manifest.</p>`}
+            <div style="display:flex; gap:0.75rem; align-items:baseline; flex-wrap:wrap;">
+              <div class="muted">Renderer: <span class="renderer-text">${escapeHtml(rLabel)}</span></div>
+              <span class="muted">•</span>
+              <a class="small-link" href="${escapeHtml(backHref)}">Back to charts</a>
+            </div>
+          </div>
+
+          <article class="card chart-card">
+            <div class="chart-media" aria-label="${escapeHtml(pageTitle)} ${escapeHtml(rLabel)} chart">
+              ${renderChartHtml(entry.url, `${pageTitle} (${rLabel})`)}
             </div>
           </article>
         </div>
@@ -150,7 +144,6 @@ async function main() {
       <div class="container prose">
         <h2>Couldn’t load chart</h2>
         <p class="muted">${escapeHtml(err.message || String(err))}</p>
-        <p><a class="small-link" href="/index.html">Back to charts</a></p>
       </div>
     `;
     console.error(err);
