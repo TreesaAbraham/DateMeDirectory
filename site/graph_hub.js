@@ -202,12 +202,16 @@ async function main() {
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
           </div>
 
-          <div class="grid">
+                    <div class="hub-context">
             ${contextBlock(graph)}
+          </div>
+
+          <div class="grid">
             ${rendererSection({ graphId, renderer: "matplotlib", entries: mEntries })}
             ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
             ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
+
 
           <div class="writeup" style="margin-top:1rem;">
             <h3 class="writeup-title">Writeup</h3>
