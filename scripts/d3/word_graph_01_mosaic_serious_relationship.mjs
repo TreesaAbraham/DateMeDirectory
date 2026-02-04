@@ -147,17 +147,27 @@ function draw({ rows, cols, counts, outPath, width, height }) {
   const dom = new JSDOM(`<!doctype html><html><body></body></html>`);
   const document = dom.window.document;
 
-  const svg = select(document)
-  .select("body")
-  .append("svg")
-  .attr("xmlns", "http://www.w3.org/2000/svg")
-  .attr("width", width)
-  .attr("height", height)
-  .style(
-    "font-family",
-    '"DejaVu Serif", Georgia, "Times New Roman", Times, serif'
-  )
-  .style("font-size", "12px");
+     const svg = select(document)
+    .select("body")
+    .append("svg")
+    .attr("xmlns", "http://www.w3.org/2000/svg")
+
+    // Keep natural size for export…
+    .attr("width", width)
+    .attr("height", height)
+
+    // …but make it responsive when embedded
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style(
+      "font-family",
+      '"DejaVu Serif", Georgia, "Times New Roman", Times, serif'
+    )
+    .style("font-size", "12px");
+
+
 
 /* Background: solid black */
 svg
@@ -167,6 +177,7 @@ svg
   .attr("width", width)
   .attr("height", height)
   .attr("fill", "#000000");
+  
 
 
   // Global text styling: white text with a dark outline for readability everywhere
