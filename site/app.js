@@ -1,6 +1,7 @@
 // site/app.js
 // Homepage Graph Directory renderer.
 // Order comes from /data/charts_manifest.json exactly as written (NO sorting).
+// Cards show NO preview images (carousel will handle favorites elsewhere).
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -9,15 +10,6 @@ function escapeHtml(str) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-}
-
-// From nested routes, always use rooted URLs when needed
-function toRootedUrl(url) {
-  const u = String(url ?? "").trim();
-  if (!u) return "";
-  if (u.startsWith("http://") || u.startsWith("https://")) return u;
-  if (u.startsWith("/")) return u;
-  return `/${u}`;
 }
 
 async function loadManifest() {
@@ -30,14 +22,6 @@ function graphHref(graphId) {
   return `/graphs/${encodeURIComponent(graphId)}/`;
 }
 
-function pickPreview(graph) {
-  // Prefer D3 preview, then seaborn, then matplotlib
-  const d3 = graph?.renderers?.d3?.[0]?.url;
-  const seaborn = graph?.renderers?.seaborn?.[0]?.url;
-  const mpl = graph?.renderers?.matplotlib?.[0]?.url;
-  return toRootedUrl(d3 || seaborn || mpl || "");
-}
-
 function countRendererEntries(graph, renderer) {
   const arr = graph?.renderers?.[renderer];
   return Array.isArray(arr) ? arr.length : 0;
@@ -48,7 +32,6 @@ function graphCardHtml(graph) {
   const title = String(graph?.title ?? "").trim() || `Graph ${id}`;
   const question = String(graph?.question ?? "").trim();
   const href = graphHref(id);
-  const preview = pickPreview(graph);
 
   const nM = countRendererEntries(graph, "matplotlib");
   const nS = countRendererEntries(graph, "seaborn");
@@ -62,38 +45,31 @@ function graphCardHtml(graph) {
 
   return `
     <article class="card">
-      <div class="prose" style="margin-bottom:0.5rem;">
+      <div class="prose">
         <h3 style="margin:0;">
           <a href="${escapeHtml(href)}" class="small-link" style="font-size:1.05em;">
             ${escapeHtml(title)}
           </a>
         </h3>
-        ${question ? `<p class="muted" style="margin:0.25rem 0 0;">${escapeHtml(question)}</p>` : ""}
+
+        ${
+          question
+            ? `<p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(question)}</p>`
+            : ""
+        }
+
         <p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(meta)}</p>
-      </div>
 
-      ${
-        preview
-          ? `
-            <figure class="chart-figure" style="margin:0;">
-              <div class="chart-media" aria-label="${escapeHtml(title)} preview">
-                <img src="${escapeHtml(preview)}" alt="${escapeHtml(title)} preview" loading="lazy" />
-              </div>
-            </figure>
-          `
-          : `<p class="muted">No preview image available.</p>`
-      }
-
-      <div class="muted" style="margin-top:0.5rem;">
-        <a class="small-link" href="${escapeHtml(href)}">Open graph hub</a>
+        <div class="muted" style="margin-top:0.5rem;">
+          <a class="small-link" href="${escapeHtml(href)}">Open graph hub</a>
+        </div>
       </div>
     </article>
   `;
 }
 
 async function main() {
-  // This should match whatever mount your index.html uses.
-  // Common patterns: <main id="app"></main> or <section id="charts"></section>
+  // Mount target: try common ids first, then fall back to the first <main>.
   const mount =
     document.getElementById("app") ||
     document.getElementById("charts") ||
@@ -115,7 +91,7 @@ async function main() {
       return;
     }
 
-    // IMPORTANT: do NOT sort. Manifest order is your curated order.
+    // IMPORTANT: DO NOT sort. Manifest order is your curated order.
     const cards = graphs.map(graphCardHtml).join("");
 
     mount.innerHTML = `
