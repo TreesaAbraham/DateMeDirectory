@@ -342,11 +342,11 @@ Edit graphs
   - [x] Add root `vercel.json` (optional)
     - [x] `{ "cleanUrls": true }`
 
-- [ ] **Commit 6.3 — `chore(site): preflight for deployment`**
-  - [ ] Ensure every page uses consistent asset paths:
-    - [ ] `../assets/...` or rooted `/assets/...` (pick one and stick to it)
-  - [ ] Confirm `graph.js` exists and loads on graph pages
-  - [ ] Confirm homepage directory links work
+- [x] **Commit 6.3 — `chore(site): preflight for deployment`**
+  - [x] Ensure every page uses consistent asset paths:
+    -[x] `../assets/...` or rooted `/assets/...` (pick one and stick to it)
+  - [x] Confirm `graph.js` exists and loads on graph pages
+  - [x] Confirm homepage directory links work
 
 ---
 
