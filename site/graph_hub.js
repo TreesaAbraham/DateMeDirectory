@@ -247,10 +247,16 @@ async function main() {
             ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
 
-          <div class="writeup" style="margin-top:1rem;">
-            <h3 class="writeup-title">Writeup</h3>
-            <div id="hub-writeup" class="muted">Loading writeup…</div>
-          </div>
+                    <!-- Writeup in a matching "tab/card" -->
+          <article class="card writeup-card">
+            <div class="chart-card-header">
+              <h3 class="card-title">Writeup</h3>
+              <span class="badge">Writeup</span>
+            </div>
+
+            <div id="hub-writeup" class="prose muted">Loading writeup…</div>
+          </article>
+
         </div>
       </section>
     `;
@@ -259,9 +265,10 @@ async function main() {
     try {
       const text = await loadWriteup(writeupPath);
       // Use normal text styling instead of monospace <pre>
-      writeupEl.classList.remove("muted");
-      writeupEl.classList.add("prose");
+      writeupEl.classList.remove("muted"); // stop the faded text
+      writeupEl.classList.add("prose");    // ensure normal page typography
       writeupEl.innerHTML = writeupTextToHtml(text);
+
     } catch (werr) {
       writeupEl.innerHTML = `<p class="muted">${escapeHtml(werr.message || String(werr))}</p>`;
     }
