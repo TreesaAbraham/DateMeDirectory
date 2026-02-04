@@ -683,6 +683,12 @@ body.renderer-page .chart-media svg {
   display: block;
 }
 
+body.renderer-page .chart-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
 
 
 

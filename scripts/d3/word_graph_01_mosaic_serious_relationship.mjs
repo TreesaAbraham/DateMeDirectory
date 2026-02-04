@@ -65,6 +65,10 @@ const ROW_COLORS = {
   Female: "#00897B" // teal
 };
 
+// Padded viewBox so edge/negative-position labels don't get clipped in embeds
+const VB_PAD_X = 90; // left/right breathing room
+const VB_PAD_Y = 40; // top/bottom breathing room
+
 // ---------- Small helpers ----------
 
 function ensureDir(dirPath) {
@@ -106,10 +110,15 @@ function defineHatchPatterns(defs) {
       .attr("height", size);
 
     // background
-    pat.append("rect").attr("width", size).attr("height", size).attr("fill", baseColor);
+    pat
+      .append("rect")
+      .attr("width", size)
+      .attr("height", size)
+      .attr("fill", baseColor);
 
     // diagonal lines
-    pat.append("path")
+    pat
+      .append("path")
       .attr("d", `M -2 ${size} L ${size} -2 M 0 ${size + 2} L ${size + 2} 0`)
       .attr("stroke", lineColor)
       .attr("stroke-width", 2);
@@ -147,27 +156,39 @@ function draw({ rows, cols, counts, outPath, width, height }) {
   const dom = new JSDOM(`<!doctype html><html><body></body></html>`);
   const document = dom.window.document;
 
- const svg = select(document)
-  .select("body")
-  .append("svg")
-  .attr("xmlns", "http://www.w3.org/2000/svg")
-  .attr("width", width)
-  .attr("height", height)
-  .style(
-    "font-family",
-    '"DejaVu Serif", Georgia, "Times New Roman", Times, serif'
-  )
-  .style("font-size", "12px");
+  const svg = select(document)
+    .select("body")
+    .append("svg")
+    .attr("xmlns", "http://www.w3.org/2000/svg")
 
-/* Background: solid black */
-svg
-  .append("rect")
-  .attr("x", 0)
-  .attr("y", 0)
-  .attr("width", width)
-  .attr("height", height)
-  .attr("fill", "#000000");
+    // Keep natural size for export…
+    .attr("width", width)
+    .attr("height", height)
 
+    // …but make it responsive + prevent clipping when embedded
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style(
+      "font-family",
+      '"DejaVu Serif", Georgia, "Times New Roman", Times, serif'
+    )
+    .style("font-size", "12px");
+
+  // Background: solid black (covers the original width/height area)
+  // Note: because of padded viewBox, the “padding area” will show the page background.
+  // If you want black everywhere, draw a bigger rect using the padded extents.
+  svg
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", width)
+    .attr("height", height)
+    .attr("fill", "#000000");
 
   // Global text styling: white text with a dark outline for readability everywhere
   svg.append("style").text(`
@@ -237,7 +258,6 @@ svg
     const wFrac = colTotals[c] / overallTotal;
     const w = mosaicW * wFrac;
 
-    // No background rectangle (you asked to remove it)
     gLeft
       .append("text")
       .attr("x", colLabelX + w / 2)
@@ -259,7 +279,7 @@ svg
     const rowH = (rTotal / overallTotal) * (mosaicH - headerBand);
     const y0 = yTop - rowH;
 
-    // Row label on the left
+    // Row label on the left (note: x is negative, hence the padded viewBox)
     gLeft
       .append("text")
       .attr("x", -10)
@@ -282,7 +302,7 @@ svg
       // Fill: solid for Uses, patterned for Does-not
       const fill = isHatch
         ? `url(#hatch-${r.toLowerCase()})`
-        : (ROW_COLORS[r] ?? "#6BAED6");
+        : ROW_COLORS[r] ?? "#6BAED6";
 
       // Cell rect
       gLeft
@@ -345,7 +365,7 @@ svg
       .text(line);
   });
 
-  // Terms table (simple text-grid; reliable in SVG)
+  // Terms table
   const tableStartY = ruleStartY + DEFINITION_LINES.length * ruleLineH + 18;
 
   // Table header
@@ -363,7 +383,7 @@ svg
   const col1X = 0;
   const col2X = Math.floor(rightW * 0.55);
 
-  // Light guide line under header (white-ish, since background may be dark)
+  // Light guide line under header
   gRight
     .append("line")
     .attr("x1", 0)
@@ -397,7 +417,7 @@ svg
       .text(pair[1] ?? "");
   });
 
-  // Subtle bounding box around right panel content (white-ish for dark backgrounds)
+  // Subtle bounding box around right panel content
   gRight
     .append("rect")
     .attr("x", -8)
@@ -451,13 +471,9 @@ function main() {
     counts[`${r}||${c}`] = (counts[`${r}||${c}`] ?? 0) + n;
   }
 
-  // Ensure ordering rows/cols exist even if missing
-  const rows = ROW_ORDER;
-  const cols = COL_ORDER;
-
   draw({
-    rows,
-    cols,
+    rows: ROW_ORDER,
+    cols: COL_ORDER,
     counts,
     outPath,
     width: opts.width,
