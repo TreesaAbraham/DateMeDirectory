@@ -657,6 +657,32 @@ body.renderer-page .chart-media img {
   text-decoration: underline;
 }
 
+/* --- Fix text colors site-wide --- */
+
+/* All paragraphs should be black... */
+p,
+.prose p,
+.muted,
+.prose .muted {
+  color: #000 !important;
+}
+
+/* ...EXCEPT the site subtitle paragraph in the header */
+.site-header p,
+.site-header .muted {
+  color: inherit !important;
+}
+
+/* All h2 should be #223652... */
+h2 {
+  color: #223652 !important;
+}
+
+/* ...EXCEPT the h2 inside the header */
+.site-header h2 {
+  color: inherit !important;
+}
+
 
 
 
