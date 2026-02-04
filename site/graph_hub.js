@@ -49,11 +49,39 @@ function getRendererEntries(graph, renderer) {
 function detailHref(graphId, renderer, entryId) {
   const base = `/graphs/${encodeURIComponent(graphId)}/${encodeURIComponent(renderer)}.html`;
   if (!entryId) return base;
-  // graph.js already supports ?chart=<id>
   return `${base}?chart=${encodeURIComponent(entryId)}`;
 }
 
-// Renders ALL entries for a renderer (so Graph 03 and 08 show all 9 outputs)
+function isImageLike(url) {
+  const u = url.toLowerCase();
+  return (
+    u.endsWith(".png") ||
+    u.endsWith(".jpg") ||
+    u.endsWith(".jpeg") ||
+    u.endsWith(".webp") ||
+    u.endsWith(".svg")
+  );
+}
+
+function renderMedia(url, title) {
+  // Not clickable. Just display it.
+  if (isImageLike(url)) {
+    return `
+      <img
+        src="${escapeHtml(url)}"
+        alt="${escapeHtml(title)}"
+        loading="lazy"
+        style="width:100%;height:auto;display:block;"
+      />
+    `;
+  }
+
+  // If it's not an image (like an HTML output), don't try to embed it here.
+  // The "Open this version" link is how the user views it.
+  return `<div class="muted">This output is not an image preview. Use “Open this version”.</div>`;
+}
+
+// Renders ALL entries for a renderer (so Graph 03 and 08 show all outputs)
 function rendererSection({ graphId, renderer, entries }) {
   const label = rendererLabel(renderer);
 
@@ -85,27 +113,21 @@ function rendererSection({ graphId, renderer, entries }) {
         `;
       }
 
-      // NO captions. You asked. Humans love removing context.
       return `
         <figure class="chart-figure" style="margin-top:0.75rem;">
           <div class="chart-media" aria-label="${escapeHtml(title)} chart">
-            <a href="${link}" class="unstyled-link" title="Open renderer page">
-              <img
-                class="chart-img"
-                src="${escapeHtml(url)}"
-                alt="${escapeHtml(title)} for Graph ${escapeHtml(graphId)}"
-                loading="lazy"
-              />
-            </a>
+            ${renderMedia(url, title)}
           </div>
+
           <div class="muted" style="margin-top:0.35rem;">
-            <a class="small-link" href="${link}">Open this version</a>
+            <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
           </div>
         </figure>
       `;
     })
     .join("");
 
+  // Removed the redundant "Open renderer page" link entirely.
   return `
     <article class="card chart-card">
       <div class="chart-card-header">
@@ -113,9 +135,6 @@ function rendererSection({ graphId, renderer, entries }) {
         <span class="badge">${escapeHtml(label)}</span>
       </div>
       ${figures}
-      <div class="chart-links" style="margin-top:0.75rem;">
-        <a class="small-link" href="${detailHref(graphId, renderer, "")}">Open renderer page</a>
-      </div>
     </article>
   `;
 }
@@ -133,9 +152,8 @@ function contextBlock(graph) {
   const question = String(graph?.question || "").trim();
   const notes = String(graph?.notes || "").trim();
 
-  // method in your manifest is an array (good), but support string too.
   const methodVal = graph?.method;
-  const methodList = Array.isArray(methodVal) ? methodVal : (methodVal ? [String(methodVal)] : []);
+  const methodList = Array.isArray(methodVal) ? methodVal : methodVal ? [String(methodVal)] : [];
 
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
@@ -200,7 +218,6 @@ async function main() {
     const sEntries = getRendererEntries(graph, "seaborn");
     const dEntries = getRendererEntries(graph, "d3");
 
-    // Writeup: prefer any renderer entry’s writeup, otherwise default
     const writeupPath =
       (mEntries[0]?.writeup || sEntries[0]?.writeup || dEntries[0]?.writeup || "").trim() ||
       `writeups/graphs/${graphId}.txt`;
@@ -210,11 +227,6 @@ async function main() {
         <div class="container">
           <div class="section-header prose">
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
-            <p class="muted" style="margin-top:0.35rem;">
-              One graph, multiple outputs.
-              <span class="muted"> · </span>
-              <a href="/#charts">Back to homepage</a>
-            </p>
           </div>
 
           <div class="grid">
@@ -232,7 +244,6 @@ async function main() {
       </section>
     `;
 
-    // Load writeup text
     const writeupEl = document.getElementById("hub-writeup");
     try {
       const text = await loadWriteup(writeupPath);

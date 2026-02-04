@@ -593,28 +593,37 @@ hr {
 
 
 /* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
+/* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
 .hub-home-link {
   font-size: clamp(2.4rem, 4vw, 3.4rem); /* very big, responsive */
   font-weight: 900;
 
-  color: #00897B !important;            /* teal */
+  color: #223652 !important;            /* teal */
   text-decoration: none;
   background-image: none;               /* kill the global underline */
 
-  /* optional: make it feel clickable */
-  padding: 0.35rem 0.85rem;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 137, 123, 0.35);
-  box-shadow: 0 12px 26px rgba(10, 18, 32, 0.18);
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Hover: teal pops more */
-.hub-home-link:hover {
-  color: #223652 !important;
-  transform: translateY(-1px);
+
+/* Graph pages: big obvious "Date Me Directory" home link */
+.hub-home-link {
+  display: inline-block;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+
+  /* teal (not grecian blue) */
+  color: #1aa6a6;
+
+  text-decoration: none;
+  line-height: 1.05;
 }
+
+.hub-home-link:hover,
+.hub-home-link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
 
