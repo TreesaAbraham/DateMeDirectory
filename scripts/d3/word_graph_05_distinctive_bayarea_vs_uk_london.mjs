@@ -277,8 +277,8 @@ async function main() {
     subtitle: `Top ${topN} per side. Bars are z-scores (Bay positive, UK negative).`,
     leftColor: "#B84CF0",   // UK/London
     rightColor: "#2F6FED",  // Bay Area
-    textColor: "#EAEAEA",
-    axisColor: "#EAEAEA",
+    textColor: "#000000",
+    axisColor: "#000000",
   });
 
   ensureDir(outPath);
