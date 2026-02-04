@@ -52,108 +52,16 @@ function detailHref(graphId, renderer, entryId) {
   return `${base}?chart=${encodeURIComponent(entryId)}`;
 }
 
-function isImageLike(url) {
-  const u = url.toLowerCase();
-  return (
-    u.endsWith(".png") ||
-    u.endsWith(".jpg") ||
-    u.endsWith(".jpeg") ||
-    u.endsWith(".webp") ||
-    u.endsWith(".svg")
-  );
-}
-
-function renderMedia(url, title) {
-  // Not clickable. Just display it.
-  if (isImageLike(url)) {
-    return `
-      <img
-        src="${escapeHtml(url)}"
-        alt="${escapeHtml(title)}"
-        loading="lazy"
-        style="width:100%;height:auto;display:block;"
-      />
-    `;
-  }
-
-  // If it's not an image (like an HTML output), don't try to embed it here.
-  // The "Open this version" link is how the user views it.
-  return `<div class="muted">This output is not an image preview. Use “Open this version”.</div>`;
-}
-
-// Renders ALL entries for a renderer (so Graph 03 and 08 show all outputs)
-function rendererSection({ graphId, renderer, entries }) {
-  const label = rendererLabel(renderer);
-
-  if (!entries.length) {
-    return `
-      <article class="card chart-card">
-        <div class="chart-card-header">
-          <h3 class="card-title">${escapeHtml(label)}</h3>
-          <span class="badge">${escapeHtml(label)}</span>
-        </div>
-        <p class="muted">No ${escapeHtml(label)} outputs linked in the manifest yet.</p>
-      </article>
-    `;
-  }
-
-  const figures = entries
-    .map((entry, idx) => {
-      const url = toRootedUrl(entry?.url || "");
-      const entryId = String(entry?.id || "").trim();
-      const link = detailHref(graphId, renderer, entryId);
-      const ordinal = entries.length > 1 ? ` ${idx + 1}/${entries.length}` : "";
-      const title = `${label}${ordinal}`;
-
-      if (!url) {
-        return `
-          <div class="muted" style="margin-top:0.75rem;">
-            Missing url for ${escapeHtml(label)} entry ${escapeHtml(entryId || String(idx + 1))}.
-          </div>
-        `;
-      }
-
-      return `
-        <figure class="chart-figure" style="margin-top:0.75rem;">
-          <div class="chart-media" aria-label="${escapeHtml(title)} chart">
-            ${renderMedia(url, title)}
-          </div>
-
-          <div class="muted" style="margin-top:0.35rem;">
-            <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
-          </div>
-        </figure>
-      `;
-    })
-    .join("");
-
-  // Removed the redundant "Open renderer page" link entirely.
-  return `
-    <article class="card chart-card">
-      <div class="chart-card-header">
-        <h3 class="card-title">${escapeHtml(label)}</h3>
-        <span class="badge">${escapeHtml(label)}</span>
-      </div>
-      ${figures}
-    </article>
-  `;
-}
-
-async function loadWriteup(writeupPath) {
-  const url = toRootedUrl(writeupPath);
-  if (!url) return null;
-
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Writeup not found (${res.status})`);
-  return res.text();
-}
-
 function contextBlock(graph) {
   const question = String(graph?.question || "").trim();
   const notes = String(graph?.notes || "").trim();
 
   const methodVal = graph?.method;
-  const methodList = Array.isArray(methodVal) ? methodVal : methodVal ? [String(methodVal)] : [];
+  const methodList = Array.isArray(methodVal)
+    ? methodVal
+    : methodVal
+      ? [String(methodVal)]
+      : [];
 
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
@@ -169,7 +77,11 @@ function contextBlock(graph) {
     <article class="card">
       <h3 class="card-title">Context</h3>
       <div class="prose">
-        ${question ? `<h4>Question</h4><p>${escapeHtml(question)}</p>` : `<p class="muted">No question yet.</p>`}
+        ${
+          question
+            ? `<h4>Question</h4><p>${escapeHtml(question)}</p>`
+            : `<p class="muted">No question yet.</p>`
+        }
 
         <h4>Method</h4>
         ${methodHtml}
@@ -181,6 +93,74 @@ function contextBlock(graph) {
       </div>
     </article>
   `;
+}
+
+// Renders ALL entries for a renderer (so Graph 03 and 08 show all outputs)
+function rendererSection({ graphId, renderer, entries }) {
+  const label = rendererLabel(renderer);
+
+  if (!entries.length) {
+    return `
+      <article class="card chart-card">
+        <div class="chart-card-header">
+          <h3 class="card-title">${escapeHtml(label)}</h3>
+        </div>
+        <p class="muted">No ${escapeHtml(label)} outputs linked in the manifest yet.</p>
+      </article>
+    `;
+  }
+
+  const multiple = entries.length > 1;
+
+  const figures = entries
+    .map((entry, idx) => {
+      const url = toRootedUrl(entry?.url || "");
+      const entryId = String(entry?.id || "").trim();
+      const link = detailHref(graphId, renderer, entryId);
+
+      const ordinal = multiple ? ` ${idx + 1}/${entries.length}` : "";
+      const title = `${label}${ordinal}`;
+
+      if (!url) {
+        return `
+          <div class="muted" style="margin-top:0.75rem;">
+            Missing url for ${escapeHtml(label)} entry ${escapeHtml(entryId || String(idx + 1))}.
+          </div>
+        `;
+      }
+
+      // Chart is NOT a link. Only "Open this version" is a link.
+      return `
+        <figure class="chart-figure" style="margin-top:0.75rem;">
+          <div class="chart-media" aria-label="${escapeHtml(title)} chart">
+            <img src="${escapeHtml(url)}" alt="${escapeHtml(title)} chart" loading="lazy" />
+          </div>
+
+          <div class="muted" style="margin-top:0.35rem;">
+            <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
+          </div>
+        </figure>
+      `;
+    })
+    .join("");
+
+  return `
+    <article class="card chart-card">
+      <div class="chart-card-header">
+        <h3 class="card-title">${escapeHtml(label)}</h3>
+      </div>
+      ${figures}
+    </article>
+  `;
+}
+
+async function loadWriteup(writeupPath) {
+  const url = toRootedUrl(writeupPath);
+  if (!url) return null;
+
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Writeup not found (${res.status})`);
+  return res.text();
 }
 
 async function main() {
@@ -218,6 +198,7 @@ async function main() {
     const sEntries = getRendererEntries(graph, "seaborn");
     const dEntries = getRendererEntries(graph, "d3");
 
+    // Writeup: prefer any renderer entry’s writeup, otherwise default
     const writeupPath =
       (mEntries[0]?.writeup || sEntries[0]?.writeup || dEntries[0]?.writeup || "").trim() ||
       `writeups/graphs/${graphId}.txt`;
