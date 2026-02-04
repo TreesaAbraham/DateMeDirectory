@@ -618,6 +618,24 @@ hr {
   margin-bottom: 1rem;
 }
 
+.renderer-frame {
+  width: 100%;
+  height: 80vh;
+  border: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#vis svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
 
 
 
