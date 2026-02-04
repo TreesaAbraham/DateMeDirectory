@@ -111,7 +111,7 @@
     {
       "graph_id": "03",
       "slug": "graph-03",
-      "title": "Does Complexity Attract More Interest? Word Complexity based on Gender Preferences",
+      "title": "Does Complexity Attract More Interest? Word Complexity Based on Gender Preferences",
       "question": "When gender preference changes, how does word complexity across genders (male, female, non-binary) change?",
       "method": [
         "Profile text was tokenized into words and lowercased.",
@@ -195,7 +195,7 @@
     {
       "graph_id": "08",
       "slug": "graph-08",
-      "title": "Does Complexity Attract More Interest? Sentence Complexity based on Gender Preferences",
+      "title": "Does Complexity Attract More Interest? Sentence Complexity Based on Gender Preferences",
       "question": "When gender preference changes, how does sentence complexity across genders (male, female, non-binary) change?",
       "method": [
         "A sentence was defined as complex if it contained at least 21 words (threshold configurable).",

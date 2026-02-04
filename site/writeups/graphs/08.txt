@@ -1,13 +1,13 @@
 This graph analyzes sentence complexity, grouped by the gender the profile author is interested in. The goal is to see whether sentence structure (short/simple vs longer/more complex) varies across the “interested in” categories.
 
-## What the chart shows
+What the chart shows
 - Sentence complexity compared across three groups:
   - interested in men
   - interested in women
   - interested in non-binary people
 - Whether one group tends to write longer/more structurally complex sentences.
 
-## Why this matters
+Significance
 Sentence complexity can reflect how people choose to present themselves:
 - detailed narrative bios vs quick punchy bios,
 - formal tone vs casual tone,
@@ -17,3 +17,4 @@ Sentence complexity can reflect how people choose to present themselves:
 - Complexity can be distorted by punctuation habits, emojis, and formatting.
 - Longer bios naturally tend to produce more complex sentences.
 - This is descriptive of the dataset, not a claim about any group universally.
+s

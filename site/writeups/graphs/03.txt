@@ -1,16 +1,16 @@
 This graph explores how word complexity varies based on the gender the profile author is interested in. The same underlying metric is compared across three groups (interested in men, interested in women, interested in non-binary people), allowing us to see whether writing style differs by stated preference.
 
-## What the chart shows
+What the chart shows
 - A comparison of complexity levels across the “interested in” categories.
 - Whether one group tends to use more complex wording on average or shows greater variation.
 
-## How to interpret it
+How to interpret it
 If one group appears more complex, that could reflect:
 - different self-presentation strategies (formal vs casual tone),
 - differences in topics being discussed (career-heavy bios vs short playful bios),
 - differences in profile length (longer bios can naturally include more complex vocabulary).
 
-## Caveats
+Caveats
 - “Interested in” is self-reported and not always filled in consistently.
 - Complexity measures are sensitive to length and punctuation style.
 - This is descriptive of this dataset, not a universal statement about how any group writes.

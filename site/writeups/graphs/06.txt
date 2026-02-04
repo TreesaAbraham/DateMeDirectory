@@ -1,11 +1,10 @@
 This graph looks at em dash usage across profiles. Em dashes are a punctuation choice that often correlates with a particular writing style (informal, conversational, or “stream of thought”), so measuring their frequency can give a lightweight signal about tone.
-
-## What the chart shows
+ What the chart shows
 Depending on renderer/version, you may see:
 - em dash frequency per profile, or
 - bucketed counts showing how many profiles fall into low vs high usage.
 
-## How to interpret it
+Interpretation
 Higher em dash rates can reflect:
 - more narrative-style bios,
 - more sentence fragments or asides,
@@ -16,7 +15,7 @@ Lower em dash rates can reflect:
 - more bullet-style writing,
 - more formal punctuation preferences.
 
-## Caveats
+Caveats
 - Some users use hyphens (`-`) instead of em dashes (`—`), which may undercount “em dash style.”
 - Length matters: longer profiles have more opportunities to use punctuation.
 - This is a stylistic marker, not a personality diagnosis (unfortunately).
