@@ -671,18 +671,6 @@ html, body {
   object-fit: contain;
 }
 
-/* Thumbnail cards can keep their aspect ratio */
-.chart-card .chart-media {
-  aspect-ratio: 16 / 9;   /* or whatever you had */
-  overflow: hidden;       /* fine for thumbnails */
-}
-
-/* Detail pages must not crop */
-body.renderer-page .chart-media {
-  aspect-ratio: auto;
-  overflow: visible;
-  height: auto;
-}
 
 
 
