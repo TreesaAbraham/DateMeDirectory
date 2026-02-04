@@ -58,6 +58,24 @@
   --lh-tight: 1.18;
 }
 
+/* ===== Requested text color rules ===== */
+
+/* All h2 tags are #223652 EXCEPT the header h2 */
+h2 { color: #223652; }
+.site-header h2 { color: #fff; }
+
+/* All paragraph text is black EXCEPT the site subtitle paragraph in the header */
+p,
+.prose p { color: #000; }
+
+/* Keep header subtitle light (this is the "site subtitle") */
+.site-header .site-subtitle { color: rgba(255, 255, 255, 0.88); }
+
+/* Optional: if you still use .muted, keep it readable but not white */
+.muted { color: rgba(0,0,0,0.70); }
+.site-header .muted { color: rgba(255,255,255,0.70); }
+
+
 /* -----------------------------
    Base
 ------------------------------ */
@@ -202,46 +220,7 @@ a:hover {
    Section headers
    Default: plain (NO random navy lines)
 ------------------------------ */
-.section-header {
-  background: transparent;
-  border: 0;
-  padding: 0;
-  margin-bottom: 1.25rem;
-  text-align: left;
-}
 
-.section-header::after { content: none !important; }
-
-/* White text inside those blue bands */
-#overview .section-header,
-#graphs .section-header,
-#appendix .section-header,
-#notes .section-header { color: #fff; }
-
-#overview .section-header *,
-#graphs .section-header *,
-#appendix .section-header *,
-#notes .section-header * { color: #fff !important; }
-
-/* Bigger title on those bands (Graph directory becomes prominent) */
-#overview .section-header h2,
-#graphs .section-header h2,
-#appendix .section-header h2,
-#notes .section-header h2 {
-  font-size: clamp(2rem, 3vw, 2.6rem);
-  margin: 0;
-  letter-spacing: -0.3px;
-}
-
-/* Subtitle within the band (if present) */
-#overview .section-header p,
-#graphs .section-header p,
-#appendix .section-header p,
-#notes .section-header p {
-  margin: 0.6rem auto 0;
-  max-width: 70ch;
-  color: rgba(255, 255, 255, 0.88) !important;
-}
 
 /* -----------------------------
    Top layout (overview + context card)
