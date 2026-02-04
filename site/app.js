@@ -125,7 +125,7 @@ function featuredSectionHtml() {
         <div class="prose" style="margin-bottom:0.75rem;">
           <h2 style="margin:0;">Featured graphs</h2>
           <p class="muted" style="margin:0.35rem 0 0;">
-            My personal favorites (because you’re allowed to have opinions).
+            My personal favorites.
           </p>
         </div>
 
@@ -135,6 +135,7 @@ function featuredSectionHtml() {
       </div>
     </section>
   `;
+
 }
 
 function graphCardHtml(graph) {
