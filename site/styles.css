@@ -1,212 +1,600 @@
-/* site/styles.css */
+/* Date Me Directory — Deep Sea (Controlled) Theme
+   Palette anchors:
+   Grecian Blue: #2988BC
+   Sea:          #2F496E
+   Plaster:      #F4EADE
+   Coral:        #ED8C72
+*/
 
-/* ---------- Theme ---------- */
+/* -----------------------------
+   Tokens
+------------------------------ */
 :root {
-  --bg: #f6f0e6;
-  --panel: #fbf7f1;
-  --ink: #102a43;
-  --muted: #486581;
-  --border: rgba(16, 42, 67, 0.18);
+  --blue: #2988BC;
+  --sea: #2F496E;
+  --plaster: #F4EADE;
+  --coral: #ED8C72;
 
-  --link: #1d72b8;
-  --link-hover: #145a8d;
+  /* tight variations (still same family) */
+  --sea-2: #223652;
+  --sea-3: #465f83;
+  --blue-2: #1F6F9E;
+  --blue-3: #6FB7DA;
+  --plaster-2: #FBF4EA;
+  --plaster-3: #EDE2D3;
+  --coral-2: #D8755C;
+  --coral-3: #F2A28E;
 
-  --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --ink: #000000;
+  --muted: rgba(0, 0, 0, 0.70);
+
+  --border: rgba(47, 73, 110, 0.22);
+  --border-strong: rgba(47, 73, 110, 0.34);
+
+  --panel: rgba(251, 244, 234, 0.94);
+
+  --shadow: 0 20px 54px rgba(34, 54, 82, 0.20);
+  --shadow-sm: 0 12px 26px rgba(34, 54, 82, 0.14);
+
+  --max: 1080px;
+  --prose: 74ch;
+
   --radius: 18px;
+  --radius-sm: 12px;
+
+  --section-y: 3rem;
+  --section-y-lg: 4.2rem;
+
+  --font-serif: ui-serif, Iowan Old Style, Palatino Linotype, Palatino, Garamond, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --h1: clamp(2.35rem, 3.5vw, 3.2rem);
+  --h2: clamp(1.6rem, 2.25vw, 2.15rem);
+  --h3: 1.22rem;
+  --body: 1.05rem;
+  --small: 0.92rem;
+
+  --lh: 1.70;
+  --lh-tight: 1.18;
 }
 
+/* -----------------------------
+   Base
+------------------------------ */
 * { box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  background: var(--bg);
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--body);
+  line-height: var(--lh);
   color: var(--ink);
-  line-height: 1.5;
+
+  /* IMPORTANT:
+     No page-wide navy bands. Navy should show ONLY in header + selected section headers. */
+  background:var(--plaster);
 }
 
-/* ---------- Layout ---------- */
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+:focus-visible {
+  outline: 3px solid rgba(41, 136, 188, 0.45);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+/* Optional utility: any element you explicitly mark as blue-surface forces white text */
+.blue-surface,
+.blue-surface * {
+  color: #ffffff !important;
+}
+
+/* -----------------------------
+   Typography
+------------------------------ */
+h1, h2, h3 {
+  line-height: var(--lh-tight);
+  margin: 0 0 0.65rem;
+  letter-spacing: -0.2px;
+}
+
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); color: var(--sea-2); }
+h3 { font-size: var(--h3); color: var(--sea-2); }
+
+p {
+  margin: 0 0 1rem;
+  color: #000; /* forced black for paragraphs (per your requirement) */
+}
+
+.muted { color: var(--muted); }
+p.muted { color: var(--muted); }
+
+ul, ol { margin: 0.6rem 0 1rem 1.25rem; padding: 0; }
+li { margin: 0.35rem 0; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  padding: 0.14rem 0.38rem;
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  border-radius: 10px;
+  background: rgba(251, 244, 234, 0.95);
+  color: var(--sea-2);
+}
+
+/* Links: blue underline, coral hover */
+a {
+  color: var(--blue);
+  text-decoration: none;
+  background-image: linear-gradient(to right, rgba(41, 136, 188, 0.65), rgba(41, 136, 188, 0.65));
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
+}
+a:hover {
+  color: var(--coral-2);
+  background-image: linear-gradient(to right, rgba(237, 140, 114, 0.80), rgba(237, 140, 114, 0.80));
+}
+
+/* -----------------------------
+   Layout
+------------------------------ */
 .container {
-  width: min(1100px, calc(100% - 2rem));
-  margin: 0 auto;
+  width: min(var(--max), calc(100% - 2rem));
+  margin-inline: auto;
 }
 
-.section {
-  padding: 2.25rem 0;
+.prose { max-width: var(--prose); }
+
+.section { padding: var(--section-y) 0; }
+@media (min-width: 900px) { .section { padding: var(--section-y-lg) 0; } }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  padding: 0.6rem 0.8rem;
+  background: var(--plaster-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.skip-link:focus { left: 1rem; top: 1rem; z-index: 1000; }
+
+/* -----------------------------
+   Site header (navy = white text)
+------------------------------ */
+.site-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(900px 420px at 18% 20%, rgba(41, 136, 188, 0.35) 0%, rgba(41, 136, 188, 0) 62%),
+    linear-gradient(180deg, rgba(34, 54, 82, 0.96) 0%, rgba(47, 73, 110, 0.92) 60%, rgba(47, 73, 110, 0.78) 100%);
 }
 
+.site-header .container { padding: 2.35rem 0 1.35rem; }
+
+/* Anytime background is blue/navy (header), text must be white */
+.site-header,
+.site-header * { color: #fff; }
+
+/* kill link underline decoration inside header */
+.site-header a { background-image: none; padding-bottom: 0; }
+
+.site-title { margin: 0; color: #ffffff; }
+
+.site-subtitle {
+  margin: 0.6rem 0 1.2rem;
+  max-width: var(--prose);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Nav buttons: centered text */
+.site-nav {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+
+
+
+/* -----------------------------
+   Section headers
+   Default: plain (NO random navy lines)
+------------------------------ */
 .section-header {
+  background: transparent;
+  border: 0;
+  padding: 0;
   margin-bottom: 1.25rem;
+  text-align: left;
 }
 
+.section-header::after { content: none !important; }
+
+/* Gradient background ONLY behind the H2 text in the three main headers */
+#overview .section-header h2,
+#graphs .section-header h2,
+#appendix .section-header h2,
+#notes .section-header h2 {
+  display: inline-block;              /* so background wraps text only */
+  padding: 0.45rem 0.85rem;
+  border-radius: 14px;
+
+  /* Grecian Blue → teal (teal uses your existing palette family) */
+  background: linear-gradient(90deg, var(--blue), #00897B);
+
+  color: #ffffff !important;
+
+  /* remove any inherited text effects */
+  text-shadow: none;
+}
+
+
+/* White text inside those blue bands */
+#overview .section-header,
+#graphs .section-header,
+#appendix .section-header,
+#notes .section-header { color: #fff; }
+
+#overview .section-header *,
+#graphs .section-header *,
+#appendix .section-header *,
+#notes .section-header * { color: #fff !important; }
+
+/* Bigger title on those bands (Graph directory becomes prominent) */
+#overview .section-header h2,
+#graphs .section-header h2,
+#appendix .section-header h2,
+#notes .section-header h2 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Subtitle within the band (if present) */
+#overview .section-header p,
+#graphs .section-header p,
+#appendix .section-header p,
+#notes .section-header p {
+  margin: 0.6rem auto 0;
+  max-width: 70ch;
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* -----------------------------
+   Top layout (overview + context card)
+------------------------------ */
+.top-layout {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .top-layout { grid-template-columns: minmax(0, 1fr) 390px; }
+}
+
+@media (min-width: 900px) {
+  .context-card { position: sticky; top: 1rem; }
+}
+
+.context-block {
+  padding: 0.7rem 0;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
+}
+.context-block:first-of-type { border-top: none; padding-top: 0; }
+
+.context-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(47, 73, 110, 0.80);
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+/* -----------------------------
+   Grid / Cards
+------------------------------ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1rem;
+  gap: clamp(1rem, 2.2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
-@media (max-width: 980px) {
-  .grid { grid-template-columns: 1fr; }
-}
-
-/* ---------- Type ---------- */
-h1, h2, h3, h4 {
-  margin: 0 0 0.75rem 0;
-  letter-spacing: -0.02em;
-}
-
-h1 { font-size: clamp(2rem, 5vw, 3.1rem); }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); }
-h3 { font-size: 1.35rem; }
-h4 { font-size: 1.05rem; color: var(--muted); }
-
-.prose p { margin: 0 0 0.9rem 0; }
-.prose ul, .prose ol { margin: 0.25rem 0 1rem 1.25rem; }
-.prose code {
-  background: rgba(16, 42, 67, 0.06);
-  border: 1px solid rgba(16, 42, 67, 0.10);
-  border-radius: 8px;
-  padding: 0.1rem 0.35rem;
-}
-
-/* ---------- Cards ---------- */
 .card {
-  grid-column: span 12;
   background: var(--panel);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.2rem 1.2rem;
+  padding: 1.2rem;
+
+  border: 1px solid rgba(47, 73, 110, 0.26);
+  border-top: 6px solid rgba(41, 136, 188, 0.90);
+
   box-shadow: var(--shadow);
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.card-title {
-  margin: 0;
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(41, 136, 188, 0.45);
+  box-shadow: 0 26px 66px rgba(34, 54, 82, 0.22);
 }
 
-.chart-card {
-  grid-column: span 4;
+.card-title { margin: 0 0 0.45rem; color: var(--sea-2); }
+.card-body { margin: 0 0 0.9rem; }
+
+/* Cards used as links should not inherit link underline */
+a.card {
+  display: block;
+  color: inherit;
+  background-image: none;
+  padding-bottom: 0;
 }
 
-@media (max-width: 980px) {
-  .chart-card { grid-column: span 12; }
+/* Badge (blue/navy with coral hint) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.24rem 0.64rem;
+  font-size: 0.78rem;
+  border-radius: 999px;
+  border: 1px solid rgba(237, 140, 114, 0.35);
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.78));
+  white-space: nowrap;
 }
 
-/* Header row inside chart cards */
+/* -----------------------------
+   Callouts
+------------------------------ */
+.callouts {
+  display: grid;
+  gap: 1.1rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .callouts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.callout {
+  background: rgba(251, 244, 234, 0.96);
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  border-radius: var(--radius);
+  padding: 1rem 1rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.callout::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10px;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.92));
+}
+
+.callout-title {
+  font-weight: 850;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.1px;
+  color: var(--sea-2);
+}
+
+.callout p { margin: 0; }
+
+.callout-warn::before {
+  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(41, 136, 188, 0.78));
+}
+
+/* -----------------------------
+   Details / Summary
+------------------------------ */
+.details {
+  margin-top: 1rem;
+  border: 1px solid rgba(47, 73, 110, 0.26);
+  border-left: 10px solid rgba(41, 136, 188, 0.90);
+  border-radius: var(--radius);
+  background: rgba(251, 244, 234, 0.96);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.details > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.95rem 1rem;
+  user-select: none;
+  position: relative;
+}
+
+.details > summary::-webkit-details-marker { display: none; }
+
+.details > summary::after {
+  content: "▾";
+  position: absolute;
+  right: 1rem;
+  top: 1.05rem;
+  color: rgba(47, 73, 110, 0.85);
+  transform: rotate(0deg);
+  transition: transform 160ms ease;
+}
+
+.details[open] > summary::after { transform: rotate(180deg); }
+
+.summary-title { font-weight: 900; color: var(--sea-2); }
+.summary-hint {
+  font-size: var(--small);
+  color: rgba(47, 73, 110, 0.78);
+  margin-top: 0.25rem;
+}
+
+.details-body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
+}
+
+/* -----------------------------
+   Charts
+------------------------------ */
 .chart-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-/* ---------- Muted text ---------- */
-.muted {
-  color: var(--muted);
-}
-
-/* ---------- Charts ---------- */
-.chart-figure {
-  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .chart-media {
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) - 6px);
-  background: #fff;
-  padding: 0.75rem;
+  border: 1px solid rgba(47, 73, 110, 0.28);
+  border-top: 4px solid rgba(41, 136, 188, 0.78);
+  border-radius: calc(var(--radius) - 4px);
+  padding: 0.9rem;
+  background: rgba(244, 234, 222, 0.72);
+  min-height: 200px;
+  display: grid;
+  place-items: center;
   overflow: hidden;
+
+  aspect-ratio: 16 / 10;
+  width: 100%;
 }
 
 .chart-media img,
 .chart-media svg {
-  display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* ---------- Writeup area ---------- */
+.chart-placeholder {
+  color: rgba(47, 73, 110, 0.78);
+  font-size: var(--small);
+}
+
+/* -----------------------------
+   Writeups
+------------------------------ */
 .writeup {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.25rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(47, 73, 110, 0.14);
 }
 
 .writeup-title {
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.45rem;
+  font-size: 1.02rem;
+  font-weight: 900;
+  color: var(--sea-2);
 }
 
 .writeup pre {
-  margin: 0;
-  white-space: pre-wrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.95rem;
-  background: rgba(16, 42, 67, 0.04);
-  border: 1px solid rgba(16, 42, 67, 0.10);
-  border-radius: 14px;
-  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  padding: 0.85rem;
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  border-radius: calc(var(--radius) - 4px);
+  background: rgba(251, 244, 234, 0.96);
+  overflow: auto;
 }
 
-/* ---------- Links ---------- */
-/* Global link styling: no stupid highlight blocks */
-a {
-  color: var(--link);
+/* -----------------------------
+   Buttons (if used)
+------------------------------ */
+.button, button {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  padding: 0.64rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.96), rgba(41, 136, 188, 0.78));
+  box-shadow: 0 14px 28px rgba(10, 18, 32, 0.22);
+
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+
+  background-image: none;
+}
+
+.button:hover, button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(237, 140, 114, 0.45);
+  box-shadow: 0 18px 36px rgba(10, 18, 32, 0.28);
+}
+
+.button.secondary, button.secondary {
+  background: rgba(251, 244, 234, 0.95);
+  color: var(--sea-2);
+  border: 1px solid rgba(47, 73, 110, 0.26);
+}
+
+/* -----------------------------
+   Footer
+------------------------------ */
+.site-footer {
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  padding: 1.6rem 0;
+  background: linear-gradient(180deg, rgba(244, 234, 222, 0.92), rgba(244, 234, 222, 0.78));
+}
+
+.site-footer p { margin: 0; }
+
+/* -----------------------------
+   Dividers
+------------------------------ */
+hr {
+  border: none;
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  margin: 1.4rem 0;
+}
+
+
+
+
+/* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
+/* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
+.hub-home-link {
+  font-size: clamp(2.4rem, 4vw, 3.4rem); /* very big, responsive */
+  font-weight: 900;
+
+  color: #223652 !important;            /* teal */
+  text-decoration: none;
+  background-image: none;               /* kill the global underline */
+
+}
+
+
+/* Graph pages: big obvious "Date Me Directory" home link */
+.hub-home-link {
+  display: inline-block;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+
+  /* teal (not grecian blue) */
+  color: #1aa6a6;
+
+  text-decoration: none;
+  line-height: 1.05;
+}
+
+.hub-home-link:hover,
+.hub-home-link:focus-visible {
   text-decoration: underline;
-  text-underline-offset: 0.18em;
-  background: transparent;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
 }
 
-a:hover {
-  color: var(--link-hover);
-  background: transparent; /* kills orange / beige hover fills */
-}
 
-/* The "Open this version" link should look like a clean text link */
-.small-link {
-  display: inline;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-/* If your browser/theme is forcing a hover background, we force it back off */
-.small-link:hover,
-.small-link:focus,
-.small-link:active {
-  background: transparent !important;
-}
-
-/* ---------- Kill the pill capsule / badges ---------- */
-/* Hub page can still show labels if you want, but we make them not pill-y */
-.badge {
-  background: transparent;
-  border: 0;
-  padding: 0;
-  border-radius: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  box-shadow: none;
-}
-
-/* Renderer pages: remove the badge entirely (the capsule you hate) */
-.page-renderer .badge {
-  display: none !important;
-}
-
-/* ---------- Hide Context + Writeup on renderer detail pages ONLY ---------- */
-/* (Graph hub keeps them because it does NOT have .page-renderer on body) */
-.page-renderer .writeup,
-.page-renderer .context,
-.page-renderer #hub-writeup,
-.page-renderer .hub-writeup,
-.page-renderer .context-block {
-  display: none !important;
-}
