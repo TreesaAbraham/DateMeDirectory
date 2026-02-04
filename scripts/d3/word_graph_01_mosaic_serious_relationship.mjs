@@ -182,13 +182,15 @@ function draw({ rows, cols, counts, outPath, width, height }) {
   // Background: solid black (covers the original width/height area)
   // Note: because of padded viewBox, the “padding area” will show the page background.
   // If you want black everywhere, draw a bigger rect using the padded extents.
-  svg
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", width)
-    .attr("height", height)
-    .attr("fill", "#000000");
+  // Background: cover the *entire* padded viewBox so edge labels don't spill onto page bg
+svg
+  .append("rect")
+  .attr("x", -VB_PAD_X)
+  .attr("y", -VB_PAD_Y)
+  .attr("width", width + VB_PAD_X * 2)
+  .attr("height", height + VB_PAD_Y * 2)
+  .attr("fill", "#000000");
+
 
   // Global text styling: white text with a dark outline for readability everywhere
   svg.append("style").text(`
