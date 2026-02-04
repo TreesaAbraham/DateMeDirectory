@@ -338,9 +338,9 @@ Edit graphs
   - [x] Output Directory: `.`
   - [x] Note: no `/site/` in asset paths
 
-- [ ] **Commit 6.2 — `chore(deploy): add vercel config`**
-  - [ ] Add root `vercel.json` (optional)
-    - [ ] `{ "cleanUrls": true }`
+- [x] **Commit 6.2 — `chore(deploy): add vercel config`**
+  - [x] Add root `vercel.json` (optional)
+    - [x] `{ "cleanUrls": true }`
 
 - [ ] **Commit 6.3 — `chore(site): preflight for deployment`**
   - [ ] Ensure every page uses consistent asset paths:
