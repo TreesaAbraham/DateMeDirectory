@@ -671,7 +671,17 @@ html, body {
   object-fit: contain;
 }
 
-
+body.renderer-page .chart-media {
+  aspect-ratio: auto;
+  height: auto;
+  overflow: visible;
+}
+body.renderer-page .chart-media img,
+body.renderer-page .chart-media svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
 
 
