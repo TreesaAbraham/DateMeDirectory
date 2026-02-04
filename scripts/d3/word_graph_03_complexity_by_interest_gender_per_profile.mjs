@@ -72,15 +72,14 @@ const outDir = args.outdir ? path.resolve(args.outdir) : DEFAULT_OUTDIR;
 const USE_WEIGHTED = args.unweighted ? false : true;
 
 // ---- Styling defaults (your request) ----
-const BG_COLOR = args.bgColor ?? "#000000";        // black background
-const TEXT_COLOR = args.textColor ?? "#EDEDED";    // light text on black
+const BG_COLOR = args.bgColor ?? "#000000"; // black background
+const TEXT_COLOR = args.textColor ?? "#EDEDED"; // light text on black
 const AXIS_COLOR = args.axisColor ?? "rgba(237,237,237,0.55)";
 const GRID_COLOR = args.gridColor ?? "rgba(237,237,237,0.12)";
 
 // serif text
 const FONT_FAMILY =
-  args.fontFamily ??
-  'ui-serif, Georgia, "Times New Roman", Times, serif';
+  args.fontFamily ?? 'ui-serif, Georgia, "Times New Roman", Times, serif';
 
 // Order and labels
 const SOURCE_ORDER = ["M", "F", "NB"];
@@ -93,12 +92,15 @@ const LABEL = {
 };
 
 // Per-chart colors
-// Women graph: fuchsia (not hot pink)
 const TARGET_COLOR = {
-  M: "#2563EB",   // blue
-  F: "#e20093ff",   // fuchsia
-  NB: "#7C3AED",  // purple
+  M: "#2563EB", // blue
+  F: "#e20093ff", // fuchsia
+  NB: "#7C3AED", // purple
 };
+
+// --- Responsive embed + anti-clipping padding (same idea as Graph 01) ---
+const VB_PAD_X = Number(args.vbPadX ?? 70); // left/right breathing room
+const VB_PAD_Y = Number(args.vbPadY ?? 40); // top/bottom breathing room
 
 // ---------------- Helpers ----------------
 function normGender(g) {
@@ -133,6 +135,7 @@ async function readCsv(p) {
     "word_count",
     "complex_pct",
   ]);
+
   for (const col of required) {
     if (!rows.columns.includes(col)) {
       throw new Error(
@@ -149,7 +152,8 @@ async function readCsv(p) {
       const wordCount = toNumber(r.word_count);
       const pct = clampPct(toNumber(r.complex_pct));
 
-      if (!id || !source || !target || wordCount == null || pct == null) return null;
+      if (!id || !source || !target || wordCount == null || pct == null)
+        return null;
       if (wordCount <= 0) return null;
 
       return {
@@ -225,14 +229,31 @@ function drawBarChart({ data, target }) {
   const dom = new JSDOM(`<!DOCTYPE html><body></body>`);
   const document = dom.window.document;
 
+  // Responsive SVG + padded viewBox to avoid clipping when embedded as <img>
+  const vbX = -VB_PAD_X;
+  const vbY = -VB_PAD_Y;
+  const vbW = width + VB_PAD_X * 2;
+  const vbH = height + VB_PAD_Y * 2;
+
   const svg = select(document.body)
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
     .attr("width", width)
     .attr("height", height)
-    .style("background", BG_COLOR)
+    .attr("viewBox", `${vbX} ${vbY} ${vbW} ${vbH}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
     .style("font-family", FONT_FAMILY)
-    .style("fill", TEXT_COLOR);
+    .style("font-size", "12px");
+
+  // Background: use a rect (reliable for SVG-in-IMG), covering the *padded* viewBox
+  svg
+    .append("rect")
+    .attr("x", vbX)
+    .attr("y", vbY)
+    .attr("width", vbW)
+    .attr("height", vbH)
+    .attr("fill", BG_COLOR);
 
   const title = `Word complexity (%) by profile gender`;
   const subtitle = `Looking for ${LABEL[target]} • ${
@@ -279,11 +300,7 @@ function drawBarChart({ data, target }) {
   const yMax = max(data, (d) => d.value) ?? 0;
   const yTop = Math.max(5, yMax * 1.15);
 
-  const x = scaleBand()
-    .domain(SOURCE_ORDER)
-    .range([0, innerW])
-    .padding(0.25);
-
+  const x = scaleBand().domain(SOURCE_ORDER).range([0, innerW]).padding(0.25);
   const y = scaleLinear().domain([0, yTop]).range([innerH, 0]);
 
   // Gridlines (subtle)
@@ -305,14 +322,22 @@ function drawBarChart({ data, target }) {
 
   g.append("g")
     .call(yAxis)
-    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9))
-    .call((sel) => sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1));
+    .call((sel) =>
+      sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9)
+    )
+    .call((sel) =>
+      sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1)
+    );
 
   g.append("g")
     .attr("transform", `translate(0,${innerH})`)
     .call(xAxis)
-    .call((sel) => sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9))
-    .call((sel) => sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1));
+    .call((sel) =>
+      sel.selectAll("text").attr("fill", TEXT_COLOR).attr("opacity", 0.9)
+    )
+    .call((sel) =>
+      sel.selectAll("path,line").attr("stroke", AXIS_COLOR).attr("opacity", 1)
+    );
 
   // Y label
   svg
@@ -329,9 +354,10 @@ function drawBarChart({ data, target }) {
   const fmt1 = format(".1f");
 
   g.append("g")
-    .selectAll("rect")
+    .selectAll("rect.bar")
     .data(data)
     .join("rect")
+    .attr("class", "bar")
     .attr("x", (d) => x(d.source_gender))
     .attr("y", (d) => y(d.value))
     .attr("width", x.bandwidth())
@@ -402,7 +428,9 @@ async function main() {
   }
 
   console.log(
-    `[done] charts=3 | aggregation=${USE_WEIGHTED ? "weighted(word_count)" : "unweighted"}`
+    `[done] charts=3 | aggregation=${
+      USE_WEIGHTED ? "weighted(word_count)" : "unweighted"
+    }`
   );
 }
 
