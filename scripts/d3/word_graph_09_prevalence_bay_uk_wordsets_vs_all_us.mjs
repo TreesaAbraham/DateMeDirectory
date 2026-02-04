@@ -30,6 +30,10 @@ const SERIES = [
   { key: "uk_wordset_rate_per_10k", label: "UK wordset / 10k", color: "#7B2CBF" },  // purple
 ];
 
+// ---- Padded viewBox so labels never get clipped in embeds ----
+const VB_PAD_X = 70;
+const VB_PAD_Y = 50;
+
 function ensureDirForFile(filePath) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
 }
@@ -90,13 +94,13 @@ function renderSvg(data, opts) {
     axisColor,
     title,
     subtitle,
+    fontFamily,
   } = opts;
 
   const groups = GROUP_ORDER.filter((g) => data.some((d) => d.group === g));
 
-  const yMax = d3.max(data, (d) =>
-    d3.max(SERIES, (s) => d[s.key])
-  ) ?? 0;
+  const yMax =
+    d3.max(data, (d) => d3.max(SERIES, (s) => d[s.key])) ?? 0;
 
   const x0 = d3
     .scaleBand()
@@ -122,25 +126,48 @@ function renderSvg(data, opts) {
   const svg = body
     .append("svg")
     .attr("xmlns", "http://www.w3.org/2000/svg")
-    .attr("width", width)
-    .attr("height", height);
 
-  // Background
-  svg
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", 0)
+    // export size
     .attr("width", width)
     .attr("height", height)
+
+    // embed-safe sizing
+    .attr(
+      "viewBox",
+      `${-VB_PAD_X} ${-VB_PAD_Y} ${width + VB_PAD_X * 2} ${height + VB_PAD_Y * 2}`
+    )
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("style", "max-width: 100%; height: auto; display: block;")
+
+    .style("font-family", fontFamily)
+    .style("font-size", "12px");
+
+  // Background: cover the *entire padded viewBox*
+  svg
+    .append("rect")
+    .attr("x", -VB_PAD_X)
+    .attr("y", -VB_PAD_Y)
+    .attr("width", width + VB_PAD_X * 2)
+    .attr("height", height + VB_PAD_Y * 2)
     .attr("fill", bgColor);
 
-  // Title top-right (so it won't fight the plot)
+  // Global text styling: keep it readable on dark bg
+  svg.append("style").text(`
+    text {
+      fill: ${textColor};
+      stroke: rgba(0,0,0,0.70);
+      stroke-width: 3px;
+      paint-order: stroke;
+      stroke-linejoin: round;
+    }
+  `);
+
+  // Title (top-right)
   svg
     .append("text")
     .attr("x", width - marginRight)
     .attr("y", 32)
     .attr("text-anchor", "end")
-    .attr("fill", textColor)
     .attr("font-size", 18)
     .attr("font-weight", 800)
     .text(title);
@@ -150,7 +177,6 @@ function renderSvg(data, opts) {
     .attr("x", width - marginRight)
     .attr("y", 52)
     .attr("text-anchor", "end")
-    .attr("fill", textColor)
     .attr("font-size", 12)
     .attr("opacity", 0.9)
     .text(subtitle);
@@ -169,9 +195,8 @@ function renderSvg(data, opts) {
     .attr("opacity", 0.10);
 
   // Bars
-  const g = svg.append("g");
-
-  const groupG = g
+  const groupG = svg
+    .append("g")
     .selectAll("g.group")
     .data(groups)
     .join("g")
@@ -185,7 +210,6 @@ function renderSvg(data, opts) {
       return SERIES.map((s) => ({
         group,
         seriesKey: s.key,
-        seriesLabel: s.label,
         color: s.color,
         value: row ? row[s.key] : NaN,
       }));
@@ -195,9 +219,7 @@ function renderSvg(data, opts) {
     .attr("x", (d) => x1(d.seriesKey))
     .attr("width", x1.bandwidth())
     .attr("y", (d) => (Number.isFinite(d.value) ? y(d.value) : y(0)))
-    .attr("height", (d) =>
-      Number.isFinite(d.value) ? y(0) - y(d.value) : 0
-    )
+    .attr("height", (d) => (Number.isFinite(d.value) ? y(0) - y(d.value) : 0))
     .attr("rx", 6)
     .attr("fill", (d) => d.color)
     .attr("opacity", 0.95);
@@ -208,7 +230,6 @@ function renderSvg(data, opts) {
     .data((group) => {
       const row = data.find((d) => d.group === group);
       return SERIES.map((s) => ({
-        group,
         seriesKey: s.key,
         value: row ? row[s.key] : NaN,
       }));
@@ -218,24 +239,23 @@ function renderSvg(data, opts) {
     .attr("x", (d) => (x1(d.seriesKey) ?? 0) + x1.bandwidth() / 2)
     .attr("y", (d) => (Number.isFinite(d.value) ? y(d.value) - 8 : y(0)))
     .attr("text-anchor", "middle")
-    .attr("fill", textColor)
     .attr("font-size", 11)
-    .attr("font-weight", 700)
+    .attr("font-weight", 800)
     .attr("opacity", 0.95)
     .text((d) => (Number.isFinite(d.value) ? d.value.toFixed(1) : ""));
 
   // X axis
-  const xAxis = d3
-    .axisBottom(x0)
-    .tickFormat((d) => GROUP_LABEL[d] ?? d);
-
+  const xAxis = d3.axisBottom(x0).tickFormat((d) => GROUP_LABEL[d] ?? d);
   const xG = svg
     .append("g")
     .attr("transform", `translate(0, ${height - marginBottom})`)
     .call(xAxis);
 
   xG.selectAll("path,line").attr("stroke", axisColor).attr("opacity", 0.7);
-  xG.selectAll("text").attr("fill", textColor).attr("font-size", 12).attr("font-weight", 700);
+  xG.selectAll("text")
+    .attr("fill", textColor)
+    .attr("font-size", 12)
+    .attr("font-weight", 800);
 
   // Y axis
   const yAxis = d3.axisLeft(y).ticks(6);
@@ -247,14 +267,13 @@ function renderSvg(data, opts) {
   yG.selectAll("path,line").attr("stroke", axisColor).attr("opacity", 0.7);
   yG.selectAll("text").attr("fill", textColor).attr("font-size", 11);
 
-  // Y label
+  // Y label (top-left)
   svg
     .append("text")
     .attr("x", marginLeft)
     .attr("y", marginTop - 18)
-    .attr("fill", textColor)
     .attr("font-size", 12)
-    .attr("font-weight", 700)
+    .attr("font-weight", 800)
     .attr("opacity", 0.9)
     .text("Rate per 10,000 tokens");
 
@@ -268,7 +287,7 @@ function renderSvg(data, opts) {
     .data(SERIES)
     .join("g")
     .attr("class", "item")
-    .attr("transform", (d, i) => `translate(${i * 190},0)`);
+    .attr("transform", (_d, i) => `translate(${i * 190},0)`);
 
   leg
     .append("rect")
@@ -284,9 +303,8 @@ function renderSvg(data, opts) {
     .append("text")
     .attr("x", 20)
     .attr("y", 2)
-    .attr("fill", textColor)
     .attr("font-size", 12)
-    .attr("font-weight", 700)
+    .attr("font-weight", 800)
     .text((d) => d.label);
 
   return body.html();
@@ -294,12 +312,9 @@ function renderSvg(data, opts) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-
   const inPath = args.in ? path.resolve(args.in) : DEFAULT_IN;
 
-  const outBase =
-    args.outBase ?? "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us";
-
+  const outBase = args.outBase ?? "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us";
   const wantPng = Boolean(args.png);
 
   const csvText = readCsvOrDie(inPath);
@@ -339,6 +354,7 @@ async function main() {
     bgColor: "#0B0B0F",
     textColor: "#EAEAEA",
     axisColor: "#EAEAEA",
+    fontFamily: 'ui-serif, Georgia, "Times New Roman", Times, serif',
     title,
     subtitle,
   });
