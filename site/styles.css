@@ -635,6 +635,57 @@ html, body {
   display: block;
 }
 
+/* ===== Chart display (detail pages) ===== */
+
+/* The frame around the chart */
+.chart-media {
+  width: 100%;
+  /* IMPORTANT: do NOT lock height or aspect ratio here */
+  aspect-ratio: auto;
+  height: auto;
+
+  /* “Fits the vibe” padding frame */
+  padding: 1.25rem;
+
+  /* No cropping */
+  overflow: visible;
+
+  /* Your existing visual style can stay */
+  border-radius: 18px;
+  border: 2px solid rgba(35, 115, 160, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Ensure SVG/PNG/JPG inside scales down to fit */
+.chart-media img,
+.chart-media svg,
+.chart-media object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* If you embed SVGs as <img src="...svg"> this is the key */
+.chart-media img {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Thumbnail cards can keep their aspect ratio */
+.chart-card .chart-media {
+  aspect-ratio: 16 / 9;   /* or whatever you had */
+  overflow: hidden;       /* fine for thumbnails */
+}
+
+/* Detail pages must not crop */
+body.renderer-page .chart-media {
+  aspect-ratio: auto;
+  overflow: visible;
+  height: auto;
+}
+
+
+
 
 
 
