@@ -1,8 +1,6 @@
 // site/graph_hub.js
-// Graph hub page renderer.
-// Reads: <main id="graph-hub" data-graph="04"></main>
-// Loads: /data/charts_manifest.json
-// Renders: Context + ALL renderer outputs (Matplotlib/Seaborn/D3) + writeup
+// Renders a per-graph hub page into: <main id="graph-hub" data-graph="09"></main>
+// Uses: /data/charts_manifest.json
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -21,7 +19,7 @@ function rendererLabel(renderer) {
   return renderer || "Unknown";
 }
 
-// From nested routes (/graphs/04/), always use rooted URLs
+// From nested routes (/graphs/09/), always use rooted URLs
 function toRootedUrl(url) {
   const u = String(url ?? "").trim();
   if (!u) return "";
@@ -92,7 +90,7 @@ function contextBlock(graph) {
   `;
 }
 
-// Renders ALL entries for a renderer
+// Renders all entries for a renderer (Matplotlib/Seaborn/D3)
 function rendererSection({ graphId, renderer, entries }) {
   const label = rendererLabel(renderer);
 
@@ -101,7 +99,6 @@ function rendererSection({ graphId, renderer, entries }) {
       <article class="card chart-card">
         <div class="chart-card-header">
           <h3 class="card-title">${escapeHtml(label)}</h3>
-          <span class="badge">${escapeHtml(label)}</span>
         </div>
         <p class="muted">No ${escapeHtml(label)} outputs linked in the manifest yet.</p>
       </article>
@@ -127,7 +124,6 @@ function rendererSection({ graphId, renderer, entries }) {
         `;
       }
 
-      // Chart is NOT a link. Only "Open this version" is a link.
       return `
         <figure class="chart-figure" style="margin-top:0.75rem;">
           <div class="chart-media" aria-label="${escapeHtml(title)} chart">
@@ -145,7 +141,6 @@ function rendererSection({ graphId, renderer, entries }) {
     <article class="card chart-card">
       <div class="chart-card-header">
         <h3 class="card-title">${escapeHtml(label)}</h3>
-        <span class="badge">${escapeHtml(label)}</span>
       </div>
       ${figures}
     </article>
@@ -161,12 +156,11 @@ async function loadWriteup(writeupPath) {
   return res.text();
 }
 
-// Plain-text -> HTML that matches normal font (no <pre>, no monospace)
+// Plain text -> simple HTML paragraphs (keeps normal font, avoids <pre>)
 function writeupTextToHtml(text) {
   const safe = escapeHtml(text);
   const lines = safe.split(/\r?\n/);
 
-  // Preserve empty lines as spacing between paragraphs
   const parts = [];
   let buf = [];
 
@@ -197,7 +191,7 @@ async function main() {
     mount.innerHTML = `
       <div class="container prose">
         <h2>Missing graph id</h2>
-        <p class="muted">Add <code>data-graph="04"</code> to <code>&lt;main id="graph-hub"&gt;</code>.</p>
+        <p class="muted">Add <code>data-graph="09"</code> to <code>&lt;main id="graph-hub"&gt;</code>.</p>
       </div>
     `;
     return;
@@ -223,7 +217,7 @@ async function main() {
     const sEntries = getRendererEntries(graph, "seaborn");
     const dEntries = getRendererEntries(graph, "d3");
 
-    // Writeup: prefer any renderer entry’s writeup, otherwise default
+    // Writeup: prefer any renderer entry’s writeup, otherwise fallback
     const writeupPath =
       (mEntries[0]?.writeup || sEntries[0]?.writeup || dEntries[0]?.writeup || "").trim() ||
       `writeups/graphs/${graphId}.txt`;
@@ -235,28 +229,25 @@ async function main() {
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
           </div>
 
-          <!-- Context is full-width under title -->
+          <!-- Context: full-width under title -->
           <div class="hub-context">
             ${contextBlock(graph)}
           </div>
 
-          <!-- Renderer cards in grid -->
+          <!-- Renderer cards: grid below -->
           <div class="grid">
             ${rendererSection({ graphId, renderer: "matplotlib", entries: mEntries })}
             ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
             ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
 
-                    <!-- Writeup in a matching "tab/card" -->
-          <article class="card writeup-card">
+          <!-- Writeup: matching card header, NO badge capsule -->
+          <article class="card writeup-card" style="margin-top:1rem;">
             <div class="chart-card-header">
               <h3 class="card-title">Writeup</h3>
-              <span class="badge">Writeup</span>
             </div>
-
             <div id="hub-writeup" class="prose muted">Loading writeup…</div>
           </article>
-
         </div>
       </section>
     `;
@@ -264,11 +255,9 @@ async function main() {
     const writeupEl = document.getElementById("hub-writeup");
     try {
       const text = await loadWriteup(writeupPath);
-      // Use normal text styling instead of monospace <pre>
-      writeupEl.classList.remove("muted"); // stop the faded text
-      writeupEl.classList.add("prose");    // ensure normal page typography
+      writeupEl.classList.remove("muted");
+      writeupEl.classList.add("prose");
       writeupEl.innerHTML = writeupTextToHtml(text);
-
     } catch (werr) {
       writeupEl.innerHTML = `<p class="muted">${escapeHtml(werr.message || String(werr))}</p>`;
     }

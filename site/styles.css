@@ -340,7 +340,7 @@ a.card {
 
 /* Badge (blue/navy with coral hint) */
 .badge {
-  display: inline-flex;
+  display: none !important; /* hide by default; use only where explicitly added */
   align-items: center;
   gap: 0.35rem;
   padding: 0.24rem 0.64rem;

@@ -1,5 +1,3 @@
-# Graph 06 — Em dash usage patterns
-
 This graph looks at em dash usage across profiles. Em dashes are a punctuation choice that often correlates with a particular writing style (informal, conversational, or “stream of thought”), so measuring their frequency can give a lightweight signal about tone.
 
 ## What the chart shows
