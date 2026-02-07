@@ -25,3 +25,19 @@ ok c
 personality types
 mono vs poly relationships
 professions
+
+
+
+1. add dating sytle and add to the website. 
+- scrape for the 323 profiles
+- should be a mosaic liek word graph 2. Do they bring up kids more often? or not?
+- make d3 and seaborn, 
+- integrate into html
+
+2. second graph: profession and gym habits
+- one we need to scrape their careers -- do not bother any that doesn't mention it.
+- then make we scrape data about people's gym habits or exercise habits in general
+- seaborn and d3
+- add to html website
+
+3. 
