@@ -7,6 +7,7 @@
 // - Detects graph id from filenames like: word_graph_03_...
 // - Outputs: { schema_version, generated_at, graphs: [...] }
 // - MERGES with existing manifest so your text (question/method/key_findings/notes/title) stays.
+// - IMPORTANT: DOES NOT write any "writeup" fields (and strips them if found).
 //
 // Run from repo root:
 //   node scripts/site/generate_charts_manifest.mjs
@@ -33,7 +34,6 @@ function normalizeGraphId(raw) {
   if (!s) return "";
   const num = Number(s);
   if (Number.isFinite(num)) return pad2(num);
-  // if already "03", keep it
   if (/^\d{2}$/.test(s)) return s;
   return s;
 }
@@ -45,11 +45,9 @@ function normalizeGraphId(raw) {
 function graphIdFromFilename(filename) {
   const base = filename.toLowerCase();
 
-  // word_graph_03_...
   let m = base.match(/word[_-]graph[_-]?(\d{1,2})[_-]/);
   if (m) return pad2(m[1]);
 
-  // graph_03_...
   m = base.match(/graph[_-]?(\d{1,2})[_-]/);
   if (m) return pad2(m[1]);
 
@@ -62,15 +60,6 @@ function slugForGraph(graphId) {
 
 function urlFor(renderer, file) {
   return `assets/charts/${renderer}/${file}`;
-}
-
-async function fileExists(p) {
-  try {
-    await fs.access(p);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 async function readJsonIfExists(p) {
@@ -118,25 +107,37 @@ function mergeGraph(existing, incoming) {
   };
 }
 
-function mergeEntry(existingEntry, incomingEntry) {
-  // Preserve writeup if it existed; otherwise use the incoming default.
-  const writeup =
-    (existingEntry && typeof existingEntry.writeup === "string" && existingEntry.writeup.trim())
-      ? existingEntry.writeup.trim()
-      : incomingEntry.writeup;
-
+// No writeups, ever.
+function mergeEntry(_existingEntry, incomingEntry) {
   return {
     id: incomingEntry.id,
     file: incomingEntry.file,
-    url: incomingEntry.url,
-    writeup
+    url: incomingEntry.url
   };
+}
+
+// Remove any stray writeup keys from renderer entries (defensive cleanup)
+function stripWriteupsFromGraph(g) {
+  if (!g || typeof g !== "object") return g;
+  const out = { ...g };
+  if (out.renderers && typeof out.renderers === "object") {
+    const rOut = {};
+    for (const r of ["matplotlib", "seaborn", "d3"]) {
+      const list = Array.isArray(out.renderers[r]) ? out.renderers[r] : [];
+      rOut[r] = list.map((e) => ({
+        id: e?.id,
+        file: e?.file,
+        url: e?.url
+      }));
+    }
+    out.renderers = rOut;
+  }
+  return out;
 }
 
 // -------- main build --------
 
 async function main() {
-  // Ensure output folder exists
   await fs.mkdir(path.dirname(OUT_PATH), { recursive: true });
 
   // Load existing canonical manifest if present (to preserve your text fields)
@@ -148,7 +149,7 @@ async function main() {
   );
 
   // Scan assets and build a new graph map from disk
-  const foundById = new Map(); // graph_id -> { renderers: {..} }
+  const foundById = new Map(); // graph_id -> graph object
 
   for (const renderer of RENDERERS) {
     const rendererDir = path.join(CHARTS_DIR, renderer);
@@ -173,32 +174,28 @@ async function main() {
       const base = file.replace(path.extname(file), "");
       const entryId = `${gid}-${renderer}-${base}`;
 
-      // Default writeup: writeups/graphs/<id>.txt (matches your current setup)
-      const writeup = `writeups/graphs/${gid}.txt`;
-
       graph.renderers[renderer].push({
         id: entryId,
         file,
-        url: urlFor(renderer, file),
-        writeup
+        url: urlFor(renderer, file)
       });
     }
   }
 
-  // Merge renderers + preserve existing text fields
   const mergedGraphs = [];
 
   // 1) all graphs found on disk (canonical for “what exists”)
   for (const [gid, incoming] of [...foundById.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     const existing = existingById.get(gid);
 
-    // Merge entries per renderer (preserve writeup if present in existing)
+    // Merge entries per renderer (NO writeups, and do not preserve them)
     const mergedRenderers = { matplotlib: [], seaborn: [], d3: [] };
 
     for (const renderer of RENDERERS) {
       const incomingList = Array.isArray(incoming.renderers?.[renderer]) ? incoming.renderers[renderer] : [];
       const existingList = Array.isArray(existing?.renderers?.[renderer]) ? existing.renderers[renderer] : [];
 
+      // If you ever had duplicates by file, this keeps behavior consistent
       const existingByFile = new Map(existingList.map((e) => [e.file, e]));
 
       mergedRenderers[renderer] = incomingList.map((ent) =>
@@ -210,11 +207,11 @@ async function main() {
     mergedGraphs.push(merged);
   }
 
-  // 2) also keep any existing graphs that have NO assets found (optional but safe)
-  //    This prevents accidental deletion if you’re mid-build.
+  // 2) keep any existing graphs that have NO assets found (optional but safe),
+  //    BUT strip any legacy writeup keys out of them.
   for (const [gid, g] of existingById.entries()) {
     if (!foundById.has(gid)) {
-      mergedGraphs.push(g);
+      mergedGraphs.push(stripWriteupsFromGraph(g));
     }
   }
 

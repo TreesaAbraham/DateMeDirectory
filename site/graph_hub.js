@@ -1,8 +1,8 @@
 // site/graph_hub.js
 // Renders a per-graph hub page into: <main id="graph-hub" data-graph="09"></main>
 // Uses: /data/charts_manifest.json
-// Renders: Title + Context (Question/Method/Key findings/Notes) + Renderer previews
-// DOES NOT render writeups (files can stay on disk)
+// Renders: Title + Context + Renderer previews
+// DOES NOT render writeups
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -21,7 +21,6 @@ function rendererLabel(renderer) {
   return renderer || "Unknown";
 }
 
-// From nested routes (/graphs/09/), always use rooted URLs
 function toRootedUrl(url) {
   const u = String(url ?? "").trim();
   if (!u) return "";
@@ -57,12 +56,7 @@ function contextBlock(graph) {
   const notes = String(graph?.notes || "").trim();
 
   const methodVal = graph?.method;
-  const methodList = Array.isArray(methodVal)
-    ? methodVal
-    : methodVal
-      ? [String(methodVal)]
-      : [];
-
+  const methodList = Array.isArray(methodVal) ? methodVal : methodVal ? [String(methodVal)] : [];
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
   const methodHtml = methodList.length
@@ -77,11 +71,7 @@ function contextBlock(graph) {
     <article class="card">
       <h3 class="card-title">Context</h3>
       <div class="prose">
-        ${
-          question
-            ? `<h4>Question</h4><p>${escapeHtml(question)}</p>`
-            : `<p class="muted">No question yet.</p>`
-        }
+        ${question ? `<h4>Question</h4><p>${escapeHtml(question)}</p>` : `<p class="muted">No question yet.</p>`}
         <h4>Method</h4>
         ${methodHtml}
         <h4>Key findings</h4>
@@ -92,7 +82,6 @@ function contextBlock(graph) {
   `;
 }
 
-// Renders all entries for a renderer (Matplotlib/Seaborn/D3)
 function rendererSection({ graphId, renderer, entries }) {
   const label = rendererLabel(renderer);
 
@@ -179,7 +168,6 @@ async function main() {
     }
 
     const title = String(graph?.title || "").trim() || `Graph ${graphId}`;
-
     const mEntries = getRendererEntries(graph, "matplotlib");
     const sEntries = getRendererEntries(graph, "seaborn");
     const dEntries = getRendererEntries(graph, "d3");
@@ -191,12 +179,10 @@ async function main() {
             <h2 style="margin:0;">${escapeHtml(title)}</h2>
           </div>
 
-          <!-- Context: full-width under title -->
           <div class="hub-context">
             ${contextBlock(graph)}
           </div>
 
-          <!-- Renderer cards: grid below -->
           <div class="grid">
             ${rendererSection({ graphId, renderer: "matplotlib", entries: mEntries })}
             ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
