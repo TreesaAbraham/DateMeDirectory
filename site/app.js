@@ -13,187 +13,138 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
-// From nested routes, always use rooted URLs
-function toRootedUrl(url) {
-  const u = String(url ?? "").trim();
-  if (!u) return "";
-  if (u.startsWith("http://") || u.startsWith("https://")) return u;
-  if (u.startsWith("/")) return u;
-  return `/${u}`;
+function rendererLabel(renderer) {
+  const r = String(renderer || "").toLowerCase();
+  if (r === "d3") return "D3";
+  if (r === "seaborn") return "Seaborn";
+  if (r === "matplotlib") return "Matplotlib";
+  return renderer ? String(renderer) : "";
 }
 
-async function loadManifest() {
-  const res = await fetch("/data/charts_manifest.json", { cache: "no-store" });
-  if (!res.ok) throw new Error(`Failed to load manifest: HTTP ${res.status}`);
-  return res.json();
-}
-
-function graphHref(graphId) {
-  return `/graphs/${encodeURIComponent(graphId)}/`;
-}
-
-function countRendererEntries(graph, renderer) {
-  const arr = graph?.renderers?.[renderer];
-  return Array.isArray(arr) ? arr.length : 0;
-}
-
-function renderChartHtml(url, title) {
-  const u = toRootedUrl(url);
-
-  // SVG: use <object> so it scales properly inside responsive containers
-  if (u.toLowerCase().endsWith(".svg")) {
-    return `
-      <object
-        data="${escapeHtml(u)}"
-        type="image/svg+xml"
-        class="chart-object"
-        aria-label="${escapeHtml(title)}"
-        style="width:100%; height:100%; display:block;"
-      ></object>
-    `;
-  }
-
-  // Raster: normal img
-  return `
-    <img
-      src="${escapeHtml(u)}"
-      alt="${escapeHtml(title)}"
-      loading="lazy"
-      style="width:100%; height:100%; object-fit:contain; display:block;"
-    />
-  `;
+function graphId2(id) {
+  const s = String(id ?? "").trim();
+  // Already "02"? keep it. If "2", pad to "02".
+  return /^\d{2}$/.test(s) ? s : String(Number(s)).padStart(2, "0");
 }
 
 function featuredCardsHtml() {
-  // Hard-coded featured items (curated).
+  // Curated featured set (you can swap these anytime).
+  // IMPORTANT: do not show "Graph ##" in the label, only renderer.
   const featured = [
     {
-      label: "D3 • Graph 02",
+      label: "D3",
       title: "Exclamation marks by generation (per profile)",
       url: "assets/charts/d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg",
       href: "/graphs/02/d3.html",
     },
     {
-      label: "Seaborn • Graph 08 (F)",
+      label: "Seaborn (F)",
       title: "Sentence complexity (looking for women)",
       url: "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
       href: "/graphs/08/seaborn.html?chart=08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
     },
     {
-      label: "D3 • Graph 05",
+      label: "D3",
       title: "Distinctive words: SF Bay Area vs UK/London",
       url: "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
       href: "/graphs/05/d3.html",
     },
   ];
 
-  return featured
-    .map((f) => {
-      const chart = renderChartHtml(f.url, f.title);
+  const cards = featured
+    .map((c) => {
+      const label = escapeHtml(c.label);
+      const title = escapeHtml(c.title);
+      const href = escapeHtml(c.href);
+      const url = escapeHtml(c.url);
 
       return `
-        <article class="card chart-card">
-          <div class="chart-card-header">
-            <h3 class="card-title" style="margin:0;">${escapeHtml(f.label)}</h3>
-            <a class="small-link" href="${escapeHtml(f.href)}">Open</a>
+        <article class="chart-card">
+          <div class="chart-card__head">
+            <div class="chart-card__kicker">${label}</div>
+            <a class="chart-card__link" href="${href}">Open</a>
           </div>
-
-          <div class="muted" style="margin:0.35rem 0 0.75rem;">
-            ${escapeHtml(f.title)}
-          </div>
-
-          <div
-            class="chart-media"
-            style="
-              width: 100%;
-              aspect-ratio: 16 / 9;
-              overflow: hidden;
-              display: grid;
-              place-items: center;
-            "
-          >
-            ${chart}
+          <h3 class="chart-card__title">${title}</h3>
+          <div class="chart-card__media">
+            <img class="chart-card__img" src="${url}" alt="${title}" loading="lazy" />
           </div>
         </article>
-      `;
+      `.trim();
     })
-    .join("");
+    .join("\n");
+
+  return `<div class="chart-grid">${cards}</div>`;
 }
 
-function graphCardHtml(graph) {
-  const id = String(graph?.graph_id ?? "").trim();
-  const title = String(graph?.title ?? "").trim() || `Graph ${id}`;
-  const question = String(graph?.question ?? "").trim();
-  const href = graphHref(id);
+function graphDirectoryCardsHtml(graphs) {
+  // Directory cards (no preview images). Uses manifest ordering.
+  const cards = graphs
+    .map((g) => {
+      const id = graphId2(g.id);
+      const title = escapeHtml(g.title || `Graph ${id}`);
+      const href = `/graphs/${id}/`;
+      return `
+        <a class="dir-card" href="${escapeHtml(href)}">
+          <div class="dir-card__id">Graph ${escapeHtml(id)}</div>
+          <div class="dir-card__title">${title}</div>
+        </a>
+      `.trim();
+    })
+    .join("\n");
 
-  const nM = countRendererEntries(graph, "matplotlib");
-  const nS = countRendererEntries(graph, "seaborn");
-  const nD = countRendererEntries(graph, "d3");
-
-  const metaBits = [];
-  if (nM) metaBits.push(`Matplotlib: ${nM}`);
-  if (nS) metaBits.push(`Seaborn: ${nS}`);
-  if (nD) metaBits.push(`D3: ${nD}`);
-  const meta = metaBits.length ? metaBits.join(" • ") : "No renders linked";
-
-  return `
-    <article class="card">
-      <div class="prose">
-        <h3 style="margin:0;">
-          <a href="${escapeHtml(href)}" class="small-link" style="font-size:1.05em;">
-            ${escapeHtml(title)}
-          </a>
-        </h3>
-
-        ${question ? `<p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(question)}</p>` : ""}
-
-        <p class="muted" style="margin:0.35rem 0 0;">${escapeHtml(meta)}</p>
-
-        <div class="muted" style="margin-top:0.5rem;">
-          <a class="small-link" href="${escapeHtml(href)}">Open graph hub</a>
-        </div>
-      </div>
-    </article>
-  `;
+  return `<div class="dir-grid">${cards}</div>`;
 }
 
-async function main() {
-  // 1) Featured graphs: ONLY fill the existing #featured container.
-  const featuredMount = document.getElementById("featured");
-  if (featuredMount) {
-    featuredMount.innerHTML = featuredCardsHtml();
+async function loadManifest() {
+  const res = await fetch("/data/charts_manifest.json", { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to load charts_manifest.json: ${res.status}`);
+  return res.json();
+}
+
+function normalizeManifest(manifest) {
+  // Expecting: [{ id: "01", title: "...", ... }, ...]
+  // But tolerate common shapes.
+  if (Array.isArray(manifest)) return manifest;
+
+  if (manifest && Array.isArray(manifest.graphs)) return manifest.graphs;
+
+  // If it's graph-grouped object: { "01": {...}, "02": {...} }
+  if (manifest && typeof manifest === "object") {
+    const entries = Object.entries(manifest)
+      .filter(([k]) => /^\d+$/.test(String(k)))
+      .map(([k, v]) => ({ id: k, ...(v || {}) }));
+    if (entries.length) {
+      // sort numeric by id
+      entries.sort((a, b) => Number(a.id) - Number(b.id));
+      return entries;
+    }
   }
 
-  // 2) Graph directory: ONLY fill the existing #graph-directory container.
-  const dirMount = document.getElementById("graph-directory");
-  if (!dirMount) return;
+  return [];
+}
 
+function renderHomepage({ graphs }) {
+  const featuredRoot = document.querySelector("#featured");
+  if (featuredRoot) {
+    featuredRoot.innerHTML = featuredCardsHtml();
+  }
+
+  const dirRoot = document.querySelector("#graph-directory");
+  if (dirRoot) {
+    dirRoot.innerHTML = graphDirectoryCardsHtml(graphs);
+  }
+}
+
+(async function main() {
   try {
     const manifest = await loadManifest();
-    const graphs = Array.isArray(manifest?.graphs) ? manifest.graphs : [];
-
-    if (!graphs.length) {
-      dirMount.innerHTML = `
-        <article class="card">
-          <h3 class="card-title">No graphs found</h3>
-          <p class="card-body muted">The manifest loaded, but <span class="inline-path">graphs[]</span> is empty.</p>
-        </article>
-      `;
-      return;
-    }
-
-    // IMPORTANT: DO NOT sort. Manifest order is your curated order.
-    dirMount.innerHTML = graphs.map(graphCardHtml).join("");
+    const graphs = normalizeManifest(manifest);
+    renderHomepage({ graphs });
   } catch (err) {
-    dirMount.innerHTML = `
-      <article class="card">
-        <h3 class="card-title">Couldn’t load directory</h3>
-        <p class="card-body muted">${escapeHtml(err.message || String(err))}</p>
-        <p class="card-body muted">Check that <span class="inline-path">/data/charts_manifest.json</span> is reachable.</p>
-      </article>
-    `;
     console.error(err);
+    const featuredRoot = document.querySelector("#featured");
+    if (featuredRoot) {
+      featuredRoot.innerHTML = `<div class="callout error">Failed to load charts. Check console.</div>`;
+    }
   }
-}
-
-main();
+})();

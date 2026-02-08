@@ -1,34 +1,10 @@
 // scripts/site/generate_graph_hubs.mjs
-// Generates hub pages at: site/graphs/<id>/index.html
-//
-// Each hub page:
-// - mounts <main id="graph-hub" data-graph="01"></main>
-// - loads /graph_hub.js which reads /data/charts_manifest.json
-// - shows Context + renderer cards + loads writeup txt
-//
-// Run from repo root:
-//   node scripts/site/generate_graph_hubs.mjs
+// Generates static hub pages at: site/graphs/<graphId>/index.html
+// - NO "generated hub page..." footer
+// - <title> in browser tab uses the hub title from the manifest
 
-import { promises as fs } from "node:fs";
+import fs from "node:fs";
 import path from "node:path";
-
-const REPO_ROOT = process.cwd();
-const SITE_DIR = path.join(REPO_ROOT, "site");
-const MANIFEST_PATH = path.join(SITE_DIR, "data", "charts_manifest.json");
-const GRAPHS_DIR = path.join(SITE_DIR, "graphs");
-
-function pad2(n) {
-  return String(n).padStart(2, "0");
-}
-
-function normalizeGraphId(raw) {
-  const s = String(raw ?? "").trim();
-  if (!s) return "";
-  const num = Number(s);
-  if (Number.isFinite(num)) return pad2(num);
-  if (/^\d{2}$/.test(s)) return s;
-  return s;
-}
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -39,17 +15,70 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
+function ensureDir(dir) {
+  fs.mkdirSync(dir, { recursive: true });
+}
+
+function readJson(filePath) {
+  const raw = fs.readFileSync(filePath, "utf8");
+  return JSON.parse(raw);
+}
+
+/**
+ * Best-effort: supports a few reasonable manifest shapes.
+ * We try to extract per-graph titles from:
+ * - manifest.graphs[]: { id, title }
+ * - manifest.charts[]: { graph_id, graph_title }
+ * - manifest[graphId].title (object keyed by graph id)
+ */
+function extractGraphTitleMap(manifest) {
+  const map = new Map();
+
+  // Case A: { graphs: [ { id, title }, ... ] }
+  if (manifest && Array.isArray(manifest.graphs)) {
+    for (const g of manifest.graphs) {
+      const id = g?.id ?? g?.graph_id ?? g?.graphId;
+      const title = g?.title ?? g?.graph_title ?? g?.graphTitle;
+      if (id != null && title) map.set(String(id).padStart(2, "0"), String(title));
+    }
+  }
+
+  // Case B: { charts: [ { graph_id, graph_title }, ... ] }
+  if (manifest && Array.isArray(manifest.charts)) {
+    for (const c of manifest.charts) {
+      const id = c?.graph_id ?? c?.graphId ?? c?.id;
+      const title = c?.graph_title ?? c?.graphTitle ?? c?.title;
+      if (id != null && title) map.set(String(id).padStart(2, "0"), String(title));
+    }
+  }
+
+  // Case C: object keyed by graph id, e.g. { "01": { title: "..." }, ... }
+  if (manifest && typeof manifest === "object" && !Array.isArray(manifest)) {
+    for (const [key, val] of Object.entries(manifest)) {
+      if (!/^\d+$/.test(key)) continue;
+      const id = String(key).padStart(2, "0");
+      const title = val?.title ?? val?.graph_title ?? val?.graphTitle;
+      if (title) map.set(id, String(title));
+    }
+  }
+
+  return map;
+}
+
 function hubHtml({ graphId, title }) {
-  const safeTitle = escapeHtml(title || `Graph ${graphId}`);
+  const rawTitle = String(title || "").trim() || `Graph ${graphId}`;
   const safeId = escapeHtml(graphId);
 
-  // Rooted asset paths so nested routes work on Vercel (/graphs/01/)
+  // What shows in the browser tab:
+  const tabTitle = escapeHtml(`${rawTitle} · Date Me Directory`);
+
+
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${safeTitle} · Date Me Directory</title>
+  <title>${tabTitle}</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -61,70 +90,51 @@ function hubHtml({ graphId, title }) {
 
   <main id="graph-hub" data-graph="${safeId}"></main>
 
-  <footer class="site-footer">
-    <div class="container muted">
-      Generated hub page for Graph ${safeId}.
-    </div>
-  </footer>
-
   <script src="/graph_hub.js" defer></script>
 </body>
 </html>
 `;
 }
 
-async function readManifest() {
-  const text = await fs.readFile(MANIFEST_PATH, "utf8");
-  const manifest = JSON.parse(text);
-  const graphs = Array.isArray(manifest?.graphs) ? manifest.graphs : [];
-  return { manifest, graphs };
-}
+function main() {
+  const repoRoot = process.cwd();
+  const siteDir = path.join(repoRoot, "site");
+  const dataDir = path.join(siteDir, "data");
 
-async function ensureDir(p) {
-  await fs.mkdir(p, { recursive: true });
-}
-
-async function writeFile(p, content) {
-  await fs.writeFile(p, content, "utf8");
-}
-
-async function main() {
-  const { graphs } = await readManifest();
-  await ensureDir(GRAPHS_DIR);
-
-  if (!graphs.length) {
-    console.log("No graphs found in manifest. Nothing to generate.");
-    return;
+  // You’ve been using this as canonical:
+  const manifestPath = path.join(dataDir, "charts_manifest.json");
+  if (!fs.existsSync(manifestPath)) {
+    console.error(`Missing manifest: ${manifestPath}`);
+    process.exit(1);
   }
 
-  // Sort by numeric id if possible
-  const sorted = [...graphs].sort((a, b) => {
-    const ai = parseInt(String(a?.graph_id ?? ""), 10);
-    const bi = parseInt(String(b?.graph_id ?? ""), 10);
-    return (Number.isNaN(ai) ? 999 : ai) - (Number.isNaN(bi) ? 999 : bi);
-  });
+  const manifest = readJson(manifestPath);
+  const titleMap = extractGraphTitleMap(manifest);
 
-  let count = 0;
+  if (titleMap.size === 0) {
+    console.error(
+      "Could not extract any graph titles from charts_manifest.json. " +
+        "Make sure it includes graph titles (e.g., graphs[] with {id,title} or charts[] with {graph_id, graph_title})."
+    );
+    process.exit(1);
+  }
 
-  for (const g of sorted) {
-    const graphId = normalizeGraphId(g?.graph_id);
-    if (!graphId) continue;
+  const graphsOutDir = path.join(siteDir, "graphs");
+  ensureDir(graphsOutDir);
 
-    const title = String(g?.title || `Graph ${graphId}`).trim() || `Graph ${graphId}`;
-    const outDir = path.join(GRAPHS_DIR, graphId);
+  const graphIds = [...titleMap.keys()].sort((a, b) => Number(a) - Number(b));
+
+  for (const graphId of graphIds) {
+    const outDir = path.join(graphsOutDir, graphId);
+    ensureDir(outDir);
+
     const outPath = path.join(outDir, "index.html");
+    const html = hubHtml({ graphId, title: titleMap.get(graphId) });
 
-    await ensureDir(outDir);
-    await writeFile(outPath, hubHtml({ graphId, title }));
-
-    count += 1;
+    fs.writeFileSync(outPath, html, "utf8");
   }
 
-  console.log(`Generated ${count} hub pages in ${path.relative(REPO_ROOT, GRAPHS_DIR)}/`);
+  console.log(`Generated ${graphIds.length} hub page(s) in site/graphs/`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
-// site/graph_hub.js
+main();
