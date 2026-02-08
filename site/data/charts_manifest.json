@@ -49,6 +49,54 @@
         ]
       }
     },
+     {
+      "graph_id": "10",
+      "slug": "graph-10",
+      "title": "Views on Kids by Dating Style",
+      "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
+      "method": [
+        "Load profiles from data/profiles_master.json.",
+        "Keep only profiles with datingStyle, normalized to mono, poly, or any (skip others).",
+        "Scan profileDetails.fullText for kids/family terms (e.g., kids/children/baby/stepkid/coparent/custody), including non-negated 'start/have/want a family'.",
+        "Apply negation rules: if the text matches strong 'no kids' phrasing (e.g., 'childfree', 'don't want kids') or a kids-term appears within 4 tokens after a negation word, count it as 'No kids mention'.",
+        "Aggregate counts by (datingStyle, kids_bucket), compute within-style percentages, and export to CSV.",
+        "Visualize as a mosaic plot where column width reflects style group size and the vertical split shows the share of 'Kids mention' vs 'No kids mention' within each style."
+      ],
+      "key_findings": [
+        "Monogamous (mono): Kids mention 58.8% (130/221); No kids mention 41.2% (91/221).",
+        "Poly (poly): Kids mention 83.9% (26/31); No kids mention 16.1% (5/31).",
+        "Any (any): Kids mention 67.8% (40/59); No kids mention 32.2% (19/59).",
+        "Overall: Kids/family language is common across all styles, highest in poly and lowest in mono in this dataset.",
+        "Caution: The poly group is much smaller (n=31) than mono (n=221), so its percentage is more sensitive to small changes."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "10-matplotlib-word_graph_10_mosaic_kids_mentions_by_style",
+            "file": "word_graph_10_mosaic_kids_mentions_by_style.png",
+            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png",
+            "writeup": "writeups/graphs/10.txt"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "10-seaborn-word_graph_10_mosaic_kids_by_style",
+            "file": "word_graph_10_mosaic_kids_by_style.png",
+            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png",
+            "writeup": "writeups/graphs/10.txt"
+          }
+        ],
+        "d3": [
+          {
+            "id": "10-d3-word_graph_10_mosaic_kids_by_style",
+            "file": "word_graph_10_mosaic_kids_by_style.svg",
+            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg",
+            "writeup": "writeups/graphs/10.txt"
+          }
+        ]
+      }
+    },
     {
       "graph_id": "02",
       "slug": "graph-02",
@@ -457,54 +505,6 @@
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
             "url": "assets/charts/d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
             "writeup": "writeups/graphs/09.txt"
-          }
-        ]
-      }
-    },
-    {
-      "graph_id": "10",
-      "slug": "graph-10",
-      "title": "Views on Kids by Dating Style",
-      "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
-      "method": [
-        "Load profiles from data/profiles_master.json.",
-        "Keep only profiles with datingStyle, normalized to mono, poly, or any (skip others).",
-        "Scan profileDetails.fullText for kids/family terms (e.g., kids/children/baby/stepkid/coparent/custody), including non-negated 'start/have/want a family'.",
-        "Apply negation rules: if the text matches strong 'no kids' phrasing (e.g., 'childfree', 'don't want kids') or a kids-term appears within 4 tokens after a negation word, count it as 'No kids mention'.",
-        "Aggregate counts by (datingStyle, kids_bucket), compute within-style percentages, and export to CSV.",
-        "Visualize as a mosaic plot where column width reflects style group size and the vertical split shows the share of 'Kids mention' vs 'No kids mention' within each style."
-      ],
-      "key_findings": [
-        "Monogamous (mono): Kids mention 58.8% (130/221); No kids mention 41.2% (91/221).",
-        "Poly (poly): Kids mention 83.9% (26/31); No kids mention 16.1% (5/31).",
-        "Any (any): Kids mention 67.8% (40/59); No kids mention 32.2% (19/59).",
-        "Overall: Kids/family language is common across all styles, highest in poly and lowest in mono in this dataset.",
-        "Caution: The poly group is much smaller (n=31) than mono (n=221), so its percentage is more sensitive to small changes."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "10-matplotlib-word_graph_10_mosaic_kids_mentions_by_style",
-            "file": "word_graph_10_mosaic_kids_mentions_by_style.png",
-            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png",
-            "writeup": "writeups/graphs/10.txt"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "10-seaborn-word_graph_10_mosaic_kids_by_style",
-            "file": "word_graph_10_mosaic_kids_by_style.png",
-            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png",
-            "writeup": "writeups/graphs/10.txt"
-          }
-        ],
-        "d3": [
-          {
-            "id": "10-d3-word_graph_10_mosaic_kids_by_style",
-            "file": "word_graph_10_mosaic_kids_by_style.svg",
-            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg",
-            "writeup": "writeups/graphs/10.txt"
           }
         ]
       }
