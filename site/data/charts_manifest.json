@@ -47,6 +47,51 @@
       }
     },
     {
+      "graph_id": "10",
+      "slug": "graph-10",
+      "title": "Kids/family mentions by dating style",
+      "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
+      "method": [
+        "Load profiles from data/profiles_master.json.",
+        "Keep only profiles with datingStyle, normalized to mono, poly, or any (skip others).",
+        "Scan profileDetails.fullText for kids/family terms (e.g., kids/children/baby/stepkid/coparent/custody), including non-negated 'start/have/want a family'.",
+        "Apply negation rules: if the text matches strong 'no kids' phrasing (e.g., 'childfree', 'don't want kids') or a kids-term appears within 4 tokens after a negation word, count it as 'No kids mention'.",
+        "Aggregate counts by (datingStyle, kids_bucket), compute within-style percentages, and export to CSV.",
+        "Visualize as a mosaic plot where column width reflects style group size and the vertical split shows the share of 'Kids mention' vs 'No kids mention' within each style."
+      ],
+      "key_findings": [
+        "Monogamous (mono): Kids mention 58.8% (130/221); No kids mention 41.2% (91/221).",
+        "Poly (poly): Kids mention 83.9% (26/31); No kids mention 16.1% (5/31).",
+        "Any (any): Kids mention 67.8% (40/59); No kids mention 32.2% (19/59).",
+        "Overall: Kids/family language is common across all styles, highest in poly and lowest in mono in this dataset.",
+        "Caution: The poly group is much smaller (n=31) than mono (n=221), so its percentage is more sensitive to small changes."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "10-matplotlib-word_graph_10_mosaic_kids_mentions_by_style",
+            "file": "word_graph_10_mosaic_kids_mentions_by_style.png",
+            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "10-seaborn-word_graph_10_mosaic_kids_by_style",
+            "file": "word_graph_10_mosaic_kids_by_style.png",
+            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png"
+          }
+        ],
+        "d3": [
+          {
+            "id": "10-d3-word_graph_10_mosaic_kids_by_style",
+            "file": "word_graph_10_mosaic_kids_by_style.svg",
+            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg"
+          }
+        ]
+      }
+    },
+    {
       "graph_id": "02",
       "slug": "graph-02",
       "title": "Excitement through Exclamation: Generational Differences in Exclamation Mark Usage",
@@ -175,6 +220,79 @@
         ]
       }
     },
+        {
+      "graph_id": "08",
+      "slug": "graph-08",
+      "title": "Does Complexity Attract More Interest? Sentence Complexity Based on Gender Preferences",
+      "question": "When gender preference changes, how does sentence complexity across genders (male, female, non-binary) change?",
+      "method": [
+        "A sentence was defined as complex if it contained at least 21 words (threshold configurable).",
+        "For each profile, sentence complexity was calculated as the percent of sentences meeting the complexity threshold.",
+        "Profiles were grouped by source gender and by target gender of interest; multi-target profiles were included in multiple target groups.",
+        "Distributions were summarized with medians and interquartile ranges and visualized as IQR bars with median labels."
+      ],
+      "key_findings": [
+        "Across groups, median sentence complexity (percent of sentences ≥ 21 words) generally falls in the mid-teens, with several groups showing substantial spread (wide IQRs and high maxima).",
+        "For profiles looking for men (target=M), medians are similar across source genders: Women 15.632% (n=94) vs Men 14.194% (n=17) vs NB 15.789% (n=3).",
+        "For profiles looking for women (target=F), Women have the highest median long-sentence rate at 25.965% (n=14), compared to Men at 14.629% (n=206) and NB at 18.919% (n=3).",
+        "For profiles looking for non-binary people (target=NB), Women again show higher median sentence complexity at 21.741% (n=16) relative to Men at 16.486% (n=26), though the NB source group is not interpretable (n=1).",
+        "Several categories have very small sample sizes (especially NB source groups), so those medians should be treated as descriptive rather than strong evidence of stable group differences."
+      ],
+      "notes": "",
+      "renderers": {
+        "matplotlib": [
+          {
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_men",
+            "file": "word_graph_08_sentence_complexity_looking_for_men.png",
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_men.png"
+          },
+          {
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_nb",
+            "file": "word_graph_08_sentence_complexity_looking_for_nb.png",
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_nb.png"
+          },
+          {
+            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_women",
+            "file": "word_graph_08_sentence_complexity_looking_for_women.png",
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_women.png"
+          }
+        ],
+        "seaborn": [
+          {
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
+            "file": "word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png"
+          },
+          {
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_M_seaborn",
+            "file": "word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png"
+          },
+          {
+            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_NB_seaborn",
+            "file": "word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png"
+          }
+        ],
+        "d3": [
+          {
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_F",
+            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg"
+          },
+          {
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_M",
+            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg"
+          },
+          {
+            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB",
+            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg"
+          }
+        ]
+      }
+    },
     {
       "graph_id": "04",
       "slug": "graph-04",
@@ -263,123 +381,7 @@
         ]
       }
     },
-    {
-      "graph_id": "06",
-      "slug": "graph-06",
-      "title": "Sometimes, Em-Dashes aren't AI indicators. They Just Add Flair",
-      "question": "How many em-dashes are used in profiles?",
-      "method": [
-        "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
-        "The Unicode em dash character (—) was counted per profile using exact character matching.",
-        "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
-        "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
-        "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
-      ],
-      "key_findings": [
-        "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
-        "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
-        "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
-        "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "06-matplotlib-word_graph_06_em_dash_bar",
-            "file": "word_graph_06_em_dash_bar.png",
-            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
-            "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png"
-          }
-        ],
-        "d3": [
-          {
-            "id": "06-d3-word_graph_06_em_dash_per_profile",
-            "file": "word_graph_06_em_dash_per_profile.svg",
-            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg"
-          }
-        ]
-      }
-    },
-    {
-      "graph_id": "08",
-      "slug": "graph-08",
-      "title": "Does Complexity Attract More Interest? Sentence Complexity Based on Gender Preferences",
-      "question": "When gender preference changes, how does sentence complexity across genders (male, female, non-binary) change?",
-      "method": [
-        "A sentence was defined as complex if it contained at least 21 words (threshold configurable).",
-        "For each profile, sentence complexity was calculated as the percent of sentences meeting the complexity threshold.",
-        "Profiles were grouped by source gender and by target gender of interest; multi-target profiles were included in multiple target groups.",
-        "Distributions were summarized with medians and interquartile ranges and visualized as IQR bars with median labels."
-      ],
-      "key_findings": [
-        "Across groups, median sentence complexity (percent of sentences ≥ 21 words) generally falls in the mid-teens, with several groups showing substantial spread (wide IQRs and high maxima).",
-        "For profiles looking for men (target=M), medians are similar across source genders: Women 15.632% (n=94) vs Men 14.194% (n=17) vs NB 15.789% (n=3).",
-        "For profiles looking for women (target=F), Women have the highest median long-sentence rate at 25.965% (n=14), compared to Men at 14.629% (n=206) and NB at 18.919% (n=3).",
-        "For profiles looking for non-binary people (target=NB), Women again show higher median sentence complexity at 21.741% (n=16) relative to Men at 16.486% (n=26), though the NB source group is not interpretable (n=1).",
-        "Several categories have very small sample sizes (especially NB source groups), so those medians should be treated as descriptive rather than strong evidence of stable group differences."
-      ],
-      "notes": "",
-      "renderers": {
-        "matplotlib": [
-          {
-            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_men",
-            "file": "word_graph_08_sentence_complexity_looking_for_men.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_men.png"
-          },
-          {
-            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_nb",
-            "file": "word_graph_08_sentence_complexity_looking_for_nb.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_nb.png"
-          },
-          {
-            "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_women",
-            "file": "word_graph_08_sentence_complexity_looking_for_women.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_women.png"
-          }
-        ],
-        "seaborn": [
-          {
-            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
-            "file": "word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png"
-          },
-          {
-            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_M_seaborn",
-            "file": "word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png"
-          },
-          {
-            "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_NB_seaborn",
-            "file": "word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png"
-          }
-        ],
-        "d3": [
-          {
-            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_F",
-            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg"
-          },
-          {
-            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_M",
-            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg"
-          },
-          {
-            "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB",
-            "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg"
-          }
-        ]
-      }
-    },
-    {
+        {
       "graph_id": "09",
       "slug": "graph-09",
       "title": "Regional Slang Prevalence: SF Bay Area vs UK/London Wordsets",
@@ -424,50 +426,49 @@
       }
     },
     {
-      "graph_id": "10",
-      "slug": "graph-10",
-      "title": "Do you think I want kids? Kids/family mentions by dating style",
-      "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
+      "graph_id": "06",
+      "slug": "graph-06",
+      "title": "Sometimes, Em-Dashes aren't AI indicators. They Just Add Flair",
+      "question": "How many em-dashes are used in profiles?",
       "method": [
-        "Load profiles from data/profiles_master.json.",
-        "Keep only profiles with datingStyle, normalized to mono, poly, or any (skip others).",
-        "Scan profileDetails.fullText for kids/family terms (e.g., kids/children/baby/stepkid/coparent/custody), including non-negated 'start/have/want a family'.",
-        "Apply negation rules: if the text matches strong 'no kids' phrasing (e.g., 'childfree', 'don't want kids') or a kids-term appears within 4 tokens after a negation word, count it as 'No kids mention'.",
-        "Aggregate counts by (datingStyle, kids_bucket), compute within-style percentages, and export to CSV.",
-        "Visualize as a mosaic plot where column width reflects style group size and the vertical split shows the share of 'Kids mention' vs 'No kids mention' within each style."
+        "Profile text was extracted from profileDetails.fullText with fallbacks and profiles with empty text were excluded.",
+        "The Unicode em dash character (—) was counted per profile using exact character matching.",
+        "Profiles were optionally filtered by minimum word count (simple whitespace token count).",
+        "Counts were bucketed into 0, 1, 2, 3, 4, and 5+ (cap configurable).",
+        "Bucket counts and percentages were exported to CSV and visualized as a labeled bar chart."
       ],
       "key_findings": [
-        "Monogamous (mono): Kids mention 58.8% (130/221); No kids mention 41.2% (91/221).",
-        "Poly (poly): Kids mention 83.9% (26/31); No kids mention 16.1% (5/31).",
-        "Any (any): Kids mention 67.8% (40/59); No kids mention 32.2% (19/59).",
-        "Overall: Kids/family language is common across all styles, highest in poly and lowest in mono in this dataset.",
-        "Caution: The poly group is much smaller (n=31) than mono (n=221), so its percentage is more sensitive to small changes."
+        "This chart was originally explored as a potential proxy for AI-generated text using em-dash (—) frequency.",
+        "After reviewing the results, em-dash presence did not show a meaningful relationship with AI-generated text in this dataset and was not used as an AI-likelihood measure.",
+        "The chart was therefore repurposed to summarize the distribution of em-dash usage across all profiles.",
+        "This distribution provides a baseline view of how frequently em-dashes appear in general profile writing and how concentrated usage is among a smaller subset of profiles."
       ],
       "notes": "",
       "renderers": {
         "matplotlib": [
           {
-            "id": "10-matplotlib-word_graph_10_mosaic_kids_mentions_by_style",
-            "file": "word_graph_10_mosaic_kids_mentions_by_style.png",
-            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png"
+            "id": "06-matplotlib-word_graph_06_em_dash_bar",
+            "file": "word_graph_06_em_dash_bar.png",
+            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png"
           }
         ],
         "seaborn": [
           {
-            "id": "10-seaborn-word_graph_10_mosaic_kids_by_style",
-            "file": "word_graph_10_mosaic_kids_by_style.png",
-            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png"
+            "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
+            "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
+            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png"
           }
         ],
         "d3": [
           {
-            "id": "10-d3-word_graph_10_mosaic_kids_by_style",
-            "file": "word_graph_10_mosaic_kids_by_style.svg",
-            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg"
+            "id": "06-d3-word_graph_06_em_dash_per_profile",
+            "file": "word_graph_06_em_dash_per_profile.svg",
+            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg"
           }
         ]
       }
     },
+    
     {
       "graph_id": "11",
       "slug": "graph-11",
