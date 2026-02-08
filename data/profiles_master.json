@@ -16,7 +16,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:25.922440+00:00",
     "id": "usr_62111231bc",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ilyaas",
@@ -34,7 +36,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:29.950583+00:00",
     "id": "usr_18c02c17a2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kayla Pio",
@@ -54,9 +58,11 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:59.531631+00:00",
     "id": "usr_c05d895fb7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
-  {    
+  {
     "name": "Valeria Khislavsky",
     "age": 40,
     "gender": "F",
@@ -72,7 +78,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:31.381507+00:00",
     "id": "usr_1c58a6a0e7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tony",
@@ -90,7 +98,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:34.435945+00:00",
     "id": "usr_f2fa5eadbf",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sarah McManus",
@@ -108,7 +118,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:37.509284+00:00",
     "id": "usr_aea53a8142",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "blk ballerina 🩰",
@@ -126,7 +138,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:39.864654+00:00",
     "id": "usr_957f29464f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Julian Michael",
@@ -162,7 +176,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:48.124261+00:00",
     "id": "usr_f79f5f2b1b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Monel",
@@ -181,7 +197,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:50.405806+00:00",
     "id": "usr_f98cae6f00",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rahul Goyal",
@@ -199,7 +217,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:53.799285+00:00",
     "id": "usr_77c62063c9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Blake Boles",
@@ -217,7 +237,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:53:55.287815+00:00",
     "id": "usr_5bd7339095",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Monel Chang",
@@ -236,7 +258,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:35:14.805546+00:00",
     "id": "usr_323f919897",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Ori",
@@ -254,7 +278,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:01.065374+00:00",
     "id": "usr_44b02483f3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Martin",
@@ -272,7 +298,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:35:27.041679+00:00",
     "id": "usr_9368a27fa1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ruth",
@@ -291,7 +319,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:35:39.065602+00:00",
     "id": "usr_15f3bdcf80",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Mark",
@@ -309,7 +339,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:06.688170+00:00",
     "id": "usr_69c6656a7e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jackson",
@@ -327,7 +359,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:37:20.442749+00:00",
     "id": "usr_5d1b9d55a6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Owen Murphy",
@@ -345,7 +379,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:39:01.754252+00:00",
     "id": "usr_db2dae94d0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Adam Jermyn",
@@ -363,7 +399,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:12.336779+00:00",
     "id": "usr_3647e23669",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jamie",
@@ -381,7 +419,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:15.368429+00:00",
     "id": "usr_6dc2e0bdb6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jonathan Saunders",
@@ -399,7 +439,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:20.418272+00:00",
     "id": "usr_a4dd2a5faa",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kayla",
@@ -435,7 +477,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:26.133138+00:00",
     "id": "usr_1a3dd3479b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rory Katz",
@@ -453,7 +497,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:31.455083+00:00",
     "id": "usr_a6812c96de",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Zoé",
@@ -490,7 +536,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:40:43.072223+00:00",
     "id": "usr_a7a9bad78b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Xing Ye",
@@ -508,7 +556,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:39.940420+00:00",
     "id": "usr_78ece4944a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "George Wang",
@@ -526,7 +576,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:41.737454+00:00",
     "id": "usr_3089c6389f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sarah Brinker",
@@ -544,7 +596,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:45.112442+00:00",
     "id": "usr_7b6463a41f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jane Loy",
@@ -562,7 +616,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:47.950343+00:00",
     "id": "usr_41855fc328",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Martin",
@@ -582,7 +638,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:50.469734+00:00",
     "id": "usr_e4e1b0b7c4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Robert Thompson",
@@ -600,7 +658,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:55.096534+00:00",
     "id": "usr_2baef7757a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Manuel",
@@ -618,7 +678,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:54:57.978177+00:00",
     "id": "usr_29f94af17f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "S",
@@ -636,7 +698,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:02.384401+00:00",
     "id": "usr_bc8943c1f6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Yash",
@@ -654,7 +718,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:06.187648+00:00",
     "id": "usr_07f65c8d00",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ben",
@@ -672,7 +738,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:30:43.635510+00:00",
     "id": "usr_9ea93eae4d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Adam Krivka",
@@ -690,7 +758,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:11.195106+00:00",
     "id": "usr_05416c339c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Roxanne Wiedemann",
@@ -708,7 +778,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:42:24.425601+00:00",
     "id": "usr_2d2e80e632",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dina Genkina",
@@ -726,7 +798,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:20.968511+00:00",
     "id": "usr_b249276aff",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Kyp",
@@ -744,7 +818,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:25.887926+00:00",
     "id": "usr_28c25b686b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Calum",
@@ -762,7 +838,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:28.533904+00:00",
     "id": "usr_af082a73b0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Alex Hedtke",
@@ -780,7 +858,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:30.000793+00:00",
     "id": "usr_de9267b485",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Flora Scarabello",
@@ -800,7 +880,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:32.752325+00:00",
     "id": "usr_fc017d82c9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Erik Lönnroth",
@@ -818,7 +900,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:34.483612+00:00",
     "id": "usr_7abe6d26c5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Panagiotis",
@@ -836,7 +920,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:44:05.809720+00:00",
     "id": "usr_55a09b3eb6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dan Elton",
@@ -855,7 +941,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:40.447453+00:00",
     "id": "usr_5c454914d9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Yash Mittal",
@@ -873,7 +961,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:42.078648+00:00",
     "id": "usr_bea9a0b648",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Matthew Goodman",
@@ -891,7 +981,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:46.928892+00:00",
     "id": "usr_1a96b561a7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Quinn Dougherty",
@@ -909,7 +1001,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:49.120366+00:00",
     "id": "usr_1fb73e4836",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Emmet",
@@ -927,7 +1021,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:55:52.233004+00:00",
     "id": "usr_9e07ccdaa5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Jarrett",
@@ -947,7 +1043,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:45:47.170881+00:00",
     "id": "usr_f1fa07879a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Pavitthra Pandurangan",
@@ -965,7 +1063,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:47:28.471555+00:00",
     "id": "usr_2b3c84d078",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Max Carpendale",
@@ -984,7 +1084,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:20.955429+00:00",
     "id": "usr_76e12533b0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Michelle Savage",
@@ -1002,7 +1104,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:23.644800+00:00",
     "id": "usr_e02afc30b9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Terrence Chan",
@@ -1020,7 +1124,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:26.201946+00:00",
     "id": "usr_7beff3f364",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Joe Parrish",
@@ -1038,7 +1144,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:29.655042+00:00",
     "id": "usr_ec665788c6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Cynthia",
@@ -1058,7 +1166,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:32.434620+00:00",
     "id": "usr_1d7ce6b95c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Baram",
@@ -1076,7 +1186,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:35.964860+00:00",
     "id": "usr_8c045e9342",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rhys Lindmark",
@@ -1094,7 +1206,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:38.093519+00:00",
     "id": "usr_482e943750",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "David McKibbin",
@@ -1112,7 +1226,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:41.891374+00:00",
     "id": "usr_c7b0287a2e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Maria Marshakova",
@@ -1130,7 +1246,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:49:09.875230+00:00",
     "id": "usr_2b2bbb68f8",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dillon Paul",
@@ -1148,7 +1266,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:48.413372+00:00",
     "id": "usr_8a66d8f970",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Isaac K.",
@@ -1166,7 +1286,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:50.465644+00:00",
     "id": "usr_dc07f2432e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jack Malde",
@@ -1184,7 +1306,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:56:55.354073+00:00",
     "id": "usr_b8ae6cc066",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dmitry Vaintrob",
@@ -1202,7 +1326,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:03.491584+00:00",
     "id": "usr_eafd834d0c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Laura",
@@ -1220,7 +1346,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:06.668849+00:00",
     "id": "usr_5cb6a47d0b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Daniil",
@@ -1238,7 +1366,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:09.371084+00:00",
     "id": "usr_a64be45867",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Serena",
@@ -1257,7 +1387,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:14.745094+00:00",
     "id": "usr_f93f3a791a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "David S",
@@ -1275,7 +1407,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:18.881010+00:00",
     "id": "usr_65da957f53",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kiran Kaja",
@@ -1293,7 +1427,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:25.157042+00:00",
     "id": "usr_086121af0b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Abe K.",
@@ -1312,7 +1448,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:28.940110+00:00",
     "id": "usr_d011560031",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Callum",
@@ -1330,7 +1468,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:32.571378+00:00",
     "id": "usr_4542e591bd",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ari Zerner",
@@ -1349,7 +1489,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:34.141597+00:00",
     "id": "usr_87ae7e8e85",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Mike",
@@ -1367,7 +1509,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:37.680359+00:00",
     "id": "usr_c95879af82",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Brad Levin",
@@ -1385,7 +1529,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:40.532956+00:00",
     "id": "usr_3eb7c032c3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Julie M",
@@ -1403,7 +1549,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:43.142055+00:00",
     "id": "usr_b1841bcdb4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ja",
@@ -1421,7 +1569,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:47.865359+00:00",
     "id": "usr_4c79d89899",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Mairead",
@@ -1441,7 +1591,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:52:32.527356+00:00",
     "id": "usr_ad37c5c484",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Aaron",
@@ -1459,7 +1611,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:51.960359+00:00",
     "id": "usr_e913712157",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Oscar",
@@ -1477,7 +1631,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:54.710065+00:00",
     "id": "usr_f9d016cd0b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tanner Godarzi",
@@ -1495,7 +1651,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:54:13.843658+00:00",
     "id": "usr_dee75989a8",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Henry Roark",
@@ -1513,7 +1671,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:57:58.919537+00:00",
     "id": "usr_f84a619384",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tom Keith",
@@ -1531,7 +1691,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:06.080301+00:00",
     "id": "usr_1ffec2b180",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "malcolm handley",
@@ -1549,7 +1711,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:09.610838+00:00",
     "id": "usr_5807311f43",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Emily",
@@ -1567,7 +1731,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:55:55.249656+00:00",
     "id": "usr_3f5b9628fc",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "George",
@@ -1586,7 +1752,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:57:36.608280+00:00",
     "id": "usr_7bea345c09",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Michael Creger",
@@ -1604,7 +1772,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:16.861279+00:00",
     "id": "usr_f6860f2591",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sam B",
@@ -1623,7 +1793,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:23.003257+00:00",
     "id": "usr_32e6c20d7a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "James Norris",
@@ -1641,7 +1813,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:29.640619+00:00",
     "id": "usr_6c48cb097e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Libby",
@@ -1659,7 +1833,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:34.311041+00:00",
     "id": "usr_74299a606e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Dave K",
@@ -1678,7 +1854,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:38.665265+00:00",
     "id": "usr_f99d050fdb",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "swyx",
@@ -1696,7 +1874,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T16:59:18.011533+00:00",
     "id": "usr_23903e6cac",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Aaron Boddy",
@@ -1714,7 +1894,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:44.351069+00:00",
     "id": "usr_1cbd809ad9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Jose Luis Ricon",
@@ -1732,7 +1914,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:01:04.536248+00:00",
     "id": "usr_64aaeab250",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Kelechi Nwankwoala",
@@ -1750,7 +1934,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:49.045480+00:00",
     "id": "usr_f8b3720cf2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Daniel Filan",
@@ -1768,7 +1954,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:55.130444+00:00",
     "id": "usr_13d918dd1a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Hussein E",
@@ -1787,7 +1975,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:56.693907+00:00",
     "id": "usr_f3d4b8d4e3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tara",
@@ -1806,7 +1996,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:58:58.843745+00:00",
     "id": "usr_582385d5f1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dominik",
@@ -1824,7 +2016,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:33:35.005155+00:00",
     "id": "usr_211c9de06e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Seth Ariel Green",
@@ -1842,7 +2036,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:01.562392+00:00",
     "id": "usr_a0ee1d96bb",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Swathi Challa",
@@ -1860,7 +2056,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:05.527156+00:00",
     "id": "usr_c5f611665c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Alex Turner",
@@ -1878,7 +2076,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:07.092503+00:00",
     "id": "usr_574998da53",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Robert Kingett",
@@ -1896,7 +2096,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:08.446068+00:00",
     "id": "usr_2af60cf596",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Arun",
@@ -1914,7 +2116,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:11.287572+00:00",
     "id": "usr_5585b9cd21",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Amaryllis",
@@ -1934,7 +2138,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:14.766477+00:00",
     "id": "usr_8f8b200a9a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Rosie",
@@ -1952,7 +2158,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:16.712441+00:00",
     "id": "usr_54d1128b0f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Asher",
@@ -1970,7 +2178,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:21.464827+00:00",
     "id": "usr_4da5e702b2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Wiggles!",
@@ -1988,7 +2198,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:24.176735+00:00",
     "id": "usr_6abed675ba",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Charlie Rogers-Smith",
@@ -2006,7 +2218,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:27.807113+00:00",
     "id": "usr_e546949ddc",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Nate A-M",
@@ -2024,7 +2238,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:34:06.698146+00:00",
     "id": "usr_ba83e1402b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "C",
@@ -2042,7 +2258,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:32.195303+00:00",
     "id": "usr_e2e23a6e0e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kaden Sieracki",
@@ -2060,7 +2278,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:34.484668+00:00",
     "id": "usr_8e08991398",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kaushik Donthi",
@@ -2078,7 +2298,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:02:45.959263+00:00",
     "id": "usr_0e7b7af163",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tim",
@@ -2096,7 +2318,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:41.620268+00:00",
     "id": "usr_04732cb97b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Carson McNeil",
@@ -2114,7 +2338,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:51.440724+00:00",
     "id": "usr_5f8a6bcd88",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Richard Ngo",
@@ -2132,7 +2358,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:54.093418+00:00",
     "id": "usr_b3064cef67",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Lazar Ilic",
@@ -2150,7 +2378,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:59:58.191884+00:00",
     "id": "usr_f0b57d5086",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Robi Rahman",
@@ -2168,7 +2398,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:08:22.393917+00:00",
     "id": "usr_175108006f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Joshua Oreman",
@@ -2187,7 +2419,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:08.494652+00:00",
     "id": "usr_02bf46161c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Rich",
@@ -2205,7 +2439,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:11.277279+00:00",
     "id": "usr_75b14a324e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Pip Moss",
@@ -2223,7 +2459,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:15.010910+00:00",
     "id": "usr_67f17eb9e6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Vanessa Kosoy",
@@ -2243,7 +2481,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:18.501763+00:00",
     "id": "usr_f57ea7ef5b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "e",
@@ -2261,7 +2501,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:20.804360+00:00",
     "id": "usr_088df0aede",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Maya",
@@ -2279,7 +2521,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:26.077854+00:00",
     "id": "usr_c5959f611c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Xavier Richards",
@@ -2297,7 +2541,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:29.797748+00:00",
     "id": "usr_612c0a9acf",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jenn C",
@@ -2316,7 +2562,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:33.714391+00:00",
     "id": "usr_aff5b99157",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Hannah E",
@@ -2334,7 +2582,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:38.833618+00:00",
     "id": "usr_84dc6a034d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Lugli",
@@ -2353,7 +2603,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:34:51.847103+00:00",
     "id": "usr_f81ea6a0d9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dave",
@@ -2371,7 +2623,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:42.922002+00:00",
     "id": "usr_646043becc",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "John Wentworth",
@@ -2389,7 +2643,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:45.628530+00:00",
     "id": "usr_0434dfa104",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Chi",
@@ -2407,7 +2663,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:46.902396+00:00",
     "id": "usr_aeebbaacd1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Maura Kate Costello",
@@ -2425,7 +2683,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:49.815195+00:00",
     "id": "usr_fb725bc901",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ben Schwab",
@@ -2445,7 +2705,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:56.281560+00:00",
     "id": "usr_fa70caacaa",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Destiny",
@@ -2463,7 +2725,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:00:59.662503+00:00",
     "id": "usr_2f8c26e8f2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "S Lou",
@@ -2499,7 +2763,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:10.207876+00:00",
     "id": "usr_0815a0bd72",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Brian Hodges",
@@ -2518,7 +2784,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:14.874014+00:00",
     "id": "usr_65ff9bd76e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Steven Elleman",
@@ -2536,7 +2804,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:17.891581+00:00",
     "id": "usr_5a5a1b1133",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Daryna",
@@ -2554,7 +2824,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:21.018244+00:00",
     "id": "usr_7a4f5b5298",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Chiaki Mizuta",
@@ -2592,7 +2864,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:28.019152+00:00",
     "id": "usr_ce8d89cc9a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Campbell Hutcheson",
@@ -2610,7 +2884,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:10:03.849609+00:00",
     "id": "usr_0595390b2a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Francesca",
@@ -2630,7 +2906,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:34.966168+00:00",
     "id": "usr_0ad3cadb21",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "TJ",
@@ -2648,7 +2926,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:38.110042+00:00",
     "id": "usr_b7dffef9dd",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "T.",
@@ -2666,7 +2946,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:35:39.692009+00:00",
     "id": "usr_e2c15ff14e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Akshay",
@@ -2684,7 +2966,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:43.224063+00:00",
     "id": "usr_1b22b88b8c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nadia",
@@ -2702,7 +2986,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:45.753119+00:00",
     "id": "usr_ec181fb208",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Phoenix",
@@ -2720,7 +3006,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:49.340373+00:00",
     "id": "usr_8e01aabd7b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Harry Altman",
@@ -2739,7 +3027,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:50.584302+00:00",
     "id": "usr_3861e7bb44",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Nick Graham",
@@ -2757,7 +3047,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:55.324466+00:00",
     "id": "usr_2a6d2a2d9e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Luca",
@@ -2775,7 +3067,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:01:57.149423+00:00",
     "id": "usr_0ddd44ddab",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rishi Mohnot",
@@ -2793,7 +3087,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:04.264137+00:00",
     "id": "usr_f31f1ef82d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Joao",
@@ -2811,7 +3107,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:07.954143+00:00",
     "id": "usr_b0cbb72cba",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ricardo F.",
@@ -2829,7 +3127,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:10.843377+00:00",
     "id": "usr_f8264ce8ea",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Domo Hazzard",
@@ -2849,7 +3149,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:14.360256+00:00",
     "id": "usr_388e4d83da",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Bilqis R",
@@ -2867,7 +3169,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:21.342085+00:00",
     "id": "usr_f753263e7c",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sean Langhi",
@@ -2887,7 +3191,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:25.853064+00:00",
     "id": "usr_75f2661435",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "any"
   },
   {
     "name": "Kerry M",
@@ -2905,7 +3211,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:31.985223+00:00",
     "id": "usr_ad51f6fcde",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dan Kendall",
@@ -2923,7 +3231,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:36:15.406464+00:00",
     "id": "usr_62a591d357",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Omar",
@@ -2941,7 +3251,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:13:26.645847+00:00",
     "id": "usr_a5a2e6db18",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jonathan B",
@@ -2959,7 +3271,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:16:49.476622+00:00",
     "id": "usr_043cba3ae0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ben Rachbach",
@@ -2978,7 +3292,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:46.401690+00:00",
     "id": "usr_7bae480261",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Benedict Ide",
@@ -2996,7 +3312,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:49.824271+00:00",
     "id": "usr_a554d0a027",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Anya",
@@ -3015,7 +3333,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:02:55.979415+00:00",
     "id": "usr_c171b85fd5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Diego",
@@ -3033,7 +3353,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:04.017901+00:00",
     "id": "usr_0cf7f3e282",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Karthik",
@@ -3051,7 +3373,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:07.426819+00:00",
     "id": "usr_5048f38377",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Ava",
@@ -3069,7 +3393,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:12.260701+00:00",
     "id": "usr_087fbc195a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Divya",
@@ -3087,7 +3413,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:19.308769+00:00",
     "id": "usr_338869b614",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kyron",
@@ -3105,7 +3433,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:22.689603+00:00",
     "id": "usr_7c05cf7f82",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Holden Lee",
@@ -3123,7 +3453,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:36:44.213787+00:00",
     "id": "usr_dab34ae3eb",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sebastian Schmidt",
@@ -3141,7 +3473,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:18:31.021535+00:00",
     "id": "usr_91520afa39",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Eleanor Huntington",
@@ -3159,7 +3493,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:28.712200+00:00",
     "id": "usr_472fe7a708",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Neissa",
@@ -3177,7 +3513,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:20:12.421256+00:00",
     "id": "usr_eeb1bca3df",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sophie",
@@ -3195,7 +3533,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:21:53.891484+00:00",
     "id": "usr_720699db56",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Blake",
@@ -3213,7 +3553,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:35.731847+00:00",
     "id": "usr_48faf2fb83",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Bee",
@@ -3231,7 +3573,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:39.185838+00:00",
     "id": "usr_5404818004",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kim Korte",
@@ -3249,7 +3593,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:42.813953+00:00",
     "id": "usr_e6786b8495",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jacob",
@@ -3267,7 +3613,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:46.012845+00:00",
     "id": "usr_f93929ccfe",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Joe Walz",
@@ -3285,7 +3633,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:52.398840+00:00",
     "id": "usr_83dfcfab4f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Taren Stinebrickner-Kauffman",
@@ -3303,7 +3653,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:55.483948+00:00",
     "id": "usr_2a41c33405",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Ian",
@@ -3321,7 +3673,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:03:58.872816+00:00",
     "id": "usr_e85937d6f1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Carly",
@@ -3339,7 +3693,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:00.701765+00:00",
     "id": "usr_6d33a4613e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Abeer Agrawal",
@@ -3357,7 +3713,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:03.029591+00:00",
     "id": "usr_73fb709f6f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "George",
@@ -3376,7 +3734,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:09.557179+00:00",
     "id": "usr_e77eb2eb7d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Richard Nicholson",
@@ -3394,7 +3754,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:20.958632+00:00",
     "id": "usr_8b8fa88e38",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kyle West",
@@ -3412,7 +3774,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:23.620132+00:00",
     "id": "usr_afcc6e0593",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "William Wolf",
@@ -3431,7 +3795,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:25.084527+00:00",
     "id": "usr_f6f09aa842",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Angie",
@@ -3449,7 +3815,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:27.280111+00:00",
     "id": "usr_eca6230bc7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "DH",
@@ -3467,7 +3835,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:29.969703+00:00",
     "id": "usr_455248a8c2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Lisetts",
@@ -3485,7 +3855,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:34.949410+00:00",
     "id": "usr_cb1f4df9ab",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "K",
@@ -3503,7 +3875,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:36.772787+00:00",
     "id": "usr_9114a08dc7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tanner",
@@ -3521,7 +3895,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:40.292733+00:00",
     "id": "usr_ff0b88a130",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Irina",
@@ -3539,7 +3915,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:45.421714+00:00",
     "id": "usr_8cff506150",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Alice",
@@ -3557,7 +3935,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:48.398396+00:00",
     "id": "usr_9125241386",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dan",
@@ -3575,7 +3955,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:37:52.548503+00:00",
     "id": "usr_edae9f254b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Irina",
@@ -3593,7 +3975,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:51.973476+00:00",
     "id": "usr_3386c9dc77",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sheena",
@@ -3612,7 +3996,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:56.582917+00:00",
     "id": "usr_210314bef7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "River",
@@ -3631,7 +4017,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:04:59.489581+00:00",
     "id": "usr_6c237e0590",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Mars",
@@ -3649,7 +4037,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:01.908250+00:00",
     "id": "usr_c4f7451f7e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "poly mono"
   },
   {
     "name": "Lexi",
@@ -3667,7 +4057,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:05.788158+00:00",
     "id": "usr_0ea1d233e4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nita Jain",
@@ -3685,7 +4077,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:12.649485+00:00",
     "id": "usr_a4ecbea0a1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ksenia",
@@ -3703,7 +4097,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:17.666700+00:00",
     "id": "usr_7a86b09354",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Bee",
@@ -3721,7 +4117,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:21.245818+00:00",
     "id": "usr_145d4094eb",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Yulia",
@@ -3739,7 +4137,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:25.711725+00:00",
     "id": "usr_4cabf006ea",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rebecca",
@@ -3757,7 +4157,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:31.129666+00:00",
     "id": "usr_002801e2b5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Milka",
@@ -3775,7 +4177,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:35.395607+00:00",
     "id": "usr_92a91ee01b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Sandy",
@@ -3793,7 +4197,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:44.969168+00:00",
     "id": "usr_096c1fc308",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Arina",
@@ -3811,7 +4217,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:47.419775+00:00",
     "id": "usr_8f91ad41be",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kay Day",
@@ -3829,7 +4237,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:50.745289+00:00",
     "id": "usr_772c480194",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Scott",
@@ -3847,7 +4257,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:05:56.888208+00:00",
     "id": "usr_a3452c4d95",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Harrison",
@@ -3865,7 +4277,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:25:16.796968+00:00",
     "id": "usr_a316ad1ed3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Tim",
@@ -3883,7 +4297,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:38:49.091622+00:00",
     "id": "usr_f6e0013eab",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Yash Sharma",
@@ -3901,7 +4317,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:38:52.382806+00:00",
     "id": "usr_c0b3a89595",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rocco",
@@ -3919,7 +4337,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:05.894492+00:00",
     "id": "usr_527d3d9c91",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Puja Gandhi",
@@ -3937,7 +4357,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:08.666214+00:00",
     "id": "usr_66fbc11cf7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "SwirlsOfSouns",
@@ -3955,7 +4377,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:10.655421+00:00",
     "id": "usr_c77d61e581",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Tejas Subramaniam",
@@ -3975,7 +4398,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:13.372627+00:00",
     "id": "usr_9c7bd4050f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Alice",
@@ -3993,7 +4417,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:21.203459+00:00",
     "id": "usr_5675b58976",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Michael",
@@ -4011,7 +4437,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:24.713005+00:00",
     "id": "usr_a685339a27",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Max Alexander",
@@ -4029,7 +4457,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:27.405077+00:00",
     "id": "usr_169fe68959",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Courtney",
@@ -4047,7 +4477,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:31.128706+00:00",
     "id": "usr_3471ae2b14",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ujwal Velagapudi",
@@ -4065,7 +4497,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:36.722067+00:00",
     "id": "usr_076c084131",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Lawrence Chan",
@@ -4083,7 +4517,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:42.079695+00:00",
     "id": "usr_75f07f3e1a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Cristian Trout",
@@ -4102,7 +4537,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:47.209819+00:00",
     "id": "usr_6220c53bd4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Louis Tse",
@@ -4120,7 +4557,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:50.036317+00:00",
     "id": "usr_df563a8c21",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nancy R",
@@ -4138,7 +4577,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:26:58.082453+00:00",
     "id": "usr_8d798f2ac8",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Furqan",
@@ -4156,7 +4597,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:28:39.608876+00:00",
     "id": "usr_36af460751",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Abeer Agrawal",
@@ -4174,7 +4617,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:54.879103+00:00",
     "id": "usr_870452fa93",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Anna Crow",
@@ -4194,7 +4639,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:39:30.906747+00:00",
     "id": "usr_ca9dfe4c14",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Alex Wilson",
@@ -4212,7 +4659,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:06:56.872482+00:00",
     "id": "usr_bacc2418a5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kamil",
@@ -4230,7 +4679,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:03.298326+00:00",
     "id": "usr_ba9d8d1b92",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Marta",
@@ -4248,7 +4699,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:30:20.934624+00:00",
     "id": "usr_8ab426951e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "David",
@@ -4268,7 +4721,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:12.135244+00:00",
     "id": "usr_52bf981f18",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Jay Geis",
@@ -4286,7 +4741,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:14.468972+00:00",
     "id": "usr_80c22d2507",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Tara Schuster",
@@ -4304,7 +4761,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:16.813575+00:00",
     "id": "usr_df98b38087",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kaushik Donthi",
@@ -4322,7 +4781,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:32:02.367657+00:00",
     "id": "usr_b1185a9599",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Watson Ladd",
@@ -4342,7 +4803,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:22.214284+00:00",
     "id": "usr_f40be05c5f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Gina Stuessy",
@@ -4361,7 +4824,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:25.018227+00:00",
     "id": "usr_321cbee0ad",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Jess",
@@ -4379,7 +4844,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:29.562369+00:00",
     "id": "usr_90a20138cd",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Paul",
@@ -4397,7 +4864,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:32.743279+00:00",
     "id": "usr_3b7ae0f59b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Chris M",
@@ -4415,7 +4884,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:35.763905+00:00",
     "id": "usr_2cf51205d0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ross",
@@ -4433,7 +4904,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:41.217285+00:00",
     "id": "usr_564edb5079",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ben Weinstein-Raun",
@@ -4451,7 +4924,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:44.025915+00:00",
     "id": "usr_c4a83cbbdf",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Ryan McGuine",
@@ -4469,7 +4944,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:47.398155+00:00",
     "id": "usr_657eb75a0a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Mahir Jayswal",
@@ -4487,7 +4964,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:33:43.886362+00:00",
     "id": "usr_6604a51053",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Isabel Hasse",
@@ -4507,7 +4986,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:52.199072+00:00",
     "id": "usr_370e9dbeca",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Marcos Abraao",
@@ -4525,7 +5006,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:55.494528+00:00",
     "id": "usr_f524dc772d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Christina",
@@ -4543,7 +5026,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:07:57.380851+00:00",
     "id": "usr_655f1ed2c4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nancy",
@@ -4561,7 +5046,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:01.470397+00:00",
     "id": "usr_60221ab882",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Enishi",
@@ -4579,7 +5066,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:04.650530+00:00",
     "id": "usr_5d19c07e30",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "John",
@@ -4598,7 +5087,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:08.084056+00:00",
     "id": "usr_4fc014d179",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Laurence",
@@ -4616,7 +5107,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:35:25.209558+00:00",
     "id": "usr_da31a54b44",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Cher Hu",
@@ -4634,7 +5127,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:37:06.530258+00:00",
     "id": "usr_91f5407cf3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jake Gloudemans",
@@ -4652,7 +5147,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:38:47.840475+00:00",
     "id": "usr_91a4ee8192",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Guy",
@@ -4670,7 +5167,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:15.530098+00:00",
     "id": "usr_77683bbfb9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ben Orenstein",
@@ -4688,7 +5187,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:20.359085+00:00",
     "id": "usr_2d35fdfcae",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "poly mono"
   },
   {
     "name": "Jacob (Jisk) Kopczynski",
@@ -4706,7 +5207,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:23.218783+00:00",
     "id": "usr_b4914ffd72",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Jeff Chang",
@@ -4724,7 +5227,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:27.642261+00:00",
     "id": "usr_e095117d98",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Brian",
@@ -4742,7 +5246,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:32.295706+00:00",
     "id": "usr_e10455e54d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Jeremy S",
@@ -4760,7 +5266,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:36.692551+00:00",
     "id": "usr_b388085011",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Charles",
@@ -4778,7 +5286,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:42.399982+00:00",
     "id": "usr_174539e3d3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rico",
@@ -4796,7 +5306,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:47.740837+00:00",
     "id": "usr_2d1d90850d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Amy",
@@ -4816,7 +5328,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:50.222176+00:00",
     "id": "usr_1c94368b35",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kemal Abuhan",
@@ -4834,7 +5348,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:51.763377+00:00",
     "id": "usr_b59b3aa4ec",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Lars Hansen",
@@ -4852,7 +5368,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:08:55.900067+00:00",
     "id": "usr_aef0bc1982",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Julia Silbergeld",
@@ -4870,7 +5388,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:00.708320+00:00",
     "id": "usr_51bb038ab9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Cory Hinkle",
@@ -4888,7 +5408,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:03.982783+00:00",
     "id": "usr_bc27cf28c9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Varun",
@@ -4906,7 +5428,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:06.970057+00:00",
     "id": "usr_dfe670cf74",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "J",
@@ -4926,7 +5450,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:09.195228+00:00",
     "id": "usr_aca50c1241",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Anastasia",
@@ -4944,7 +5470,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:40:29.154798+00:00",
     "id": "usr_72ee7b01b7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Mike",
@@ -4962,7 +5490,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:14.744452+00:00",
     "id": "usr_340e6cc34d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Colleen",
@@ -4980,7 +5510,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:17.287726+00:00",
     "id": "usr_30ff43ad3f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Felipe",
@@ -4998,7 +5530,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:24.260649+00:00",
     "id": "usr_c2d0e67189",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ilya S",
@@ -5014,7 +5548,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:27.326275+00:00",
     "id": "usr_d9c2875f2b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Dan L",
@@ -5032,7 +5568,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:29.986615+00:00",
     "id": "usr_d78fe9d889",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Weiwen",
@@ -5051,7 +5589,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:34.616436+00:00",
     "id": "usr_d97a99c3b7",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Robert Nusbaum",
@@ -5069,7 +5609,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:40.042861+00:00",
     "id": "usr_58fe5bb1ed",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kadi",
@@ -5087,7 +5629,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:43.571366+00:00",
     "id": "usr_e180f374be",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Neall",
@@ -5105,7 +5649,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:46.168565+00:00",
     "id": "usr_298b38ef40",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "marie",
@@ -5123,7 +5669,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:48.626000+00:00",
     "id": "usr_4b7db33b94",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Svitlana",
@@ -5142,7 +5690,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:43:51.910136+00:00",
     "id": "usr_8e94444f6f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Xavier",
@@ -5161,7 +5711,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:45:33.233194+00:00",
     "id": "usr_bc41567741",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Ryan",
@@ -5179,7 +5731,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:53.590044+00:00",
     "id": "usr_bac751c66d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Jeff",
@@ -5197,7 +5751,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:09:56.113063+00:00",
     "id": "usr_fd38a10137",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Connie",
@@ -5215,7 +5771,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:47:14.544568+00:00",
     "id": "usr_ad60c5f6a0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Eduardo",
@@ -5233,7 +5791,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T19:41:44.167962+00:00",
     "id": "usr_b25bc47508",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Swami",
@@ -5251,7 +5811,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:23.856268+00:00",
     "id": "usr_8bec96c14b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "HERIK",
@@ -5269,7 +5831,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:25.649969+00:00",
     "id": "usr_d8d708ea6b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Kyleigh",
@@ -5285,7 +5849,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:29.173199+00:00",
     "id": "usr_7a0143fed6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Prasad",
@@ -5303,7 +5869,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:32.464420+00:00",
     "id": "usr_65721f6fe3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Mahir Jayswal",
@@ -5321,7 +5889,9 @@
     },
     "scrapeTimestampDetail": "2025-11-27T17:48:55.908777+00:00",
     "id": "usr_80304fd0b5",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Ravi Roshan",
@@ -5339,7 +5909,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:37.059981+00:00",
     "id": "usr_d76a063805",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Rita",
@@ -5357,7 +5928,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:40.130216+00:00",
     "id": "usr_33e12a81c2",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nate Strum",
@@ -5375,7 +5948,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:45.352809+00:00",
     "id": "usr_95a9b10018",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Aella",
@@ -5393,7 +5968,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:48.118875+00:00",
     "id": "usr_9c3df10c8e",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Joseph",
@@ -5411,7 +5988,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:10:52.740315+00:00",
     "id": "usr_4ca3dd5a11",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Mark",
@@ -5429,7 +6008,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:00.082536+00:00",
     "id": "usr_3da85ea3ec",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Eli Tyre",
@@ -5447,7 +6028,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:01.728193+00:00",
     "id": "usr_5d087ea782",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Julian WIse",
@@ -5466,7 +6049,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:09.680122+00:00",
     "id": "usr_028ffb91eb",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Tyrone-Jay Barugh",
@@ -5484,7 +6069,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:13.726944+00:00",
     "id": "usr_88c85ecc38",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Nathan Young",
@@ -5502,7 +6089,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:16.383656+00:00",
     "id": "usr_66a6bdc77b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Kevin Wheeler",
@@ -5520,7 +6109,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:20.171848+00:00",
     "id": "usr_ab89eb0bb3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "poly mono"
   },
   {
     "name": "Quinn Dougherty",
@@ -5539,7 +6130,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:22.160546+00:00",
     "id": "usr_c5a8d4db9f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Gustavo",
@@ -5558,7 +6151,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:26.839599+00:00",
     "id": "usr_7fd82cd0b4",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "mono poly"
   },
   {
     "name": "Dan",
@@ -5576,7 +6171,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:28.316975+00:00",
     "id": "usr_81ad59323d",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Agnieszka",
@@ -5594,7 +6191,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:31.068995+00:00",
     "id": "usr_107b467dd6",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Meredith",
@@ -5612,7 +6211,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:35.363483+00:00",
     "id": "usr_a3164c38df",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Graham Bessellieu",
@@ -5630,7 +6231,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:37.627229+00:00",
     "id": "usr_98a3a766b8",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Robert Mushkatblat",
@@ -5648,7 +6251,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:40.754978+00:00",
     "id": "usr_dc0f7360e9",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Daystar Eld",
@@ -5666,7 +6271,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:42.163755+00:00",
     "id": "usr_6c464a7f53",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "poly mono"
   },
   {
     "name": "Mati Roy",
@@ -5685,7 +6292,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:43.541233+00:00",
     "id": "usr_e8711d37b3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Catherio",
@@ -5701,7 +6310,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:46.706815+00:00",
     "id": "usr_225ba0249f",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "David",
@@ -5721,7 +6332,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:51.198673+00:00",
     "id": "usr_5279084c35",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Shaked",
@@ -5739,7 +6352,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:54.341335+00:00",
     "id": "usr_58c9686525",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Kathy Garcia",
@@ -5758,7 +6372,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:11:59.083105+00:00",
     "id": "usr_781710d5f3",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   },
   {
     "name": "Neil Thawani",
@@ -5776,7 +6392,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:00.411171+00:00",
     "id": "usr_adef7c72b1",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "David",
@@ -5794,7 +6412,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:02.737792+00:00",
     "id": "usr_687f8c5cbf",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Rachel Clifton",
@@ -5812,7 +6432,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:05.330763+00:00",
     "id": "usr_75045befd8",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "any",
+    "datingStyleRaw": "poly mono"
   },
   {
     "name": "Dony",
@@ -5832,7 +6454,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:09.156760+00:00",
     "id": "usr_f12e7c6cb0",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyleRaw": null
   },
   {
     "name": "Blaïse (bless)",
@@ -5850,7 +6473,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:13.228444+00:00",
     "id": "usr_466c43842b",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Brian Tomasik",
@@ -5869,7 +6494,9 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:14.584947+00:00",
     "id": "usr_48e483544a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "mono",
+    "datingStyleRaw": "mono"
   },
   {
     "name": "Wes",
@@ -5887,6 +6514,8 @@
     },
     "scrapeTimestampDetail": "2025-11-26T20:12:18.806377+00:00",
     "id": "usr_448a88249a",
-    "docAccessible": true
+    "docAccessible": true,
+    "datingStyle": "poly",
+    "datingStyleRaw": "poly"
   }
 ]
