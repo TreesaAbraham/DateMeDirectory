@@ -518,3 +518,13 @@ This is a literary analysis based on the Date Me Directory dataset. Using 323 pr
 
      <li><strong>Important Information:<br></strong> First, This is a static analysis of a sample of profiles. DateMe Docs are constantly being added and deleted. The data for this project is the 323 accessible profiles that were available in December 2025. <br>Second, It does not represent all users in the dataset. This project analyzes a non-random sample of public DateMeDirectory profiles, so findings shouldn't be generalized for the entire dating landscape. <br>Third, while this data is public, the users were unaware a college freshman would be analyzing them.</li>
          
+
+
+
+
+
+         https://docs.google.com/document/d/1-eGxzKpBeQrQPGoLoFGs2aXAh3Vgw9Z_W-oZC9zebvM/edit
+https://docs.google.com/document/d/1AnIZCgIIzOEN0TbtiQ-PwwZ4-cj2BEkXJmh0U0bVcq4/edit
+https://docs.google.com/document/d/1VLmzTuliQuHEASh8u5PasrjDTAmzT6ulTLRPTEeinR4/edit
+https://docs.google.com/document/d/1m0vMwyhhey6051sYgUqnHicxfROgEK8aRBMK16ZTyj4/edit
+https://docs.google.com/document/d/1x-pZaVZj0g9_eihe9E-eVLsYi_gjxluT3SDuv44tplQ/edit
