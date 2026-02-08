@@ -4,18 +4,27 @@
    Sea:          #2F496E
    Plaster:      #F4EADE
    Coral:        #ED8C72
+
+   Phase 1 goal: design tokens + reusable components
+   Constraints: CSS-only, no path/data changes, no renames.
 */
 
 /* -----------------------------
    Tokens
 ------------------------------ */
 :root {
+  /* Base palette */
   --blue: #2988BC;
   --sea: #2F496E;
   --plaster: #F4EADE;
   --coral: #ED8C72;
 
-  /* tight variations (still same family) */
+  --blue-rgb: 41, 136, 188;
+  --sea-rgb: 47, 73, 110;
+  --plaster-rgb: 244, 234, 222;
+  --coral-rgb: 237, 140, 114;
+
+  /* Tight variations (same family) */
   --sea-2: #223652;
   --sea-3: #465f83;
   --blue-2: #1F6F9E;
@@ -25,19 +34,43 @@
   --coral-2: #D8755C;
   --coral-3: #F2A28E;
 
+  /* Neutrals */
   --ink: #000000;
   --muted: rgba(0, 0, 0, 0.70);
 
+  /* Surfaces / borders / shadows */
   --border: rgba(47, 73, 110, 0.22);
   --border-strong: rgba(47, 73, 110, 0.34);
-
   --panel: rgba(251, 244, 234, 0.94);
 
   --shadow: 0 20px 54px rgba(34, 54, 82, 0.20);
   --shadow-sm: 0 12px 26px rgba(34, 54, 82, 0.14);
+  --shadow-md: 0 18px 44px rgba(34, 54, 82, 0.18);
+  --shadow-lg: 0 26px 66px rgba(34, 54, 82, 0.22);
 
+  /* Layout */
   --max: 1080px;
   --prose: 74ch;
+
+  --gutter: 1rem;
+  --gutter-lg: 2rem;
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 2.5rem;
+  --space-9: 3rem;
+  --space-10: 4rem;
+
+  --stack-1: 0.65rem;
+  --stack-2: 1rem;
+  --stack-3: 1.5rem;
+  --stack-4: 2.25rem;
 
   --radius: 18px;
   --radius-sm: 12px;
@@ -45,7 +78,8 @@
   --section-y: 3rem;
   --section-y-lg: 4.2rem;
 
-  --font-serif: ui-serif, Iowan Old Style, Palatino Linotype, Palatino, Garamond, Georgia, serif;
+  /* Typography (Georgia everywhere) */
+  --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, ui-serif, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --h1: clamp(2.35rem, 3.5vw, 3.2rem);
@@ -56,24 +90,20 @@
 
   --lh: 1.70;
   --lh-tight: 1.18;
+
+  --fw-regular: 400;
+  --fw-bold: 800;
+  --fw-black: 900;
+
+  /* Semantic accents (meaningful roles) */
+  --accent-1: var(--blue);
+  --accent-2: var(--coral);
+  --accent-3: var(--sea);
+  --accent-4: rgba(var(--coral-rgb), 0.14);
+  --accent-5: rgba(var(--plaster-rgb), 0.78);
+
+  --focus-ring: rgba(var(--coral-rgb), 0.85);
 }
-
-/* ===== Requested text color rules ===== */
-
-/* All h2 tags are #223652 EXCEPT the header h2 */
-h2 { color: #223652; }
-.site-header h2 { color: #fff; }
-
-/* All paragraph text is black EXCEPT the site subtitle paragraph in the header */
-p,
-.prose p { color: #000; }
-
-/* Keep header subtitle light (this is the "site subtitle") */
-.site-header .site-subtitle { color: rgba(255, 255, 255, 0.88); }
-
-/* Optional: if you still use .muted, keep it readable but not white */
-.muted { color: rgba(0,0,0,0.70); }
-.site-header .muted { color: rgba(255,255,255,0.70); }
 
 
 /* -----------------------------
@@ -90,19 +120,23 @@ body {
   line-height: var(--lh);
   color: var(--ink);
 
-  /* IMPORTANT:
-     No page-wide navy bands. Navy should show ONLY in header + selected section headers. */
-  background:var(--plaster);
+  /* No page-wide navy bands. Navy ONLY in header + selected elements. */
+  background: var(--plaster);
 }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }
 
 :focus-visible {
-  outline: 3px solid rgba(41, 136, 188, 0.45);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
   border-radius: 10px;
 }
 
+.focus-visible:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
 
 /* -----------------------------
    Typography
@@ -119,11 +153,14 @@ h3 { font-size: var(--h3); color: var(--sea-2); }
 
 p {
   margin: 0 0 1rem;
-  color: #000; /* forced black for paragraphs (per your requirement) */
+  color: var(--ink);
 }
 
+.site-header h2 { color: #fff; }
+.site-header .site-subtitle { color: rgba(255, 255, 255, 0.88); }
+
 .muted { color: var(--muted); }
-p.muted { color: var(--muted); }
+.site-header .muted { color: rgba(255,255,255,0.70); }
 
 ul, ol { margin: 0.6rem 0 1rem 1.25rem; padding: 0; }
 li { margin: 0.35rem 0; }
@@ -138,9 +175,9 @@ code {
   color: var(--sea-2);
 }
 
-/* Links: blue underline, coral hover */
+/* Links: Accent 1 underline, coral hover */
 a {
-  color: var(--blue);
+  color: var(--accent-1);
   text-decoration: none;
   background-image: linear-gradient(to right, rgba(41, 136, 188, 0.65), rgba(41, 136, 188, 0.65));
   background-size: 100% 2px;
@@ -157,7 +194,7 @@ a:hover {
    Layout
 ------------------------------ */
 .container {
-  width: min(var(--max), calc(100% - 2rem));
+  width: min(var(--max), calc(100% - (var(--gutter-lg) * 2)));
   margin-inline: auto;
 }
 
@@ -191,11 +228,11 @@ a:hover {
 
 .site-header .container { padding: 2.35rem 0 1.35rem; }
 
-/* Anytime background is blue/navy (header), text must be white */
+/* Anytime background is navy, text must be white */
 .site-header,
 .site-header * { color: #fff; }
 
-/* kill link underline decoration inside header */
+/* kill underline decoration inside header */
 .site-header a { background-image: none; padding-bottom: 0; }
 
 .site-title { margin: 0; color: #ffffff; }
@@ -203,24 +240,90 @@ a:hover {
 .site-subtitle {
   margin: 0.6rem 0 1.2rem;
   max-width: var(--prose);
-  color: rgba(255, 255, 255, 0.88);
 }
 
-/* Nav buttons: centered text */
+/* Header actions row (if present) */
+.header-actions,
 .site-nav {
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
 }
 
-
-
-
 /* -----------------------------
-   Section headers
-   Default: plain (NO random navy lines)
+   Reusable components
 ------------------------------ */
 
+/* Buttons (Accent 1) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.62rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-decoration: none;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  background-image: none;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.site-header .btn { box-shadow: 0 16px 40px rgba(0,0,0,0.20); }
+
+.btn-primary {
+  color: #fff;
+  background: rgba(41, 136, 188, 0.92);
+}
+.btn-primary:hover {
+  background: rgba(237, 140, 114, 0.92);
+}
+
+.btn-ghost {
+  color: #fff;
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.16);
+  border-color: rgba(255,255,255,0.34);
+}
+
+/* Chips / badges (Accent 1 / Accent 5) */
+.chip,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.24rem 0.64rem;
+  font-size: 0.78rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.01em;
+}
+
+.chip {
+  border: 1px solid rgba(47, 73, 110, 0.20);
+  background: var(--accent-5);
+  color: var(--sea-2);
+}
+
+.badge {
+  border: 1px solid rgba(41, 136, 188, 0.35);
+  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.78));
+  color: #ffffff;
+}
+
+/* Featured framing (Accent 4) */
+.featured-frame {
+  border: 1px solid rgba(237, 140, 114, 0.35);
+  background: var(--accent-4);
+  border-radius: calc(var(--radius) + 2px);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+}
 
 /* -----------------------------
    Top layout (overview + context card)
@@ -234,9 +337,6 @@ a:hover {
 
 @media (min-width: 900px) {
   .top-layout { grid-template-columns: minmax(0, 1fr) 390px; }
-}
-
-@media (min-width: 900px) {
   .context-card { position: sticky; top: 1rem; }
 }
 
@@ -251,12 +351,12 @@ a:hover {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(47, 73, 110, 0.80);
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 0.25rem;
 }
 
 /* -----------------------------
-   Grid / Cards
+   Grid / Cards (directory + featured + story cards)
 ------------------------------ */
 .grid {
   display: grid;
@@ -279,7 +379,7 @@ a:hover {
 .card:hover {
   transform: translateY(-3px);
   border-color: rgba(41, 136, 188, 0.45);
-  box-shadow: 0 26px 66px rgba(34, 54, 82, 0.22);
+  box-shadow: var(--shadow-lg);
 }
 
 .card-title { margin: 0 0 0.45rem; color: var(--sea-2); }
@@ -293,22 +393,11 @@ a.card {
   padding-bottom: 0;
 }
 
-/* Badge (blue/navy with coral hint) */
-.badge {
-  display: none !important; /* hide by default; use only where explicitly added */
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.24rem 0.64rem;
-  font-size: 0.78rem;
-  border-radius: 999px;
-  border: 1px solid rgba(237, 140, 114, 0.35);
-  color: #ffffff;
-  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.78));
-  white-space: nowrap;
-}
-
 /* -----------------------------
-   Callouts
+   Callouts (Semantic accents)
+   Use:
+   <div class="callout callout--insight">...</div>
+   <div class="callout callout--method">...</div>
 ------------------------------ */
 .callouts {
   display: grid;
@@ -335,11 +424,11 @@ a.card {
   position: absolute;
   inset: 0 auto 0 0;
   width: 10px;
-  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.92));
+  background: linear-gradient(180deg, rgba(41, 136, 188, 0.92), rgba(34, 54, 82, 0.92)); /* default */
 }
 
 .callout-title {
-  font-weight: 850;
+  font-weight: 900;
   margin: 0 0 0.35rem;
   letter-spacing: -0.1px;
   color: var(--sea-2);
@@ -347,12 +436,32 @@ a.card {
 
 .callout p { margin: 0; }
 
+/* Accent 2: Insight */
+.callout--insight {
+  border-color: rgba(237, 140, 114, 0.40);
+}
+.callout--insight::before {
+  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(216, 117, 92, 0.92));
+}
+
+/* Accent 3: Method */
+.callout--method {
+  border-color: rgba(47, 73, 110, 0.32);
+}
+.callout--method::before {
+  background: linear-gradient(180deg, rgba(47, 73, 110, 0.92), rgba(34, 54, 82, 0.92));
+}
+
+/* Backward-compatible alias */
+.callout-warn { /* treat as insight */
+  border-color: rgba(237, 140, 114, 0.40);
+}
 .callout-warn::before {
-  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(41, 136, 188, 0.78));
+  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(216, 117, 92, 0.92));
 }
 
 /* -----------------------------
-   Details / Summary
+   Details / Summary (collapsible method notes)
 ------------------------------ */
 .details {
   margin-top: 1rem;
@@ -400,6 +509,7 @@ a.card {
 
 /* -----------------------------
    Charts
+   IMPORTANT: do NOT lock chart height/aspect ratio
 ------------------------------ */
 .chart-card-header {
   display: flex;
@@ -410,24 +520,32 @@ a.card {
 }
 
 .chart-media {
-  border: 1px solid rgba(47, 73, 110, 0.28);
-  border-top: 4px solid rgba(41, 136, 188, 0.78);
-  border-radius: calc(var(--radius) - 4px);
-  padding: 0.9rem;
-  background: rgba(244, 234, 222, 0.72);
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+
+  padding: 1.25rem;
+  overflow: visible;
+
+  border-radius: var(--radius);
+  border: 2px solid rgba(35, 115, 160, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+
   min-height: 200px;
   display: grid;
   place-items: center;
-  overflow: visible;;
-
-  aspect-ratio: 16 / 10;
-  width: 100%;
 }
 
 .chart-media img,
-.chart-media svg {
+.chart-media svg,
+.chart-media object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.chart-media img {
   width: 100%;
-  height: 100%;
   object-fit: contain;
 }
 
@@ -437,7 +555,7 @@ a.card {
 }
 
 /* -----------------------------
-   Writeups
+   Writeups (kept calm + readable)
 ------------------------------ */
 .writeup {
   margin-top: 0.9rem;
@@ -452,84 +570,33 @@ a.card {
   color: var(--sea-2);
 }
 
-.writeup pre {
-  font-family: var(--font-mono);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  padding: 0.85rem;
-  border: 1px solid rgba(47, 73, 110, 0.20);
-  border-radius: calc(var(--radius) - 4px);
-  background: rgba(251, 244, 234, 0.96);
-  overflow: auto;
-}
-/* Make writeups use the same font as the rest of the site */
+/* In case any writeups render as <pre>, make them normal prose */
 .writeup,
 .writeup pre,
 .writeup code {
   font-family: inherit;
 }
 
-/* Optional: undo "code block" vibes if the writeup container is a <pre> */
 .writeup pre {
-  white-space: normal;      /* let it wrap */
+  white-space: normal;
   margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
-.writeup-card {
-  margin-top: 1rem;
-}
-
 
 /* -----------------------------
-   Buttons (if used)
+   Graph hub home link (one rule, not three fighting)
 ------------------------------ */
-
-/* -----------------------------
-   Footer
------------------------------- */
-.site-footer {
-  border-top: 1px solid rgba(47, 73, 110, 0.22);
-  padding: 1.6rem 0;
-  background: linear-gradient(180deg, rgba(244, 234, 222, 0.92), rgba(244, 234, 222, 0.78));
-}
-
-.site-footer p { margin: 0; }
-
-/* -----------------------------
-   Dividers
------------------------------- */
-hr {
-  border: none;
-  border-top: 1px solid rgba(47, 73, 110, 0.22);
-  margin: 1.4rem 0;
-}
-
-
-
-
-/* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
-/* Graph hub pages: make the "Date Me Directory" home link BIG + TEAL */
-.hub-home-link {
-  font-size: clamp(2.4rem, 4vw, 3.4rem); /* very big, responsive */
-  font-weight: 900;
-
-  color: #223652 !important;            /* teal */
-  text-decoration: none;
-  background-image: none;               /* kill the global underline */
-
-}
-
-
-/* Graph pages: big obvious "Date Me Directory" home link */
 .hub-home-link {
   display: inline-block;
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 800;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 900;
   letter-spacing: 0.2px;
 
-  /* teal (not grecian blue) */
-  color: #1aa6a6;
-
+  color: var(--sea-2);
   text-decoration: none;
+  background-image: none;
   line-height: 1.05;
 }
 
@@ -551,118 +618,34 @@ hr {
   border: 0;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
+/* D3 container safety */
 #vis svg {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* ===== Chart display (detail pages) ===== */
-
-/* The frame around the chart */
-.chart-media {
-  width: 100%;
-  /* IMPORTANT: do NOT lock height or aspect ratio here */
-  aspect-ratio: auto;
-  height: auto;
-
-  /* “Fits the vibe” padding frame */
-  padding: 1.25rem;
-
-  /* No cropping */
-  overflow: visible;
-
-  /* Your existing visual style can stay */
-  border-radius: 18px;
-  border: 2px solid rgba(35, 115, 160, 0.35);
-  background: rgba(255, 255, 255, 0.55);
+/* -----------------------------
+   Footer
+------------------------------ */
+.site-footer {
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  padding: 1.6rem 0;
+  background: linear-gradient(180deg, rgba(244, 234, 222, 0.92), rgba(244, 234, 222, 0.78));
 }
 
-/* Ensure SVG/PNG/JPG inside scales down to fit */
-.chart-media img,
-.chart-media svg,
-.chart-media object {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
+.site-footer p { margin: 0; }
 
-/* If you embed SVGs as <img src="...svg"> this is the key */
-.chart-media img {
-  width: 100%;
-  object-fit: contain;
-}
-
-body.renderer-page .chart-media {
-  aspect-ratio: auto;
-  height: auto;
-  overflow: visible;
-}
-body.renderer-page .chart-media img,
-body.renderer-page .chart-media svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-body.renderer-page .chart-media img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-
-
-/* Inline path styled like normal text (NOT a code pill) */
-.inline-path {
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  color: inherit;
-  text-decoration: none;
-
-  background: none;
+/* -----------------------------
+   Dividers
+------------------------------ */
+hr {
   border: none;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-}
-.inline-path:hover {
-  text-decoration: underline;
+  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  margin: 1.4rem 0;
 }
 
-/* --- Fix text colors site-wide --- */
-
-/* All paragraphs should be black... */
-p,
-.prose p,
-.muted,
-.prose .muted {
-  color: #000 !important;
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; transform: none !important; }
 }
-
-/* ...EXCEPT the site subtitle paragraph in the header */
-.site-header p,
-.site-header .muted {
-  color: inherit !important;
-}
-
-/* All h2 should be #223652... */
-h2 {
-  color: #223652 !important;
-}
-
-/* ...EXCEPT the h2 inside the header */
-.site-header h2 {
-  color: inherit !important;
-}
-
-
-
-
-

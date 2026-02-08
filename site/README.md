@@ -125,17 +125,17 @@ Use this checklist to implement a UI refresh that blends **playful data-story en
 ## ✅ Workflow checklist
 
 ### Phase 0 — Safety snapshot
-[ ] Commit a snapshot before UI changes
-[ ] Confirm local preview works
+[x] Commit a snapshot before UI changes
+[x] Confirm local preview works
 
 ### Phase 1 — Refactor (Cursor/Windsurf)
-[ ] Define design tokens (typography + spacing) in `site/styles.css`
-[ ] Create reusable components in CSS:
-  [ ] badges/chips (Accent 1/5)
-  [ ] Insight callout style (Accent 2)
-  [ ] Method callout style (Accent 3)
-  [ ] Featured framing style (Accent 4)
-  [ ] card + grid layout
+[x] Define design tokens (typography + spacing) in `site/styles.css`
+[x] Create reusable components in CSS:
+  [x] badges/chips (Accent 1/5)
+  [x] Insight callout style (Accent 2)
+  [x] Method callout style (Accent 3)
+  [x] Featured framing style (Accent 4)
+  [x] card + grid layout
 [ ] Update homepage framing in `site/index.html`:
   [ ] Make “Browse all charts” the primary action
   [ ] Featured section feels curated (not random)

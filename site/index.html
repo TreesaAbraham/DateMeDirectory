@@ -16,8 +16,13 @@
     <header class="site-header">
       <div class="container">
         <h1 class="site-title">Date Me Directory</h1>
-       <h2>Data Analysis Report</h2>
-       <p>This is a literary analysis based on the Date Me Directory dataset. Using 323 profiles and scraping their data, I analyzed how language varies across gender, sexuality, age, and region. Hope you enjoy my findings.</p>
+        <h2>Data Analysis Report</h2>
+        <p class="site-subtitle">This is a literary analysis based on the Date Me Directory dataset. Using 323 profiles and scraping their data, I analyzed how language varies across gender, sexuality, age, and region. Hope you enjoy my findings.</p>
+
+        <div class="header-actions" aria-label="Primary actions">
+          <a class="btn btn-primary" href="#charts">Browse all charts</a>
+          <a class="btn btn-ghost" href="#overview">Read the intro</a>
+        </div>
       </div>
     </header>
 
@@ -34,16 +39,18 @@
             I started this analysis as a project for my internship at Valyria Studios. As a data science major, I hoped to understand more about the usage of data science on fields I never considered, such as DateMe documents. This project helped me learn about data scraping, cleaning, and visualization. I hope you learn more about how our language is shaped by more factors than we may have considered. 
           </p>
         </div>
+      </section>
+
       <section class="section">
         <div class="container">
           <div class="section-header prose">
             <h2>Featured graphs</h2>
-            <p class="muted" style="margin:0.35rem 0 0;">
-              Three personal favorites.
-            </p>
+            <p class="muted" style="margin:0.35rem 0 0;">A small curated set to get you oriented.</p>
           </div>
 
-          <div id="featured" class="grid"></div>
+          <div class="featured-frame">
+            <div id="featured" class="grid"></div>
+          </div>
         </div>
       </section>
 
@@ -57,11 +64,7 @@
         <div class="container">
           <div class="section-header prose">
             <h2>Graph directory</h2>
-            <p class="muted">
-              Choose a graph number to view the combined hub page (Matplotlib + Seaborn + D3 together).
-              This directory is generated from <span class="inline-path">site/data/charts_manifest.json</span>.
-
-            </p>
+            <p class="muted">Pick a chart hub to explore (each hub combines Matplotlib, Seaborn, and D3).</p>
           </div>
 
           <!-- Auto-generated directory grid -->
@@ -80,6 +83,7 @@
       <section id="appendix" class="section">
         <div class="container prose">
           <h2>Appendix / Notes</h2>
+          <p class="muted">Notes and metadata.</p>
           <ul>
             <li><strong>Important Information:<br></strong> First, This is a static analysis of a sample of profiles. DateMe Docs are constantly being added and deleted. The data for this project is the 323 accessible profiles that were available in December 2025. <br>Second, It does not represent all users in the dataset. This project analyzes a non-random sample of public DateMeDirectory profiles, so findings shouldn't be generalized for the entire dating landscape. <br>Third, while this data is public, the users were unaware a college freshman would be analyzing them.</li>
           </ul>
