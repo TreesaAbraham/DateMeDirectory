@@ -1,8 +1,5 @@
 // site/graph_hub.js
-// Renders a per-graph hub page into: <main id="graph-hub" data-graph="09"></main>
-// Uses: /data/charts_manifest.json
-// Renders: Title + Context + Renderer previews
-// DOES NOT render writeups
+// Hub renderer: NO WRITEUPS.
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -56,7 +53,7 @@ function contextBlock(graph) {
   const notes = String(graph?.notes || "").trim();
 
   const methodVal = graph?.method;
-  const methodList = Array.isArray(methodVal) ? methodVal : methodVal ? [String(methodVal)] : [];
+  const methodList = Array.isArray(methodVal) ? methodVal : (methodVal ? [String(methodVal)] : []);
   const findings = Array.isArray(graph?.key_findings) ? graph.key_findings : [];
 
   const methodHtml = methodList.length
@@ -98,35 +95,29 @@ function rendererSection({ graphId, renderer, entries }) {
 
   const multiple = entries.length > 1;
 
-  const figures = entries
-    .map((entry, idx) => {
-      const url = toRootedUrl(entry?.url || "");
-      const entryId = String(entry?.id || "").trim();
-      const link = detailHref(graphId, renderer, entryId);
+  const figures = entries.map((entry, idx) => {
+    const url = toRootedUrl(entry?.url || "");
+    const entryId = String(entry?.id || "").trim();
+    const link = detailHref(graphId, renderer, entryId);
 
-      const ordinal = multiple ? ` ${idx + 1}/${entries.length}` : "";
-      const title = `${label}${ordinal}`;
+    const ordinal = multiple ? ` ${idx + 1}/${entries.length}` : "";
+    const title = `${label}${ordinal}`;
 
-      if (!url) {
-        return `
-          <div class="muted" style="margin-top:0.75rem;">
-            Missing url for ${escapeHtml(label)} entry ${escapeHtml(entryId || String(idx + 1))}.
-          </div>
-        `;
-      }
+    if (!url) {
+      return `<div class="muted" style="margin-top:0.75rem;">Missing url for ${escapeHtml(label)}.</div>`;
+    }
 
-      return `
-        <figure class="chart-figure" style="margin-top:0.75rem;">
-          <div class="chart-media" aria-label="${escapeHtml(title)} chart">
-            <img src="${escapeHtml(url)}" alt="${escapeHtml(title)} chart" loading="lazy" />
-          </div>
-          <div class="muted" style="margin-top:0.35rem;">
-            <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
-          </div>
-        </figure>
-      `;
-    })
-    .join("");
+    return `
+      <figure class="chart-figure" style="margin-top:0.75rem;">
+        <div class="chart-media" aria-label="${escapeHtml(title)} chart">
+          <img src="${escapeHtml(url)}" alt="${escapeHtml(title)} chart" loading="lazy" />
+        </div>
+        <div class="muted" style="margin-top:0.35rem;">
+          <a class="small-link" href="${escapeHtml(link)}">Open this version</a>
+        </div>
+      </figure>
+    `;
+  }).join("");
 
   return `
     <article class="card chart-card">
@@ -156,16 +147,7 @@ async function main() {
   try {
     const manifest = await loadManifest();
     const graph = findGraph(manifest, graphId);
-
-    if (!graph) {
-      mount.innerHTML = `
-        <div class="container prose">
-          <h2>Graph not found</h2>
-          <p class="muted">No graph with id <code>${escapeHtml(graphId)}</code> in the manifest.</p>
-        </div>
-      `;
-      return;
-    }
+    if (!graph) throw new Error(`No graph with id ${graphId} in the manifest.`);
 
     const title = String(graph?.title || "").trim() || `Graph ${graphId}`;
     const mEntries = getRendererEntries(graph, "matplotlib");
@@ -195,7 +177,7 @@ async function main() {
     mount.innerHTML = `
       <div class="container prose">
         <h2>Couldn’t load graph hub</h2>
-        <p class="muted">${escapeHtml(err.message || String(err))}</p>
+        <p class="muted">${escapeHtml(err?.message || String(err))}</p>
       </div>
     `;
     console.error(err);
