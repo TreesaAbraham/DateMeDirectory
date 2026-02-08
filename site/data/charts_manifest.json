@@ -465,9 +465,22 @@
       "graph_id": "10",
       "slug": "graph-10",
       "title": "Views on Kids by Dating Style",
-      "question": "Is there a difference in the use of keywords relating to children based on dating style (mono, poly, or open)?",
-      "method": [],
-      "key_findings": [],
+      "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
+      "method": [
+        "Load profiles from data/profiles_master.json.",
+        "Keep only profiles with datingStyle, normalized to mono, poly, or any (skip others).",
+        "Scan profileDetails.fullText for kids/family terms (e.g., kids/children/baby/stepkid/coparent/custody), including non-negated 'start/have/want a family'.",
+        "Apply negation rules: if the text matches strong 'no kids' phrasing (e.g., 'childfree', 'don't want kids') or a kids-term appears within 4 tokens after a negation word, count it as 'No kids mention'.",
+        "Aggregate counts by (datingStyle, kids_bucket), compute within-style percentages, and export to CSV.",
+        "Visualize as a mosaic plot where column width reflects style group size and the vertical split shows the share of 'Kids mention' vs 'No kids mention' within each style."
+      ],
+      "key_findings": [
+        "Monogamous (mono): Kids mention 58.8% (130/221); No kids mention 41.2% (91/221).",
+        "Poly (poly): Kids mention 83.9% (26/31); No kids mention 16.1% (5/31).",
+        "Any (any): Kids mention 67.8% (40/59); No kids mention 32.2% (19/59).",
+        "Overall: Kids/family language is common across all styles, highest in poly and lowest in mono in this dataset.",
+        "Caution: The poly group is much smaller (n=31) than mono (n=221), so its percentage is more sensitive to small changes."
+      ],
       "notes": "",
       "renderers": {
         "matplotlib": [
@@ -496,13 +509,28 @@
         ]
       }
     },
+
     {
       "graph_id": "11",
       "slug": "graph-11",
       "title": "Exercise Habits by Career Field",
-      "question": "Do people in different career fields mention exercise differently?",
-      "method": [],
-      "key_findings": [],
+      "question": "Do profiles in different career fields mention exercise differently?",
+      "method": [
+        "Load profiles from data/profiles_master.json.",
+        "Build a career text blob per profile by concatenating job/education-related fields (e.g., occupation/job/title/company/industry/education/school/major) plus any profileDetails sections/fields that look career-related; if none exist, fall back to full profile text.",
+        "Classify each profile into one career bucket using regex heuristics (first match wins): STUDENT, ENGINEERING, MEDICINE, ARTS_HUMANITIES, else OTHER.",
+        "Scan each profile’s profileDetails.fullText for gym/exercise keywords using a regex set (e.g., gym, workout, exercise, lifting, running, yoga, hiking, climbing, fitness).",
+        "For each career bucket, compute total_profiles, gym_profiles (at least one match), and gym_pct = gym_profiles / total_profiles * 100.",
+        "Plot gym_pct by career bucket as a horizontal bar chart and label each bar with percent and counts; also report the overall percent across all profiles."
+      ],
+      "key_findings": [
+        "Overall: 60.37% of profiles mention gym/exercise language (195/323).",
+        "Highest: Engineering has the highest rate at 74.14% (43/58).",
+        "Students are also high at 68.47% (76/111).",
+        "Medicine/Health is above half at 56.86% (58/102).",
+        "Lower rates: Other is 37.14% (13/35) and Arts & Humanities is 29.41% (5/17).",
+        "Gap: Engineering vs Arts & Humanities differs by 44.73 percentage points (74.14% − 29.41%)."
+      ],
       "notes": "",
       "renderers": {
         "matplotlib": [
@@ -531,5 +559,6 @@
         ]
       }
     }
+
   ]
 }
