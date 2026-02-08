@@ -27,24 +27,21 @@
           {
             "id": "01-matplotlib-word_graph_01_mosaic_serious_relationship",
             "file": "word_graph_01_mosaic_serious_relationship.png",
-            "url": "assets/charts/matplotlib/word_graph_01_mosaic_serious_relationship.png",
-            "writeup": "writeups/graphs/01.txt"
+            "url": "assets/charts/matplotlib/word_graph_01_mosaic_serious_relationship.png"
           }
         ],
         "seaborn": [
           {
             "id": "01-seaborn-word_graph_01_mosaic_serious_relationship_seaborn",
             "file": "word_graph_01_mosaic_serious_relationship_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_01_mosaic_serious_relationship_seaborn.png",
-            "writeup": "writeups/graphs/01.txt"
+            "url": "assets/charts/seaborn/word_graph_01_mosaic_serious_relationship_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "01-d3-word_graph_01_mosaic_serious_relationship",
             "file": "word_graph_01_mosaic_serious_relationship.svg",
-            "url": "assets/charts/d3/word_graph_01_mosaic_serious_relationship.svg",
-            "writeup": "writeups/graphs/01.txt"
+            "url": "assets/charts/d3/word_graph_01_mosaic_serious_relationship.svg"
           }
         ]
       }
@@ -52,7 +49,7 @@
      {
       "graph_id": "10",
       "slug": "graph-10",
-      "title": "Views on Kids by Dating Style",
+      "title": "Do you think I want kids? Kids/family mentions by dating style",
       "question": "Does mention of kids/family vary by dating style (mono, poly, or any)?",
       "method": [
         "Load profiles from data/profiles_master.json.",
@@ -75,24 +72,21 @@
           {
             "id": "10-matplotlib-word_graph_10_mosaic_kids_mentions_by_style",
             "file": "word_graph_10_mosaic_kids_mentions_by_style.png",
-            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png",
-            "writeup": "writeups/graphs/10.txt"
+            "url": "assets/charts/matplotlib/word_graph_10_mosaic_kids_mentions_by_style.png"
           }
         ],
         "seaborn": [
           {
             "id": "10-seaborn-word_graph_10_mosaic_kids_by_style",
             "file": "word_graph_10_mosaic_kids_by_style.png",
-            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png",
-            "writeup": "writeups/graphs/10.txt"
+            "url": "assets/charts/seaborn/word_graph_10_mosaic_kids_by_style.png"
           }
         ],
         "d3": [
           {
             "id": "10-d3-word_graph_10_mosaic_kids_by_style",
             "file": "word_graph_10_mosaic_kids_by_style.svg",
-            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg",
-            "writeup": "writeups/graphs/10.txt"
+            "url": "assets/charts/d3/word_graph_10_mosaic_kids_by_style.svg"
           }
         ]
       }
@@ -122,36 +116,31 @@
           {
             "id": "02-matplotlib-word_graph_02_exclam_per100k_by_generation_outliers_dots",
             "file": "word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
-            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation_outliers_dots.png",
-            "writeup": "writeups/graphs/02.txt"
+            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation_outliers_dots.png"
           },
           {
             "id": "02-matplotlib-word_graph_02_exclam_per100k_by_generation",
             "file": "word_graph_02_exclam_per100k_by_generation.png",
-            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation.png",
-            "writeup": "writeups/graphs/02.txt"
+            "url": "assets/charts/matplotlib/word_graph_02_exclam_per100k_by_generation.png"
           }
         ],
         "seaborn": [
           {
             "id": "02-seaborn-word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers",
             "file": "word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
-            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png",
-            "writeup": "writeups/graphs/02.txt"
+            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn_no_outliers.png"
           },
           {
             "id": "02-seaborn-word_graph_02_exclam_per100k_by_generation_seaborn",
             "file": "word_graph_02_exclam_per100k_by_generation_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png",
-            "writeup": "writeups/graphs/02.txt"
+            "url": "assets/charts/seaborn/word_graph_02_exclam_per100k_by_generation_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "02-d3-word_graph_02_exclam_per100k_by_generation_per_profile",
             "file": "word_graph_02_exclam_per100k_by_generation_per_profile.svg",
-            "url": "assets/charts/d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg",
-            "writeup": "writeups/graphs/02.txt"
+            "url": "assets/charts/d3/word_graph_02_exclam_per100k_by_generation_per_profile.svg"
           }
         ]
       }
@@ -182,60 +171,51 @@
           {
             "id": "03-matplotlib-word_graph_03_complexity_looking_for_men",
             "file": "word_graph_03_complexity_looking_for_men.png",
-            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_men.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_men.png"
           },
           {
             "id": "03-matplotlib-word_graph_03_complexity_looking_for_nb",
             "file": "word_graph_03_complexity_looking_for_nb.png",
-            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_nb.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_nb.png"
           },
           {
             "id": "03-matplotlib-word_graph_03_complexity_looking_for_women",
             "file": "word_graph_03_complexity_looking_for_women.png",
-            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_women.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/matplotlib/word_graph_03_complexity_looking_for_women.png"
           }
         ],
         "seaborn": [
           {
             "id": "03-seaborn-word_graph_03_complexity_by_interest_in_F_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_F_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_F_seaborn.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_F_seaborn.png"
           },
           {
             "id": "03-seaborn-word_graph_03_complexity_by_interest_in_M_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_M_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_M_seaborn.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_M_seaborn.png"
           },
           {
             "id": "03-seaborn-word_graph_03_complexity_by_interest_in_NB_seaborn",
             "file": "word_graph_03_complexity_by_interest_in_NB_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_NB_seaborn.png",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/seaborn/word_graph_03_complexity_by_interest_in_NB_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "03-d3-word_graph_03_word_complexity_looking_for_F",
             "file": "word_graph_03_word_complexity_looking_for_F.svg",
-            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_F.svg",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_F.svg"
           },
           {
             "id": "03-d3-word_graph_03_word_complexity_looking_for_M",
             "file": "word_graph_03_word_complexity_looking_for_M.svg",
-            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_M.svg",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_M.svg"
           },
           {
             "id": "03-d3-word_graph_03_word_complexity_looking_for_NB",
             "file": "word_graph_03_word_complexity_looking_for_NB.svg",
-            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_NB.svg",
-            "writeup": "writeups/graphs/03.txt"
+            "url": "assets/charts/d3/word_graph_03_word_complexity_looking_for_NB.svg"
           }
         ]
       }
@@ -264,60 +244,51 @@
           {
             "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_men",
             "file": "word_graph_08_sentence_complexity_looking_for_men.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_men.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_men.png"
           },
           {
             "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_nb",
             "file": "word_graph_08_sentence_complexity_looking_for_nb.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_nb.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_nb.png"
           },
           {
             "id": "08-matplotlib-word_graph_08_sentence_complexity_looking_for_women",
             "file": "word_graph_08_sentence_complexity_looking_for_women.png",
-            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_women.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/matplotlib/word_graph_08_sentence_complexity_looking_for_women.png"
           }
         ],
         "seaborn": [
           {
             "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_F_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_F_seaborn.png"
           },
           {
             "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_M_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_M_seaborn.png"
           },
           {
             "id": "08-seaborn-word_graph_08_sentence_complexity_looking_for_NB_seaborn",
             "file": "word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/seaborn/word_graph_08_sentence_complexity_looking_for_NB_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_F",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_F.svg"
           },
           {
             "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_M",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_M.svg"
           },
           {
             "id": "08-d3-word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB",
             "file": "word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
-            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg",
-            "writeup": "writeups/graphs/08.txt"
+            "url": "assets/charts/d3/word_graph_08_sentence_complexity_by_interest_gender_per_profile_NB.svg"
           }
         ]
       }
@@ -347,24 +318,21 @@
           {
             "id": "04-matplotlib-word_graph_04_distinctive_us_vs_nonus",
             "file": "word_graph_04_distinctive_us_vs_nonus.png",
-            "url": "assets/charts/matplotlib/word_graph_04_distinctive_us_vs_nonus.png",
-            "writeup": "writeups/graphs/04.txt"
+            "url": "assets/charts/matplotlib/word_graph_04_distinctive_us_vs_nonus.png"
           }
         ],
         "seaborn": [
           {
             "id": "04-seaborn-word_graph_04_distinctive_us_vs_nonus_z_seaborn",
             "file": "word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png",
-            "writeup": "writeups/graphs/04.txt"
+            "url": "assets/charts/seaborn/word_graph_04_distinctive_us_vs_nonus_z_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "04-d3-word_graph_04_distinctive_words_us_vs_nonus",
             "file": "word_graph_04_distinctive_words_us_vs_nonus.svg",
-            "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg",
-            "writeup": "writeups/graphs/04.txt"
+            "url": "assets/charts/d3/word_graph_04_distinctive_words_us_vs_nonus.svg"
           }
         ]
       }
@@ -394,24 +362,21 @@
           {
             "id": "05-matplotlib-word_graph_05_distinctive_bayarea_vs_uk_london",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london.png",
-            "url": "assets/charts/matplotlib/word_graph_05_distinctive_bayarea_vs_uk_london.png",
-            "writeup": "writeups/graphs/05.txt"
+            "url": "assets/charts/matplotlib/word_graph_05_distinctive_bayarea_vs_uk_london.png"
           }
         ],
         "seaborn": [
           {
             "id": "05-seaborn-word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png",
-            "writeup": "writeups/graphs/05.txt"
+            "url": "assets/charts/seaborn/word_graph_05_distinctive_bayarea_vs_uk_london_z_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "05-d3-word_graph_05_distinctive_bayarea_vs_uk_london",
             "file": "word_graph_05_distinctive_bayarea_vs_uk_london.svg",
-            "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg",
-            "writeup": "writeups/graphs/05.txt"
+            "url": "assets/charts/d3/word_graph_05_distinctive_bayarea_vs_uk_london.svg"
           }
         ]
       }
@@ -440,24 +405,21 @@
           {
             "id": "06-matplotlib-word_graph_06_em_dash_bar",
             "file": "word_graph_06_em_dash_bar.png",
-            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png",
-            "writeup": "writeups/graphs/06.txt"
+            "url": "assets/charts/matplotlib/word_graph_06_em_dash_bar.png"
           }
         ],
         "seaborn": [
           {
             "id": "06-seaborn-word_graph_06_em_dash_bucket_counts_seaborn",
             "file": "word_graph_06_em_dash_bucket_counts_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png",
-            "writeup": "writeups/graphs/06.txt"
+            "url": "assets/charts/seaborn/word_graph_06_em_dash_bucket_counts_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "06-d3-word_graph_06_em_dash_per_profile",
             "file": "word_graph_06_em_dash_per_profile.svg",
-            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg",
-            "writeup": "writeups/graphs/06.txt"
+            "url": "assets/charts/d3/word_graph_06_em_dash_per_profile.svg"
           }
         ]
       }
@@ -487,24 +449,21 @@
           {
             "id": "09-matplotlib-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.png",
-            "url": "assets/charts/matplotlib/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.png",
-            "writeup": "writeups/graphs/09.txt"
+            "url": "assets/charts/matplotlib/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.png"
           }
         ],
         "seaborn": [
           {
             "id": "09-seaborn-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
-            "url": "assets/charts/seaborn/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png",
-            "writeup": "writeups/graphs/09.txt"
+            "url": "assets/charts/seaborn/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us_seaborn.png"
           }
         ],
         "d3": [
           {
             "id": "09-d3-word_graph_09_prevalence_bay_uk_wordsets_vs_all_us",
             "file": "word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
-            "url": "assets/charts/d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg",
-            "writeup": "writeups/graphs/09.txt"
+            "url": "assets/charts/d3/word_graph_09_prevalence_bay_uk_wordsets_vs_all_us.svg"
           }
         ]
       }
@@ -538,24 +497,21 @@
           {
             "id": "11-matplotlib-word_graph_11_gym_mentions_by_career_field",
             "file": "word_graph_11_gym_mentions_by_career_field.png",
-            "url": "assets/charts/matplotlib/word_graph_11_gym_mentions_by_career_field.png",
-            "writeup": "writeups/graphs/11.txt"
+            "url": "assets/charts/matplotlib/word_graph_11_gym_mentions_by_career_field.png"
           }
         ],
         "seaborn": [
           {
             "id": "11-seaborn-word_graph_11_gym_mentions_by_career_field",
             "file": "word_graph_11_gym_mentions_by_career_field.png",
-            "url": "assets/charts/seaborn/word_graph_11_gym_mentions_by_career_field.png",
-            "writeup": "writeups/graphs/11.txt"
+            "url": "assets/charts/seaborn/word_graph_11_gym_mentions_by_career_field.png"
           }
         ],
         "d3": [
           {
             "id": "11-d3-word_graph_11_gym_mentions_by_career_field",
             "file": "word_graph_11_gym_mentions_by_career_field.svg",
-            "url": "assets/charts/d3/word_graph_11_gym_mentions_by_career_field.svg",
-            "writeup": "writeups/graphs/11.txt"
+            "url": "assets/charts/d3/word_graph_11_gym_mentions_by_career_field.svg"
           }
         ]
       }

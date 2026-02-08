@@ -1,7 +1,8 @@
 // site/graph.js
 // Renderer detail page script.
-// Expected page path: /graphs/<graphId>/<renderer>.html
-// Optional query: ?chart=<entryId>
+// Expected HTML:
+//   <main id="graph-page" data-graph="10" data-renderer="d3"></main>
+// Loads: /data/charts_manifest.json
 // Renders: Header + ONE chart only (no context, no writeup)
 
 function escapeHtml(str) {
@@ -10,7 +11,6 @@ function escapeHtml(str) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
-    .replaceAll("'", "&quot;")
     .replaceAll("'", "&#039;");
 }
 
@@ -53,16 +53,6 @@ function pickEntry(entries, entryId) {
   return match || entries[0];
 }
 
-function parseRoute() {
-  // /graphs/04/d3.html  -> ["graphs","04","d3.html"]
-  const parts = window.location.pathname.split("/").filter(Boolean);
-  const graphsIdx = parts.indexOf("graphs");
-  const graphId = graphsIdx >= 0 ? parts[graphsIdx + 1] : "";
-  const rendererFile = graphsIdx >= 0 ? parts[graphsIdx + 2] : "";
-  const renderer = rendererFile ? rendererFile.replace(/\.html$/i, "") : "";
-  return { graphId, renderer };
-}
-
 function getChartParam() {
   const params = new URLSearchParams(window.location.search);
   return params.get("chart") || "";
@@ -74,7 +64,10 @@ function renderChartHtml(url, title) {
   // If it's an SVG file, use <object> so it scales nicely.
   if (u.toLowerCase().endsWith(".svg")) {
     return `
-      <object data="${escapeHtml(u)}" type="image/svg+xml" class="chart-object" aria-label="${escapeHtml(title)}"></object>
+      <object data="${escapeHtml(u)}"
+              type="image/svg+xml"
+              class="chart-object"
+              aria-label="${escapeHtml(title)}"></object>
     `;
   }
 
@@ -82,20 +75,35 @@ function renderChartHtml(url, title) {
   return `<img src="${escapeHtml(u)}" alt="${escapeHtml(title)}" loading="lazy" />`;
 }
 
+function readPageData(mount) {
+  // Preferred: use the data attributes from the HTML (your new standard)
+  const graphId = mount?.dataset?.graph || "";
+  const renderer = mount?.dataset?.renderer || "";
+
+  if (graphId && renderer) return { graphId, renderer };
+
+  // Fallback: route parsing (kept for safety)
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const graphsIdx = parts.indexOf("graphs");
+  const gid = graphsIdx >= 0 ? parts[graphsIdx + 1] : "";
+  const rendererFile = graphsIdx >= 0 ? parts[graphsIdx + 2] : "";
+  const r = rendererFile ? rendererFile.replace(/\.html$/i, "") : "";
+  return { graphId: gid, renderer: r };
+}
+
 async function main() {
-  // Your detail pages probably mount into <main id="graph"></main>.
-  // If your HTML uses a different id, change it here.
-  const mount = document.getElementById("graph") || document.querySelector("main");
+  // Matches your new HTML exactly
+  const mount = document.getElementById("graph-page") || document.querySelector("main");
   if (!mount) return;
 
-  const { graphId, renderer } = parseRoute();
+  const { graphId, renderer } = readPageData(mount);
   const entryId = getChartParam();
 
   if (!graphId || !renderer) {
     mount.innerHTML = `
       <div class="container prose">
-        <h2>Bad route</h2>
-        <p class="muted">Expected URL like <code>/graphs/04/d3.html</code>.</p>
+        <h2>Bad page setup</h2>
+        <p class="muted">Expected <code>&lt;main id="graph-page" data-graph="10" data-renderer="d3"&gt;</code>.</p>
       </div>
     `;
     return;
@@ -110,7 +118,7 @@ async function main() {
     if (!entries.length) throw new Error(`No ${rendererLabel(renderer)} outputs linked for Graph ${graphId}.`);
 
     const entry = pickEntry(entries, entryId);
-    if (!entry?.url) throw new Error(`Missing url for this chart entry.`);
+    if (!entry?.url) throw new Error("Missing url for this chart entry.");
 
     const pageTitle = String(graph?.title || "").trim() || `Graph ${graphId}`;
     const rLabel = rendererLabel(renderer);
@@ -143,7 +151,7 @@ async function main() {
     mount.innerHTML = `
       <div class="container prose">
         <h2>Couldn’t load chart</h2>
-        <p class="muted">${escapeHtml(err.message || String(err))}</p>
+        <p class="muted">${escapeHtml(err?.message || String(err))}</p>
       </div>
     `;
     console.error(err);
