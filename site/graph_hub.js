@@ -1,6 +1,8 @@
 // site/graph_hub.js
 // Renders a per-graph hub page into: <main id="graph-hub" data-graph="09"></main>
 // Uses: /data/charts_manifest.json
+// Renders: Title + Context (Question/Method/Key findings/Notes) + Renderer previews
+// DOES NOT render writeups (files can stay on disk)
 
 function escapeHtml(str) {
   return String(str ?? "")
@@ -147,41 +149,6 @@ function rendererSection({ graphId, renderer, entries }) {
   `;
 }
 
-async function loadWriteup(writeupPath) {
-  const url = toRootedUrl(writeupPath);
-  if (!url) return null;
-
-  const res = await fetch(url, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Writeup not found (${res.status})`);
-  return res.text();
-}
-
-// Plain text -> simple HTML paragraphs (keeps normal font, avoids <pre>)
-function writeupTextToHtml(text) {
-  const safe = escapeHtml(text);
-  const lines = safe.split(/\r?\n/);
-
-  const parts = [];
-  let buf = [];
-
-  function flush() {
-    if (!buf.length) return;
-    parts.push(`<p>${buf.join("<br>")}</p>`);
-    buf = [];
-  }
-
-  for (const line of lines) {
-    if (line.trim() === "") {
-      flush();
-      continue;
-    }
-    buf.push(line);
-  }
-  flush();
-
-  return parts.join("");
-}
-
 async function main() {
   const mount = document.getElementById("graph-hub");
   if (!mount) return;
@@ -217,11 +184,6 @@ async function main() {
     const sEntries = getRendererEntries(graph, "seaborn");
     const dEntries = getRendererEntries(graph, "d3");
 
-    // Writeup: prefer any renderer entry’s writeup, otherwise fallback
-    const writeupPath =
-      (mEntries[0]?.writeup || sEntries[0]?.writeup || dEntries[0]?.writeup || "").trim() ||
-      `writeups/graphs/${graphId}.txt`;
-
     mount.innerHTML = `
       <section class="section">
         <div class="container">
@@ -240,27 +202,9 @@ async function main() {
             ${rendererSection({ graphId, renderer: "seaborn", entries: sEntries })}
             ${rendererSection({ graphId, renderer: "d3", entries: dEntries })}
           </div>
-
-          <!-- Writeup: matching card header, NO badge capsule -->
-          <article class="card writeup-card" style="margin-top:1rem;">
-            <div class="chart-card-header">
-              <h3 class="card-title">Writeup</h3>
-            </div>
-            <div id="hub-writeup" class="prose muted">Loading writeup…</div>
-          </article>
         </div>
       </section>
     `;
-
-    const writeupEl = document.getElementById("hub-writeup");
-    try {
-      const text = await loadWriteup(writeupPath);
-      writeupEl.classList.remove("muted");
-      writeupEl.classList.add("prose");
-      writeupEl.innerHTML = writeupTextToHtml(text);
-    } catch (werr) {
-      writeupEl.innerHTML = `<p class="muted">${escapeHtml(werr.message || String(werr))}</p>`;
-    }
   } catch (err) {
     mount.innerHTML = `
       <div class="container prose">
