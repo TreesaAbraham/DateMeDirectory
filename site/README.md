@@ -79,46 +79,46 @@ Use this checklist to implement a UI refresh that blends **playful data-story en
 
 ## ✅ Constraints (do not break the site)
 
-- [ ] Do **not** rename files or folders
-- [ ] Do **not** change chart asset paths
-- [ ] Do **not** change data/manifest structure
-- [ ] Prefer **CSS + HTML only**
-- [ ] Only touch JS if absolutely needed for UI polish (must not affect routing/paths)
+[ ] Do **not** rename files or folders
+[ ] Do **not** change chart asset paths
+[ ] Do **not** change data/manifest structure
+[ ] Prefer **CSS + HTML only**
+[ ] Only touch JS if absolutely needed for UI polish (must not affect routing/paths)
 
 ---
 
 ## ✅ Planned use of Cursor/Windsurf
 
 ### When we use them
-- [ ] Use Cursor/Windsurf during **Phase 1 only** (refactor-heavy work)
+[ ] Use Cursor/Windsurf during **Phase 1 only** (refactor-heavy work)
 
 ### What we use them for
-- [ ] Build/clean up CSS design system (typography, spacing, components)
-- [ ] Homepage layout polish (keep structure)
-- [ ] Apply Story card consistency to chart hubs/pages (only where necessary)
+[ ] Build/clean up CSS design system (typography, spacing, components)
+[ ] Homepage layout polish (keep structure)
+[ ] Apply Story card consistency to chart hubs/pages (only where necessary)
 
 ### What we do NOT use them for
-- [ ] Renaming files/folders
-- [ ] Editing asset paths
-- [ ] Reorganizing data/manifest files
-- [ ] “Rewrite the entire project” prompts
+[ ] Renaming files/folders
+[ ] Editing asset paths
+[ ] Reorganizing data/manifest files
+[ ] “Rewrite the entire project” prompts
 
 ### Usage rules (to avoid burning free credits)
-- [ ] Work **one file at a time**
-- [ ] Include constraints in every prompt
-- [ ] Review diffs after each edit
-- [ ] Run local preview after each small batch
+[ ] Work **one file at a time**
+[ ] Include constraints in every prompt
+[ ] Review diffs after each edit
+[ ] Run local preview after each small batch
 
 ---
 
 ## ✅ Files expected to change (small commits)
 
-- [ ] `site/styles.css`
-- [ ] `site/index.html`
+[ ] `site/styles.css`
+[ ] `site/index.html`
 
 *(Only if necessary for Story card template work)*
-- [ ] `site/graph_hub.js`
-- [ ] Chart hub page HTML templates (if applicable)
+[ ] `site/graph_hub.js`
+[ ] Chart hub page HTML templates (if applicable)
 
 ---
 
