@@ -136,11 +136,11 @@ Use this checklist to implement a UI refresh that blends **playful data-story en
   [x] Method callout style (Accent 3)
   [x] Featured framing style (Accent 4)
   [x] card + grid layout
-[ ] Update homepage framing in `site/index.html`:
-  [ ] Make “Browse all charts” the primary action
-  [ ] Featured section feels curated (not random)
-  [ ] Directory feels like the main destination
-  [ ] Appendix looks quiet but intentional
+[x] Update homepage framing in `site/index.html`:
+  [x] Make “Browse all charts” the primary action
+  [x] Featured section feels curated (not random)
+  [x] Directory feels like the main destination
+  [x] Appendix looks quiet but intentional
 
 ### Phase 2 — Final polish + QA (no Cursor/Windsurf required)
 [ ] Standardize spacing and section rhythm across pages

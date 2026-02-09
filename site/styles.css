@@ -1,12 +1,14 @@
 /* Date Me Directory — Deep Sea (Controlled) Theme
-   Palette anchors:
-   Grecian Blue: #2988BC
-   Sea:          #2F496E
-   Plaster:      #F4EADE
-   Coral:        #ED8C72
+   Palette (from your screenshot):
+   Blue:        #3E60A7  (62, 96, 167)
+   Off-white:   #E7E6DE  (231, 230, 222)
+   Pale yellow: #E2C874  (226, 200, 116)
+   Gold:        #DFB14C  (223, 177, 76)
+   Navy:        #1C2E61  (28, 46, 97)
+   Deep navy:   #132041  (19, 32, 65)
 
-   Phase 1 goal: design tokens + reusable components
-   Constraints: CSS-only, no path/data changes, no renames.
+   Phase 1: tokens + reusable components
+   Phase 2: spacing rhythm, readability, responsiveness, focus styles, contrast, QA polish
 */
 
 /* -----------------------------
@@ -14,47 +16,58 @@
 ------------------------------ */
 :root {
   /* Base palette */
-  --blue: #2988BC;
-  --sea: #2F496E;
-  --plaster: #F4EADE;
-  --coral: #ED8C72;
+  --blue: #3E60A7;
+  --plaster: #E7E6DE;
+  --pale-yellow: #E2C874;
+  --gold: #DFB14C;
+  --navy: #1C2E61;
+  --deep-navy: #132041;
 
-  --blue-rgb: 41, 136, 188;
-  --sea-rgb: 47, 73, 110;
-  --plaster-rgb: 244, 234, 222;
-  --coral-rgb: 237, 140, 114;
+  --blue-rgb: 62, 96, 167;
+  --plaster-rgb: 231, 230, 222;
+  --pale-yellow-rgb: 226, 200, 116;
+  --gold-rgb: 223, 177, 76;
+  --navy-rgb: 28, 46, 97;
+  --deep-navy-rgb: 19, 32, 65;
 
-  /* Tight variations (same family) */
-  --sea-2: #223652;
-  --sea-3: #465f83;
-  --blue-2: #1F6F9E;
-  --blue-3: #6FB7DA;
-  --plaster-2: #FBF4EA;
-  --plaster-3: #EDE2D3;
-  --coral-2: #D8755C;
-  --coral-3: #F2A28E;
+  /* Semantic tokens */
+  --background: var(--plaster);
+  --surface: #FFFFFF; /* crisp cards read better than translucent off-white */
+  --panel: rgba(var(--plaster-rgb), 0.94);
 
-  /* Neutrals */
-  --ink: #000000;
-  --muted: rgba(0, 0, 0, 0.70);
+  --text: var(--deep-navy);
+  --muted-text: rgba(var(--deep-navy-rgb), 0.72);
 
-  /* Surfaces / borders / shadows */
-  --border: rgba(47, 73, 110, 0.22);
-  --border-strong: rgba(47, 73, 110, 0.34);
-  --panel: rgba(251, 244, 234, 0.94);
+  --primary: var(--blue);
+  --primary-rgb: var(--blue-rgb);
+  --secondary: var(--navy);
+  --accent: var(--gold);
 
-  --shadow: 0 20px 54px rgba(34, 54, 82, 0.20);
-  --shadow-sm: 0 12px 26px rgba(34, 54, 82, 0.14);
-  --shadow-md: 0 18px 44px rgba(34, 54, 82, 0.18);
-  --shadow-lg: 0 26px 66px rgba(34, 54, 82, 0.22);
+  /* Graph page background gradient target */
+  --graph-gradient-to: #B7C6E4; /* gentle blue tint for #graph-page */
 
-  /* Layout */
+  /* Accents (meaningful roles) */
+  --accent-1: var(--primary); /* primary highlight */
+  --accent-2: var(--accent);  /* insight callouts */
+  --accent-3: var(--secondary); /* method callouts / technical */
+  --accent-4: rgba(var(--gold-rgb), 0.14); /* featured framing fill */
+  --accent-5: rgba(var(--plaster-rgb), 0.78); /* metadata chips */
+
+  /* Borders / shadows */
+  --border: rgba(var(--navy-rgb), 0.22);
+  --border-strong: rgba(var(--navy-rgb), 0.34);
+
+  --shadow-sm: 0 12px 26px rgba(var(--deep-navy-rgb), 0.14);
+  --shadow:    0 20px 54px rgba(var(--deep-navy-rgb), 0.20);
+  --shadow-lg: 0 26px 66px rgba(var(--deep-navy-rgb), 0.22);
+
+  /* Layout + rhythm */
   --max: 1080px;
   --prose: 74ch;
-
   --gutter: 1rem;
   --gutter-lg: 2rem;
 
+  /* Spacing scale */
   --space-0: 0;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -67,16 +80,12 @@
   --space-9: 3rem;
   --space-10: 4rem;
 
-  --stack-1: 0.65rem;
-  --stack-2: 1rem;
-  --stack-3: 1.5rem;
-  --stack-4: 2.25rem;
-
-  --radius: 18px;
-  --radius-sm: 12px;
-
   --section-y: 3rem;
   --section-y-lg: 4.2rem;
+
+  /* Radii */
+  --radius: 18px;
+  --radius-sm: 12px;
 
   /* Typography (Georgia everywhere) */
   --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, ui-serif, serif;
@@ -95,16 +104,9 @@
   --fw-bold: 800;
   --fw-black: 900;
 
-  /* Semantic accents (meaningful roles) */
-  --accent-1: var(--blue);
-  --accent-2: var(--coral);
-  --accent-3: var(--sea);
-  --accent-4: rgba(var(--coral-rgb), 0.14);
-  --accent-5: rgba(var(--plaster-rgb), 0.78);
-
-  --focus-ring: rgba(var(--coral-rgb), 0.85);
+  /* Focus */
+  --focus-ring: rgba(var(--blue-rgb), 0.35);
 }
-
 
 /* -----------------------------
    Base
@@ -118,10 +120,8 @@ body {
   font-family: var(--font-serif);
   font-size: var(--body);
   line-height: var(--lh);
-  color: var(--ink);
-
-  /* No page-wide navy bands. Navy ONLY in header + selected elements. */
-  background: var(--plaster);
+  color: var(--text);
+  background: var(--background);
 }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }
@@ -132,9 +132,8 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   border-radius: 10px;
 }
 
-.focus-visible:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 3px;
+/* Make tap targets feel consistent */
+a, button, [role="button"], input, select, textarea {
   border-radius: 10px;
 }
 
@@ -143,51 +142,51 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 ------------------------------ */
 h1, h2, h3 {
   line-height: var(--lh-tight);
-  margin: 0 0 0.65rem;
+  margin: 0;
   letter-spacing: -0.2px;
 }
 
 h1 { font-size: var(--h1); }
-h2 { font-size: var(--h2); color: var(--sea-2); }
-h3 { font-size: var(--h3); color: var(--sea-2); }
+h2 { font-size: var(--h2); color: var(--secondary); }
+h3 { font-size: var(--h3); color: var(--secondary); }
+
+/* Phase 2: better hierarchy spacing */
+h1 + p, h2 + p, h3 + p { margin-top: var(--space-2); }
 
 p {
   margin: 0 0 1rem;
-  color: var(--ink);
+  color: var(--text);
+  max-width: var(--prose);
 }
 
-.site-header h2 { color: #fff; }
-.site-header .site-subtitle { color: rgba(255, 255, 255, 0.88); }
-
-.muted { color: var(--muted); }
-.site-header .muted { color: rgba(255,255,255,0.70); }
-
-ul, ol { margin: 0.6rem 0 1rem 1.25rem; padding: 0; }
+ul, ol { margin: 0.6rem 0 1rem 1.25rem; padding: 0; max-width: var(--prose); }
 li { margin: 0.35rem 0; }
+
+.muted { color: var(--muted-text); }
 
 code {
   font-family: var(--font-mono);
   font-size: 0.95em;
   padding: 0.14rem 0.38rem;
-  border: 1px solid rgba(47, 73, 110, 0.20);
+  border: 1px solid rgba(var(--navy-rgb), 0.20);
   border-radius: 10px;
-  background: rgba(251, 244, 234, 0.95);
-  color: var(--sea-2);
+  background: rgba(var(--plaster-rgb), 0.95);
+  color: var(--secondary);
 }
 
-/* Links: Accent 1 underline, coral hover */
+/* Links: Accent 1 underline, gold hover */
 a {
   color: var(--accent-1);
   text-decoration: none;
-  background-image: linear-gradient(to right, rgba(41, 136, 188, 0.65), rgba(41, 136, 188, 0.65));
+  background-image: linear-gradient(to right, rgba(var(--primary-rgb), 0.65), rgba(var(--primary-rgb), 0.65));
   background-size: 100% 2px;
   background-repeat: no-repeat;
   background-position: 0 100%;
   padding-bottom: 1px;
 }
 a:hover {
-  color: var(--coral-2);
-  background-image: linear-gradient(to right, rgba(237, 140, 114, 0.80), rgba(237, 140, 114, 0.80));
+  color: var(--accent);
+  background-image: linear-gradient(to right, rgba(var(--gold-rgb), 0.90), rgba(var(--gold-rgb), 0.90));
 }
 
 /* -----------------------------
@@ -198,10 +197,12 @@ a:hover {
   margin-inline: auto;
 }
 
-.prose { max-width: var(--prose); }
-
+/* Phase 2: section rhythm */
 .section { padding: var(--section-y) 0; }
 @media (min-width: 900px) { .section { padding: var(--section-y-lg) 0; } }
+
+/* If you want consistent vertical spacing inside sections */
+.section > * + * { margin-top: var(--space-4); }
 
 /* Skip link */
 .skip-link {
@@ -209,7 +210,7 @@ a:hover {
   left: -999px;
   top: 0;
   padding: 0.6rem 0.8rem;
-  background: var(--plaster-2);
+  background: rgba(var(--plaster-rgb), 0.92);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
@@ -220,27 +221,27 @@ a:hover {
    Site header (navy = white text)
 ------------------------------ */
 .site-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(var(--plaster-rgb), 0.14);
   background:
-    radial-gradient(900px 420px at 18% 20%, rgba(41, 136, 188, 0.35) 0%, rgba(41, 136, 188, 0) 62%),
-    linear-gradient(180deg, rgba(34, 54, 82, 0.96) 0%, rgba(47, 73, 110, 0.92) 60%, rgba(47, 73, 110, 0.78) 100%);
+    radial-gradient(900px 420px at 18% 20%, rgba(var(--primary-rgb), 0.35) 0%, rgba(var(--primary-rgb), 0) 62%),
+    linear-gradient(180deg, rgba(var(--deep-navy-rgb), 0.96) 0%, rgba(var(--navy-rgb), 0.92) 60%, rgba(var(--navy-rgb), 0.78) 100%);
 }
 
 .site-header .container { padding: 2.35rem 0 1.35rem; }
 
-/* Anytime background is navy, text must be white */
+/* Anytime background is navy, text must be off-white */
 .site-header,
-.site-header * { color: #fff; }
+.site-header * { color: var(--background); }
+
+.site-header h2 { color: var(--background); }
+.site-header .site-subtitle { color: rgba(var(--plaster-rgb), 0.88); }
+.site-header .muted { color: rgba(var(--plaster-rgb), 0.70); }
 
 /* kill underline decoration inside header */
 .site-header a { background-image: none; padding-bottom: 0; }
 
-.site-title { margin: 0; color: #ffffff; }
-
-.site-subtitle {
-  margin: 0.6rem 0 1.2rem;
-  max-width: var(--prose);
-}
+.site-title { margin: 0; color: var(--background); }
+.site-subtitle { margin: 0.6rem 0 1.2rem; max-width: var(--prose); }
 
 /* Header actions row (if present) */
 .header-actions,
@@ -254,7 +255,7 @@ a:hover {
    Reusable components
 ------------------------------ */
 
-/* Buttons (Accent 1) */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -262,7 +263,7 @@ a:hover {
   gap: 0.5rem;
   padding: 0.62rem 1.05rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(var(--plaster-rgb), 0.18);
   text-decoration: none;
   font-weight: var(--fw-bold);
   line-height: 1;
@@ -270,27 +271,25 @@ a:hover {
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
 }
 
-.site-header .btn { box-shadow: 0 16px 40px rgba(0,0,0,0.20); }
+.site-header .btn { box-shadow: 0 16px 40px rgba(var(--deep-navy-rgb), 0.20); }
 
 .btn-primary {
-  color: #fff;
-  background: rgba(41, 136, 188, 0.92);
+  color: var(--background);
+  background: rgba(var(--primary-rgb), 0.92);
 }
-.btn-primary:hover {
-  background: rgba(237, 140, 114, 0.92);
-}
+.btn-primary:hover { background: rgba(var(--gold-rgb), 0.92); }
 
 .btn-ghost {
-  color: #fff;
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.22);
+  color: var(--background);
+  background: rgba(var(--plaster-rgb), 0.10);
+  border-color: rgba(var(--plaster-rgb), 0.22);
 }
 .btn-ghost:hover {
-  background: rgba(255,255,255,0.16);
-  border-color: rgba(255,255,255,0.34);
+  background: rgba(var(--plaster-rgb), 0.16);
+  border-color: rgba(var(--plaster-rgb), 0.34);
 }
 
-/* Chips / badges (Accent 1 / Accent 5) */
+/* Chips / badges */
 .chip,
 .badge {
   display: inline-flex;
@@ -305,21 +304,21 @@ a:hover {
 }
 
 .chip {
-  border: 1px solid rgba(47, 73, 110, 0.20);
-  background: var(--accent-5);
-  color: var(--sea-2);
+  border: 1px solid rgba(var(--navy-rgb), 0.20);
+  background: rgba(var(--plaster-rgb), 0.78);
+  color: var(--secondary);
 }
 
 .badge {
-  border: 1px solid rgba(41, 136, 188, 0.35);
-  background: linear-gradient(180deg, rgba(34, 54, 82, 0.95), rgba(41, 136, 188, 0.78));
-  color: #ffffff;
+  border: 1px solid rgba(var(--primary-rgb), 0.35);
+  background: linear-gradient(180deg, rgba(var(--pale-yellow-rgb), 0.92), rgba(var(--gold-rgb), 0.92));
+  color: var(--text);
 }
 
-/* Featured framing (Accent 4) */
+/* Featured framing */
 .featured-frame {
-  border: 1px solid rgba(237, 140, 114, 0.35);
-  background: var(--accent-4);
+  border: 1px solid rgba(var(--gold-rgb), 0.35);
+  background: rgba(var(--gold-rgb), 0.14);
   border-radius: calc(var(--radius) + 2px);
   padding: 1rem;
   box-shadow: var(--shadow-sm);
@@ -342,7 +341,7 @@ a:hover {
 
 .context-block {
   padding: 0.7rem 0;
-  border-top: 1px solid rgba(47, 73, 110, 0.14);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.14);
 }
 .context-block:first-of-type { border-top: none; padding-top: 0; }
 
@@ -350,7 +349,7 @@ a:hover {
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(47, 73, 110, 0.80);
+  color: rgba(var(--navy-rgb), 0.80);
   font-weight: 900;
   margin-bottom: 0.25rem;
 }
@@ -364,13 +363,19 @@ a:hover {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
+/* Phase 2: tighter on small screens */
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .container { width: min(var(--max), calc(100% - (var(--gutter) * 2))); }
+}
+
 .card {
   background: var(--panel);
   border-radius: var(--radius);
   padding: 1.2rem;
 
-  border: 1px solid rgba(47, 73, 110, 0.26);
-  border-top: 6px solid rgba(41, 136, 188, 0.90);
+  border: 1px solid rgba(var(--navy-rgb), 0.26);
+  border-top: 6px solid rgba(var(--primary-rgb), 0.90);
 
   box-shadow: var(--shadow);
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
@@ -378,12 +383,12 @@ a:hover {
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: rgba(41, 136, 188, 0.45);
+  border-color: rgba(var(--primary-rgb), 0.45);
   box-shadow: var(--shadow-lg);
 }
 
-.card-title { margin: 0 0 0.45rem; color: var(--sea-2); }
-.card-body { margin: 0 0 0.9rem; }
+.card-title { margin: 0 0 0.45rem; color: var(--deep-navy); }
+.card-body { margin: 0 0 0.9rem; max-width: var(--prose); }
 
 /* Cards used as links should not inherit link underline */
 a.card {
@@ -395,9 +400,6 @@ a.card {
 
 /* -----------------------------
    Callouts (Semantic accents)
-   Use:
-   <div class="callout callout--insight">...</div>
-   <div class="callout callout--method">...</div>
 ------------------------------ */
 .callouts {
   display: grid;
@@ -410,8 +412,8 @@ a.card {
 }
 
 .callout {
-  background: rgba(251, 244, 234, 0.96);
-  border: 1px solid rgba(47, 73, 110, 0.20);
+  background: rgba(var(--plaster-rgb), 0.96);
+  border: 1px solid rgba(var(--navy-rgb), 0.20);
   border-radius: var(--radius);
   padding: 1rem 1rem;
   box-shadow: var(--shadow-sm);
@@ -424,40 +426,34 @@ a.card {
   position: absolute;
   inset: 0 auto 0 0;
   width: 10px;
-  background: linear-gradient(180deg, rgba(41, 136, 188, 0.92), rgba(34, 54, 82, 0.92)); /* default */
+  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.92), rgba(var(--deep-navy-rgb), 0.92));
 }
 
 .callout-title {
   font-weight: 900;
   margin: 0 0 0.35rem;
   letter-spacing: -0.1px;
-  color: var(--sea-2);
+  color: var(--deep-navy);
 }
 
 .callout p { margin: 0; }
 
-/* Accent 2: Insight */
-.callout--insight {
-  border-color: rgba(237, 140, 114, 0.40);
-}
+/* Insight */
+.callout--insight { border-color: rgba(var(--gold-rgb), 0.40); }
 .callout--insight::before {
-  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(216, 117, 92, 0.92));
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.92), rgba(var(--pale-yellow-rgb), 0.92));
 }
 
-/* Accent 3: Method */
-.callout--method {
-  border-color: rgba(47, 73, 110, 0.32);
-}
+/* Method */
+.callout--method { border-color: rgba(var(--navy-rgb), 0.32); }
 .callout--method::before {
-  background: linear-gradient(180deg, rgba(47, 73, 110, 0.92), rgba(34, 54, 82, 0.92));
+  background: linear-gradient(180deg, rgba(var(--navy-rgb), 0.92), rgba(var(--deep-navy-rgb), 0.92));
 }
 
 /* Backward-compatible alias */
-.callout-warn { /* treat as insight */
-  border-color: rgba(237, 140, 114, 0.40);
-}
+.callout-warn { border-color: rgba(var(--gold-rgb), 0.40); }
 .callout-warn::before {
-  background: linear-gradient(180deg, rgba(237, 140, 114, 0.92), rgba(216, 117, 92, 0.92));
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.92), rgba(var(--pale-yellow-rgb), 0.92));
 }
 
 /* -----------------------------
@@ -465,10 +461,10 @@ a.card {
 ------------------------------ */
 .details {
   margin-top: 1rem;
-  border: 1px solid rgba(47, 73, 110, 0.26);
-  border-left: 10px solid rgba(41, 136, 188, 0.90);
+  border: 1px solid rgba(var(--navy-rgb), 0.26);
+  border-left: 10px solid rgba(var(--primary-rgb), 0.90);
   border-radius: var(--radius);
-  background: rgba(251, 244, 234, 0.96);
+  background: rgba(var(--plaster-rgb), 0.96);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
@@ -488,28 +484,23 @@ a.card {
   position: absolute;
   right: 1rem;
   top: 1.05rem;
-  color: rgba(47, 73, 110, 0.85);
+  color: rgba(var(--navy-rgb), 0.85);
   transform: rotate(0deg);
   transition: transform 160ms ease;
 }
 
 .details[open] > summary::after { transform: rotate(180deg); }
 
-.summary-title { font-weight: 900; color: var(--sea-2); }
-.summary-hint {
-  font-size: var(--small);
-  color: rgba(47, 73, 110, 0.78);
-  margin-top: 0.25rem;
-}
+.summary-title { font-weight: 900; color: var(--deep-navy); }
+.summary-hint { font-size: var(--small); color: rgba(var(--navy-rgb), 0.78); margin-top: 0.25rem; }
 
 .details-body {
   padding: 0 1rem 1rem;
-  border-top: 1px solid rgba(47, 73, 110, 0.14);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.14);
 }
 
 /* -----------------------------
    Charts
-   IMPORTANT: do NOT lock chart height/aspect ratio
 ------------------------------ */
 .chart-card-header {
   display: flex;
@@ -528,8 +519,8 @@ a.card {
   overflow: visible;
 
   border-radius: var(--radius);
-  border: 2px solid rgba(35, 115, 160, 0.35);
-  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid rgba(var(--primary-rgb), 0.35);
+  background: rgba(var(--plaster-rgb), 0.55);
 
   min-height: 200px;
   display: grid;
@@ -542,17 +533,13 @@ a.card {
   display: block;
   max-width: 100%;
   height: auto;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
 }
 
-.chart-media img {
-  width: 100%;
-  object-fit: contain;
-}
+.chart-media img { width: 100%; object-fit: contain; }
 
-.chart-placeholder {
-  color: rgba(47, 73, 110, 0.78);
-  font-size: var(--small);
-}
+.chart-placeholder { color: rgba(var(--navy-rgb), 0.78); font-size: var(--small); }
 
 /* -----------------------------
    Writeups (kept calm + readable)
@@ -560,22 +547,20 @@ a.card {
 .writeup {
   margin-top: 0.9rem;
   padding-top: 0.9rem;
-  border-top: 1px solid rgba(47, 73, 110, 0.14);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.14);
 }
 
 .writeup-title {
   margin: 0 0 0.45rem;
   font-size: 1.02rem;
   font-weight: 900;
-  color: var(--sea-2);
+  color: var(--deep-navy);
 }
 
 /* In case any writeups render as <pre>, make them normal prose */
 .writeup,
 .writeup pre,
-.writeup code {
-  font-family: inherit;
-}
+.writeup code { font-family: inherit; }
 
 .writeup pre {
   white-space: normal;
@@ -586,7 +571,7 @@ a.card {
 }
 
 /* -----------------------------
-   Graph hub home link (one rule, not three fighting)
+   Graph hub home link
 ------------------------------ */
 .hub-home-link {
   display: inline-block;
@@ -594,7 +579,7 @@ a.card {
   font-weight: 900;
   letter-spacing: 0.2px;
 
-  color: var(--sea-2);
+  color: var(--deep-navy);
   text-decoration: none;
   background-image: none;
   line-height: 1.05;
@@ -607,10 +592,16 @@ a.card {
   text-underline-offset: 6px;
 }
 
-.hub-context {
-  margin-top: 0.75rem;
-  margin-bottom: 1rem;
+.hub-context { margin-top: 0.75rem; margin-bottom: 1rem; }
+
+/* Graph page gradient (page-level) */
+#graph-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--background) 0%, var(--graph-gradient-to) 100%);
 }
+
+/* If you want gradient only behind charts instead, move gradient to a wrapper class.
+   (Not enabled here because you’re currently using #graph-page.) */
 
 .renderer-frame {
   width: 100%;
@@ -629,9 +620,9 @@ a.card {
    Footer
 ------------------------------ */
 .site-footer {
-  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.22);
   padding: 1.6rem 0;
-  background: linear-gradient(180deg, rgba(244, 234, 222, 0.92), rgba(244, 234, 222, 0.78));
+  background: linear-gradient(180deg, rgba(var(--plaster-rgb), 0.92), rgba(var(--plaster-rgb), 0.78));
 }
 
 .site-footer p { margin: 0; }
@@ -641,7 +632,7 @@ a.card {
 ------------------------------ */
 hr {
   border: none;
-  border-top: 1px solid rgba(47, 73, 110, 0.22);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.22);
   margin: 1.4rem 0;
 }
 
