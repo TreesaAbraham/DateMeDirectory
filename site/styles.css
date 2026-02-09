@@ -354,6 +354,54 @@ a:hover {
   margin-bottom: 0.25rem;
 }
 
+/* =========================================
+   Global background image (star chart)
+   ========================================= */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  /* keeps your existing typography/colors intact */
+  background-color: var(--plaster);
+  position: relative;
+}
+
+/* Background image layer */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background-image: url("/assets/bg/star-chart.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* optional vibe tuning */
+  filter: saturate(1.05) contrast(1.05);
+  transform: scale(1.02);
+}
+
+/* Readability overlay layer (THIS is what saves you) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  /* darken + soften so text/cards pop */
+  background:
+    radial-gradient(circle at 20% 15%, rgba(0,0,0,.35), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.25), transparent 45%),
+    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
+
+  pointer-events: none;
+}
+
+
 /* -----------------------------
    Grid / Cards (directory + featured + story cards)
 ------------------------------ */
@@ -635,6 +683,161 @@ hr {
   border-top: 1px solid rgba(var(--navy-rgb), 0.22);
   margin: 1.4rem 0;
 }
+
+/* =============================
+   Artsy hero + motion layer
+   ============================= */
+
+/* Hero */
+.hero {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: clamp(28px, 6vw, 72px);
+  margin: 18px 0 28px;
+  background: var(--sea);
+  box-shadow: 0 18px 60px rgba(0,0,0,.18);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(115deg, rgba(var(--sea-rgb), .92), rgba(var(--sea-rgb), .55) 55%, rgba(var(--blue-rgb), .35)),
+    url("/assets/hero/lunar.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05) contrast(1.05);
+  transform: scale(1.02);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.10), transparent 35%),
+    radial-gradient(circle at 72% 38%, rgba(255,255,255,.08), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255,255,255,.06), transparent 45%);
+  mix-blend-mode: screen;
+  opacity: .9;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 {
+  color: rgba(255,255,255,.96);
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  color: rgba(255,255,255,.86);
+  max-width: 62ch;
+  font-size: clamp(15px, 1.6vw, 18px);
+  margin: 0 0 18px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Pretty primary button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(var(--blue-rgb), 1), rgba(var(--coral-rgb), .85));
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(0,0,0,.22);
+  filter: saturate(1.05);
+}
+
+/* Secondary ghost button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.35);
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-weight: 650;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.50);
+}
+
+/* Card motion polish */
+.card {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 46px rgba(0,0,0,.14);
+  border-color: rgba(var(--blue-rgb), .30);
+}
+
+/* Scroll reveal (pairs with JS below) */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Decorative “stars/dots” */
+.sparkle {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+  opacity: .7;
+  background-image:
+    radial-gradient(circle at 12% 28%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 18%, rgba(255,255,255,.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 22%, rgba(255,255,255,.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 62%, rgba(255,255,255,.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 72%, rgba(255,255,255,.5) 0 1px, transparent 2px);
+  animation: floaty 8s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {

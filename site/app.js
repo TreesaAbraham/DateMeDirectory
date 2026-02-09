@@ -194,6 +194,25 @@ async function main() {
     `;
     console.error(err);
   }
+      // Simple scroll reveal for cards/sections
+    (function initReveal() {
+      const els = Array.from(document.querySelectorAll(".card, section")).map(el => {
+        el.classList.add("reveal");
+        return el;
+      });
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) e.target.classList.add("is-visible");
+          }
+        },
+        { threshold: 0.12 }
+      );
+
+      for (const el of els) io.observe(el);
+    })();
+
 }
 
 main();
