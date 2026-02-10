@@ -17,11 +17,11 @@
 :root {
   /* Base palette */
   --blue: #3E60A7;
-  --plaster: #E7E6DE;
+  --plaster: #f4cb83;
   --pale-yellow: #E2C874;
   --gold: #DFB14C;
-  --navy: #1C2E61;
-  --deep-navy: #132041;
+  --navy: #E2C874;
+  --deep-navy: #6881c2;
 
   --blue-rgb: 62, 96, 167;
   --plaster-rgb: 231, 230, 222;
@@ -35,7 +35,7 @@
   --surface: #FFFFFF; /* crisp cards read better than translucent off-white */
   --panel: rgba(var(--plaster-rgb), 0.94);
 
-  --text: var(--deep-navy);
+  --text: var(#f4cb83);
   --muted-text: rgba(var(--deep-navy-rgb), 0.72);
 
   --primary: var(--blue);
@@ -44,7 +44,7 @@
   --accent: var(--gold);
 
   /* Graph page background gradient target */
-  --graph-gradient-to: #B7C6E4; /* gentle blue tint for #graph-page */
+  --graph-gradient-to: #B7C6E4;
 
   /* Accents (meaningful roles) */
   --accent-1: var(--primary); /* primary highlight */
@@ -122,6 +122,7 @@ body {
   line-height: var(--lh);
   color: var(--text);
   background: var(--background);
+  position: relative;
 }
 
 img, svg, video { max-width: 100%; height: auto; display: block; }
@@ -150,7 +151,6 @@ h1 { font-size: var(--h1); }
 h2 { font-size: var(--h2); color: var(--secondary); }
 h3 { font-size: var(--h3); color: var(--secondary); }
 
-/* Phase 2: better hierarchy spacing */
 h1 + p, h2 + p, h3 + p { margin-top: var(--space-2); }
 
 p {
@@ -197,11 +197,9 @@ a:hover {
   margin-inline: auto;
 }
 
-/* Phase 2: section rhythm */
 .section { padding: var(--section-y) 0; }
 @media (min-width: 900px) { .section { padding: var(--section-y-lg) 0; } }
 
-/* If you want consistent vertical spacing inside sections */
 .section > * + * { margin-top: var(--space-4); }
 
 /* Skip link */
@@ -228,22 +226,16 @@ a:hover {
 }
 
 .site-header .container { padding: 2.35rem 0 1.35rem; }
-
-/* Anytime background is navy, text must be off-white */
-.site-header,
-.site-header * { color: var(--background); }
-
+.site-header, .site-header * { color: var(--background); }
 .site-header h2 { color: var(--background); }
 .site-header .site-subtitle { color: rgba(var(--plaster-rgb), 0.88); }
 .site-header .muted { color: rgba(var(--plaster-rgb), 0.70); }
 
-/* kill underline decoration inside header */
 .site-header a { background-image: none; padding-bottom: 0; }
 
 .site-title { margin: 0; color: var(--background); }
 .site-subtitle { margin: 0.6rem 0 1.2rem; max-width: var(--prose); }
 
-/* Header actions row (if present) */
 .header-actions,
 .site-nav {
   display: flex;
@@ -356,19 +348,8 @@ a:hover {
 
 /* =========================================
    Global background image (star chart)
+   File should exist at: site/assets/bg/star-chart.jpg
    ========================================= */
-
-html, body {
-  height: 100%;
-}
-
-body {
-  /* keeps your existing typography/colors intact */
-  background-color: var(--plaster);
-  position: relative;
-}
-
-/* Background image layer */
 body::before {
   content: "";
   position: fixed;
@@ -380,27 +361,22 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
 
-  /* optional vibe tuning */
   filter: saturate(1.05) contrast(1.05);
   transform: scale(1.02);
 }
 
-/* Readability overlay layer (THIS is what saves you) */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-
-  /* darken + soften so text/cards pop */
-  background:
-    radial-gradient(circle at 20% 15%, rgba(0,0,0,.35), transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(0,0,0,.25), transparent 45%),
-    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));
-
   pointer-events: none;
-}
 
+  background:
+    radial-gradient(circle at 20% 15%, rgba(0,0,0,.28), transparent 42%),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.18), transparent 48%),
+    linear-gradient(180deg, rgba(0,0,0,.46), rgba(0,0,0,.28));
+}
 
 /* -----------------------------
    Grid / Cards (directory + featured + story cards)
@@ -411,22 +387,38 @@ body::after {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
-/* Phase 2: tighter on small screens */
 @media (max-width: 600px) {
   .grid { grid-template-columns: 1fr; }
   .container { width: min(var(--max), calc(100% - (var(--gutter) * 2))); }
 }
 
+/* Cards: star texture per card
+   File should exist at: site/assets/bg/star-background.jpg
+*/
 .card {
-  background: var(--panel);
+  position: relative;
+  overflow: hidden;
+
   border-radius: var(--radius);
   padding: 1.2rem;
+
+  /* star background + readable overlay */
+  background-image:
+    linear-gradient(180deg,
+      rgba(var(--plaster-rgb), 0.92),
+      rgba(var(--plaster-rgb), 0.78)
+    ),
+    url("/assets/bg/star-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   border: 1px solid rgba(var(--navy-rgb), 0.26);
   border-top: 6px solid rgba(var(--primary-rgb), 0.90);
 
   box-shadow: var(--shadow);
   transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  will-change: transform;
 }
 
 .card:hover {
@@ -438,7 +430,6 @@ body::after {
 .card-title { margin: 0 0 0.45rem; color: var(--deep-navy); }
 .card-body { margin: 0 0 0.9rem; max-width: var(--prose); }
 
-/* Cards used as links should not inherit link underline */
 a.card {
   display: block;
   color: inherit;
@@ -486,26 +477,23 @@ a.card {
 
 .callout p { margin: 0; }
 
-/* Insight */
 .callout--insight { border-color: rgba(var(--gold-rgb), 0.40); }
 .callout--insight::before {
   background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.92), rgba(var(--pale-yellow-rgb), 0.92));
 }
 
-/* Method */
 .callout--method { border-color: rgba(var(--navy-rgb), 0.32); }
 .callout--method::before {
   background: linear-gradient(180deg, rgba(var(--navy-rgb), 0.92), rgba(var(--deep-navy-rgb), 0.92));
 }
 
-/* Backward-compatible alias */
 .callout-warn { border-color: rgba(var(--gold-rgb), 0.40); }
 .callout-warn::before {
   background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.92), rgba(var(--pale-yellow-rgb), 0.92));
 }
 
 /* -----------------------------
-   Details / Summary (collapsible method notes)
+   Details / Summary
 ------------------------------ */
 .details {
   margin-top: 1rem;
@@ -564,16 +552,28 @@ a.card {
   aspect-ratio: auto;
 
   padding: 1.25rem;
-  overflow: visible;
+  overflow: hidden;
 
   border-radius: var(--radius);
   border: 2px solid rgba(var(--primary-rgb), 0.35);
-  background: rgba(var(--plaster-rgb), 0.55);
+
+  /* NEW: stars background behind charts */
+  background-image:
+    linear-gradient(180deg,
+      rgba(var(--plaster-rgb), 0.88),
+      rgba(var(--plaster-rgb), 0.65)
+    ),
+    url("/assets/bg/card-stars.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   min-height: 200px;
   display: grid;
   place-items: center;
+  box-shadow: var(--shadow-sm);
 }
+
 
 .chart-media img,
 .chart-media svg,
@@ -586,11 +586,10 @@ a.card {
 }
 
 .chart-media img { width: 100%; object-fit: contain; }
-
 .chart-placeholder { color: rgba(var(--navy-rgb), 0.78); font-size: var(--small); }
 
 /* -----------------------------
-   Writeups (kept calm + readable)
+   Writeups
 ------------------------------ */
 .writeup {
   margin-top: 0.9rem;
@@ -605,7 +604,6 @@ a.card {
   color: var(--deep-navy);
 }
 
-/* In case any writeups render as <pre>, make them normal prose */
 .writeup,
 .writeup pre,
 .writeup code { font-family: inherit; }
@@ -642,14 +640,18 @@ a.card {
 
 .hub-context { margin-top: 0.75rem; margin-bottom: 1rem; }
 
-/* Graph page gradient (page-level) */
+/* Graph page background: stars instead of gradient */
 #graph-page {
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--background) 0%, var(--graph-gradient-to) 100%);
+
+  background-image:
+    url("/assets/bg/card-stars.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* optional: gives a nice slow-drift feel */
 }
 
-/* If you want gradient only behind charts instead, move gradient to a wrapper class.
-   (Not enabled here because you’re currently using #graph-page.) */
 
 .renderer-frame {
   width: 100%;
@@ -657,7 +659,6 @@ a.card {
   border: 0;
 }
 
-/* D3 container safety */
 #vis svg {
   width: 100%;
   height: auto;
@@ -688,14 +689,13 @@ hr {
    Artsy hero + motion layer
    ============================= */
 
-/* Hero */
 .hero {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
   padding: clamp(28px, 6vw, 72px);
   margin: 18px 0 28px;
-  background: var(--sea);
+  background: var(--navy);
   box-shadow: 0 18px 60px rgba(0,0,0,.18);
 }
 
@@ -704,7 +704,7 @@ hr {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(115deg, rgba(var(--sea-rgb), .92), rgba(var(--sea-rgb), .55) 55%, rgba(var(--blue-rgb), .35)),
+    linear-gradient(115deg, rgba(var(--navy-rgb), .92), rgba(var(--navy-rgb), .55) 55%, rgba(var(--blue-rgb), .35)),
     url("/assets/hero/lunar.jpg");
   background-size: cover;
   background-position: center;
@@ -751,29 +751,29 @@ hr {
   align-items: center;
 }
 
-/* Pretty primary button */
-.btn-primary {
+/* Homepage hero button variants (don’t reuse blindly elsewhere) */
+.hero .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(var(--blue-rgb), 1), rgba(var(--coral-rgb), .85));
+  background: linear-gradient(135deg, rgba(var(--blue-rgb), 1), rgba(var(--gold-rgb), .95));
   color: #fff;
   text-decoration: none;
   font-weight: 700;
   box-shadow: 0 14px 30px rgba(0,0,0,.18);
   transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  border: 0;
 }
 
-.btn-primary:hover {
+.hero .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 18px 42px rgba(0,0,0,.22);
   filter: saturate(1.05);
 }
 
-/* Secondary ghost button */
-.btn-ghost {
+.hero .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -788,37 +788,24 @@ hr {
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
 }
 
-.btn-ghost:hover {
+.hero .btn-ghost:hover {
   transform: translateY(-2px);
   background: rgba(255,255,255,.10);
   border-color: rgba(255,255,255,.50);
 }
 
-/* Card motion polish */
-.card {
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  will-change: transform;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 46px rgba(0,0,0,.14);
-  border-color: rgba(var(--blue-rgb), .30);
-}
-
-/* Scroll reveal (pairs with JS below) */
+/* Scroll reveal */
 .reveal {
   opacity: 0;
   transform: translateY(10px);
   transition: opacity .55s ease, transform .55s ease;
 }
-
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Decorative “stars/dots” */
+/* Decorative sparkle */
 .sparkle {
   position: absolute;
   inset: -20px;
@@ -833,13 +820,21 @@ hr {
   animation: floaty 8s ease-in-out infinite;
 }
 
+/* Readable panel for text on star backgrounds */
+.readable-panel {
+  color:#E2C874
+}
+
+.readable-panel p { color: var(--deep-navy); }
+.readable-panel a { color: var(--blue); }
+
+
 @keyframes floaty {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
 
-
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; transform: none !important; }
+  * { transition: none !important; transform: none !important; animation: none !important; }
 }
