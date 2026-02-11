@@ -727,7 +727,7 @@ a.card {
 #graph-page a.small-link:visited,
 #graph-page a.small-link:hover,
 #graph-page a.small-link:active {
-  color: var(--gold) !important;
+  color: --gold !important;
 
   /* override your global fancy underline */
   background-image: linear-gradient(
