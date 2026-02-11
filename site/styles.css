@@ -16,7 +16,7 @@
 ------------------------------ */
 :root {
   /* Base palette */
-  --blue: #3E60A7;
+  --blue: #0e2a66;
   --plaster: #f4cb83;
   --pale-yellow: #E2C874;
   --gold: #DFB14C;
@@ -196,6 +196,24 @@ a {
 a:hover {
   color: var(--pale-yellow);
   background-image: linear-gradient(to right, rgba(var(--pale-yellow-rgb), 0.90), rgba(var(--pale-yellow-rgb), 0.90));
+}
+/* Graph hub cards: links navy, hover pale yellow */
+.card a {
+  color: var(--navy);
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--navy-rgb), 0.55),
+    rgba(var(--navy-rgb), 0.55)
+  );
+}
+
+.card a:hover {
+  color: var(--pale-yellow);
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--pale-yellow-rgb), 0.90),
+    rgba(var(--pale-yellow-rgb), 0.90)
+  );
 }
 
 /* -----------------------------
@@ -436,7 +454,11 @@ body::after {
   box-shadow: var(--shadow-lg);
 }
 
-.card-title { margin: 0 0 0.45rem; color: var(--accent); }
+.card-title { 
+  margin: 0 0 0.45rem; 
+  color: var(--navy); 
+}
+
 .card-body { margin: 0 0 0.9rem; max-width: var(--prose); }
 
 a.card {
@@ -445,6 +467,14 @@ a.card {
   background-image: none;
   padding-bottom: 0;
 }
+
+/* Graph hub cards: make titles navy */
+.card .card-title,
+.card h2,
+.card h3 {
+  color: var(--navy);
+}
+
 
 /* -----------------------------
    Callouts (Semantic accents)
