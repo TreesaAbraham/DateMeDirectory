@@ -704,30 +704,43 @@ a.card {
 }
 
 /* Single-graph pages: renderer label + back link = pale yellow */
+/* Single-graph pages */
+#graph-page {
+  min-height: 100vh;
+
+  background-image: url("/assets/bg/card-stars.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* optional: gives a nice slow-drift feel */
+}
+
+/* Renderer label + Back to charts: force pale yellow, override global <a> styling */
 #graph-page .hub-context,
 #graph-page .hub-context * {
-  color: #E2C874;
-}
-
-/* Make the "Back to charts" link match (including underline) */
-#graph-page .hub-context a {
-  color: #E2C874;
-  background-image: linear-gradient(
-    to right,
-    rgba(var(--pale-yellow-rgb), 0.90),
-    rgba(var(--pale-yellow-rgb), 0.90)
-  );
-}
-
-/* Keep hover the same color (no turning gold/navy) */
-#graph-page .hub-context a:hover {
   color: #E2C874 !important;
+}
+
+#graph-page .hub-context a,
+#graph-page .hub-context a:visited,
+#graph-page .hub-context a:hover,
+#graph-page .hub-context a:active {
+  color: #E2C874 !important;
+
+  /* override your global underline gradient */
   background-image: linear-gradient(
     to right,
-    rgba(var(--pale-yellow-rgb), 0.90),
-    rgba(var(--pale-yellow-rgb), 0.90)
-  );
+    rgba(226, 200, 116, 0.90),
+    rgba(226, 200, 116, 0.90)
+  ) !important;
+
+  /* override any other link tweaks you apply globally */
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
 }
+
 
 
 
