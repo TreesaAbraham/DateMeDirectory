@@ -166,6 +166,13 @@ li { margin: 0.35rem 0; }
 
 .muted { color: var(--muted-text); }
 
+/* Make the little line under "Featured graphs" gold */
+.featured-subtitle {
+  color: var(--plaster) !important; /* gold */
+}
+
+
+
 code {
   font-family: var(--font-mono);
   font-size: 0.95em;
