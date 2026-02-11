@@ -858,6 +858,14 @@ hr {
     radial-gradient(circle at 22% 72%, rgba(255,255,255,.5) 0 1px, transparent 2px);
   animation: floaty 8s ease-in-out infinite;
 }
+/* Appendix: make all text light yellow for readability on the star background */
+/* If the container uses a class */
+.appendix,
+.appendix p,
+.appendix li,
+.appendix .muted { color: var(--pale-yellow); }
+
+
 
 
 @keyframes floaty {
