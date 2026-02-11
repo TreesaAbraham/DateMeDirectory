@@ -155,6 +155,18 @@ h3 { font-size: var(--h3); color: var(--accent); }
 
 h1 + p, h2 + p, h3 + p { margin-top: var(--space-2); }
 
+/* Graph hub pages: make the main title gold (readable on stars) */
+#graph-page h1,
+#graph-page .hub-home-link,
+#graph-hub h1,
+#graph-hub .hub-home-link,
+.graph-title,
+.hub-title {
+  color: var(--pale-yellow);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+
+
 p {
   margin: 0 0 1rem;
   color: var(--text);
@@ -691,6 +703,33 @@ a.card {
   background-attachment: fixed; /* optional: gives a nice slow-drift feel */
 }
 
+/* Single-graph pages: renderer label + back link = pale yellow */
+#graph-page .hub-context,
+#graph-page .hub-context * {
+  color: #E2C874;
+}
+
+/* Make the "Back to charts" link match (including underline) */
+#graph-page .hub-context a {
+  color: #E2C874;
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--pale-yellow-rgb), 0.90),
+    rgba(var(--pale-yellow-rgb), 0.90)
+  );
+}
+
+/* Keep hover the same color (no turning gold/navy) */
+#graph-page .hub-context a:hover {
+  color: #E2C874;
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--pale-yellow-rgb), 0.90),
+    rgba(var(--pale-yellow-rgb), 0.90)
+  );
+}
+
+
 
 .renderer-frame {
   width: 100%;
@@ -864,6 +903,12 @@ hr {
 .appendix p,
 .appendix li,
 .appendix .muted { color: var(--pale-yellow); }
+/* Appendix: force the Important Information list to pale yellow */
+#appendix ul li,
+#appendix ul li strong {
+  color: #E2C874;
+}
+
 
 
 
