@@ -721,7 +721,7 @@ a.card {
 
 /* Keep hover the same color (no turning gold/navy) */
 #graph-page .hub-context a:hover {
-  color: #E2C874;
+  color: #E2C874 !important;
   background-image: linear-gradient(
     to right,
     rgba(var(--pale-yellow-rgb), 0.90),
@@ -909,6 +909,24 @@ hr {
   color: #E2C874;
 }
 
+/* Single-graph pages: renderer line + Back to charts = pale yellow */
+.hub-context,
+.hub-context * {
+  color: #E2C874 !important;
+}
+
+/* Force the link underline style to match (your global <a> styles override otherwise) */
+.hub-context a,
+.hub-context a:hover,
+.hub-context a:visited,
+.hub-context a:active {
+  color: #E2C874 !important;
+  background-image: linear-gradient(
+    to right,
+    rgba(226, 200, 116, 0.90),
+    rgba(226, 200, 116, 0.90)
+  ) !important;
+}
 
 
 
