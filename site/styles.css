@@ -21,7 +21,7 @@
   --pale-yellow: #E2C874;
   --gold: #DFB14C;
   --navy: #0e2a66;
-  --deep-navy: #6881c2;
+  --deep-navy: #26479a;
 
   --blue-rgb: 62, 96, 167;
   --plaster-rgb: 231, 230, 222;
@@ -207,7 +207,7 @@ a {
 }
 a:hover {
   color: var(--pale-yellow);
-  background-image: linear-gradient(to right, rgba(var(--pale-yellow-rgb), 0.90), rgba(var(--pale-yellow-rgb), 0.90));
+  background-image: linear-gradient(to right, rgba(var(--pale-yellow-rgb), 0.70), rgba(var(--pale-yellow-rgb), 0.70));
 }
 /* Graph hub cards: links navy, hover pale yellow */
 .card a {
@@ -716,30 +716,32 @@ a.card {
 }
 
 /* Renderer label + Back to charts: force pale yellow, override global <a> styling */
-#graph-page .hub-context,
-#graph-page .hub-context * {
+/* Single-graph pages (graph.js): Renderer line + Back to charts = pale yellow */
+#graph-page .muted,
+#graph-page .muted * {
   color: #E2C874 !important;
 }
 
-#graph-page .hub-context a,
-#graph-page .hub-context a:visited,
-#graph-page .hub-context a:hover,
-#graph-page .hub-context a:active {
+/* Back to charts link (graph.js uses .small-link) */
+#graph-page a.small-link,
+#graph-page a.small-link:visited,
+#graph-page a.small-link:hover,
+#graph-page a.small-link:active {
   color: #E2C874 !important;
 
-  /* override your global underline gradient */
+  /* override your global fancy underline */
   background-image: linear-gradient(
     to right,
     rgba(226, 200, 116, 0.90),
     rgba(226, 200, 116, 0.90)
   ) !important;
 
-  /* override any other link tweaks you apply globally */
   background-size: 100% 2px;
   background-repeat: no-repeat;
   background-position: 0 100%;
   padding-bottom: 1px;
 }
+
 
 
 
@@ -921,24 +923,31 @@ hr {
 #appendix ul li strong {
   color: #E2C874;
 }
-
-/* Single-graph pages: renderer line + Back to charts = pale yellow */
-.hub-context,
-.hub-context * {
+/* Single-renderer pages ONLY: renderer label + Back to charts = pale yellow
+   (These pages use <main id="graph-page" data-renderer="...">)
+*/
+#graph-page[data-renderer] .muted,
+#graph-page[data-renderer] .muted * {
   color: #E2C874 !important;
 }
 
-/* Force the link underline style to match (your global <a> styles override otherwise) */
-.hub-context a,
-.hub-context a:hover,
-.hub-context a:visited,
-.hub-context a:active {
+#graph-page[data-renderer] a.small-link,
+#graph-page[data-renderer] a.small-link:visited,
+#graph-page[data-renderer] a.small-link:hover,
+#graph-page[data-renderer] a.small-link:active {
   color: #E2C874 !important;
+
+  /* override your global underline gradient */
   background-image: linear-gradient(
     to right,
     rgba(226, 200, 116, 0.90),
     rgba(226, 200, 116, 0.90)
   ) !important;
+
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 1px;
 }
 
 
