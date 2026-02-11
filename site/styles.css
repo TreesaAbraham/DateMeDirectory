@@ -206,7 +206,7 @@ a {
   padding-bottom: 1px;
 }
 a:hover {
-  color: var(--pale-yellow);
+  color: var(--gold);
   background-image: linear-gradient(to right, rgba(var(--pale-yellow-rgb), 0.70), rgba(var(--pale-yellow-rgb), 0.70));
 }
 /* Graph hub cards: links navy, hover pale yellow */
@@ -220,7 +220,7 @@ a:hover {
 }
 
 .card a:hover {
-  color: var(--pale-yellow);
+  color: var(--gold);
   background-image: linear-gradient(
     to right,
     rgba(var(--pale-yellow-rgb), 0.90),
@@ -727,7 +727,7 @@ a.card {
 #graph-page a.small-link:visited,
 #graph-page a.small-link:hover,
 #graph-page a.small-link:active {
-  color: #E2C874 !important;
+  color: var(--gold) !important;
 
   /* override your global fancy underline */
   background-image: linear-gradient(
